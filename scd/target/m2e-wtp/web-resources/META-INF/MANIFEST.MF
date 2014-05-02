@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: AppFuse Spring MVC Application
-Implementation-Version: 1.0-SNAPSHOT
-Implementation-Vendor-Id: com.bcpv
-Build-Jdk: 1.7.0_21
-Built-By: hp
-Created-By: Maven Integration for Eclipse
-
