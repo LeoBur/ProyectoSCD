@@ -62,20 +62,15 @@ public class MedicionManagerImpl extends GenericManagerImpl<Medicion, Long> impl
 	}
 
 	@Override
-	public void removeMedicion(Long id_medicion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void removeMedicion(Medicion medicion) {
-		// TODO Auto-generated method stub
-		
+		log.debug("removing medicion: " + medicion.getId_medicion());
+        medicionDao.remove(medicion);
 	}
 
 	@Override
 	public void removeMedicion(String id_medicion) {
-		// TODO Auto-generated method stub
+		log.debug("removing medicion: " + id_medicion);
+		medicionDao.remove(new Long(id_medicion));
 		
 	}
 

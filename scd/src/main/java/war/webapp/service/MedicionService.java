@@ -44,12 +44,13 @@ public interface MedicionService {
      */
     @POST
     Medicion saveMedicion(Medicion medicion) throws MedicionExistsException;
-
+    
     /**
-     * Removes a medicion from the database by their medicionId
+     * Removes a medicion from the database
      *
-     * @param medicionId
+     * @param medicion
      */
     @DELETE
-    void removeMedicion(Long id_medicion);
+    void removeMedicion(Medicion medicion);
+
 }
