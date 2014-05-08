@@ -53,11 +53,4 @@ public interface MedicionService {
     @DELETE
     void removeMedicion(Medicion medicion);
 
-    /**
-     * Removes a medicion from the database by their medicionId
-     *
-     * @param medicionId
-     */
-    @DELETE
-    void removeMedicion(Long id_medicion);
 }
