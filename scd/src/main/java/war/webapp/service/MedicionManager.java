@@ -25,14 +25,14 @@ public interface MedicionManager extends GenericManager<Medicion, Long>{
      * @return medicion the updated medicion object
      */
     Medicion saveMedicion(Medicion medicion) throws MedicionExistsException;
-
+    
     /**
-     * Removes a medicion from the database
+     * Removes a user from the database
      *
-     * @param medicion the medicion to remove
+     * @param user the user to remove
      */
     void removeMedicion(Medicion medicion);
-
+    
     /**
      * Removes a medicion from the database by their id_medicion
      *

@@ -44,6 +44,14 @@ public interface MedicionService {
      */
     @POST
     Medicion saveMedicion(Medicion medicion) throws MedicionExistsException;
+    
+    /**
+     * Removes a medicion from the database
+     *
+     * @param medicion
+     */
+    @DELETE
+    void removeMedicion(Medicion medicion);
 
     /**
      * Removes a medicion from the database by their medicionId
