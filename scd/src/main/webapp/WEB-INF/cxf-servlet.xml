@@ -15,6 +15,7 @@
 
     <jaxws:endpoint id="userService" implementor="#userManager" address="/UserService"/>
     <jaxws:endpoint id="medicionService" implementor="#medicionManager" address="/MedicionService"/>
+    <jaxws:endpoint id="tipoDiabetesService" implementor="#tipoDiabetesManager" address="/TipoDiabetesService"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
@@ -24,6 +25,7 @@
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
             <ref bean="medicionManager"/>
+            <ref bean="tipoDiabetesManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
