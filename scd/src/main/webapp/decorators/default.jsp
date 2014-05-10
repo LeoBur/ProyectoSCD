@@ -21,7 +21,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
+            <%-- <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/>Home</a> --%>
+            <a class="navbar-brand" href="<c:url value='/'/>">Home</a>
         </div>
 
         <%@ include file="/common/menu.jsp" %>
@@ -45,7 +46,7 @@
                 </div>
             </c:if>
         </div>
-    </div>
+    </div><%-- Aca esta la papa del container --%>
 
     <div id="footer" class="container navbar-fixed-bottom">
         <span class="col-sm-6 text-left"><fmt:message key="webapp.version"/>
