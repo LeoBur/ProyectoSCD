@@ -13,10 +13,14 @@
 
     <!-- Add new DAOs here -->
     <bean id="medicionDao" class="war.webapp.dao.hibernate.MedicionDaoHibernate" />
+    <bean id="tipoDiabetesDao" class="war.webapp.dao.hibernate.TipoDiabetesDaoHibernate"/>
 
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
     	<property name="medicionDao" ref="medicionDao"/>
+    </bean>
+    <bean id="tipoDiabetesManager" class="war.webapp.service.impl.TipoDiabetesManagerImpl">
+    	<property name="tipoDiabetesDao" ref="tipoDiabetesDao"/>
     </bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->
