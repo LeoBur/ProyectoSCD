@@ -1,5 +1,7 @@
 package war.webapp.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +12,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name="Persona")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Persona {
+public class Persona implements Serializable{
+	
+	private static final long serialVersionUID = 707799520417936087L;
 	
 	private Long id_persona;
 	private int dni_persona;
@@ -25,15 +30,17 @@ public class Persona {
 	 * private Domicilio domicilio_persona;
 	 */
 	private Long telefono_persona;
-	
+	private String email;
+
 	public Persona(){
 	}
 	
-	public Persona(int dni, String nombre, String apellido, Long telefono){
+	public Persona(int dni, String nombre, String apellido, Long telefono, String email){
 		this.dni_persona = dni;
 		this.nombre_persona = nombre;
 		this.apellido_persona = apellido;
 		this.telefono_persona = telefono;
+		this.email = email;
 	}
 	
 	@Id
@@ -83,6 +90,16 @@ public class Persona {
 	
 	public void setTelefono_persona(Long telefono_persona) {
 		this.telefono_persona = telefono_persona;
+	}
+	
+	@Column(name = "email")
+	@Email
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

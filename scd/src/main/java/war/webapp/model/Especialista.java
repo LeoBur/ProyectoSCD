@@ -12,13 +12,15 @@ import org.hibernate.search.annotations.Field;
 @PrimaryKeyJoinColumn(name ="id_persona")
 public class Especialista extends Persona{
 	
+	private static final long serialVersionUID = 3657563589343488236L;
+	
 	private String tipo_esp;
 	
 	public Especialista(){
 	}
 	
-	public Especialista(int dni, String nombre, String apellido, Long telefono, String tipo){
-		super(dni, nombre, apellido, telefono);
+	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo){
+		super(dni, nombre, apellido, telefono, email);
 		this.tipo_esp = tipo;
 	}
 

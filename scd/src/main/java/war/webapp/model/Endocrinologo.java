@@ -8,15 +8,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name ="Endocrinologo")
 @PrimaryKeyJoinColumn(name = "id_persona")
-public class Endocrinologo extends Persona{
+public class Endocrinologo extends Persona {
+	
+	private static final long serialVersionUID = -1274195813657855646L;
 	
 	private Long matricula;
     
 	public Endocrinologo() {
 	}
 	
-	public Endocrinologo(int dni_persona, String nombre_persona, String apellido_persona, Long telefono_persona, Long matricula){
-		super(dni_persona, nombre_persona, apellido_persona, telefono_persona);
+	public Endocrinologo(int dni, String nombre, String apellido, Long telefono, String email, Long matricula){
+		super(dni, nombre, apellido, telefono, email);
 		this.matricula = matricula;
 		
 	}
