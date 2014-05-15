@@ -14,6 +14,7 @@
     <!-- Add new DAOs here -->
     <bean id="medicionDao" class="war.webapp.dao.hibernate.MedicionDaoHibernate" />
     <bean id="tipoDiabetesDao" class="war.webapp.dao.hibernate.TipoDiabetesDaoHibernate"/>
+    <bean id="alimentoDao" class="war.webapp.dao.hibernate.AlimentoDaoHibernate"/>
 
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
@@ -21,6 +22,9 @@
     </bean>
     <bean id="tipoDiabetesManager" class="war.webapp.service.impl.TipoDiabetesManagerImpl">
     	<property name="tipoDiabetesDao" ref="tipoDiabetesDao"/>
+    </bean>
+    <bean id="alimentoManager" class="war.webapp.service.impl.AlimentoManagerImpl">
+        <property name="alimentoDao" ref = "alimentoDao"/>
     </bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->
