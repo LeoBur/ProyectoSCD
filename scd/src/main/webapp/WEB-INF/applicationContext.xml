@@ -15,6 +15,10 @@
     <bean id="medicionDao" class="war.webapp.dao.hibernate.MedicionDaoHibernate" />
     <bean id="tipoDiabetesDao" class="war.webapp.dao.hibernate.TipoDiabetesDaoHibernate"/>
     <bean id="alimentoDao" class="war.webapp.dao.hibernate.AlimentoDaoHibernate"/>
+    
+    <bean id="personaDao" class="war.webapp.dao.hibernate.PersonaDaoHibernate"/>
+    <bean id="endocrinologoDao" class="war.webapp.dao.hibernate.EndocrinologoDaoHibernate"/>
+    <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
 
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
@@ -25,6 +29,16 @@
     </bean>
     <bean id="alimentoManager" class="war.webapp.service.impl.AlimentoManagerImpl">
         <property name="alimentoDao" ref = "alimentoDao"/>
+    </bean>
+    
+    <bean id="personaManager" class="war.webapp.service.impl.PersonaManagerImpl">
+   		<property name="especialistaDao" ref="personaDao"/>
+    </bean>
+    <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
+    	<property name="especialistaDao" ref="especialistaDao"/>
+    </bean>
+    <bean id="endocrinologoManager" class="war.webapp.service.impl.EndocrinologoManagerImpl">
+    	<property name="endocrinologoDao" ref="endocrinologoDao"/>
     </bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->
