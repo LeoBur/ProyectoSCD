@@ -2,8 +2,6 @@ package war.webapp.dao;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import war.webapp.model.Medicion;
 
 public interface MedicionDao extends GenericDao<Medicion, Long> {
@@ -14,7 +12,6 @@ public interface MedicionDao extends GenericDao<Medicion, Long> {
      * @return medicion
      * @throws MedicionNotFoundException thrown when medicion not found in database
      */
-    @Transactional
     Medicion loadMedicionById(Long id) throws MedicionNotFoundException;
 
     /**
