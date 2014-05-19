@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import war.webapp.dao.PersonaDao;
 import war.webapp.model.Persona;
 
-public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> implements PersonaDao{
+public abstract class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> implements PersonaDao{
 	
 	public PersonaDaoHibernate() {
         super(Persona.class);
