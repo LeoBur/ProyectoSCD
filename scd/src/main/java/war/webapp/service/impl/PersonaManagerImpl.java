@@ -20,7 +20,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
 private PersonaDao personaDao;
 	
 	@Override
-	public void setEspecialistaDao(PersonaDao personaDao) {
+	public void setPersonaDao(PersonaDao personaDao) {
 		this.dao = personaDao;
 		this.personaDao = personaDao;
 		

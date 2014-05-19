@@ -9,8 +9,7 @@ import war.webapp.model.Persona;
 
 public interface PersonaManager extends GenericManager<Persona, Long>{
 	
-	void setEspecialistaDao(PersonaDao personaDao);
-
+	void setPersonaDao(PersonaDao personaDao);
 	   
     Persona getPersona(Long id_persona);
 

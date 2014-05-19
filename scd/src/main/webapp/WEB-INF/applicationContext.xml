@@ -32,7 +32,7 @@
     </bean>
     
     <bean id="personaManager" class="war.webapp.service.impl.PersonaManagerImpl">
-   		<property name="especialistaDao" ref="personaDao"/>
+   		<property name="personaDao" ref="personaDao"/>
     </bean>
     <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
     	<property name="especialistaDao" ref="especialistaDao"/>
