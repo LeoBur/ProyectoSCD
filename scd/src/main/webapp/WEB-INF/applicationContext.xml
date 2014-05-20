@@ -22,7 +22,8 @@
     
     <bean id="provinciaDao" class="war.webapp.dao.hibernate.ProvinciaDaoHibernate"/>
     <bean id="localidadDao" class="war.webapp.dao.hibernate.LocalidadDaoHibernate"/>
-
+    <bean id="sintomaDao" class="war.webapp.dao.hibernate.SintomaDaoHibernate"/>
+    
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
     	<property name="medicionDao" ref="medicionDao"/>
@@ -42,6 +43,9 @@
     </bean>
     <bean id="endocrinologoManager" class="war.webapp.service.impl.EndocrinologoManagerImpl">
     	<property name="endocrinologoDao" ref="endocrinologoDao"/>
+    </bean>
+    <bean id="sintomaManager" class="war.webapp.service.impl.SintomaManagerImpl">
+        <property name="sintomaDao" ref="sintomaDao"/>
     </bean>
     
     <bean id="provinciaManager" class="war.webapp.service.impl.ProvinciaManagerImpl">
