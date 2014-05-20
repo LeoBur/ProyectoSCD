@@ -19,6 +19,9 @@
     <bean id="personaDao" class="war.webapp.dao.hibernate.PersonaDaoHibernate"/>
     <bean id="endocrinologoDao" class="war.webapp.dao.hibernate.EndocrinologoDaoHibernate"/>
     <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
+    
+    <bean id="provinciaDao" class="war.webapp.dao.hibernate.ProvinciaDaoHibernate"/>
+    <bean id="localidadDao" class="war.webapp.dao.hibernate.LocalidadDaoHibernate"/>
 
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
@@ -41,6 +44,12 @@
     	<property name="endocrinologoDao" ref="endocrinologoDao"/>
     </bean>
     
+    <bean id="provinciaManager" class="war.webapp.service.impl.ProvinciaManagerImpl">
+   		<property name="provinciaDao" ref="provinciaDao"/>
+    </bean>
+    <bean id="localidadManager" class="war.webapp.service.impl.LocalidadManagerImpl">
+   		<property name="localidadDao" ref="localidadDao"/>
+    </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
 </beans>
