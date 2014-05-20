@@ -21,6 +21,10 @@
     <jaxws:endpoint id="personaService" implementor="#personaManager" address="/PersonaService"/>
     <jaxws:endpoint id="endocrinologoService" implementor="#endocrinologoManager" address="/EndocrinologoService"/>
     <jaxws:endpoint id="especialistaService" implementor="#especialistaManager" address="/EspecialistaService"/>
+    
+    <jaxws:endpoint id="provinciaService" implementor="#provinciaManager" address="/ProvinciaService"/>
+    <jaxws:endpoint id="localidadService" implementor="#localidadManager" address="/LocalidadService"/>
+    
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
@@ -36,6 +40,9 @@
             <ref bean="personaManager"/>
             <ref bean="endocrinologoManager"/>
             <ref bean="especialistaManager"/>
+            
+            <ref bean="provinciaManager"/>
+            <ref bean="localidadManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
