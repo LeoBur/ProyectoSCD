@@ -62,16 +62,16 @@ public class AlimentoManagerImpl extends GenericManagerImpl<Alimento, Long> impl
 
 	@Override
 	public void removeAlimento(Alimento alimento) {
-		log.debug("removing alimento: " + alimento.getIdAlimento());
+		log.debug("removing alimento con id: " + alimento.getIdAlimento());
         alimentoDao.remove(alimento);
 	}
 
 	@Override
 	public void removeAlimento(Long idAlimento) {
-		log.debug("removing alimento: " + idAlimento);
+		log.debug("removing alimento con id: " + idAlimento);
 		alimentoDao.remove(idAlimento);
 		
-}
+	}
 
 	
 }
