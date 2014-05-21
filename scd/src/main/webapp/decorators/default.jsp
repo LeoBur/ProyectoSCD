@@ -25,7 +25,7 @@
             <a class="navbar-brand" href="<c:url value='/'/>">Home</a>
         </div>
 
-        <%@ include file="/common/menu.jsp" %>
+        <%@ include file="/common/menu.jsp" %><%-- Acá comienza la preparación del menú --%>
         <c:if test="${pageContext.request.locale.language ne 'en'}">
             <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                 <fmt:message key="webapp.name"/> in English</a>

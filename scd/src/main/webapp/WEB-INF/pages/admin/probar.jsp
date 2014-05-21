@@ -88,6 +88,25 @@
                 <form:input cssClass="form-control" path="phoneNumber" id="phoneNumber"/>
             </div>
         </div>
+        
+        <div class="row">
+            <spring:bind path="user.email">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.direction"/>
+                <form:input cssClass="form-control" path="email" id="direction" maxlength="50"/>
+                <form:errors path="email" cssClass="help-block"/>
+            </div>
+            <spring:bind path="user.email">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.num"/>
+                <form:input cssClass="form-control" path="email" id="num" maxlength="50"/>
+                <form:errors path="email" cssClass="help-block"/>
+            </div>
+        </div>
+        
+        
         <div class="form-group">
             <appfuse:label styleClass="control-label" key="user.website"/>
             <form:input cssClass="form-control" path="website" id="website"/>
@@ -199,3 +218,7 @@ function onFormSubmit(theForm) {
 
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+
+<%-- CP                     Localidad
+     Pais                   Region
+     Fecha de Nacimiento    Dirección de correo --%>

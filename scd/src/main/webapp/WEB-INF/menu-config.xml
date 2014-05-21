@@ -4,14 +4,65 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform" roles="ROLE_ADMIN,ROLE_USER"/>
+        <!-- <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/> -->
+        <!-- <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform" roles="ROLE_ADMIN,ROLE_USER"/> -->
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
             <Item name="FileUpload" title="menu.selectFile" page="/fileupload"/>
         </Menu>
+        
+        <Menu name="Paciente" title="user.paciente" page="/admin/users" roles="ROLE_ADMIN" description="Paciente Admin">
+        	<Item name="1" title="user.paciente.nuevo" page="/admin/users"/>
+        	<Item name="2" title="user.paciente.modificar" page="/admin/users"/>
+        	<Item name="3" title="user.diet.new" page="/admin/users"/>
+        	<Item name="4" title="user.diet.change" page="/admin/users"/>
+        </Menu>
+        <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
+        	<Item name="1" title="user.medicine.new" page="/admin/users"/>
+        	<Item name="2" title="user.medicine.change" page="/admin/users"/>
+        	<Item name="3" title="user.medicine.delete" page="/admin/users"/>
+        </Menu>
+        <Menu name="Food" title="user.food.title" page="/admin/users" roles="ROLE_ADMIN" description="Food Admin">
+        	<Item name="1" title="user.food.new" page="/admin/users"/>
+        	<Item name="2" title="user.food.change" page="/admin/users"/>
+        	<Item name="3" title="user.food.delete" page="/admin/users"/>
+        </Menu>
+        <Menu name="Activity" title="user.activity.title" page="/admin/users" roles="ROLE_ADMIN" description="Activity Admin">
+        	<Item name="1" title="user.activity.new" page="/admin/users"/>
+        </Menu>
+        <Menu name="Symptom" title="user.symptom.title" page="/admin/users" roles="ROLE_ADMIN" description="Symptom Admin">
+        	<Item name="1" title="user.symptom.new" page="/admin/users"/>
+        	<Item name="2" title="user.symptom.change" page="/admin/users"/>
+        	<Item name="3" title="user.symptom.delete" page="/admin/users"/>
+        </Menu>
+        
+        
+        <!-- <Menu name="Endocrinologist" title="user.endocrinologist.title" page="/admin/users" roles="ROLE_ADMIN" description="Endocrinologist Admin">
+        	<Item name="1" title="user.endocrinologist.new" page="/admin/users"/>
+        	<Item name="2" title="user.endocrinologist.change" page="/admin/users"/>
+        	<Item name="3" title="user.endocrinologist.delete" page="/admin/users"/>
+        </Menu> 
+        <Menu name="Especialist" title="user.especialist.title" page="/admin/users" roles="ROLE_ADMIN" description="Especialist Admin">
+        	<Item name="1" title="user.especialist.new" page="/admin/users"/>
+        	<Item name="2" title="user.especialist.change" page="/admin/users"/>
+        	<Item name="3" title="user.especialist.delete" page="/admin/users"/>
+        </Menu>
+        <Menu name="Treatment" title="user.treatment.title" page="/admin/users" roles="ROLE_ADMIN" description="Treatment Admin">
+        	<Item name="1" title="user.treatment.new" page="/admin/users"/>
+        	<Item name="2" title="user.treatment.change" page="/admin/users"/>
+        	<Item name="3" title="user.treatment.delete" page="/admin/users"/>
+        </Menu>
+        
+                      
+        <Menu name="Diet" title="user.diet.title" page="/admin/users" roles="ROLE_ADMIN" description="Diet Admin">
+        	<Item name="1" title="user.diet.new" page="/admin/users"/>
+        	<Item name="2" title="user.diet.change" page="/admin/users"/>
+        	<Item name="3" title="user.diet.delete" page="/admin/users"/>
+        </Menu> -->
+        
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+        
     </Menus>
 </MenuConfig>
