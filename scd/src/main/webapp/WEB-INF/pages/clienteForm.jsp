@@ -34,7 +34,7 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="user" method="post" action="userform" id="userForm" autocomplete="off"
+    <form:form commandName="user" method="post" action="clienteform" id="clienteForm" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
         <form:hidden path="id"/>
         <form:hidden path="version"/>
@@ -46,11 +46,7 @@
             <appfuse:label styleClass="control-label" key="user.username"/>
             <form:input cssClass="form-control" path="username" id="username"/>
             <form:errors path="username" cssClass="help-block"/>
-            <c:if test="${pageContext.request.remoteUser == user.username}">
-                <span class="help-block">
-                    <a href="<c:url value="/updatePassword" />"><fmt:message key='updatePassword.changePasswordLink'/></a>
-                </span>
-            </c:if>
+            
         </div>
 
         <spring:bind path="user.passwordHint">
@@ -76,6 +72,24 @@
                 <form:errors path="lastName" cssClass="help-block"/>
             </div>
         </div>
+        
+        <div class="row">
+            <spring:bind path="user.direccion">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.direction"/>
+                <form:input cssClass="form-control" path="direccion" id="direction" maxlength="50"/>
+                <form:errors path="direccion" cssClass="help-block"/>
+            </div>
+            <spring:bind path="user.num">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            </spring:bind>
+                <appfuse:label styleClass="control-label" key="user.num"/>
+                <form:input cssClass="form-control" path="num" id="num" maxlength="50"/>
+                <form:errors path="num" cssClass="help-block"/>
+            </div>
+        </div>
+        
         <div class="row">
             <spring:bind path="user.email">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">

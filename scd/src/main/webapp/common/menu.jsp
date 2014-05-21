@@ -8,9 +8,21 @@
             <a href="<c:url value="/login"/>"><fmt:message key="login.title"/></a>
         </li>
     </c:if>
-    <menu:displayMenu name="Home"/>
-    <menu:displayMenu name="UserMenu"/>
-    <menu:displayMenu name="AdminMenu"/>
+    <%--<menu:displayMenu name="Home"/> --%>
+    <%--<menu:displayMenu name="UserMenu"/> --%>
+    <%--<menu:displayMenu name="AdminMenu"/> --%>
+    
+    <menu:displayMenu name="Paciente"/>
+    <%--<menu:displayMenu name="Endocrinologist"/>  --%>
+    <%--<menu:displayMenu name="Especialist"/> --%>
+    <%--<menu:displayMenu name="Treatment"/> --%>
+    
+    
+    <menu:displayMenu name="Food"/>
+    <menu:displayMenu name="Symptom"/>
+    <%--<menu:displayMenu name="Diet"/> --%>
+    <menu:displayMenu name="Medicine"/>
+    <menu:displayMenu name="Activity"/>
     <menu:displayMenu name="Logout"/>
 </ul>
 </div>
