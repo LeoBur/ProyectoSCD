@@ -31,7 +31,7 @@ public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> im
 
 	@SuppressWarnings("unchecked")
 	public List<Alimento> getAlimentos() {
-		Query qry = getSession().createQuery("from Alimento m order by upper(a.nombre)");
+		Query qry = getSession().createQuery("from Alimento a order by upper(a.nombre)");
         return qry.list();
 	}
 
