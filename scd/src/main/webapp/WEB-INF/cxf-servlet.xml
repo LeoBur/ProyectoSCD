@@ -28,6 +28,8 @@
     <jaxws:endpoint id="sintomaService" implementor="#sintomaManager" address="/SintomaService"/>
     
     <jaxws:endpoint id="medicamentoService" implementor="#medicamentoManager" address="/MedicamentoService"/>
+    
+    <jaxws:endpoint id="domicilioService" imlementor="#domicilioManager" address= "/DomicilioService"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
