@@ -49,3 +49,24 @@ function confirmMessage(obj) {
     ans = confirm(msg);
     return ans;
 }
+
+
+
+
+
+
+
+
+function mainmenu(){
+	// Oculto los submenus
+	$(" #nav ul ").css({display: "none"});
+	// Defino que submenus deben estar visibles cuando se pasa el mouse por encima
+	$(" #nav li").hover(function(){
+	    $(this).find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400);
+	    },function(){
+	        $(this).find('ul:first').slideUp(400);
+	    });
+	}
+	$(document).ready(function(){
+	    mainmenu();
+	});

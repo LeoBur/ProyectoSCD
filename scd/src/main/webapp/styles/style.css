@@ -9,6 +9,7 @@ body {
     margin-right: 20px;
     padding-right: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+    text-align: center;
 }
 
 .nav-stacked .nav-header {
@@ -28,6 +29,13 @@ body#login {
 .navbar .dropdown-backdrop {
 	position: static;
 }
+
+
+
+
+
+
+
 
 #switchLocale {
     position: absolute;
