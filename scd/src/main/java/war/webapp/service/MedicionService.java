@@ -3,6 +3,7 @@ package war.webapp.service;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.persistence.EntityExistsException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -43,7 +44,7 @@ public interface MedicionService {
      * @throws MedicionExistsException thrown when medicion already exists
      */
     @POST
-    Medicion saveMedicion(Medicion medicion) throws MedicionExistsException;
+    Medicion saveMedicion(Medicion medicion) throws EntityExistsException;
     
     /**
      * Removes a medicion from the database

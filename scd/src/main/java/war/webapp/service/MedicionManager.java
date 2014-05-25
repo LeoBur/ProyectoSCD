@@ -2,6 +2,8 @@ package war.webapp.service;
 
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
+
 import war.webapp.dao.MedicionDao;
 import war.webapp.model.Medicion;
 
@@ -24,7 +26,7 @@ public interface MedicionManager extends GenericManager<Medicion, Long>{
      * @param medicion
      * @return medicion the updated medicion object
      */
-    Medicion saveMedicion(Medicion medicion) throws MedicionExistsException;
+    Medicion saveMedicion(Medicion medicion) throws EntityExistsException;
     
     /**
      * Removes a user from the database

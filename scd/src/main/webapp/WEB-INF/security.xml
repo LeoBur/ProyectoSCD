@@ -11,6 +11,7 @@
     <http pattern="/assets/**" security="none"/>
 
     <http auto-config="true">
+        <intercept-url pattern="/app/endo/**" access="ROLE_ANONYMOUS,ROLE_ADMIN"/>
         <intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/app/requestRecoveryToken*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />

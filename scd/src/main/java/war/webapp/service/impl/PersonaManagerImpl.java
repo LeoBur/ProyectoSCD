@@ -63,7 +63,7 @@ private PersonaDao personaDao;
 
 	@Override
 	public void removePersona(Persona persona) {
-		log.debug("removing persona: " + persona.getNombre_persona() + persona.getApellido_persona());
+		log.debug("removing persona: " + persona.getNombre() + persona.getApellido());
         personaDao.remove(persona);
 	}
 
