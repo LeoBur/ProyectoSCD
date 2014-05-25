@@ -17,6 +17,7 @@
     <bean id="alimentoDao" class="war.webapp.dao.hibernate.AlimentoDaoHibernate"/>
     
     <bean id="personaDao" class="war.webapp.dao.hibernate.PersonaDaoHibernate"/>
+    <bean id="pacienteDao" class="war.webapp.dao.hibernate.PacienteDaoHibernate"/>
     <bean id="endocrinologoDao" class="war.webapp.dao.hibernate.EndocrinologoDaoHibernate"/>
     <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
     
@@ -40,6 +41,9 @@
     
     <bean id="personaManager" class="war.webapp.service.impl.PersonaManagerImpl">
    		<property name="personaDao" ref="personaDao"/>
+    </bean>
+    <bean id="pacienteManager" class="war.webapp.service.impl.PacienteManagerImpl">
+   		<property name="pacienteDao" ref="pacienteDao"/>
     </bean>
     <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
     	<property name="especialistaDao" ref="especialistaDao"/>
