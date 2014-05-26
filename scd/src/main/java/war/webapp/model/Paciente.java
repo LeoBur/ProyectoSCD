@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.solr.common.util.Hash;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -35,6 +36,7 @@ public class Paciente extends Persona{
 	private TipoDiabetes tipo;
 	private Endocrinologo endocrinologo;
 	private Set<Medicion> mediciones = new HashSet<Medicion>();
+	private Set<Peso> pesos = new HashSet<Peso>();
 	
 	public String getSexo() {
 		return sexo;
@@ -82,5 +84,15 @@ public class Paciente extends Persona{
 
 	public void setMediciones(Set<Medicion> mediciones) {
 		this.mediciones = mediciones;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Peso> getPesos() {
+		return pesos;
+	}
+
+	public void setPesos(Set<Peso> pesos) {
+		this.pesos = pesos;
 	}
 }

@@ -28,6 +28,8 @@
     <bean id="medicamentoDao" class="war.webapp.dao.hibernate.MedicamentoDaoHibernate"/>
     <bean id="domicilioDao" class="war.webapp.dao.hibernate.DomicilioDaoHibernate"/>
     
+    <bean id="pesoDao" class="war.webapp.dao.hibernate.PesoDaoHibernate"/>
+    
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
     	<property name="medicionDao" ref="medicionDao"/>
@@ -68,6 +70,9 @@
     
     <bean id="domicilioManager" class="war.webapp.service.impl.DomicilioManagerImpl">
         <property name="domicilioDao" ref= "domicilioDao"/>
+    </bean>
+    <bean id="pesoManager" class="war.webapp.service.impl.PesoManagerImpl">
+        <property name="pesoDao" ref="pesoDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->

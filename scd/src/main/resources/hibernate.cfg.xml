@@ -18,5 +18,7 @@
         <mapping class="war.webapp.model.TipoDiabetes"/>
         <mapping class="war.webapp.model.Medicion"/>
         <mapping class="war.webapp.model.Paciente"/>
+        <mapping class="war.webapp.model.Domicilio"/>
+        <mapping class="war.webapp.model.Peso"/>
     </session-factory>
 </hibernate-configuration>
