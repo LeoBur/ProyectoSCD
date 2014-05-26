@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.apache.solr.common.util.Hash;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 

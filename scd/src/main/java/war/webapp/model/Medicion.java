@@ -27,6 +27,7 @@ public class Medicion implements Serializable{
 	private int valor;
 	private DateTime f_medicion;
 	private Paciente paciente;
+	private static final int CONVERSION=18;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +39,7 @@ public class Medicion implements Serializable{
 	}
 	
 	@Column(name = "unidad")
-	@Value("U1|U2")
+	@Value("mg/dl|mmol/l")
 	public String getUnidad(){
 		return unidad;
 	}
@@ -74,6 +75,9 @@ public class Medicion implements Serializable{
 	
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+	public static int getConversion() {
+		return CONVERSION;
 	}
 	
 	
