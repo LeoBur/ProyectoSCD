@@ -34,8 +34,8 @@ public class Endocrinologo extends Persona {
 	public Endocrinologo() {
 	}
 	
-	public Endocrinologo(int dni, String nombre, String apellido, Long telefono, String email, Long matricula){
-		super(dni, nombre, apellido, telefono, email);
+	public Endocrinologo(int dni, String nombre, String apellido, Long telefono, String email, Long matricula,Domicilio domicilio){
+		super(dni, nombre, apellido, telefono, email,domicilio);
 		this.matricula = matricula;
 		
 	}

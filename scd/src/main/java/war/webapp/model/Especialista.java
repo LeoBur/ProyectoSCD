@@ -27,8 +27,8 @@ public class Especialista extends Persona{
 	public Especialista(){
 	}
 	
-	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo){
-		super(dni, nombre, apellido, telefono, email);
+	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo,Domicilio domicilio){
+		super(dni, nombre, apellido, telefono, email,domicilio);
 		this.tipo_esp = tipo;
 	}
 

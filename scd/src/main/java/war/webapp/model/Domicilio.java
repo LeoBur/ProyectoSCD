@@ -16,7 +16,7 @@ public class Domicilio implements Serializable{
 	 */
 	private static final long serialVersionUID = 9013815718475143878L;
 	
-	private Long id;
+	private Long idDomicilio;
 	private Localidad localidad;
 	private String calle;
 	private Long numero;
@@ -26,10 +26,10 @@ public class Domicilio implements Serializable{
 	@Id
 	@Column(name="id", unique = true, nullable= false)
 	public Long getId() {
-		return id;
+		return idDomicilio;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.idDomicilio = id;
 	}
 	
 	@Column(name="Localidad", unique = false, nullable=false)
