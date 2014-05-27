@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.search.annotations.Field;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
@@ -23,22 +26,20 @@ public abstract class Persona implements Serializable{
 	private int dni;
 	private String nombre;
 	private String apellido;
-	/**
-	 * TODO
-	 * private Domicilio domicilio_persona;
-	 */
+	private Domicilio domicilio;
 	private Long telefono;
 	private String email;
 
 	public Persona(){
 	}
 	
-	public Persona(int dni, String nombre, String apellido, Long telefono, String email){
+	public Persona(int dni, String nombre, String apellido, Long telefono, String email, Domicilio domicilio){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
+		this.domicilio=domicilio;
 	}
 	
 	@Id
@@ -98,6 +99,16 @@ public abstract class Persona implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idDomicilio", nullable = false)
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
 	}
 	
 }

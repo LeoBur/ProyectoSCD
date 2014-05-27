@@ -24,6 +24,7 @@ public class PacienteDaoHibernate extends PersonaDaoHibernate implements Pacient
         }
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<Paciente> getPacientes(){
 		Query qry = getSession().createQuery("from Paciente p order by upper(p.apellido_persona)");
         return qry.list();
