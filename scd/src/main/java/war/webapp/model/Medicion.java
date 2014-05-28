@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
@@ -14,7 +17,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
-@Table(name = "Medicion")
+@Table(name = "medicion")
 public class Medicion implements Serializable{
 	
 	private static final long serialVersionUID = -4602919381022417928L;
@@ -23,6 +26,8 @@ public class Medicion implements Serializable{
 	private String unidad;
 	private int valor;
 	private DateTime f_medicion;
+	private Paciente paciente;
+	private static final int CONVERSION=18;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +39,7 @@ public class Medicion implements Serializable{
 	}
 	
 	@Column(name = "unidad")
-	@Value("U1|U2")
+	@Value("mg/dl|mmol/l")
 	public String getUnidad(){
 		return unidad;
 	}
@@ -60,6 +65,19 @@ public class Medicion implements Serializable{
 	
 	public void setF_medicion(DateTime f_medicion) {
 		this.f_medicion = f_medicion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_paciente", nullable = false)
+	public Paciente getPaciente() {
+		return paciente;
+	}
+	
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+	public static int getConversion() {
+		return CONVERSION;
 	}
 	
 	

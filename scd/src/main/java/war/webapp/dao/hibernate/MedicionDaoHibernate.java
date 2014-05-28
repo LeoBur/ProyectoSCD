@@ -2,14 +2,17 @@ package war.webapp.dao.hibernate;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.MedicionDao;
-import war.webapp.dao.MedicionNotFoundException;
 import war.webapp.model.Medicion;
 
+@Repository("medicionDao")
 public class MedicionDaoHibernate extends GenericDaoHibernate<Medicion, Long> implements MedicionDao{
 
 	/**
@@ -20,10 +23,10 @@ public class MedicionDaoHibernate extends GenericDaoHibernate<Medicion, Long> im
     }
 
 	@Override
-	public Medicion loadMedicionById(Long id) throws MedicionNotFoundException {
+	public Medicion loadMedicionById(Long id) throws EntityNotFoundException {
 		 Medicion medicion = (Medicion) getSession().createCriteria(Medicion.class).add(Restrictions.eq("id_medicion", id));
 	        if (medicion == null) {
-	            throw new MedicionNotFoundException("medicion id: '" + id + "' not found...");
+	            throw new EntityNotFoundException("medicion id: '" + id + "' not found...");
 	        } else {
 	            return medicion;
 	        }

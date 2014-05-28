@@ -1,13 +1,20 @@
 package war.webapp.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "TiposDiabetes")
@@ -18,6 +25,7 @@ public class TipoDiabetes implements Serializable{
 	private int id_tipo;
 	private String tipoDiab;
 	private String Caract;
+	private Set<Paciente> pacientes = new HashSet<Paciente>();
 	
 	@Id
 	@Column(name = "id_tipo_dibetes")
@@ -46,5 +54,17 @@ public class TipoDiabetes implements Serializable{
 	public void setCaract(String caract) {
 		Caract = caract;
 	}
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Paciente> getPacientes() {
+		return pacientes;
+	}
+
+	public void setPacientes(Set<Paciente> pacientes) {
+		this.pacientes = pacientes;
+	}
+	
+	
 
 }

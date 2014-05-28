@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.persistence.EntityExistsException;
 
 import org.springframework.stereotype.Service;
 
 import war.webapp.dao.MedicionDao;
 import war.webapp.model.Medicion;
-import war.webapp.service.MedicionExistsException;
 import war.webapp.service.MedicionManager;
 import war.webapp.service.MedicionService;
 
@@ -46,13 +46,13 @@ public class MedicionManagerImpl extends GenericManagerImpl<Medicion, Long> impl
 
 	@Override
 	public Medicion saveMedicion(final Medicion medicion)
-			throws MedicionExistsException {
+			throws EntityExistsException {
 		try {
 			return medicionDao.saveMedicion(medicion);
 		} catch (final Exception e){
 			e.printStackTrace();
 			log.warn(e.getMessage());
-			throw new MedicionExistsException("Medición ya existe");
+			throw new EntityExistsException("Medición ya existe");
 		}
 	}
 

@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.AlimentoDao;
 import war.webapp.model.Alimento;
 
+@Repository("alimentoDao")
 public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> implements AlimentoDao {
 	
 	/**
@@ -31,7 +33,7 @@ public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> im
 
 	@SuppressWarnings("unchecked")
 	public List<Alimento> getAlimentos() {
-		Query qry = getSession().createQuery("from Alimento m order by upper(a.nombre)");
+		Query qry = getSession().createQuery("from Alimento a order by upper(a.nombre)");
         return qry.list();
 	}
 

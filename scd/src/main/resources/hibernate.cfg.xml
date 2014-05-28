@@ -8,5 +8,17 @@
     <session-factory>
         <mapping class="org.appfuse.model.User"/>
         <mapping class="org.appfuse.model.Role"/>
+        <mapping class="war.webapp.model.Medicion"/>
+        <mapping class="war.webapp.model.Alimento"/>
+        <mapping class="war.webapp.model.Sintoma"/>
+        <mapping class="war.webapp.model.Provincia"/>
+        <mapping class="war.webapp.model.Localidad"/>
+        <mapping class="war.webapp.model.Endocrinologo"/>
+        <mapping class="war.webapp.model.Especialista"/>
+        <mapping class="war.webapp.model.TipoDiabetes"/>
+        <mapping class="war.webapp.model.Medicion"/>
+        <mapping class="war.webapp.model.Paciente"/>
+        <mapping class="war.webapp.model.Domicilio"/>
+        <mapping class="war.webapp.model.Peso"/>
     </session-factory>
 </hibernate-configuration>

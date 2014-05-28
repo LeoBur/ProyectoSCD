@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.PersonaDao;
 import war.webapp.model.Persona;
 
+@Repository("personaDao")
 public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> implements PersonaDao{
 	
 	public PersonaDaoHibernate() {
@@ -35,7 +37,7 @@ public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> impl
     @Override
     public Persona savePersona(Persona persona) {
     	if (log.isDebugEnabled()) {
-            log.debug("Persona id: " + persona.getId_persona());
+            log.debug("Persona id: " + persona.getId());
         }
         getSession().saveOrUpdate(persona);
         // necessary to throw a DataIntegrityViolation and catch it in MedicionManager

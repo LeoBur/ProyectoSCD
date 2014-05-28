@@ -1,15 +1,23 @@
 package war.webapp.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
 
 @Entity
-@Table(name ="Especialista")
-@PrimaryKeyJoinColumn(name ="id_persona")
+@Table(name ="especialista")
+@AttributeOverrides({
+	@AttributeOverride(name="id", column=@Column(name="id_esp")),
+	@AttributeOverride(name="dni", column=@Column(name="dni_esp")),
+	@AttributeOverride(name="nombre", column=@Column(name="nombre_esp")),
+	@AttributeOverride(name="apellido", column=@Column(name="apellido_esp")),
+	@AttributeOverride(name="telefono", column=@Column(name="telefono_esp")),
+	@AttributeOverride(name="email", column=@Column(name="email_esp"))
+})
 public class Especialista extends Persona{
 	
 	private static final long serialVersionUID = 3657563589343488236L;
@@ -19,8 +27,8 @@ public class Especialista extends Persona{
 	public Especialista(){
 	}
 	
-	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo){
-		super(dni, nombre, apellido, telefono, email);
+	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo,Domicilio domicilio){
+		super(dni, nombre, apellido, telefono, email,domicilio);
 		this.tipo_esp = tipo;
 	}
 

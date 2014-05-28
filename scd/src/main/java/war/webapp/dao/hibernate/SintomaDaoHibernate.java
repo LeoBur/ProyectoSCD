@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.SintomaDao;
 import war.webapp.model.Sintoma;
 
+@Repository("sintomaDao")
 public class SintomaDaoHibernate extends GenericDaoHibernate<Sintoma, Long> implements SintomaDao{
 
 	public SintomaDaoHibernate(){

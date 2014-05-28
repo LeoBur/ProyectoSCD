@@ -50,5 +50,10 @@
                 <arg key="user.password"/>
             </field>
         </form>
+        <form name="endoSearch">
+        	<field property="pacienteToSearch" depends="required">
+        		<arg key="endoSearch.pacienteToSearch"/>
+        	</field>
+        </form>
     </formset>
 </form-validation>

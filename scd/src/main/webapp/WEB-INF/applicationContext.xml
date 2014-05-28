@@ -17,12 +17,18 @@
     <bean id="alimentoDao" class="war.webapp.dao.hibernate.AlimentoDaoHibernate"/>
     
     <bean id="personaDao" class="war.webapp.dao.hibernate.PersonaDaoHibernate"/>
+    <bean id="pacienteDao" class="war.webapp.dao.hibernate.PacienteDaoHibernate"/>
     <bean id="endocrinologoDao" class="war.webapp.dao.hibernate.EndocrinologoDaoHibernate"/>
     <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
     
     <bean id="provinciaDao" class="war.webapp.dao.hibernate.ProvinciaDaoHibernate"/>
     <bean id="localidadDao" class="war.webapp.dao.hibernate.LocalidadDaoHibernate"/>
     <bean id="sintomaDao" class="war.webapp.dao.hibernate.SintomaDaoHibernate"/>
+    
+    <bean id="medicamentoDao" class="war.webapp.dao.hibernate.MedicamentoDaoHibernate"/>
+    <bean id="domicilioDao" class="war.webapp.dao.hibernate.DomicilioDaoHibernate"/>
+    
+    <bean id="pesoDao" class="war.webapp.dao.hibernate.PesoDaoHibernate"/>
     
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
@@ -37,6 +43,9 @@
     
     <bean id="personaManager" class="war.webapp.service.impl.PersonaManagerImpl">
    		<property name="personaDao" ref="personaDao"/>
+    </bean>
+    <bean id="pacienteManager" class="war.webapp.service.impl.PacienteManagerImpl">
+   		<property name="pacientesDao" ref="pacienteDao"/>
     </bean>
     <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
     	<property name="especialistaDao" ref="especialistaDao"/>
@@ -53,6 +62,17 @@
     </bean>
     <bean id="localidadManager" class="war.webapp.service.impl.LocalidadManagerImpl">
    		<property name="localidadDao" ref="localidadDao"/>
+    </bean>
+    
+    <bean id="medicamentoManager" class="war.webapp.service.impl.MedicamentoManagerImpl">
+        <property name="medicamentoDao" ref="medicamentoDao"/>
+    </bean>
+    
+    <bean id="domicilioManager" class="war.webapp.service.impl.DomicilioManagerImpl">
+        <property name="domicilioDao" ref= "domicilioDao"/>
+    </bean>
+    <bean id="pesoManager" class="war.webapp.service.impl.PesoManagerImpl">
+        <property name="pesoDao" ref="pesoDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
