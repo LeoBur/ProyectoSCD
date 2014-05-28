@@ -38,13 +38,13 @@
         <div class="row">
             <decorator:body/>
 
-            <c:if test="${currentMenu == 'AdminMenu'}">
+            <%--<c:if test="${currentMenu == 'AdminMenu'}">
                 <div class="col-sm-2">
                 <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
                     <menu:displayMenu name="AdminMenu"/>
                 </menu:useMenuDisplayer>
                 </div>
-            </c:if>
+            </c:if> --%>
         </div>
     </div><%-- Aca esta la papa del container --%>
 
