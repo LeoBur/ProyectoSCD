@@ -6,20 +6,42 @@
     <Menus>
         <!-- <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/> -->
         <!-- <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform" roles="ROLE_ADMIN,ROLE_USER"/> -->
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN,ROLE_USER" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
             <Item name="FileUpload" title="menu.selectFile" page="/fileupload"/>
         </Menu>
         
-        <Menu name="Paciente" title="user.paciente" page="/admin/users" roles="ROLE_ADMIN" description="Paciente Admin">
-        	<Item name="1" title="user.paciente.nuevo" page="/admin/users"/>
-        	<Item name="2" title="user.paciente.modificar" page="/admin/users"/>
-        	<Item name="3" title="user.diet.new" page="/admin/users"/>
-        	<Item name="4" title="user.diet.change" page="/admin/users"/>
+        <Menu name="Paciente" title="user.paciente" page="/endos/newPaciente" roles="ROLE_ADMIN" description="Paciente Admin">
+        	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/newPaciente"/>
+        	<Item name="editPaciente" title="user.paciente.editar" page="/endos/editPaciente"/>
+        	<Item name="newTreatment" title="user.treatment.new" page="/admin/users"/>
+        	<Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/>
         </Menu>
-        <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
+        
+        <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ADMIN" description="Ajustes del Sistema">
+        	<Item name="AdminMedicine" title="user.medicion.admin" page="/admin/users"/>
+        	<Item name="AdminSymptom" title="user.symptom.admin" page="/admin/users"/>
+        	<Item name="AdminTreatment" title="user.treatment.admin" page="/admin/users"/>
+        	<Item name="AdminEspecialist" title="user.especialist.admin" page="/admin/users"/>
+        </Menu>
+        
+        <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
+        
+        <Menu name="Consulta" title="paciente.consulta" description="Paciente Consulta" roles="ROLE_USER" page="/admin/users">
+            <Item name="Medicacion" title="user.paciente.medicine" page="/paciente/medicacion"/>
+            <Item name="Dieta" title="user.paciente.diet" page="/admin/activeUsers"/>
+        </Menu>
+        
+        <Menu name="Historial" title="paciente.historial" description="Paciente Historial" roles="ROLE_USER" page="/admin/users">
+            <Item name="Medicion" title="user.paciente.mediciones" page="/admin/users"/>
+            <Item name="Peso" title="user.paciente.peso" page="/admin/activeUsers"/>
+        </Menu>
+        
+        <Menu name="Dato" title="paciente.menu.dato" description="Paciente Dato" roles="ROLE_USER" page="/admin/users"/>
+        
+        <!-- <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
         	<Item name="1" title="user.medicine.new" page="/admin/users"/>
         	<Item name="2" title="user.medicine.change" page="/admin/users"/>
         	<Item name="3" title="user.medicine.delete" page="/admin/users"/>
@@ -36,7 +58,7 @@
         	<Item name="1" title="user.symptom.new" page="/admin/users"/>
         	<Item name="2" title="user.symptom.change" page="/admin/users"/>
         	<Item name="3" title="user.symptom.delete" page="/admin/users"/>
-        </Menu>
+        </Menu> -->
         
         
         <!-- <Menu name="Endocrinologist" title="user.endocrinologist.title" page="/admin/users" roles="ROLE_ADMIN" description="Endocrinologist Admin">

@@ -34,8 +34,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/endos/editPaciente*")
-public class ProbarController extends BaseFormController {
+@RequestMapping("/paciente/medica*")
+public class RegistrarController extends BaseFormController {
 
     private RoleManager roleManager;
 
@@ -44,9 +44,9 @@ public class ProbarController extends BaseFormController {
         this.roleManager = roleManager;
     }
 
-    public ProbarController() {
+    public RegistrarController() {
         setCancelView("redirect:/home");
-        setSuccessView("redirect:/endos/editPaciente");
+        setSuccessView("redirect:/paciente/medicacion");
     }
 
     @Override
@@ -224,3 +224,4 @@ public class ProbarController extends BaseFormController {
         return (method != null && method.equalsIgnoreCase("add"));
     }
 }
+
