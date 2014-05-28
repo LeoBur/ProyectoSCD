@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.AlimentoDao;
 import war.webapp.model.Alimento;
 
+@Repository("alimentoDao")
 public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> implements AlimentoDao {
 	
 	/**

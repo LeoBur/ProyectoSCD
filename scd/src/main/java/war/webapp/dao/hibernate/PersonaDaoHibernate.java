@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.PersonaDao;
 import war.webapp.model.Persona;
 
+@Repository("personaDao")
 public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> implements PersonaDao{
 	
 	public PersonaDaoHibernate() {

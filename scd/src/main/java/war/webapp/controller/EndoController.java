@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
+import war.webapp.dao.SearchException;
 import war.webapp.model.Paciente;
 import war.webapp.model.Tag;
 import war.webapp.service.PacienteManager;
@@ -57,13 +61,13 @@ public class EndoController extends BaseFormController{
 	}
 	
 	@ModelAttribute
-	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
 	public String onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 		
@@ -71,11 +75,17 @@ public class EndoController extends BaseFormController{
             validator.validate(endoSearch, errors);
 
             if (errors.hasErrors()) {
-                return "endo1";
+                return "endo";
             }
         }
-		return getSuccessView();
+		Model model = new ExtendedModelMap();
+        try {
+            model.addAttribute(Constants.PACIENTE_LIST, pacienteManager.search(endoSearch.getPacienteToSearch()));
+        } catch (SearchException se) {
+            model.addAttribute("searchError", se.getMessage());
+            model.addAttribute(pacienteManager.getPacientes());
+        }
+        return "endo";
 	}
-	
 	
 }

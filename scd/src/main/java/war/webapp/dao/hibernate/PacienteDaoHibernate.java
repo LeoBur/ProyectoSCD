@@ -6,11 +6,13 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.PacienteDao;
 import war.webapp.model.Paciente;
 import war.webapp.model.TipoDiabetes;
 
+@Repository("pacienteDao")
 public class PacienteDaoHibernate extends PersonaDaoHibernate implements PacienteDao{
 
 	@SuppressWarnings("unchecked")

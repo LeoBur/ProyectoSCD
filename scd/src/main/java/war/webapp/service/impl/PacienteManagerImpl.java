@@ -16,22 +16,22 @@ import war.webapp.service.PacienteService;
 @WebService(serviceName = "PacienteService", endpointInterface = "war.webapp.service.PacienteService")
 public class PacienteManagerImpl extends PersonaManagerImpl implements PacienteService, PacienteManager{
 
-	private PacienteDao pacienteDao;
+	private PacienteDao pacientesDao;
 	
 	@Override
-	public void setPacienteDao(PacienteDao pacienteDao) {
+	public void setPacientesDao(PacienteDao pacienteDao) {
 		this.dao = pacienteDao;
-		this.pacienteDao = pacienteDao;
+		this.pacientesDao = pacienteDao;
 	}
 
 	@Override
 	public List<Paciente> getPacientesByTipo(TipoDiabetes tipo) {
-		return pacienteDao.loadPacientesByTipo(tipo);
+		return pacientesDao.loadPacientesByTipo(tipo);
 	}
 	
 	@Override
 	public List<Paciente> getPacientes(){
-		return pacienteDao.getPacientes();
+		return pacientesDao.getPacientes();
 	}
 
 }

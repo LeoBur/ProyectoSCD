@@ -3,10 +3,12 @@ package war.webapp.dao.hibernate;
 import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.EndocrinologoDao;
 import war.webapp.model.Endocrinologo;
 
+@Repository("endocrinologoDao")
 public class EndocrinologoDaoHibernate extends PersonaDaoHibernate implements EndocrinologoDao{
 
 	@Override
