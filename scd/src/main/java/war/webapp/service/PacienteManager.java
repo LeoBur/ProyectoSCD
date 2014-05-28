@@ -8,7 +8,7 @@ import war.webapp.model.TipoDiabetes;
 
 public interface PacienteManager extends PersonaManager{
 
-	void setPacienteDao(PacienteDao pacienteDao);
+	void setPacientesDao(PacienteDao pacienteDao);
 	
 	List<Paciente> getPacientesByTipo(TipoDiabetes tipo);
 	

@@ -3,10 +3,12 @@ package war.webapp.dao.hibernate;
 import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.DomicilioDao;
 import war.webapp.model.Domicilio;
 
+@Repository("domicilioDao")
 public class DomicilioDaoHibernate extends GenericDaoHibernate<Domicilio, Long> implements DomicilioDao{
 
 	public DomicilioDaoHibernate() {

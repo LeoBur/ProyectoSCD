@@ -43,7 +43,7 @@
    		<property name="personaDao" ref="personaDao"/>
     </bean>
     <bean id="pacienteManager" class="war.webapp.service.impl.PacienteManagerImpl">
-   		<property name="pacienteDao" ref="pacienteDao"/>
+   		<property name="pacientesDao" ref="pacienteDao"/>
     </bean>
     <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
     	<property name="especialistaDao" ref="especialistaDao"/>

@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="home.title" /></title>
-<meta name="menu" content="Home" />
+<meta name="menu" content="Endo" />
 <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
@@ -43,7 +43,7 @@
         </div>
         </c:if>
     </spring:bind>
-	<form:form commandName="endoSearch" method="post" action="home"
+	<form:form commandName="endoSearch" method="post" action="endo"
 		enctype="multipart/form-data" id="mainSearchBox">
 		<spring:bind path="endoSearch.pacienteToSearch">
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
