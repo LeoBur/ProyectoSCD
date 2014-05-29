@@ -13,8 +13,39 @@ import war.webapp.model.Paciente;
 import war.webapp.model.TipoDiabetes;
 
 @Repository("pacienteDao")
-public class PacienteDaoHibernate extends PersonaDaoHibernate implements PacienteDao{
+public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> implements PacienteDao{
 
+	public PacienteDaoHibernate() {
+        super(Paciente.class);
+    }
+	
+	@Override
+	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException {
+		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("dni", dni));
+		if (paciente == null){
+			throw new EntityNotFoundException("Paciente con DNI :" + dni + " no existe");
+		} else {
+			return paciente;
+		}
+	}
+	
+    @SuppressWarnings("unchecked")
+    public List<Paciente> getPacientes() {
+		Query qry = getSession().createQuery("from paciente p order by upper(p.apellido)");
+        return qry.list();
+	}
+
+    @Override
+    public Paciente savePaciente(Paciente paciente) {
+    	if (log.isDebugEnabled()) {
+            log.debug("paciente id: " + paciente.getId());
+        }
+        getSession().saveOrUpdate(paciente);
+        // necessary to throw a DataIntegrityViolation and catch it in MedicionManager
+        getSession().flush();
+        return paciente;
+    }
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Paciente> loadPacientesByTipo(TipoDiabetes tipo) {
@@ -25,10 +56,4 @@ public class PacienteDaoHibernate extends PersonaDaoHibernate implements Pacient
             return (List<Paciente>) pacList.get(0);
         }
     }
-	
-	@SuppressWarnings("unchecked")
-	public List<Paciente> getPacientes(){
-		Query qry = getSession().createQuery("from Paciente p order by upper(p.apellido_persona)");
-        return qry.list();
-	}
 }

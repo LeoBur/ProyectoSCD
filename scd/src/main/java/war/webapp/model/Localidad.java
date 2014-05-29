@@ -1,6 +1,8 @@
 package war.webapp.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Indexed;
 
 
@@ -27,6 +32,7 @@ public class Localidad implements Serializable {
 	private int id;
 	private Provincia provincia;
 	private String nombre;
+	private Set<Domicilio> domicilios = new HashSet<Domicilio>();
 
 	public Localidad() {
 	}
@@ -38,7 +44,7 @@ public class Localidad implements Serializable {
 	}
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id_localidad", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -66,6 +72,17 @@ public class Localidad implements Serializable {
 		this.nombre = nombre;
 	}
 	
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Domicilio> getDomicilios() {
+		return domicilios;
+	}
+
+	public void setDomicilios(Set<Domicilio> domicilios) {
+		this.domicilios = domicilios;
+	}
+
 	public boolean equals(Object o) {
         if (this == o) {
             return true;

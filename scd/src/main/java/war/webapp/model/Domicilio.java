@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,7 +35,8 @@ public class Domicilio implements Serializable{
 		this.idDomicilio = id;
 	}
 	
-	@Column(name="Localidad", unique = false, nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_localidad", nullable = false)
 	public Localidad getLocalidad() {
 		return localidad;
 	}

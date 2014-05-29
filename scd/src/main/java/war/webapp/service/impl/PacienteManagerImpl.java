@@ -1,8 +1,10 @@
 package war.webapp.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.persistence.EntityExistsException;
 
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ import war.webapp.service.PacienteService;
 
 @Service("pacienteManager")
 @WebService(serviceName = "PacienteService", endpointInterface = "war.webapp.service.PacienteService")
-public class PacienteManagerImpl extends PersonaManagerImpl implements PacienteService, PacienteManager{
+public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> implements PacienteService, PacienteManager{
 
 	private PacienteDao pacientesDao;
 	
@@ -25,13 +27,56 @@ public class PacienteManagerImpl extends PersonaManagerImpl implements PacienteS
 	}
 
 	@Override
-	public List<Paciente> getPacientesByTipo(TipoDiabetes tipo) {
-		return pacientesDao.loadPacientesByTipo(tipo);
+	public Paciente getPaciente(String id) {
+		return pacientesDao.get(new Long(id));
+	}
+
+	@Override
+	public Paciente getPaciente(Long id) {
+		return pacientesDao.get(id);
+	}
+
+	@Override
+	public List<Paciente> getPacientes() {
+		if (pacientesDao!=null){
+			return pacientesDao.getAllDistinct();
+		}
+		return new ArrayList<Paciente>();
+	}
+
+	@Override
+	public Paciente savePaciente(final Paciente paciente)
+			throws EntityExistsException {
+		try {
+			return pacientesDao.savePaciente(paciente);
+		} catch (final Exception e){
+			e.printStackTrace();
+			log.warn(e.getMessage());
+			throw new EntityExistsException("La paciente ya existe");
+		}
+	}
+
+	@Override
+	public List<Paciente> search(String searchTerm) {
+		return super.search(searchTerm, Paciente.class);
+	}
+
+	@Override
+	public void removePaciente(Paciente paciente) {
+		log.debug("removing paciente: " + paciente.getNombre() + paciente.getApellido());
+		pacientesDao.remove(paciente);
+	}
+
+	@Override
+	public void removePaciente(String id) {
+		log.debug("removing paciente: " + id);
+		pacientesDao.remove(new Long(id));
+		
 	}
 	
 	@Override
-	public List<Paciente> getPacientes(){
-		return pacientesDao.getPacientes();
-	}
+	public List<Paciente> getPacientesByTipo(TipoDiabetes tipo) {
+		return pacientesDao.loadPacientesByTipo(tipo);
+	}	
 
 }
