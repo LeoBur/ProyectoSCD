@@ -20,5 +20,7 @@
         <mapping class="war.webapp.model.Paciente"/>
         <mapping class="war.webapp.model.Domicilio"/>
         <mapping class="war.webapp.model.Peso"/>
+        <mapping class="war.webapp.model.Tratamiento"/>
+        <mapping class="war.webapp.model.Comida"/>
     </session-factory>
 </hibernate-configuration>
