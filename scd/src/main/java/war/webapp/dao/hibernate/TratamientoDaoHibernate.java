@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import war.webapp.dao.TratamientoDao;
 import war.webapp.model.Tratamiento;
 
+@Repository("tratamientoDao")
 public class TratamientoDaoHibernate extends GenericDaoHibernate<Tratamiento, Long> implements TratamientoDao{
 	
 	public TratamientoDaoHibernate(){
