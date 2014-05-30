@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
@@ -23,30 +24,31 @@ import war.webapp.model.Tag;
 import war.webapp.service.PacienteManager;
 
 @Controller
-public class EndoController extends BaseFormController{
-	
+public class EndoController extends BaseFormController {
+
 	@Autowired
 	PacienteManager pacienteManager;
-	
+
 	public EndoController() {
 		setCancelView("redirect:/home");
 		setSuccessView("endo");
 	}
-	
+
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Tag> getTags(@RequestParam String tagName) {
 		int cont = 0;
 		List<Tag> data = new ArrayList<Tag>();
 		List<Tag> result = new ArrayList<Tag>();
-		
-		for (Paciente paciente: pacienteManager.getPacientes()) {
+
+		for (Paciente paciente : pacienteManager.getPacientes()) {
 			data.add(new Tag(cont++, paciente.getApellido()));
 		}
-		
+
 		// iterate a list and filter by tagName
-		  for (Tag tag : data) {
-			if (tag.getTagName().toLowerCase().startsWith(tagName.toLowerCase())) {
+		for (Tag tag : data) {
+			if (tag.getTagName().toLowerCase()
+					.startsWith(tagName.toLowerCase())) {
 				result.add(tag);
 			}
 		}
@@ -57,7 +59,7 @@ public class EndoController extends BaseFormController{
 	public String getMainPlaceHolder() {
 		return getText("endo.pacienteToSearch", Locale.getDefault());
 	}
-	
+
 	@ModelAttribute
 	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
@@ -68,28 +70,58 @@ public class EndoController extends BaseFormController{
 	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
-		
-		ModelAndView mv = new ModelAndView("endo/endo");
-		
-		if (validator != null) { // validator is null during testing
-            validator.validate(endoSearch, errors);
 
-            if (errors.hasErrors()) {
-                return mv;
-            }
-        }
-		
+		ModelAndView mv = new ModelAndView("endo/endo");
+
+		if (validator != null) { // validator is null during testing
+			validator.validate(endoSearch, errors);
+
+			if (errors.hasErrors()) {
+				return mv;
+			}
+		}
+
 		List<Paciente> pacientes = pacienteManager.loadPacientesByApellido(endoSearch.getPacienteToSearch());
 		mv.addObject(Constants.PACIENTE_LIST, pacientes);
 		return mv;
-		
-        /*try {
-            model.addAttribute(Constants.PACIENTE_LIST, pacienteManager.search(endoSearch.getPacienteToSearch()));
-        } catch (SearchException se) {
-            model.addAttribute("searchError", se.getMessage());
-            model.addAttribute(pacienteManager.getPacientes());
-        }
-        return "/pacienteList";
-	}*/
+	}
+
+	@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
+	public String create(@ModelAttribute("newPaciente") Paciente paciente,
+			BindingResult result, SessionStatus status) {
+		validator.validate(paciente, result);
+		if (result.hasErrors()) {
+			return "newPaciente";
+		}
+		pacienteManager.savePaciente(paciente);
+		status.setComplete();
+		return "redirect:endo";
+	}
+
+	@RequestMapping(value = "/editPaciente", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam("id") Long id) {
+		ModelAndView mav = new ModelAndView("editPaciente");
+		Paciente paciente = pacienteManager.getPaciente(id);
+		mav.addObject("editContact", paciente);
+		return mav;
+	}
+
+	@RequestMapping(value = "/editPaciente", method = RequestMethod.POST)
+	public String update(@ModelAttribute("editPaciente") Paciente paciente,
+			BindingResult result, SessionStatus status) {
+		validator.validate(paciente, result);
+		if (result.hasErrors()) {
+			return "editContact";
+		}
+		pacienteManager.savePaciente(paciente);
+		status.setComplete();
+		return "redirect:endo";
+	}
+
+	@RequestMapping("/deletePaciente")
+	public ModelAndView delete(@RequestParam("id") String id) {
+		ModelAndView mav = new ModelAndView("redirect:endo");
+		pacienteManager.removePaciente(id);
+		return mav;
 	}
 }
