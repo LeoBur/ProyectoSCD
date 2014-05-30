@@ -11,6 +11,8 @@
     <t:assets/>
     <decorator:head/>
 </head>
+<div id="contenido">
+
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
@@ -22,15 +24,15 @@
                 <span class="icon-bar"></span>
             </button>
             <%-- <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/>Home</a> --%>
-            <a class="navbar-brand" href="<c:url value='/'/>">Home</a>
+            <%-- <a class="navbar-brand" href="<c:url value='/'/>">Home</a> --%>
         </div>
 
         <%@ include file="/common/menu.jsp" %><%-- Acá comienza la preparación del menú --%>
-        <c:if test="${pageContext.request.locale.language ne 'en'}">
+        <%-- <c:if test="${pageContext.request.locale.language ne 'en'}">
             <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                 <fmt:message key="webapp.name"/> in English</a>
             </div>
-        </c:if>
+        </c:if> --%>
     </div>
 
     <div class="container" id="content">
@@ -60,4 +62,7 @@
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
 </body>
+
+</div>
+
 </html>
