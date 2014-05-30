@@ -19,15 +19,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
+import war.webapp.model.Medicamento;
 import war.webapp.model.Paciente;
 import war.webapp.model.Tag;
+import war.webapp.service.MedicamentoManager;
 import war.webapp.service.PacienteManager;
 
 @Controller
+@RequestMapping("/endos")
 public class EndoController extends BaseFormController {
 
 	@Autowired
 	PacienteManager pacienteManager;
+
+    @Autowired
+    MedicamentoManager medicamentoManager;
 
 	public EndoController() {
 		setCancelView("redirect:/home");
@@ -61,17 +67,17 @@ public class EndoController extends BaseFormController {
 	}
 
 	@ModelAttribute
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 
-		ModelAndView mv = new ModelAndView("endo/endo");
+		ModelAndView mv = new ModelAndView("endo");
 
 		if (validator != null) { // validator is null during testing
 			validator.validate(endoSearch, errors);
@@ -124,4 +130,32 @@ public class EndoController extends BaseFormController {
 		pacienteManager.removePaciente(id);
 		return mav;
 	}
+
+    @RequestMapping(value = "/medicamentoList", method = RequestMethod.GET)
+    public ModelAndView showMedicamentos(){
+        ModelAndView mav = new ModelAndView("medicamentoList");
+        List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
+        mav.addObject("medicamentoList", medicamentos);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.GET)
+    public ModelAndView adminMedic(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminMedicamento");
+        Medicamento medicamento = medicamentoManager.getMedicamento(id);
+        mav.addObject("adminMedicamento", medicamento);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.POST)
+    public String update(@ModelAttribute("adminMedicamento") Medicamento medicamento,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(medicamento, result);
+        if (result.hasErrors()) {
+            return "adminMedicamento";
+        }
+        medicamentoManager.saveMedicamento(medicamento);
+        status.setComplete();
+        return "redirect:medicamentoList";
+    }
 }
