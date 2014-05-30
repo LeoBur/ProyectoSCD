@@ -34,7 +34,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/paciente/medica*")
+//@RequestMapping("/paciente/dieta*")
+//@RequestMapping("/paciente/medica*")
+//@RequestMapping("/paciente/medicacion*")
+//@RequestMapping("/paciente/medicion*")
+//@RequestMapping("/paciente/peso*")
+//@RequestMapping("/paciente/dat*")
+@RequestMapping("/paciente/registrar*")
 public class RegistrarController extends BaseFormController {
 
     private RoleManager roleManager;
@@ -46,7 +52,11 @@ public class RegistrarController extends BaseFormController {
 
     public RegistrarController() {
         setCancelView("redirect:/home");
-        setSuccessView("redirect:/paciente/medicacion");
+        //setSuccessView("redirect:/paciente/dieta");
+        //setSuccessView("redirect:/paciente/medicion");
+        //setSuccessView("redirect:/paciente/dato");
+        //setSuccessView("redirect:/paciente/peso");
+        setSuccessView("redirect:/paciente/registrar");
     }
 
     @Override

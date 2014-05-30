@@ -5,7 +5,7 @@ body {
 .navbar-brand {
     color: #000000;
     font-weight: bold;
-    margin-left: 300px;/*350px;*/
+    margin-left: 1200px;/*350px;*/
     margin-right: 20px;
     padding-right: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
@@ -286,3 +286,7 @@ span.pagelinks {
     border: 1px solid #CD0A0A;
     color: #FFFFFF;
 }
+
+/* Probando si anda el centrado*/
+
+#contenido {width: 800px; margin: 0 auto; }

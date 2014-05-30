@@ -61,6 +61,15 @@
 			</button>
 		</div>
 	</form:form>
+	
+	<display:table name="pacienteList" cellspacing="0" cellpadding="0" requestURI=""
+                   defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
+        <display:column property="nombre" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
+                        url="/userform?from=list" paramId="id" paramProperty="id"/>
+        <display:column property="apellido" escapeXml="true" sortable="true" titleKey="activeUsers.fullName"
+                        style="width: 34%"/>
+	</display:table>
+	
 </div>
 </body>
 <c:set var="scripts" scope="request">
