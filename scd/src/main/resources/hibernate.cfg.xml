@@ -16,12 +16,13 @@
         <mapping class="war.webapp.model.Endocrinologo"/>
         <mapping class="war.webapp.model.Especialista"/>
         <mapping class="war.webapp.model.TipoDiabetes"/>
-        <mapping class="war.webapp.model.Medicion"/>
+        <mapping class="war.webapp.model.Medicamento"/>
         <mapping class="war.webapp.model.Paciente"/>
         <mapping class="war.webapp.model.Domicilio"/>
         <mapping class="war.webapp.model.Peso"/>
         <mapping class="war.webapp.model.Tratamiento"/>
         <mapping class="war.webapp.model.Comida"/>
         <mapping class="war.webapp.model.MomentoDia"/>
+        <mapping class="war.webapp.model.DiaDieta"/>
     </session-factory>
 </hibernate-configuration>

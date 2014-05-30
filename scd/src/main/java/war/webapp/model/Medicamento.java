@@ -3,6 +3,8 @@ package war.webapp.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Medicamento")
+@Table(name="medicamento")
 public class Medicamento implements Serializable{
 
 	/**
@@ -58,6 +60,7 @@ public class Medicamento implements Serializable{
 		this.presentacion = presentacion;
 	}
 	@Column(name="Grupo_Medicamento",nullable = false)
+	@Enumerated(EnumType.STRING)
 	public GrupoMedicamento getGrupoMedicamento() {
 		return grupoMedicamento;
 	}

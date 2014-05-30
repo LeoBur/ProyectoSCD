@@ -28,6 +28,7 @@ public class MomentoDia implements Serializable{
 	private Long idMomentoD;
 	private MomentosDia nombre;
 	private Set<Comida> comidas = new HashSet<Comida>();
+	private Set<DiaDieta> diasDieta = new HashSet<DiaDieta>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -54,6 +55,14 @@ public class MomentoDia implements Serializable{
 	}
 	public void setComidas(Set<Comida> comidas) {
 		this.comidas = comidas;
+	}
+	
+	@ManyToMany(cascade={},mappedBy="momentosDia")
+	public Set<DiaDieta> getDiasDieta() {
+		return diasDieta;
+	}
+	public void setDiasDieta(Set<DiaDieta> diasDieta) {
+		this.diasDieta = diasDieta;
 	}
 
 }
