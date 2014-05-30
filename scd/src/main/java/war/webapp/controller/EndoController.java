@@ -19,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
+import war.webapp.model.Especialista;
 import war.webapp.model.Medicamento;
 import war.webapp.model.Paciente;
 import war.webapp.model.Tag;
+import war.webapp.service.EspecialistaManager;
 import war.webapp.service.MedicamentoManager;
 import war.webapp.service.PacienteManager;
 
@@ -34,6 +36,9 @@ public class EndoController extends BaseFormController {
 
     @Autowired
     MedicamentoManager medicamentoManager;
+
+    @Autowired
+    EspecialistaManager especialistaManager;
 
 	public EndoController() {
 		setCancelView("redirect:/home");
@@ -148,7 +153,7 @@ public class EndoController extends BaseFormController {
     }
 
     @RequestMapping(value = "/adminMedicamento", method = RequestMethod.POST)
-    public String update(@ModelAttribute("adminMedicamento") Medicamento medicamento,
+    public String updateMedic(@ModelAttribute("adminMedicamento") Medicamento medicamento,
                          BindingResult result, SessionStatus status) {
         validator.validate(medicamento, result);
         if (result.hasErrors()) {
@@ -157,5 +162,33 @@ public class EndoController extends BaseFormController {
         medicamentoManager.saveMedicamento(medicamento);
         status.setComplete();
         return "redirect:medicamentoList";
+    }
+
+    @RequestMapping(value = "/especialistaList", method = RequestMethod.GET)
+    public ModelAndView showEspecialistas(){
+        ModelAndView mav = new ModelAndView("especialistaList");
+        List<Especialista> especialistas = especialistaManager.getEspecialistas();
+        mav.addObject("especialistaList", especialistas);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.GET)
+    public ModelAndView adminEspec(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminEspecialista");
+        Especialista especialista = especialistaManager.getEspecialista(id);
+        mav.addObject("adminEspecialista", especialista);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.POST)
+    public String updateEspec(@ModelAttribute("adminEspecialista") Especialista especialista,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(especialista, result);
+        if (result.hasErrors()) {
+            return "adminEspecialista";
+        }
+        especialistaManager.saveEspecialista(especialista);
+        status.setComplete();
+        return "redirect:especialistaList";
     }
 }
