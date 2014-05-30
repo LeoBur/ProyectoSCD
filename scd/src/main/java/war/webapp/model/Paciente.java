@@ -14,14 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name = "paciente")
+@Indexed
+@XmlRootElement
 public class Paciente implements Serializable{
 	
 	private static final long serialVersionUID = -6094399498007212046L;

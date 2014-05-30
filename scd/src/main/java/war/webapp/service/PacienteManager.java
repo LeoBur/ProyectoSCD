@@ -25,4 +25,6 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
     List<Paciente> search(String searchTerm);
 		
 	List<Paciente> getPacientesByTipo(TipoDiabetes tipo);
+	
+	List<Paciente> loadPacientesByApellido(String apellido);
 }

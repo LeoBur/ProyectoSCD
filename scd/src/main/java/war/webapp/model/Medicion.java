@@ -13,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table(name = "medicion")
+@Indexed
 public class Medicion implements Serializable{
 	
 	private static final long serialVersionUID = -4602919381022417928L;

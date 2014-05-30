@@ -8,18 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
-import war.webapp.dao.SearchException;
 import war.webapp.model.Paciente;
 import war.webapp.model.Tag;
 import war.webapp.service.PacienteManager;
@@ -32,7 +30,7 @@ public class EndoController extends BaseFormController{
 	
 	public EndoController() {
 		setCancelView("redirect:/home");
-		setSuccessView("endo1");
+		setSuccessView("endo");
 	}
 	
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
@@ -68,24 +66,30 @@ public class EndoController extends BaseFormController{
 	}
 
 	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
-	public String onSubmit(EndoSearch endoSearch, BindingResult errors,
+	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("endo/endo");
 		
 		if (validator != null) { // validator is null during testing
             validator.validate(endoSearch, errors);
 
             if (errors.hasErrors()) {
-                return "endo";
+                return mv;
             }
         }
-		Model model = new ExtendedModelMap();
-        try {
+		
+		List<Paciente> pacientes = pacienteManager.loadPacientesByApellido(endoSearch.getPacienteToSearch());
+		mv.addObject(Constants.PACIENTE_LIST, pacientes);
+		return mv;
+		
+        /*try {
             model.addAttribute(Constants.PACIENTE_LIST, pacienteManager.search(endoSearch.getPacienteToSearch()));
         } catch (SearchException se) {
             model.addAttribute("searchError", se.getMessage());
             model.addAttribute(pacienteManager.getPacientes());
         }
-        return "endo";
+        return "/pacienteList";
+	}*/
 	}
-	
 }

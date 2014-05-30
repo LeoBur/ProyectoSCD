@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Indexed;
 import org.joda.time.DateTime;
 
 @Entity
 @Table(name="peso")
+@Indexed
 public class Peso implements Serializable{
 
 	/**

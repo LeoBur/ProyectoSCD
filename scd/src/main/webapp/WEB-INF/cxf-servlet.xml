@@ -18,7 +18,6 @@
     <jaxws:endpoint id="tipoDiabetesService" implementor="#tipoDiabetesManager" address="/TipoDiabetesService"/>
     <jaxws:endpoint id="alimentoService" implementor = "#alimentoManager" address = "/AlimentoService"/>
     
-    <jaxws:endpoint id="personaService" implementor="#personaManager" address="/PersonaService"/>
     <jaxws:endpoint id="pacienteService" implementor="#pacienteManager" address="/PacienteService"/>
     <jaxws:endpoint id="endocrinologoService" implementor="#endocrinologoManager" address="/EndocrinologoService"/>
     <jaxws:endpoint id="especialistaService" implementor="#especialistaManager" address="/EspecialistaService"/>
@@ -44,7 +43,6 @@
             <ref bean="tipoDiabetesManager"/>
             <ref bean="alimentoManager"/>
             
-            <ref bean="personaManager"/>
             <ref bean="pacienteManager"/>
             <ref bean="endocrinologoManager"/>
             <ref bean="especialistaManager"/>
