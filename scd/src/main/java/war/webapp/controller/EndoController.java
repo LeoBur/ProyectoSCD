@@ -19,13 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
-import war.webapp.model.Especialista;
-import war.webapp.model.Medicamento;
-import war.webapp.model.Paciente;
-import war.webapp.model.Tag;
+import war.webapp.model.*;
 import war.webapp.service.EspecialistaManager;
 import war.webapp.service.MedicamentoManager;
 import war.webapp.service.PacienteManager;
+import war.webapp.service.SintomaManager;
 
 @Controller
 @RequestMapping("/endos")
@@ -39,6 +37,9 @@ public class EndoController extends BaseFormController {
 
     @Autowired
     EspecialistaManager especialistaManager;
+
+    @Autowired
+    SintomaManager sintomaManager;
 
 	public EndoController() {
 		setCancelView("redirect:/home");
@@ -190,5 +191,33 @@ public class EndoController extends BaseFormController {
         especialistaManager.saveEspecialista(especialista);
         status.setComplete();
         return "redirect:especialistaList";
+    }
+
+    @RequestMapping(value = "/sintomaList", method = RequestMethod.GET)
+    public ModelAndView showSintomas(){
+        ModelAndView mav = new ModelAndView("sintomaList");
+        List<Sintoma> sintomas = sintomaManager.getSintomas();
+        mav.addObject("especialistaList", sintomas);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminSintoma", method = RequestMethod.GET)
+    public ModelAndView adminSint(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminSintoma");
+        Sintoma sintoma = sintomaManager.getSintoma(id);
+        mav.addObject("adminEspecialista", sintoma);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminSintoma", method = RequestMethod.POST)
+    public String updateSintoma(@ModelAttribute("adminSintoma") Sintoma sintoma,
+                              BindingResult result, SessionStatus status) {
+        validator.validate(sintoma, result);
+        if (result.hasErrors()) {
+            return "adminSintoma";
+        }
+        sintomaManager.saveSintoma(sintoma);
+        status.setComplete();
+        return "redirect:sintomaList";
     }
 }
