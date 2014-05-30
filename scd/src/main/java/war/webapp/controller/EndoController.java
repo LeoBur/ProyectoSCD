@@ -145,6 +145,18 @@ public class EndoController extends BaseFormController {
         return mav;
     }
 
+    @RequestMapping(value = "/newMedicamento", method = RequestMethod.POST)
+    public String createMedicamento(@ModelAttribute("newMedicamento") Medicamento medicamento,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(medicamento, result);
+        if (result.hasErrors()) {
+            return "newMedicamento";
+        }
+        medicamentoManager.saveMedicamento(medicamento);
+        status.setComplete();
+        return "redirect:medicamentoList";
+    }
+
     @RequestMapping(value = "/adminMedicamento", method = RequestMethod.GET)
     public ModelAndView adminMedic(@RequestParam("id") Long id) {
         ModelAndView mav = new ModelAndView("adminMedicamento");
@@ -193,6 +205,18 @@ public class EndoController extends BaseFormController {
         return "redirect:especialistaList";
     }
 
+    @RequestMapping(value = "/newEspecialista", method = RequestMethod.POST)
+    public String create(@ModelAttribute("newEspecialista") Especialista especialista,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(especialista, result);
+        if (result.hasErrors()) {
+            return "newEspecialista";
+        }
+        especialistaManager.saveEspecialista(especialista);
+        status.setComplete();
+        return "redirect:especialistaList";
+    }
+
     @RequestMapping(value = "/sintomaList", method = RequestMethod.GET)
     public ModelAndView showSintomas(){
         ModelAndView mav = new ModelAndView("sintomaList");
@@ -215,6 +239,18 @@ public class EndoController extends BaseFormController {
         validator.validate(sintoma, result);
         if (result.hasErrors()) {
             return "adminSintoma";
+        }
+        sintomaManager.saveSintoma(sintoma);
+        status.setComplete();
+        return "redirect:sintomaList";
+    }
+
+    @RequestMapping(value = "/newSintoma", method = RequestMethod.POST)
+    public String create(@ModelAttribute("newSintoma") Sintoma sintoma,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(sintoma, result);
+        if (result.hasErrors()) {
+            return "newSintoma";
         }
         sintomaManager.saveSintoma(sintoma);
         status.setComplete();

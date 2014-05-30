@@ -48,4 +48,6 @@ public class PacienteController extends BaseFormController {
 		return "redirect:registrar";
 	}
 
+
+
 }
