@@ -1,6 +1,8 @@
 package war.webapp.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name="comida")
+@Indexed
 public class Comida implements Serializable{
 
 	/**
@@ -24,9 +29,11 @@ public class Comida implements Serializable{
 	private Long idComida;
 	private String cantidad;
 	private Alimento alimento;
+	private Set<MomentoDia> momentosDia = new HashSet<MomentoDia>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="idComida")
 	public Long getIdComida() {
 		return idComida;
 	}
@@ -49,5 +56,15 @@ public class Comida implements Serializable{
 	public void setAlimento(Alimento alimento) {
 		this.alimento = alimento;
 	}
+	
+	@ManyToMany(cascade={},mappedBy="comidas")
+	public Set<MomentoDia> getMomentosDia() {
+		return momentosDia;
+	}
+	public void setMomentosDia(Set<MomentoDia> momentosDia) {
+		this.momentosDia = momentosDia;
+	}
+	
+	
 
 }
