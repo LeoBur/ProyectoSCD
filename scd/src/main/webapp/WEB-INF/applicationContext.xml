@@ -34,6 +34,7 @@
     <bean id="comidaDao" class="war.webapp.dao.hibernate.ComidaDaoHibernate"/>
     <bean id="momentoDiaDao" class="war.webapp.dao.hibernate.MomentoDiaDaoHibernate"/>
     <bean id="diaDietaDao" class="war.webapp.dao.hibernate.DiaDietaDaoHibernate"/>
+    <bean id="dietaDao" class="war.webapp.dao.hibernate.DietaDaoHibernate"/>
     
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
@@ -88,8 +89,11 @@
     <bean id="momentoDiaManager" class="war.webapp.service.impl.MomentoDiaManagerImpl">
         <property name="momentoDiaDao" ref="momentoDiaDao"/>
     </bean>
-    <bean id="diaDietaManager" class= "war.webapp.service.impl.DiaDietaManagerImpl">
+    <bean id="diaDietaManager" class="war.webapp.service.impl.DiaDietaManagerImpl">
         <property name="diaDietaDao" ref= "diaDietaDao"/>
+    </bean>
+    <bean id="dietaManager" class="war.webapp.service.impl.DietaManagerImpl">
+        <property name="dietaDao" ref="dietaDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
