@@ -24,5 +24,6 @@
         <mapping class="war.webapp.model.Comida"/>
         <mapping class="war.webapp.model.MomentoDia"/>
         <mapping class="war.webapp.model.DiaDieta"/>
+        <mapping class="war.webapp.model.Dieta"/>
     </session-factory>
 </hibernate-configuration>

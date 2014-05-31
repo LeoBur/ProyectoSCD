@@ -40,6 +40,7 @@ public class Paciente implements Serializable{
 	private Endocrinologo endocrinologo;
 	private Set<Medicion> mediciones = new HashSet<Medicion>();
 	private Set<Peso> pesos = new HashSet<Peso>();
+	private Set<Dieta> dietas = new HashSet<Dieta>();
 	
 	public Paciente(){
 	}
@@ -185,5 +186,15 @@ public class Paciente implements Serializable{
 
 	public void setPesos(Set<Peso> pesos) {
 		this.pesos = pesos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Dieta> getDietas() {
+		return dietas;
+	}
+
+	public void setDietas(Set<Dieta> dietas) {
+		this.dietas = dietas;
 	}
 }

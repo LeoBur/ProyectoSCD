@@ -8,12 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
@@ -36,6 +38,7 @@ public class DiaDieta implements Serializable{
 	private Long idDiaDieta;
 	private Dias nombreDiaDieta;
 	private Set<MomentoDia> momentosDia = new HashSet<MomentoDia>();
+	private Dieta dieta;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -64,6 +67,15 @@ public class DiaDieta implements Serializable{
 	}
 	public void setMomentosDia(Set<MomentoDia> momentosDia) {
 		this.momentosDia = momentosDia;
+	}
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_dieta",nullable=false)
+	public Dieta getDieta() {
+		return dieta;
+	}
+	public void setDieta(Dieta dieta) {
+		this.dieta = dieta;
 	}
 
 }
