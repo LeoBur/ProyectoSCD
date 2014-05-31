@@ -34,7 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/endos/editPaciente*")
+//@RequestMapping("/endos/editPaciente*")
+//@RequestMapping("/endos/newPaciente*")
+//@RequestMapping("/endos/adminMedicamento*")
+//@RequestMapping("/endos/adminEspecialista*")
+@RequestMapping("/endos/adminSintoma*")
 public class ProbarController extends BaseFormController {
 
     private RoleManager roleManager;
@@ -46,7 +50,11 @@ public class ProbarController extends BaseFormController {
 
     public ProbarController() {
         setCancelView("redirect:/home");
-        setSuccessView("redirect:/endos/editPaciente");
+        //setSuccessView("redirect:/endos/editPaciente");
+        //setSuccessView("redirect:/endos/newPaciente");
+        //setSuccessView("redirect:/endos/adminMedicamento");
+        //setSuccessView("redirect:/endos/adminEspecialista");
+        setSuccessView("redirect:/endos/adminSintoma");
     }
 
     @Override

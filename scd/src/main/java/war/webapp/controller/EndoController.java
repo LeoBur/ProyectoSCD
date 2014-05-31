@@ -8,47 +8,59 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
-import war.webapp.dao.SearchException;
-import war.webapp.model.Paciente;
-import war.webapp.model.Tag;
+import war.webapp.model.*;
+import war.webapp.service.EspecialistaManager;
+import war.webapp.service.MedicamentoManager;
 import war.webapp.service.PacienteManager;
+import war.webapp.service.SintomaManager;
 
 @Controller
-public class EndoController extends BaseFormController{
-	
+@RequestMapping("/endos")
+public class EndoController extends BaseFormController {
+
 	@Autowired
 	PacienteManager pacienteManager;
-	
+
+    @Autowired
+    MedicamentoManager medicamentoManager;
+
+    @Autowired
+    EspecialistaManager especialistaManager;
+
+    @Autowired
+    SintomaManager sintomaManager;
+
 	public EndoController() {
 		setCancelView("redirect:/home");
-		setSuccessView("endo1");
+		setSuccessView("endo");
 	}
-	
+
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Tag> getTags(@RequestParam String tagName) {
 		int cont = 0;
 		List<Tag> data = new ArrayList<Tag>();
 		List<Tag> result = new ArrayList<Tag>();
-		
-		for (Paciente paciente: pacienteManager.getPacientes()) {
+
+		for (Paciente paciente : pacienteManager.getPacientes()) {
 			data.add(new Tag(cont++, paciente.getApellido()));
 		}
-		
+
 		// iterate a list and filter by tagName
-		  for (Tag tag : data) {
-			if (tag.getTagName().toLowerCase().startsWith(tagName.toLowerCase())) {
+		for (Tag tag : data) {
+			if (tag.getTagName().toLowerCase()
+					.startsWith(tagName.toLowerCase())) {
 				result.add(tag);
 			}
 		}
@@ -59,33 +71,189 @@ public class EndoController extends BaseFormController{
 	public String getMainPlaceHolder() {
 		return getText("endo.pacienteToSearch", Locale.getDefault());
 	}
-	
+
 	@ModelAttribute
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
-	public String onSubmit(EndoSearch endoSearch, BindingResult errors,
+	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
+	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
-		
-		if (validator != null) { // validator is null during testing
-            validator.validate(endoSearch, errors);
 
-            if (errors.hasErrors()) {
-                return "endo";
-            }
-        }
-		Model model = new ExtendedModelMap();
-        try {
-            model.addAttribute(Constants.PACIENTE_LIST, pacienteManager.search(endoSearch.getPacienteToSearch()));
-        } catch (SearchException se) {
-            model.addAttribute("searchError", se.getMessage());
-            model.addAttribute(pacienteManager.getPacientes());
-        }
-        return "endo";
+		ModelAndView mv = new ModelAndView("endo");
+
+		if (validator != null) { // validator is null during testing
+			validator.validate(endoSearch, errors);
+
+			if (errors.hasErrors()) {
+				return mv;
+			}
+		}
+
+		List<Paciente> pacientes = pacienteManager.loadPacientesByApellido(endoSearch.getPacienteToSearch());
+		mv.addObject(Constants.PACIENTE_LIST, pacientes);
+		return mv;
 	}
-	
+
+	@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
+	public String create(@ModelAttribute("newPaciente") Paciente paciente,
+			BindingResult result, SessionStatus status) {
+		validator.validate(paciente, result);
+		if (result.hasErrors()) {
+			return "newPaciente";
+		}
+		pacienteManager.savePaciente(paciente);
+		status.setComplete();
+		return "redirect:endo";
+	}
+
+	@RequestMapping(value = "/editPaciente", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam("id") Long id) {
+		ModelAndView mav = new ModelAndView("editPaciente");
+		Paciente paciente = pacienteManager.getPaciente(id);
+		mav.addObject("editContact", paciente);
+		return mav;
+	}
+
+	@RequestMapping(value = "/editPaciente", method = RequestMethod.POST)
+	public String update(@ModelAttribute("editPaciente") Paciente paciente,
+			BindingResult result, SessionStatus status) {
+		validator.validate(paciente, result);
+		if (result.hasErrors()) {
+			return "editContact";
+		}
+		pacienteManager.savePaciente(paciente);
+		status.setComplete();
+		return "redirect:endo";
+	}
+
+	@RequestMapping("/deletePaciente")
+	public ModelAndView delete(@RequestParam("id") String id) {
+		ModelAndView mav = new ModelAndView("redirect:endo");
+		pacienteManager.removePaciente(id);
+		return mav;
+	}
+
+    @RequestMapping(value = "/medicamentoList", method = RequestMethod.GET)
+    public ModelAndView showMedicamentos(){
+        ModelAndView mav = new ModelAndView("medicamentoList");
+        List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
+        mav.addObject("medicamentoList", medicamentos);
+        return mav;
+    }
+
+    @RequestMapping(value = "/newMedicamento", method = RequestMethod.POST)
+    public String createMedicamento(@ModelAttribute("newMedicamento") Medicamento medicamento,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(medicamento, result);
+        if (result.hasErrors()) {
+            return "newMedicamento";
+        }
+        medicamentoManager.saveMedicamento(medicamento);
+        status.setComplete();
+        return "redirect:medicamentoList";
+    }
+
+    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.GET)
+    public ModelAndView adminMedic(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminMedicamento");
+        Medicamento medicamento = medicamentoManager.getMedicamento(id);
+        mav.addObject("adminMedicamento", medicamento);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.POST)
+    public String updateMedic(@ModelAttribute("adminMedicamento") Medicamento medicamento,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(medicamento, result);
+        if (result.hasErrors()) {
+            return "adminMedicamento";
+        }
+        medicamentoManager.saveMedicamento(medicamento);
+        status.setComplete();
+        return "redirect:medicamentoList";
+    }
+
+    @RequestMapping(value = "/especialistaList", method = RequestMethod.GET)
+    public ModelAndView showEspecialistas(){
+        ModelAndView mav = new ModelAndView("especialistaList");
+        List<Especialista> especialistas = especialistaManager.getEspecialistas();
+        mav.addObject("especialistaList", especialistas);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.GET)
+    public ModelAndView adminEspec(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminEspecialista");
+        Especialista especialista = especialistaManager.getEspecialista(id);
+        mav.addObject("adminEspecialista", especialista);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.POST)
+    public String updateEspec(@ModelAttribute("adminEspecialista") Especialista especialista,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(especialista, result);
+        if (result.hasErrors()) {
+            return "adminEspecialista";
+        }
+        especialistaManager.saveEspecialista(especialista);
+        status.setComplete();
+        return "redirect:especialistaList";
+    }
+
+    @RequestMapping(value = "/newEspecialista", method = RequestMethod.POST)
+    public String create(@ModelAttribute("newEspecialista") Especialista especialista,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(especialista, result);
+        if (result.hasErrors()) {
+            return "newEspecialista";
+        }
+        especialistaManager.saveEspecialista(especialista);
+        status.setComplete();
+        return "redirect:especialistaList";
+    }
+
+    @RequestMapping(value = "/sintomaList", method = RequestMethod.GET)
+    public ModelAndView showSintomas(){
+        ModelAndView mav = new ModelAndView("sintomaList");
+        List<Sintoma> sintomas = sintomaManager.getSintomas();
+        mav.addObject("especialistaList", sintomas);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminSintoma", method = RequestMethod.GET)
+    public ModelAndView adminSint(@RequestParam("id") Long id) {
+        ModelAndView mav = new ModelAndView("adminSintoma");
+        Sintoma sintoma = sintomaManager.getSintoma(id);
+        mav.addObject("adminEspecialista", sintoma);
+        return mav;
+    }
+
+    @RequestMapping(value = "/adminSintoma", method = RequestMethod.POST)
+    public String updateSintoma(@ModelAttribute("adminSintoma") Sintoma sintoma,
+                              BindingResult result, SessionStatus status) {
+        validator.validate(sintoma, result);
+        if (result.hasErrors()) {
+            return "adminSintoma";
+        }
+        sintomaManager.saveSintoma(sintoma);
+        status.setComplete();
+        return "redirect:sintomaList";
+    }
+
+    @RequestMapping(value = "/newSintoma", method = RequestMethod.POST)
+    public String create(@ModelAttribute("newSintoma") Sintoma sintoma,
+                         BindingResult result, SessionStatus status) {
+        validator.validate(sintoma, result);
+        if (result.hasErrors()) {
+            return "newSintoma";
+        }
+        sintomaManager.saveSintoma(sintoma);
+        status.setComplete();
+        return "redirect:sintomaList";
+    }
 }

@@ -4,6 +4,7 @@
 
 
 <menu:useMenuDisplayer name="Velocity" config="navbarMenu.vm" permissions="rolesAdapter">
+<div class="contenido">
 <div class="collapse navbar-collapse" id="navbar">
 <ul class="nav navbar-nav">
     <c:if test="${empty pageContext.request.remoteUser}">
@@ -20,6 +21,7 @@
     
     <menu:displayMenu name="Paciente"/>
     <menu:displayMenu name="Ajuste"/>
+    
     
     <menu:displayMenu name="PacienteMenu"/>
     <menu:displayMenu name="Consulta"/>
@@ -45,5 +47,6 @@
     
 
 </ul>
+</div>
 </div>
 </menu:useMenuDisplayer>

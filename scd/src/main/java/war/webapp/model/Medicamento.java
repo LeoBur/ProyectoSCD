@@ -11,8 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Indexed;
+
 @Entity
 @Table(name="medicamento")
+@Indexed
 public class Medicamento implements Serializable{
 
 	/**

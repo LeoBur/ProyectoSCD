@@ -18,10 +18,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name ="endocrinologo")
+@Indexed
 public class Endocrinologo implements Serializable{
 	
 	private static final long serialVersionUID = -1274195813657855646L;

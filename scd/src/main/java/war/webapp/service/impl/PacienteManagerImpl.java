@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import war.webapp.dao.PacienteDao;
@@ -20,7 +21,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 
 	private PacienteDao pacientesDao;
 	
-	@Override
+	@Autowired
 	public void setPacientesDao(PacienteDao pacienteDao) {
 		this.dao = pacienteDao;
 		this.pacientesDao = pacienteDao;
@@ -77,6 +78,11 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	@Override
 	public List<Paciente> getPacientesByTipo(TipoDiabetes tipo) {
 		return pacientesDao.loadPacientesByTipo(tipo);
+	}
+
+	@Override
+	public List<Paciente> loadPacientesByApellido(String apellido) {
+		return pacientesDao.loadPacientesByApellido(apellido);
 	}	
 
 }

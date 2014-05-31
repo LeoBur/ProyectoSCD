@@ -13,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name ="especialista")
+@Indexed
 public class Especialista implements Serializable{
 	
 	private static final long serialVersionUID = 3657563589343488236L;
