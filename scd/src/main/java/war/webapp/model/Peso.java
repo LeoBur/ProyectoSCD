@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
@@ -27,9 +30,12 @@ public class Peso implements Serializable{
 	private DateTime fechaHora;
 	
 	private float peso;
+	private Paciente paciente;
+	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_peso")
 	public Long getId() {
 		return id;
 	}
@@ -54,6 +60,16 @@ public class Peso implements Serializable{
 
 	public void setPeso(float peso) {
 		this.peso = peso;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_paciente",nullable=false)
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 }

@@ -78,6 +78,8 @@ public class Medicion implements Serializable{
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
+	
+	@Column(name="factor_conversion")
 	public static int getConversion() {
 		return CONVERSION;
 	}
