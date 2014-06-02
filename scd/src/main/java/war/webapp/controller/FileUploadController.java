@@ -1,6 +1,6 @@
 package war.webapp.controller;
 
-import org.appfuse.Constants;
+import war.webapp.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;

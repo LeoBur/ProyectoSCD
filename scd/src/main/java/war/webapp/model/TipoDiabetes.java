@@ -15,11 +15,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.search.annotations.Indexed;
 
 @Entity
-@Table(name = "TiposDiabetes")
-@Indexed
+@Table(name = "tiposDiabetes")
 public class TipoDiabetes implements Serializable{
 
 	private static final long serialVersionUID = 2692401869897053144L;
@@ -30,7 +28,7 @@ public class TipoDiabetes implements Serializable{
 	private Set<Paciente> pacientes = new HashSet<Paciente>();
 	
 	@Id
-	@Column(name = "id_tipo_dibetes")
+	@Column(name = "id_tipo")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId_tipo() {
 		return id_tipo;

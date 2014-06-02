@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
-import org.joda.time.DateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="peso")
@@ -27,7 +27,7 @@ public class Peso implements Serializable{
 	
 	private Long id;
 	
-	private DateTime fechaHora;
+	private Date fechaHora;
 	
 	private float peso;
 	private Paciente paciente;
@@ -45,11 +45,11 @@ public class Peso implements Serializable{
 	}
 
 	@Column(name="fechaHora",nullable= false)
-	public DateTime getFechaHora() {
+	public Date getFechaHora() {
 		return fechaHora;
 	}
 
-	public void setFechaHora(DateTime fechaHora) {
+	public void setFechaHora(Date fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 

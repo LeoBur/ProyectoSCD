@@ -3,8 +3,24 @@
 
     <persistence-unit name="ApplicationEntityManager" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>org.appfuse.model.User</class>
-        <class>org.appfuse.model.Role</class>
+        <class>war.webapp.model.Role</class>
+        <class>war.webapp.model.User</class>
+        <class>war.webapp.model.Paciente</class>
+        <class>war.webapp.model.Endocrinologo</class>
+        <class>war.webapp.model.Especialista</class>
+        <class>war.webapp.model.Alimento</class>
+        <class>war.webapp.model.Comida</class>
+        <class>war.webapp.model.Provincia</class>
+        <class>war.webapp.model.Departamento</class>
+        <class>war.webapp.model.Localidad</class>
+        <class>war.webapp.model.Domicilio</class>
+        <class>war.webapp.model.Medicamento</class>
+        <class>war.webapp.model.Medicion</class>
+        <class>war.webapp.model.MomentoDia</class>
+        <class>war.webapp.model.Peso</class>
+        <class>war.webapp.model.Sintoma</class>
+        <class>war.webapp.model.TipoDiabetes</class>
+        <class>war.webapp.model.Tratamiento</class>
     </persistence-unit>
 
     <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The

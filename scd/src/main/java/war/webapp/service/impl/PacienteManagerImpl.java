@@ -21,6 +21,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 
 	private PacienteDao pacientesDao;
 	
+	@Override
 	@Autowired
 	public void setPacientesDao(PacienteDao pacienteDao) {
 		this.dao = pacienteDao;

@@ -153,7 +153,7 @@ public class Paciente implements Serializable{
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo", nullable = false)
+	@JoinColumn(name = "id_tipo")
 	public TipoDiabetes getTipo() {
 		return tipo;
 	}

@@ -14,32 +14,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
+//import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
 import war.webapp.model.*;
-import war.webapp.service.EspecialistaManager;
-import war.webapp.service.MedicamentoManager;
 import war.webapp.service.PacienteManager;
-import war.webapp.service.SintomaManager;
+//import war.webapp.service.EspecialistaManager;
+//import war.webapp.service.MedicamentoManager;
+
+//import war.webapp.service.SintomaManager;
 
 @Controller
-@RequestMapping("/endos")
 public class EndoController extends BaseFormController {
 
 	@Autowired
 	PacienteManager pacienteManager;
 
-    @Autowired
-    MedicamentoManager medicamentoManager;
-
-    @Autowired
-    EspecialistaManager especialistaManager;
-
-    @Autowired
-    SintomaManager sintomaManager;
+//    @Autowired
+//    MedicamentoManager medicamentoManager;
+//
+//    @Autowired
+//    EspecialistaManager especialistaManager;
+//
+//    @Autowired
+//    SintomaManager sintomaManager;
 
 	public EndoController() {
 		setCancelView("redirect:/home");
@@ -73,13 +73,13 @@ public class EndoController extends BaseFormController {
 	}
 
 	@ModelAttribute
-	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "endos/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "endos/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 
@@ -98,7 +98,7 @@ public class EndoController extends BaseFormController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
 	public String create(@ModelAttribute("newPaciente") Paciente paciente,
 			BindingResult result, SessionStatus status) {
 		validator.validate(paciente, result);
@@ -255,5 +255,5 @@ public class EndoController extends BaseFormController {
         sintomaManager.saveSintoma(sintoma);
         status.setComplete();
         return "redirect:sintomaList";
-    }
+    }*/
 }

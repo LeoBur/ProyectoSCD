@@ -9,7 +9,7 @@
     <context:annotation-config/>
 
     <!-- Activates scanning of @Repository and @Service -->
-    <context:component-scan base-package="com.bcpv"/>
+    <context:component-scan base-package="war.webapp"/>
 
     <!-- Add new DAOs here -->
     <bean id="medicionDao" class="war.webapp.dao.hibernate.MedicionDaoHibernate" />
@@ -21,6 +21,7 @@
     <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
     
     <bean id="provinciaDao" class="war.webapp.dao.hibernate.ProvinciaDaoHibernate"/>
+    <bean id="departamentoDao" class="war.webapp.dao.hibernate.DepartamentoDaoHibernate"/>
     <bean id="localidadDao" class="war.webapp.dao.hibernate.LocalidadDaoHibernate"/>
     <bean id="sintomaDao" class="war.webapp.dao.hibernate.SintomaDaoHibernate"/>
     
@@ -61,6 +62,9 @@
     
     <bean id="provinciaManager" class="war.webapp.service.impl.ProvinciaManagerImpl">
    		<property name="provinciaDao" ref="provinciaDao"/>
+    </bean>
+     <bean id="departamentoManager" class="war.webapp.service.impl.DepartamentoManagerImpl">
+   		<property name="departamentoDao" ref="departamentoDao"/>
     </bean>
     <bean id="localidadManager" class="war.webapp.service.impl.LocalidadManagerImpl">
    		<property name="localidadDao" ref="localidadDao"/>

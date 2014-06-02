@@ -1,15 +1,18 @@
 package war.webapp.controller;
 
-import org.appfuse.Constants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
-import org.appfuse.service.UserManager;
-
-import static org.junit.Assert.*;
+import war.webapp.Constants;
+import war.webapp.service.UserManager;
 
 public class UserControllerTest extends BaseControllerTestCase {
     @Autowired

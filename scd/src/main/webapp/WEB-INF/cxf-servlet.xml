@@ -23,6 +23,7 @@
     <jaxws:endpoint id="especialistaService" implementor="#especialistaManager" address="/EspecialistaService"/>
     
     <jaxws:endpoint id="provinciaService" implementor="#provinciaManager" address="/ProvinciaService"/>
+    <jaxws:endpoint id="departamentoService" implementor="#departamentoManager" address="/DepartamentoService"/>
     <jaxws:endpoint id="localidadService" implementor="#localidadManager" address="/LocalidadService"/>
     
     <jaxws:endpoint id="sintomaService" implementor="#sintomaManager" address="/SintomaService"/>
@@ -53,6 +54,7 @@
             <ref bean="especialistaManager"/>
             
             <ref bean="provinciaManager"/>
+            <ref bean="departamentoManager"/>
             <ref bean="localidadManager"/>
             <ref bean="sintomaManager"/>
             

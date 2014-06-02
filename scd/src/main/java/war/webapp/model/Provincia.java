@@ -28,6 +28,7 @@ public class Provincia implements Serializable {
 	
 	private int id;
 	private String nombre;
+	private Set<Departamento> departamentos = new HashSet<Departamento>();
 	private Set<Localidad> localidades = new HashSet<Localidad>();
 
 	public Provincia() {
@@ -50,6 +51,16 @@ public class Provincia implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Departamento> getDepartamentos() {
+		return this.departamentos;
+	}
+
+	public void setDepartamentos(Set<Departamento> departamentos) {
+		this.departamentos = departamentos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)

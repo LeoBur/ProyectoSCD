@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.appfuse.dao.hibernate.GenericDaoHibernate;
+import war.webapp.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

@@ -30,6 +30,7 @@ public class Localidad implements Serializable {
 	private static final long serialVersionUID = 15876869834L;
 	
 	private int id;
+	private Departamento departamento;
 	private Provincia provincia;
 	private String nombre;
 	private Set<Domicilio> domicilios = new HashSet<Domicilio>();
@@ -37,20 +38,32 @@ public class Localidad implements Serializable {
 	public Localidad() {
 	}
 
-	public Localidad(int id, Provincia provincia, String nombre) {
+	public Localidad(int id, Departamento departamento,
+			Provincia provincia, String nombre) {
 		this.id = id;
+		this.departamento = departamento;
 		this.provincia = provincia;
 		this.nombre = nombre;
 	}
 
 	@Id
-	@Column(name = "id_localidad", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_departamento", nullable = false)
+	public Departamento getDepartamento() {
+		return this.departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

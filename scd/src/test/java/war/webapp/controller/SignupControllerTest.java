@@ -1,8 +1,11 @@
 package war.webapp.controller;
 
-import org.appfuse.Constants;
-import org.appfuse.model.Address;
-import org.appfuse.model.User;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -12,9 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.subethamail.wiser.Wiser;
 
-import javax.servlet.http.HttpServletResponse;
-
-import static org.junit.Assert.*;
+import war.webapp.Constants;
+import war.webapp.model.Address;
+import war.webapp.model.User;
 
 public class SignupControllerTest extends BaseControllerTestCase {
     @Autowired

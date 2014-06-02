@@ -1,8 +1,11 @@
 package war.webapp.controller;
 
-import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -11,7 +14,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 
-import static org.junit.Assert.*;
+import war.webapp.Constants;
+import war.webapp.model.User;
+import war.webapp.service.UserManager;
 
 public class UserFormControllerTest extends BaseControllerTestCase {
     @Autowired

@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.search.annotations.Indexed;
-import org.joda.time.DateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="tratamiento")
@@ -28,7 +28,7 @@ public class Tratamiento implements Serializable{
 	private static final long serialVersionUID = 3047536263144125853L;
 	
 	private Long idTratamiento;
-	private DateTime fechaTratamiento;
+	private Date fechaTratamiento;
 	private Paciente paciente;
 	private Endocrinologo endocrinologo;
 	private Hashtable<Medicamento, String> prescripciones;
@@ -43,10 +43,10 @@ public class Tratamiento implements Serializable{
 	}
 	
 	@Column(name="fecha_tratamiento", nullable= false)
-	public DateTime getFechaTratamiento() {
+	public Date getFechaTratamiento() {
 		return fechaTratamiento;
 	}
-	public void setFechaTratamiento(DateTime fechaTratamiento) {
+	public void setFechaTratamiento(Date fechaTratamiento) {
 		this.fechaTratamiento = fechaTratamiento;
 	}
 	

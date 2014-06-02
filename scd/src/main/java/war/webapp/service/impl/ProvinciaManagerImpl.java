@@ -3,13 +3,18 @@ package war.webapp.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+
+import org.springframework.stereotype.Service;
 
 import war.webapp.dao.ProvinciaDao;
 import war.webapp.model.Provincia;
 import war.webapp.service.ProvinciaManager;
 import war.webapp.service.ProvinciaService;
 
+@Service("provinciaManager")
+@WebService(serviceName = "ProvinciaService", endpointInterface = "war.webapp.service.ProvinciaService")
 public class ProvinciaManagerImpl extends GenericManagerImpl<Provincia, Long> implements ProvinciaService, ProvinciaManager{
 	
 	private ProvinciaDao provinciaDao;

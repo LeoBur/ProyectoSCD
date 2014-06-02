@@ -1,10 +1,5 @@
 package war.webapp.taglib;
 
-import org.appfuse.model.LabelValue;
-import org.displaytag.tags.el.ExpressionEvaluator;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -13,6 +8,13 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import org.displaytag.tags.el.ExpressionEvaluator;
+
+import war.webapp.model.LabelValue;
 
 /**
  * Tag for creating multiple &lt;select&gt; options for displaying a list of

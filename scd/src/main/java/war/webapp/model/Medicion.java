@@ -1,6 +1,7 @@
 package war.webapp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,6 @@ import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
@@ -27,7 +27,7 @@ public class Medicion implements Serializable{
 	private Long id_medicion;
 	private String unidad;
 	private int valor;
-	private DateTime f_medicion;
+	private Date f_medicion;
 	private Paciente paciente;
 	private static final int CONVERSION=18;
 	
@@ -61,11 +61,11 @@ public class Medicion implements Serializable{
 	}
 	
 	@Column(name = "fecha_medicion", nullable = false)
-	public DateTime getF_medicion() {
+	public Date getF_medicion() {
 		return f_medicion;
 	}
 	
-	public void setF_medicion(DateTime f_medicion) {
+	public void setF_medicion(Date f_medicion) {
 		this.f_medicion = f_medicion;
 	}
 

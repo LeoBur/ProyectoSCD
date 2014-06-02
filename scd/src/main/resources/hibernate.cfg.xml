@@ -6,12 +6,13 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="org.appfuse.model.User"/>
-        <mapping class="org.appfuse.model.Role"/>
+        <mapping class="war.webapp.model.User"/>
+        <mapping class="war.webapp.model.Role"/>
         <mapping class="war.webapp.model.Medicion"/>
         <mapping class="war.webapp.model.Alimento"/>
         <mapping class="war.webapp.model.Sintoma"/>
         <mapping class="war.webapp.model.Provincia"/>
+        <mapping class="war.webapp.model.Departamento"/>
         <mapping class="war.webapp.model.Localidad"/>
         <mapping class="war.webapp.model.Endocrinologo"/>
         <mapping class="war.webapp.model.Especialista"/>

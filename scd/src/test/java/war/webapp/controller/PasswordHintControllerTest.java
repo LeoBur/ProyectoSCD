@@ -1,11 +1,12 @@
 package war.webapp.controller;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.subethamail.wiser.Wiser;
-
-import static org.junit.Assert.*;
 
 public class PasswordHintControllerTest extends BaseControllerTestCase {
     @Autowired
