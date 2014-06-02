@@ -27,6 +27,7 @@ import war.webapp.service.PacienteManager;
 //import war.webapp.service.SintomaManager;
 
 @Controller
+@RequestMapping("/endos*")
 public class EndoController extends BaseFormController {
 
 	@Autowired
@@ -73,13 +74,13 @@ public class EndoController extends BaseFormController {
 	}
 
 	@ModelAttribute
-	@RequestMapping(value = "endos/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "endos/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 
