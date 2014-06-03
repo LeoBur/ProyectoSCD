@@ -6,25 +6,25 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="war.webapp.model.User"/>
-        <mapping class="war.webapp.model.Role"/>
-        <mapping class="war.webapp.model.Medicion"/>
-        <mapping class="war.webapp.model.Alimento"/>
-        <mapping class="war.webapp.model.Sintoma"/>
-        <mapping class="war.webapp.model.Provincia"/>
-        <mapping class="war.webapp.model.Departamento"/>
-        <mapping class="war.webapp.model.Localidad"/>
-        <mapping class="war.webapp.model.Endocrinologo"/>
-        <mapping class="war.webapp.model.Especialista"/>
-        <mapping class="war.webapp.model.TipoDiabetes"/>
-        <mapping class="war.webapp.model.Medicamento"/>
-        <mapping class="war.webapp.model.Paciente"/>
-        <mapping class="war.webapp.model.Domicilio"/>
-        <mapping class="war.webapp.model.Peso"/>
-        <mapping class="war.webapp.model.Tratamiento"/>
-        <mapping class="war.webapp.model.Comida"/>
-        <mapping class="war.webapp.model.MomentoDia"/>
-        <mapping class="war.webapp.model.DiaDieta"/>
-        <mapping class="war.webapp.model.Dieta"/>
+        <mapping class="com.bcpv.model.User"/>
+        <mapping class="com.bcpv.model.Role"/>
+        <mapping class="com.bcpv.model.Medicion"/>
+        <mapping class="com.bcpv.model.Alimento"/>
+        <mapping class="com.bcpv.model.Sintoma"/>
+        <mapping class="com.bcpv.model.Provincia"/>
+        <mapping class="com.bcpv.model.Departamento"/>
+        <mapping class="com.bcpv.model.Localidad"/>
+        <mapping class="com.bcpv.model.Endocrinologo"/>
+        <mapping class="com.bcpv.model.Especialista"/>
+        <mapping class="com.bcpv.model.TipoDiabetes"/>
+        <mapping class="com.bcpv.model.Medicamento"/>
+        <mapping class="com.bcpv.model.Paciente"/>
+        <mapping class="com.bcpv.model.Domicilio"/>
+        <mapping class="com.bcpv.model.Peso"/>
+        <mapping class="com.bcpv.model.Tratamiento"/>
+        <mapping class="com.bcpv.model.Comida"/>
+        <mapping class="com.bcpv.model.MomentoDia"/>
+        <mapping class="com.bcpv.model.DiaDieta"/>
+        <mapping class="com.bcpv.model.Dieta"/>
     </session-factory>
 </hibernate-configuration>

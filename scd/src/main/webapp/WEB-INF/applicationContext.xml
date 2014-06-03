@@ -9,92 +9,92 @@
     <context:annotation-config/>
 
     <!-- Activates scanning of @Repository and @Service -->
-    <context:component-scan base-package="war.webapp"/>
+    <context:component-scan base-package="com.bcpv"/>
 
     <!-- Add new DAOs here -->
-    <bean id="medicionDao" class="war.webapp.dao.hibernate.MedicionDaoHibernate" />
-    <bean id="tipoDiabetesDao" class="war.webapp.dao.hibernate.TipoDiabetesDaoHibernate"/>
-    <bean id="alimentoDao" class="war.webapp.dao.hibernate.AlimentoDaoHibernate"/>
+    <bean id="medicionDao" class="com.bcpv.dao.hibernate.MedicionDaoHibernate" />
+    <bean id="tipoDiabetesDao" class="com.bcpv.dao.hibernate.TipoDiabetesDaoHibernate"/>
+    <bean id="alimentoDao" class="com.bcpv.dao.hibernate.AlimentoDaoHibernate"/>
     
-    <bean id="pacienteDao" class="war.webapp.dao.hibernate.PacienteDaoHibernate"/>
-    <bean id="endocrinologoDao" class="war.webapp.dao.hibernate.EndocrinologoDaoHibernate"/>
-    <bean id="especialistaDao" class="war.webapp.dao.hibernate.EspecialistaDaoHibernate"/>
+    <bean id="pacienteDao" class="com.bcpv.dao.hibernate.PacienteDaoHibernate"/>
+    <bean id="endocrinologoDao" class="com.bcpv.dao.hibernate.EndocrinologoDaoHibernate"/>
+    <bean id="especialistaDao" class="com.bcpv.dao.hibernate.EspecialistaDaoHibernate"/>
     
-    <bean id="provinciaDao" class="war.webapp.dao.hibernate.ProvinciaDaoHibernate"/>
-    <bean id="departamentoDao" class="war.webapp.dao.hibernate.DepartamentoDaoHibernate"/>
-    <bean id="localidadDao" class="war.webapp.dao.hibernate.LocalidadDaoHibernate"/>
-    <bean id="sintomaDao" class="war.webapp.dao.hibernate.SintomaDaoHibernate"/>
+    <bean id="provinciaDao" class="com.bcpv.dao.hibernate.ProvinciaDaoHibernate"/>
+    <bean id="departamentoDao" class="com.bcpv.dao.hibernate.DepartamentoDaoHibernate"/>
+    <bean id="localidadDao" class="com.bcpv.dao.hibernate.LocalidadDaoHibernate"/>
+    <bean id="sintomaDao" class="com.bcpv.dao.hibernate.SintomaDaoHibernate"/>
     
-    <bean id="medicamentoDao" class="war.webapp.dao.hibernate.MedicamentoDaoHibernate"/>
-    <bean id="domicilioDao" class="war.webapp.dao.hibernate.DomicilioDaoHibernate"/>
+    <bean id="medicamentoDao" class="com.bcpv.dao.hibernate.MedicamentoDaoHibernate"/>
+    <bean id="domicilioDao" class="com.bcpv.dao.hibernate.DomicilioDaoHibernate"/>
     
-    <bean id="pesoDao" class="war.webapp.dao.hibernate.PesoDaoHibernate"/>
+    <bean id="pesoDao" class="com.bcpv.dao.hibernate.PesoDaoHibernate"/>
     
-    <bean id="tratamientoDao" class="war.webapp.dao.hibernate.TratamientoDaoHibernate"/>
-    <bean id="comidaDao" class="war.webapp.dao.hibernate.ComidaDaoHibernate"/>
-    <bean id="momentoDiaDao" class="war.webapp.dao.hibernate.MomentoDiaDaoHibernate"/>
-    <bean id="diaDietaDao" class="war.webapp.dao.hibernate.DiaDietaDaoHibernate"/>
-    <bean id="dietaDao" class="war.webapp.dao.hibernate.DietaDaoHibernate"/>
+    <bean id="tratamientoDao" class="com.bcpv.dao.hibernate.TratamientoDaoHibernate"/>
+    <bean id="comidaDao" class="com.bcpv.dao.hibernate.ComidaDaoHibernate"/>
+    <bean id="momentoDiaDao" class="com.bcpv.dao.hibernate.MomentoDiaDaoHibernate"/>
+    <bean id="diaDietaDao" class="com.bcpv.dao.hibernate.DiaDietaDaoHibernate"/>
+    <bean id="dietaDao" class="com.bcpv.dao.hibernate.DietaDaoHibernate"/>
     
     <!-- Add new Managers here -->
-    <bean id="medicionManager" class="war.webapp.service.impl.MedicionManagerImpl">
+    <bean id="medicionManager" class="com.bcpv.service.impl.MedicionManagerImpl">
     	<property name="medicionDao" ref="medicionDao"/>
     </bean>
-    <bean id="tipoDiabetesManager" class="war.webapp.service.impl.TipoDiabetesManagerImpl">
+    <bean id="tipoDiabetesManager" class="com.bcpv.service.impl.TipoDiabetesManagerImpl">
     	<property name="tipoDiabetesDao" ref="tipoDiabetesDao"/>
     </bean>
-    <bean id="alimentoManager" class="war.webapp.service.impl.AlimentoManagerImpl">
+    <bean id="alimentoManager" class="com.bcpv.service.impl.AlimentoManagerImpl">
         <property name="alimentoDao" ref = "alimentoDao"/>
     </bean>
     
-    <bean id="pacienteManager" class="war.webapp.service.impl.PacienteManagerImpl">
+    <bean id="pacienteManager" class="com.bcpv.service.impl.PacienteManagerImpl">
    		<property name="pacientesDao" ref="pacienteDao"/>
     </bean>
-    <bean id="especialistaManager" class="war.webapp.service.impl.EspecialistaManagerImpl">
+    <bean id="especialistaManager" class="com.bcpv.service.impl.EspecialistaManagerImpl">
     	<property name="especialistaDao" ref="especialistaDao"/>
     </bean>
-    <bean id="endocrinologoManager" class="war.webapp.service.impl.EndocrinologoManagerImpl">
+    <bean id="endocrinologoManager" class="com.bcpv.service.impl.EndocrinologoManagerImpl">
     	<property name="endocrinologoDao" ref="endocrinologoDao"/>
     </bean>
-    <bean id="sintomaManager" class="war.webapp.service.impl.SintomaManagerImpl">
+    <bean id="sintomaManager" class="com.bcpv.service.impl.SintomaManagerImpl">
         <property name="sintomaDao" ref="sintomaDao"/>
     </bean>
     
-    <bean id="provinciaManager" class="war.webapp.service.impl.ProvinciaManagerImpl">
+    <bean id="provinciaManager" class="com.bcpv.service.impl.ProvinciaManagerImpl">
    		<property name="provinciaDao" ref="provinciaDao"/>
     </bean>
-     <bean id="departamentoManager" class="war.webapp.service.impl.DepartamentoManagerImpl">
+     <bean id="departamentoManager" class="com.bcpv.service.impl.DepartamentoManagerImpl">
    		<property name="departamentoDao" ref="departamentoDao"/>
     </bean>
-    <bean id="localidadManager" class="war.webapp.service.impl.LocalidadManagerImpl">
+    <bean id="localidadManager" class="com.bcpv.service.impl.LocalidadManagerImpl">
    		<property name="localidadDao" ref="localidadDao"/>
     </bean>
     
-    <bean id="medicamentoManager" class="war.webapp.service.impl.MedicamentoManagerImpl">
+    <bean id="medicamentoManager" class="com.bcpv.service.impl.MedicamentoManagerImpl">
         <property name="medicamentoDao" ref="medicamentoDao"/>
     </bean>
     
-    <bean id="domicilioManager" class="war.webapp.service.impl.DomicilioManagerImpl">
+    <bean id="domicilioManager" class="com.bcpv.service.impl.DomicilioManagerImpl">
         <property name="domicilioDao" ref= "domicilioDao"/>
     </bean>
-    <bean id="pesoManager" class="war.webapp.service.impl.PesoManagerImpl">
+    <bean id="pesoManager" class="com.bcpv.service.impl.PesoManagerImpl">
         <property name="pesoDao" ref="pesoDao"/>
     </bean>
-    <bean id="tratamientoManager" class="war.webapp.service.impl.TratamientoManagerImpl">
+    <bean id="tratamientoManager" class="com.bcpv.service.impl.TratamientoManagerImpl">
         <property name="tratamientoDao" ref="tratamientoDao"/>
     </bean>
-    <bean id="comidaManager" class="war.webapp.service.impl.ComidaManagerImpl">
+    <bean id="comidaManager" class="com.bcpv.service.impl.ComidaManagerImpl">
         <property name="comidaDao" ref="comidaDao"/>
     </bean>
-    <bean id="momentoDiaManager" class="war.webapp.service.impl.MomentoDiaManagerImpl">
+    <bean id="momentoDiaManager" class="com.bcpv.service.impl.MomentoDiaManagerImpl">
         <property name="momentoDiaDao" ref="momentoDiaDao"/>
     </bean>
-    <bean id="diaDietaManager" class="war.webapp.service.impl.DiaDietaManagerImpl">
+    <bean id="diaDietaManager" class="com.bcpv.service.impl.DiaDietaManagerImpl">
         <property name="diaDietaDao" ref= "diaDietaDao"/>
     </bean>
-    <bean id="dietaManager" class="war.webapp.service.impl.DietaManagerImpl">
+    <bean id="dietaManager" class="com.bcpv.service.impl.DietaManagerImpl">
         <property name="dietaDao" ref="dietaDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
-	<!-- <bean id="passwordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
+	<!-- <bean id="passwordTokenManager" class="com.bcpv.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
 </beans>

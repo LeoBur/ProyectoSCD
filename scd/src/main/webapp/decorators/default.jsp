@@ -11,28 +11,25 @@
     <t:assets/>
     <decorator:head/>
 </head>
-<div id="contenido">
-
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation" >
-        <div class="navbar-header" >
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <%-- <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/>Home</a> --%>
-            <%-- <a class="navbar-brand" href="<c:url value='/'/>">Home</a> --%>
+            <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
         </div>
 
-        <%@ include file="/common/menu.jsp" %><%-- Acá comienza la preparación del menú --%>
-        <%-- <c:if test="${pageContext.request.locale.language ne 'en'}">
+        <%@ include file="/common/menu.jsp" %>
+        <c:if test="${pageContext.request.locale.language != 'en'}">
             <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                 <fmt:message key="webapp.name"/> in English</a>
             </div>
-        </c:if> --%>
+        </c:if>
     </div>
 
     <div class="container" id="content">
@@ -40,15 +37,15 @@
         <div class="row">
             <decorator:body/>
 
-            <%--<c:if test="${currentMenu == 'AdminMenu'}">
+            <c:if test="${currentMenu == 'AdminMenu'}">
                 <div class="col-sm-2">
                 <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
                     <menu:displayMenu name="AdminMenu"/>
                 </menu:useMenuDisplayer>
                 </div>
-            </c:if> --%>
+            </c:if>
         </div>
-    </div><%-- Aca esta la papa del container --%>
+    </div>
 
     <div id="footer" class="container navbar-fixed-bottom">
         <span class="col-sm-6 text-left"><fmt:message key="webapp.version"/>
@@ -62,7 +59,4 @@
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
 </body>
-
-</div>
-
 </html>
