@@ -19,12 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
-<<<<<<< HEAD
-import war.webapp.model.*;
-=======
 import war.webapp.model.Paciente;
 import war.webapp.model.Tag;
->>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 import war.webapp.service.PacienteManager;
 //import war.webapp.service.EspecialistaManager;
 //import war.webapp.service.MedicamentoManager;
@@ -32,27 +28,11 @@ import war.webapp.service.PacienteManager;
 //import war.webapp.service.SintomaManager;
 
 @Controller
-<<<<<<< HEAD
-@RequestMapping("/endos*")
-=======
->>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 public class EndoController extends BaseFormController {
 
 	@Autowired
 	PacienteManager pacienteManager;
 
-<<<<<<< HEAD
-//    @Autowired
-//    MedicamentoManager medicamentoManager;
-//
-//    @Autowired
-//    EspecialistaManager especialistaManager;
-//
-//    @Autowired
-//    SintomaManager sintomaManager;
-
-=======
->>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 	public EndoController() {
 		setCancelView("redirect:/home");
 		setSuccessView("endo");
@@ -109,166 +89,4 @@ public class EndoController extends BaseFormController {
 		mv.addObject(Constants.PACIENTE_LIST, pacientes);
 		return mv;
 	}
-
-	/*@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
-	public String create(@ModelAttribute("newPaciente") Paciente paciente,
-			BindingResult result, SessionStatus status) {
-		validator.validate(paciente, result);
-		if (result.hasErrors()) {
-			return "newPaciente";
-		}
-		pacienteManager.savePaciente(paciente);
-		status.setComplete();
-		return "redirect:endo";
-	}
-
-	@RequestMapping(value = "/editPaciente", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam("id") Long id) {
-		ModelAndView mav = new ModelAndView("editPaciente");
-		Paciente paciente = pacienteManager.getPaciente(id);
-		mav.addObject("editContact", paciente);
-		return mav;
-	}
-
-	@RequestMapping(value = "/editPaciente", method = RequestMethod.POST)
-	public String update(@ModelAttribute("editPaciente") Paciente paciente,
-			BindingResult result, SessionStatus status) {
-		validator.validate(paciente, result);
-		if (result.hasErrors()) {
-			return "editContact";
-		}
-		pacienteManager.savePaciente(paciente);
-		status.setComplete();
-		return "redirect:endo";
-	}
-
-	@RequestMapping("/deletePaciente")
-	public ModelAndView delete(@RequestParam("id") String id) {
-		ModelAndView mav = new ModelAndView("redirect:endo");
-		pacienteManager.removePaciente(id);
-		return mav;
-	}
-<<<<<<< HEAD
-
-    @RequestMapping(value = "/medicamentoList", method = RequestMethod.GET)
-    public ModelAndView showMedicamentos(){
-        ModelAndView mav = new ModelAndView("medicamentoList");
-        List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
-        mav.addObject("medicamentoList", medicamentos);
-        return mav;
-    }
-
-    @RequestMapping(value = "/newMedicamento", method = RequestMethod.POST)
-    public String createMedicamento(@ModelAttribute("newMedicamento") Medicamento medicamento,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(medicamento, result);
-        if (result.hasErrors()) {
-            return "newMedicamento";
-        }
-        medicamentoManager.saveMedicamento(medicamento);
-        status.setComplete();
-        return "redirect:medicamentoList";
-    }
-
-    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.GET)
-    public ModelAndView adminMedic(@RequestParam("id") Long id) {
-        ModelAndView mav = new ModelAndView("adminMedicamento");
-        Medicamento medicamento = medicamentoManager.getMedicamento(id);
-        mav.addObject("adminMedicamento", medicamento);
-        return mav;
-    }
-
-    @RequestMapping(value = "/adminMedicamento", method = RequestMethod.POST)
-    public String updateMedic(@ModelAttribute("adminMedicamento") Medicamento medicamento,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(medicamento, result);
-        if (result.hasErrors()) {
-            return "adminMedicamento";
-        }
-        medicamentoManager.saveMedicamento(medicamento);
-        status.setComplete();
-        return "redirect:medicamentoList";
-    }
-
-    @RequestMapping(value = "/especialistaList", method = RequestMethod.GET)
-    public ModelAndView showEspecialistas(){
-        ModelAndView mav = new ModelAndView("especialistaList");
-        List<Especialista> especialistas = especialistaManager.getEspecialistas();
-        mav.addObject("especialistaList", especialistas);
-        return mav;
-    }
-
-    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.GET)
-    public ModelAndView adminEspec(@RequestParam("id") Long id) {
-        ModelAndView mav = new ModelAndView("adminEspecialista");
-        Especialista especialista = especialistaManager.getEspecialista(id);
-        mav.addObject("adminEspecialista", especialista);
-        return mav;
-    }
-
-    @RequestMapping(value = "/adminEspecialista", method = RequestMethod.POST)
-    public String updateEspec(@ModelAttribute("adminEspecialista") Especialista especialista,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(especialista, result);
-        if (result.hasErrors()) {
-            return "adminEspecialista";
-        }
-        especialistaManager.saveEspecialista(especialista);
-        status.setComplete();
-        return "redirect:especialistaList";
-    }
-
-    @RequestMapping(value = "/newEspecialista", method = RequestMethod.POST)
-    public String create(@ModelAttribute("newEspecialista") Especialista especialista,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(especialista, result);
-        if (result.hasErrors()) {
-            return "newEspecialista";
-        }
-        especialistaManager.saveEspecialista(especialista);
-        status.setComplete();
-        return "redirect:especialistaList";
-    }
-
-    @RequestMapping(value = "/sintomaList", method = RequestMethod.GET)
-    public ModelAndView showSintomas(){
-        ModelAndView mav = new ModelAndView("sintomaList");
-        List<Sintoma> sintomas = sintomaManager.getSintomas();
-        mav.addObject("especialistaList", sintomas);
-        return mav;
-    }
-
-    @RequestMapping(value = "/adminSintoma", method = RequestMethod.GET)
-    public ModelAndView adminSint(@RequestParam("id") Long id) {
-        ModelAndView mav = new ModelAndView("adminSintoma");
-        Sintoma sintoma = sintomaManager.getSintoma(id);
-        mav.addObject("adminEspecialista", sintoma);
-        return mav;
-    }
-
-    @RequestMapping(value = "/adminSintoma", method = RequestMethod.POST)
-    public String updateSintoma(@ModelAttribute("adminSintoma") Sintoma sintoma,
-                              BindingResult result, SessionStatus status) {
-        validator.validate(sintoma, result);
-        if (result.hasErrors()) {
-            return "adminSintoma";
-        }
-        sintomaManager.saveSintoma(sintoma);
-        status.setComplete();
-        return "redirect:sintomaList";
-    }
-
-    @RequestMapping(value = "/newSintoma", method = RequestMethod.POST)
-    public String create(@ModelAttribute("newSintoma") Sintoma sintoma,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(sintoma, result);
-        if (result.hasErrors()) {
-            return "newSintoma";
-        }
-        sintomaManager.saveSintoma(sintoma);
-        status.setComplete();
-        return "redirect:sintomaList";
-    }*/
-=======
->>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 }
