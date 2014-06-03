@@ -19,7 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import war.webapp.Constants;
 import war.webapp.controller.forms.EndoSearch;
+<<<<<<< HEAD
 import war.webapp.model.*;
+=======
+import war.webapp.model.Paciente;
+import war.webapp.model.Tag;
+>>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 import war.webapp.service.PacienteManager;
 //import war.webapp.service.EspecialistaManager;
 //import war.webapp.service.MedicamentoManager;
@@ -27,12 +32,16 @@ import war.webapp.service.PacienteManager;
 //import war.webapp.service.SintomaManager;
 
 @Controller
+<<<<<<< HEAD
 @RequestMapping("/endos*")
+=======
+>>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 public class EndoController extends BaseFormController {
 
 	@Autowired
 	PacienteManager pacienteManager;
 
+<<<<<<< HEAD
 //    @Autowired
 //    MedicamentoManager medicamentoManager;
 //
@@ -42,6 +51,8 @@ public class EndoController extends BaseFormController {
 //    @Autowired
 //    SintomaManager sintomaManager;
 
+=======
+>>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 	public EndoController() {
 		setCancelView("redirect:/home");
 		setSuccessView("endo");
@@ -74,17 +85,17 @@ public class EndoController extends BaseFormController {
 	}
 
 	@ModelAttribute
-	@RequestMapping(value = "/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 
-		ModelAndView mv = new ModelAndView("endo");
+		ModelAndView mv = new ModelAndView("endo/endo");
 
 		if (validator != null) { // validator is null during testing
 			validator.validate(endoSearch, errors);
@@ -137,6 +148,7 @@ public class EndoController extends BaseFormController {
 		pacienteManager.removePaciente(id);
 		return mav;
 	}
+<<<<<<< HEAD
 
     @RequestMapping(value = "/medicamentoList", method = RequestMethod.GET)
     public ModelAndView showMedicamentos(){
@@ -257,4 +269,6 @@ public class EndoController extends BaseFormController {
         status.setComplete();
         return "redirect:sintomaList";
     }*/
+=======
+>>>>>>> parent of 582f81f... Leo - Agrego los metodos para adminMedicametos
 }
