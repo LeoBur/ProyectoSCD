@@ -21,7 +21,7 @@
         </Menu>
         
         <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ADMIN" description="Ajustes del Sistema">
-        	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/adminMedicamento"/>       	
+        	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>       	
        	 	<Item name="AdminSymptom" title="user.symptom.admin" page="/endos/adminSintoma"/>
         	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
         	<Item name="AdminEspecialist" title="user.especialist.admin" page="/endos/adminEspecialista"/>

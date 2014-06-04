@@ -1,5 +1,5 @@
-<%@ include file="/common/taglibs.jsp"%>
-<%--
+<%-- <%@ include file="/common/taglibs.jsp"%>
+
 <head>
     <title><fmt:message key="userProfile.title"/></title>
     <meta name="menu" content="UserMenu"/>
@@ -20,9 +20,9 @@
             <p><fmt:message key="userProfile.message"/></p>
         </c:otherwise>
     </c:choose>
-</div>--%>
-<%-- Acá comienzan los formularios --%>
-<%--
+</div>
+Acá comienzan los formularios
+
 <div class="col-sm-7">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
@@ -201,46 +201,222 @@ function onFormSubmit(theForm) {
 
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
-
  --%>
  
- <!doctype html>
-<html lang="en">
+ <%@ include file="/common/taglibs.jsp"%>
+<%@page import ="java.util.*" %>
+<%@page import ="java.text.SimpleDateFormat" %>
+<%
+	Date dnow = new Date();
+	SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
+	String currentDate = ft.format(dnow);
+	
+%>
 <head>
-  <meta charset="utf-8">
-  <title>jQuery UI Tabs - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <title><fmt:message key="userPaciente.title"/></title>
+    <meta name="menu" content="UserMenu"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-    $( "#tabs" ).tabs();
+    $( "#datepicker" ).datepicker();
   });
   </script>
 </head>
 <body>
- 
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Nunc tincidunt</a></li>
-    <li><a href="#tabs-2">Proin dolor</a></li>
-    <li><a href="#tabs-3">Aenean lacinia</a></li>
-  </ul>
-  <div id="tabs-1">
-    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-  </div>
-  <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-  </div>
-  <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-  </div>
+
+
+<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
+</script>
+
+<div class="col-sm-2">
+    <h2><fmt:message key="userEspecialista.heading"/></h2>
+    <c:choose>
+        <c:when test="${param.from == 'list'}">
+            <p><fmt:message key="userProfile.admin.message"/></p>
+        </c:when>
+        <c:otherwise>
+            <p><fmt:message key="userProfile.message"/></p>
+        </c:otherwise>
+    </c:choose>
 </div>
- 
- 
+
+
+<div class="col-sm-7">
+    <spring:bind path="user.*">
+        <c:if test="${not empty status.errorMessages}">
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" data-dismiss="alert" class="close">&times;</a>
+                <c:forEach var="error" items="${status.errorMessages}">
+                    <c:out value="${error}" escapeXml="false"/><br/>
+                </c:forEach>
+            </div>
+        </c:if>
+    </spring:bind>
+
+    <form:form commandName="user" method="post" action="userform" id="userForm" autocomplete="off"
+               cssClass="well" onsubmit="return validateUser(this)">
+        <form:hidden path="id"/>
+        <form:hidden path="version"/>
+        <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
+        
+        <div class="form-group">
+                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
+                <form:input cssClass="form-control" path="" id="datepicker" value="<%= currentDate %>"  size="12"/>
+                <%--<input type="text" name="datepicker" id="datepicker" readonly="readonly" size="12" /> --%>
+        </div>   
+        
+        
+        <div class="form-group">
+                <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
+                <form:input cssClass="form-control" path="phoneNumber" id="medicion"/>
+        </div>
+        
+        <div class="form-group">
+                <appfuse:label styleClass="control-label" key="user.paciente.peso"/>
+                <form:input cssClass="form-control" path="phoneNumber" id="peso"/>
+        </div>
+        
+        <div>
+            <legend class="accordion-heading">
+                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.paciente.alimentoIng"/></a>
+            </legend>
+            <div id="collapse-address" class="accordion-body collapse">
+                <div class="col-sm-10">
+    				
+        		<%--<display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
+                		   defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
+        			<display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username"
+                        sortable="true"/>
+        			<display:column titleKey="activeUsers.fullName" sortable="true">
+            			<c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>
+            			<c:if test="${not empty user.email}">
+                			<a href="mailto:<c:out value="${user.email}"/>">
+                    			<img src="<c:url value="/images/iconEmail.gif"/>"
+                        	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
+            			</c:if>
+        			</display:column>
+
+        			<display:setProperty name="paging.banner.item_name" value="user"/>
+        			<display:setProperty name="paging.banner.items_name" value="users"/>
+    			</display:table>  --%>
+    			<display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
+                		   defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
+                	<display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.paciente.momentoDia"
+                        sortable="true"/>
+                    <display:column titleKey="activePaiente.comidas" sortable="true">
+                    	<c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>
+                    	<c:if test="${not empty user.email}">
+                			<a href="mailto:<c:out value="${user.email}"/>">
+                    			<img src="<c:url value="/images/iconEmail.gif"/>"
+                        	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
+            			</c:if>
+            				<a href="editar.html">Editar</a>
+                    </display:column>
+    			</display:table>
+				</div>
+            </div>
+        </div>
+        
+        <%--
+        <div class="form-group">
+        	<input type="checkbox" name="cv1" value="1" checked> Opcion 1 <br>
+        	<input type="checkbox" name="cv2" value="2" > Opcion 2 <br>
+        	<input type="checkbox" name="cv3" value="3" > Opcion 3 <br>
+        </div>
+        
+        <div class="form-group">
+        	<form:select path="phoneNumber">
+        		<form:option value="Enfermedod" label="Enfermo"/>
+        		<form:option value="Dolor" label="Dolor de Cabeza" selected="selected"/>
+        	</form:select>
+        </div> --%>
+        <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> --%>
+        
+        
+        
+        <%-- <div>
+            <legend class="accordion-heading">
+                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>
+            </legend>
+            <div id="collapse-address" class="accordion-body collapse">
+                <div class="form-group">
+                    <appfuse:label styleClass="control-label" key="user.address.address"/>
+                    <form:input cssClass="form-control" path="address.address" id="address.address"/>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.city"/>
+                        <form:input cssClass="form-control" path="address.city" id="address.city"/>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.province"/>
+                        <form:input cssClass="form-control" path="address.province" id="address.province"/>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <appfuse:label styleClass="control-label" key="user.address.postalCode"/>
+                        <form:input cssClass="form-control" path="address.postalCode" id="address.postalCode"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <appfuse:label styleClass="control-label" key="user.address.country"/>
+                    <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
+                    <appfuse:country/>
+                    
+                </div>
+            </div>
+        </div> --%>
+        
+        
+        
+        
+        
+        <div  class="form-group">
+        	<appfuse:label styleClass="control-label" key="user.oservacion.title"/>
+        	<form:textarea cssClass="form-control" path="phoneNumber" />
+        </div>
+        
+        <div class="form-group">
+        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
+        	<form:select cssClass="form-control" path="phoneNumber">
+        		<form:option value="Enfermedod" label="Enfermo"/>
+        		<form:option value="Dolor" label="Dolor de Cabeza" selected="selected"/>
+        	</form:select>
+        </div>
+        
+        <div class="form-group">
+        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
+        	<form:select cssClass="form-control" path="phoneNumber">
+        		<form:option value="BayasC" label="Bayaspirina"/>
+        		<form:option value="Plus" label="Cura Plus" selected="selected"/>
+        	</form:select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+                <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
+            </button>
+
+            <c:if test="${param.from == 'list' and param.method != 'Add'}">
+              <button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+                  <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+              </button>
+            </c:if>
+
+            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            </button>
+        </div>
+    </form:form>
+</div>
+
 </body>
 </html>
- 
- 
+
+
+
+

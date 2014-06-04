@@ -110,6 +110,7 @@
                     			<img src="<c:url value="/images/iconEmail.gif"/>"
                         	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
             			</c:if>
+            				<a href="editar.html">Editar</a>
                     </display:column>
     			</display:table>
 				</div>
@@ -166,6 +167,14 @@
         </div> --%>
         
         
+        
+        
+        
+        <div  class="form-group">
+        	<appfuse:label styleClass="control-label" key="user.oservacion.title"/>
+        	<form:textarea cssClass="form-control" path="phoneNumber" />
+        </div>
+        
         <div class="form-group">
         	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
         	<form:select cssClass="form-control" path="phoneNumber">
@@ -173,12 +182,6 @@
         		<form:option value="Dolor" label="Dolor de Cabeza" selected="selected"/>
         	</form:select>
         </div>
-        
-        <div  class="form-group">
-        	<appfuse:label styleClass="control-label" key="user.oservacion.title"/>
-        	<form:textarea cssClass="form-control" path="phoneNumber" />
-        </div>
-        
         
         <div class="form-group">
         	<appfuse:label styleClass="control-label" key="user.medicine.title"/>

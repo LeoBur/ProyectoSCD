@@ -37,9 +37,9 @@ import com.bcpv.webapp.util.RequestUtil;
 @Controller
 //@RequestMapping("/endos/editPaciente*")
 //@RequestMapping("/endos/newPaciente*")
-//@RequestMapping("/endos/adminMedicamento*")
+@RequestMapping("/endos/adminMedicamento*")
 //@RequestMapping("/endos/adminEspecialista*")
-@RequestMapping("/endos/adminSintoma*")
+//@RequestMapping("/endos/adminSintoma*")
 public class ProbarController extends BaseFormController {
 
     private RoleManager roleManager;
@@ -53,9 +53,9 @@ public class ProbarController extends BaseFormController {
         setCancelView("redirect:/home");
         //setSuccessView("redirect:/endos/editPaciente");
         //setSuccessView("redirect:/endos/newPaciente");
-        //setSuccessView("redirect:/endos/adminMedicamento");
+        setSuccessView("redirect:/endos/adminMedicamento");
         //setSuccessView("redirect:/endos/adminEspecialista");
-        setSuccessView("redirect:/endos/adminSintoma");
+        //setSuccessView("redirect:/endos/adminSintoma");
     }
 
     @Override

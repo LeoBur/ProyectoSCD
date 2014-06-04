@@ -2,15 +2,7 @@
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
+    
 </head>
 <body>
 
@@ -27,7 +19,7 @@
             <p><fmt:message key="user.medicine.title"/></p>
         </c:when>
         <c:otherwise>
-            <p><fmt:message key="userProfile.message.medicamento"/></p>
+            <p><fmt:message key="userProfile.message.sintoma"/></p>
         </c:otherwise>
     </c:choose>
 </div>
@@ -45,18 +37,14 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="user" method="post" action="userform" id="userForm" autocomplete="off"
+    <form:form commandName="sintomaList" method="post" action="sintomaList" id="sintomaList" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
         <form:hidden path="id"/>
-        <form:hidden path="version"/>
         <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
-        
-          
-        
         
         <div class="form-group">
                 <appfuse:label styleClass="control-label" key="user.adminSintoma.nombre"/>
-                <form:input cssClass="form-control" path="" id="nombre"/>
+                <form:input cssClass="form-control" path="nombre" id="nombre"/>
         </div>
                
         <div class="form-group">
