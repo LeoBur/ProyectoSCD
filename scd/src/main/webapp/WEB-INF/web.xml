@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <display-name>appfuse</display-name>
+    <display-name>scd-web</display-name>
     <distributable/>
 
     <!-- precompiled jsp mappings -->
@@ -66,7 +66,7 @@
     <!-- Use "org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" if you're using JPA -->
     <filter>
         <filter-name>localeFilter</filter-name>
-        <filter-class>war.webapp.filter.LocaleFilter</filter-class>
+        <filter-class>com.bcpv.webapp.filter.LocaleFilter</filter-class>
     </filter>
     <filter>
         <filter-name>rewriteFilter</filter-name>
@@ -157,13 +157,13 @@
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
     <listener>
-        <listener-class>war.webapp.listener.StartupListener</listener-class>
+        <listener-class>com.bcpv.webapp.listener.StartupListener</listener-class>
     </listener>
     <listener>
-        <listener-class>war.webapp.listener.UserCounterListener</listener-class>
+        <listener-class>com.bcpv.webapp.listener.UserCounterListener</listener-class>
     </listener>
     <listener>
-        <listener-class>war.webapp.jsp.EscapeXmlELResolverListener</listener-class>
+        <listener-class>com.bcpv.webapp.jsp.EscapeXmlELResolverListener</listener-class>
     </listener>
     <listener>
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
