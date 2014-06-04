@@ -37,6 +37,7 @@
     <jaxws:endpoint id="momentoDiaService" implementor="#momentoDiaManager" address="MomentoDiaService"/>
     <jaxws:endpoint id="diaDietaService" implementor="#diaDietaManager" address="DiaDietaService"/>
     <jaxws:endpoint id="dietaService" implementor="#dietaManager" address="DietaService"/>
+    <jaxws:endpoint id="registroComidasService" address="RegistroComidasService" implementor="#registroComidasManager"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
@@ -66,6 +67,7 @@
             <ref bean="momentoDiaManager"/>
             <ref bean= "diaDietaManager"/>
             <ref bean= "dietaManager"/>
+            <ref bean="registroComidasManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>

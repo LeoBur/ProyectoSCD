@@ -35,6 +35,7 @@
     <bean id="momentoDiaDao" class="com.bcpv.dao.hibernate.MomentoDiaDaoHibernate"/>
     <bean id="diaDietaDao" class="com.bcpv.dao.hibernate.DiaDietaDaoHibernate"/>
     <bean id="dietaDao" class="com.bcpv.dao.hibernate.DietaDaoHibernate"/>
+    <bean id="registroComidasDao" class="com.bcpv.dao.hibernate.RegistroComidasDaoHibernate"/>
     
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="com.bcpv.service.impl.MedicionManagerImpl">
@@ -94,6 +95,9 @@
     </bean>
     <bean id="dietaManager" class="com.bcpv.service.impl.DietaManagerImpl">
         <property name="dietaDao" ref="dietaDao"/>
+    </bean>
+    <bean id= "registroComidasManager" class="com.bcpv.service.impl.RegistroComidasManagerImpl">
+        <property name="registroComidasDao" ref="registroComidasDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="com.bcpv.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
