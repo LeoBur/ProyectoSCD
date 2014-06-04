@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.MedicionDao;
@@ -14,12 +15,13 @@ import com.bcpv.service.MedicionManager;
 import com.bcpv.service.MedicionService;
 
 @Service("medicionManager")
-@WebService(serviceName = "MedicionService", endpointInterface = "com.bcpv.webapp.service.MedicionService")
+@WebService(serviceName = "MedicionService", endpointInterface = "com.bcpv.service.MedicionService")
 public class MedicionManagerImpl extends GenericManagerImpl<Medicion, Long> implements MedicionManager, MedicionService {
 
 	private MedicionDao medicionDao;
 	
 	@Override
+	@Autowired
 	public void setMedicionDao(MedicionDao medicionDao) {
 		this.dao = medicionDao;
 		this.medicionDao = medicionDao;

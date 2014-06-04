@@ -3,18 +3,25 @@ package com.bcpv.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.MedicamentoDao;
 import com.bcpv.model.Medicamento;
 import com.bcpv.service.MedicamentoManager;
 import com.bcpv.service.MedicamentoService;
 
+@Service("medicamentoManager")
+@WebService(serviceName = "MedicamentoService", endpointInterface = "com.bcpv.service.MedicamentoService")
 public class MedicamentoManagerImpl extends GenericManagerImpl<Medicamento, Long> implements MedicamentoService, MedicamentoManager{
 
 	private MedicamentoDao medicamentoDao;
 	
 	@Override
+	@Autowired
 	public void setMedicamentoDao(MedicamentoDao medicamentoDao){
 		this.dao = medicamentoDao;
 		this.medicamentoDao = medicamentoDao;

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.TratamientoDao;
@@ -13,12 +14,13 @@ import com.bcpv.service.TratamientoManager;
 import com.bcpv.service.TratamientoService;
 
 @Service("tratamientoManager")
-@WebService(serviceName="TratamientoManager", endpointInterface = "com.bcpv.webapp.service.TratamientoService")
+@WebService(serviceName="TratamientoManager", endpointInterface = "com.bcpv.service.TratamientoService")
 public class TratamientoManagerImpl extends GenericManagerImpl<Tratamiento, Long> implements TratamientoManager, TratamientoService{
 
 	private TratamientoDao tratamientoDao;
 	
 	@Override
+	@Autowired
 	public void setTratamientoDao(TratamientoDao tratamientoDao){
 		this.dao=tratamientoDao;
 		this.tratamientoDao=tratamientoDao;

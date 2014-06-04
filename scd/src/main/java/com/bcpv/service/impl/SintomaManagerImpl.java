@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.SintomaDao;
@@ -14,13 +15,13 @@ import com.bcpv.service.SintomaManager;
 import com.bcpv.service.SintomaService;
 
 @Service("sintomaManager")
-@WebService(serviceName = "SintomaService", endpointInterface = "com.bcpv.webapp.service.SintomaService")
-public class SintomaManagerImpl extends GenericManagerImpl<Sintoma, Long> implements SintomaManager,SintomaService{
+@WebService(serviceName = "SintomaService", endpointInterface = "com.bcpv.service.SintomaService")
+public class SintomaManagerImpl extends GenericManagerImpl<Sintoma, Long> implements SintomaManager, SintomaService{
 
 	private SintomaDao sintomaDao;
 	
-	
 	@Override
+	@Autowired
 	public void setSintomaDao(SintomaDao sintomaDao) {
 		this.dao = sintomaDao;
 		this.sintomaDao = sintomaDao;

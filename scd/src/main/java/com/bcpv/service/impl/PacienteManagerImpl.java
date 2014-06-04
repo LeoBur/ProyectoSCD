@@ -16,7 +16,7 @@ import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PacienteService;
 
 @Service("pacienteManager")
-@WebService(serviceName = "PacienteService", endpointInterface = "com.bcpv.webapp.service.PacienteService")
+@WebService(serviceName = "PacienteService", endpointInterface = "com.bcpv.service.PacienteService")
 public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> implements PacienteService, PacienteManager{
 
 	private PacienteDao pacientesDao;

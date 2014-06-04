@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.AlimentoDao;
@@ -14,12 +15,13 @@ import com.bcpv.service.AlimentoManager;
 import com.bcpv.service.AlimentoService;
 
 @Service("alimentoManager")
-@WebService(serviceName = "AlimentoService", endpointInterface = "com.bcpv.webapp.service.AlimentoService")
+@WebService(serviceName = "AlimentoService", endpointInterface = "com.bcpv.service.AlimentoService")
 public class AlimentoManagerImpl extends GenericManagerImpl<Alimento, Long> implements AlimentoManager, AlimentoService {
 
 	private AlimentoDao alimentoDao;
 	
 	@Override
+	@Autowired
 	public void setAlimentoDao(AlimentoDao alimentoDao) {
 		this.dao = alimentoDao;
 		this.alimentoDao = alimentoDao;

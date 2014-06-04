@@ -3,6 +3,7 @@ package com.bcpv.service.impl;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.MomentoDiaDao;
@@ -11,20 +12,21 @@ import com.bcpv.service.MomentoDiaManager;
 import com.bcpv.service.MomentoDiaService;
 
 @Service("momentoDiaManager")
-@WebService(serviceName="MomentoDiaService", endpointInterface="com.bcpv.webapp.service.MomentoDiaService")
+@WebService(serviceName="MomentoDiaService", endpointInterface="com.bcpv.service.MomentoDiaService")
 public class MomentoDiaManagerImpl extends GenericManagerImpl<MomentoDia, Long> implements MomentoDiaManager, MomentoDiaService{
 
 	private MomentoDiaDao momentoDiaDao;
 	
 	@Override
-	public MomentoDia getMomentoDia(String idMomentoD) {
-		return momentoDiaDao.get(new Long(idMomentoD));
-	}
-
-	@Override
+	@Autowired
 	public void setMomentoDiaDao(MomentoDiaDao momentoDiaDao) {
 		this.dao=momentoDiaDao;
 		this.momentoDiaDao=momentoDiaDao;
+	}
+	
+	@Override
+	public MomentoDia getMomentoDia(String idMomentoD) {
+		return momentoDiaDao.get(new Long(idMomentoD));
 	}
 
 	@Override

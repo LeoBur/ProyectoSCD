@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.DomicilioDao;
@@ -13,13 +14,14 @@ import com.bcpv.service.DomicilioManager;
 import com.bcpv.service.DomicilioService;
 
 @Service("domicilioManager")
-@WebService(serviceName="DomicilioService", endpointInterface = "com.bcpv.webapp.service.DomicilioService")
+@WebService(serviceName="DomicilioService", endpointInterface = "com.bcpv.service.DomicilioService")
 public class DomicilioManagerImpl extends GenericManagerImpl<Domicilio, Long> implements DomicilioService,DomicilioManager{
 
 	private DomicilioDao domicilioDao;
 	
 	
 	@Override
+	@Autowired
 	public void setDomicilioDao(DomicilioDao domicilioDao) {
 		this.dao=domicilioDao;
 		this.domicilioDao=domicilioDao;

@@ -23,8 +23,6 @@ import com.bcpv.model.Tag;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.webapp.controller.forms.EndoSearch;
 
-//import com.bcpv.webapp.service.SintomaManager;
-
 @Controller
 public class EndoController extends BaseFormController {
 

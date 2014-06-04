@@ -7,7 +7,7 @@
    <global>
 
       <validator name="twofields"
-         classname="war.webapp.util.ValidationUtil"
+         classname="com.bcpv.webapp.util.ValidationUtil"
          method="validateTwoFields"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,

@@ -10,7 +10,7 @@ import com.bcpv.service.DietaManager;
 import com.bcpv.service.DietaService;
 
 @Service("dietaManager")
-@WebService(serviceName = "DietaService", endpointInterface = "com.bcpv.webapp.service.DietaService")
+@WebService(serviceName = "DietaService", endpointInterface = "com.bcpv.service.DietaService")
 public class DietaManagerImpl extends GenericManagerImpl<Dieta, Long> implements DietaManager,DietaService{
 	
 	private DietaDao dietaDao;

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.ProvinciaDao;
@@ -14,12 +15,13 @@ import com.bcpv.service.ProvinciaManager;
 import com.bcpv.service.ProvinciaService;
 
 @Service("provinciaManager")
-@WebService(serviceName = "ProvinciaService", endpointInterface = "com.bcpv.webapp.service.ProvinciaService")
+@WebService(serviceName = "ProvinciaService", endpointInterface = "com.bcpv.service.ProvinciaService")
 public class ProvinciaManagerImpl extends GenericManagerImpl<Provincia, Long> implements ProvinciaService, ProvinciaManager{
 	
 	private ProvinciaDao provinciaDao;
 	
 	@Override
+	@Autowired
 	public void setProvinciaDao(ProvinciaDao provinciaDao) {
 		this.dao = provinciaDao;
 		this.provinciaDao = provinciaDao;

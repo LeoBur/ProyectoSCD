@@ -6,6 +6,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.PesoDao;
@@ -14,12 +15,13 @@ import com.bcpv.service.PesoManager;
 import com.bcpv.service.PesoService;
 
 @Service("pesoManager")
-@WebService(serviceName= "PesoService",endpointInterface = "com.bcpv.webapp.service.PesoService")
+@WebService(serviceName= "PesoService",endpointInterface = "com.bcpv.service.PesoService")
 public class PesoManagerImpl extends GenericManagerImpl<Peso, Long> implements PesoService, PesoManager{
 
 	private PesoDao pesoDao;
 	
 	@Override
+	@Autowired
 	public void setPesoDao(PesoDao pesoDao) {
 		this.dao=pesoDao;
 		this.pesoDao=pesoDao;
