@@ -26,5 +26,6 @@
         <mapping class="com.bcpv.model.MomentoDia"/>
         <mapping class="com.bcpv.model.DiaDieta"/>
         <mapping class="com.bcpv.model.Dieta"/>
+        <mapping class="com.bcpv.model.RegistroComidas"/>
     </session-factory>
 </hibernate-configuration>

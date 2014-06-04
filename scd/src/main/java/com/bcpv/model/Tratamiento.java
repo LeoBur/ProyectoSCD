@@ -32,6 +32,7 @@ public class Tratamiento implements Serializable{
 	private Paciente paciente;
 	private Endocrinologo endocrinologo;
 	private Hashtable<Medicamento, String> prescripciones;
+	//private Map<Medicamento, String> prescipciones = new Hashtable<Medicamento, String>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -75,5 +76,16 @@ public class Tratamiento implements Serializable{
 	public void setPrescripciones(Hashtable<Medicamento, String> prescripciones) {
 		this.prescripciones = prescripciones;
 	}
+	
+	/*@ManyToMany(cascade={})
+	@JoinTable(name="prescripciones_paciente",
+			joinColumns=@JoinColumn(name="idTratamiento"),
+			inverseJoinColumns=@JoinColumn(name="idMedicamento"))*/
+	/*public Map<Medicamento, String> getPrescipciones() {
+		return prescipciones;
+	}
+	public void setPrescipciones(Map<Medicamento, String> prescipciones) {
+		this.prescipciones = prescipciones;
+	}*/
 
 }
