@@ -9,7 +9,9 @@ import com.bcpv.model.RegistroComidas;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
+@Repository("registroComidasDao")
 public class RegistroComidasDaoHibernate extends GenericDaoHibernate<RegistroComidas, Long> implements RegistroComidasDao{
 
 	public RegistroComidasDaoHibernate(){
