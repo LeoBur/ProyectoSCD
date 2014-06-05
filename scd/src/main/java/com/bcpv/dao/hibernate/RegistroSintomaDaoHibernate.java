@@ -6,10 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.bcpv.dao.RegistroSintomaDao;
 import com.bcpv.model.RegistroSintoma;
 
+@Repository("registroSintomaDao")
 public class RegistroSintomaDaoHibernate extends GenericDaoHibernate<RegistroSintoma, Long> implements RegistroSintomaDao{
 
 	public RegistroSintomaDaoHibernate(){
