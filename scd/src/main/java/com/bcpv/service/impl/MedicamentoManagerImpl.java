@@ -54,7 +54,7 @@ public class MedicamentoManagerImpl extends GenericManagerImpl<Medicamento, Long
 	@Override
 	public List<Medicamento> getMedicamentos() {
 		if (medicamentoDao != null){
-			return medicamentoDao.getAllDistinct();
+			return medicamentoDao.getMedicamentos();
 		}
 		else
 			return new ArrayList<Medicamento>();

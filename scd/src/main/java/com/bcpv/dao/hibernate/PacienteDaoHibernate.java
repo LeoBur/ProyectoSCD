@@ -32,8 +32,9 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
 	}
 	
     @SuppressWarnings("unchecked")
+    @Override
     public List<Paciente> getPacientes() {
-		Query qry = getSession().createQuery("from paciente p order by upper(p.apellido)");
+		Query qry = getSession().createQuery("from Paciente p order by upper(p.apellido)");
         return qry.list();
 	}
 

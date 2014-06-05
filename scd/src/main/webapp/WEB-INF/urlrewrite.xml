@@ -74,11 +74,6 @@
         <from>/logout*</from>
         <to>/logout.jsp</to>
     </rule>
-    
-    <rule>
-    	<from>/endos/medicamentoList*</from>
-    	<to>/endos/medicamentoList.jsp</to>
-    </rule>
 
     <!-- Spring MVC -->
     <rule>

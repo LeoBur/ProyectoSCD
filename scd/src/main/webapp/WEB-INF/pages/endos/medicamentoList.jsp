@@ -6,26 +6,6 @@
 <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-	//javascript para el autocomplete de ciudades
-	$(document).ready(function() {
-		$('#pacienteToSearch').autocomplete({
-			serviceUrl : '/getTags',
-			paramName : "tagName",
-			delimiter : ",",
-			transformResult : function(response) {
-				return {
-					suggestions : $.map($.parseJSON(response), function(item) {
-						return {
-							value : item.tagName,
-							data : item.id
-						};
-					})
-				};
-			}
-		});
-	});
-</script>
 </head>
 <body class="home">
 	<h2>

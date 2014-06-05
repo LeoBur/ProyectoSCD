@@ -61,7 +61,7 @@
 			</button>
 		</div>
 		<display:table  name="pacienteList" cellspacing="0" cellpadding="0" requestURI=""
-	                   defaultsort="1" id="pacienteList" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
+	                   defaultsort="1" id="pacienteList" pagesize="25" class="table table-condensed table-striped table-hover" export="false">
 	        	<display:column  property="nombre" escapeXml="true" sortable="true" titleKey="active.momentodia" style="width: 25%"/>
 	        	<display:column property="apellido" escapeXml="true" sortable="true" titleKey="activeUsers.alimentosrecomendados"
 	                        style="width: 34%">

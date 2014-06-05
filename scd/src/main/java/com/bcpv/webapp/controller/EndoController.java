@@ -39,11 +39,11 @@ public class EndoController extends BaseFormController {
 	@Autowired
 	MedicamentoManager medicamentoManager;
 	
-	@Autowired
+	/*@Autowired
 	EspecialistaManager especialistaManager;
 	
 	@Autowired
-	SintomaManager sintomaManager;
+	SintomaManager sintomaManager;*/
 
 	public EndoController() {
 		setCancelView("redirect:/home");
@@ -77,17 +77,17 @@ public class EndoController extends BaseFormController {
 	}
 
 	@ModelAttribute
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.GET)
+	@RequestMapping(value = "/endos/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
 		EndoSearch search = new EndoSearch();
 		return search;
 	}
 
-	@RequestMapping(value = "/endo/endo*", method = RequestMethod.POST)
+	@RequestMapping(value = "/endos/endo*", method = RequestMethod.POST)
 	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 
-		ModelAndView mv = new ModelAndView("endo/endo");
+		ModelAndView mv = new ModelAndView("endos/endo");
 
 		if (validator != null) { // validator is null during testing
 			validator.validate(endoSearch, errors);
@@ -144,9 +144,9 @@ public class EndoController extends BaseFormController {
 		return mav;
 	}
 
-    @RequestMapping(value = "/medicamentoList", method = RequestMethod.GET)
+    @RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.GET)
     public ModelAndView showMedicamentos(){
-        ModelAndView mav = new ModelAndView("medicamentoList");
+        ModelAndView mav = new ModelAndView("endos/medicamentoList");
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
         mav.addObject("medicamentoList", medicamentos);
         return mav;
@@ -172,7 +172,7 @@ public class EndoController extends BaseFormController {
         return "redirect:medicamentoList";
     }
 
-    @RequestMapping(value = "/especialistaList", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/especialistaList", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(){
         ModelAndView mav = new ModelAndView("especialistaList");
         List<Especialista> especialistas = especialistaManager.getEspecialistas();
@@ -226,5 +226,5 @@ public class EndoController extends BaseFormController {
         sintomaManager.saveSintoma(sintoma);
         status.setComplete();
         return "redirect:sintomaList";
-    }
+    }*/
 }
