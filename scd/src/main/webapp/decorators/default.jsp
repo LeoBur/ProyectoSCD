@@ -21,15 +21,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
+            <%-- <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a> --%>
         </div>
 
         <%@ include file="/common/menu.jsp" %>
-        <c:if test="${pageContext.request.locale.language != 'en'}">
+        <%-- <c:if test="${pageContext.request.locale.language != 'en'}">
             <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                 <fmt:message key="webapp.name"/> in English</a>
             </div>
-        </c:if>
+        </c:if> --%>
     </div>
 
     <div class="container" id="content">

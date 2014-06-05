@@ -13,6 +13,8 @@
 	</h2>
 
 <div class="col-sm-7">
+		
+		
     	
 	 	<display:table  name="medicamentoList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="medicamentoList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
