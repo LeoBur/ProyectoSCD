@@ -144,7 +144,8 @@ public class EndoController extends BaseFormController {
 		return mav;
 	}
 
-    @RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.GET)*/
+	@RequestMapping(value = "/endos/medicamentoList*")
     public ModelAndView showMedicamentos(){
         ModelAndView mav = new ModelAndView("endos/medicamentoList");
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();

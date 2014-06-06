@@ -6,6 +6,15 @@
 <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function deleteBook(bookId){
+    	
+    	  if(window.confirm('Esta seguro de querer eliminar este Medicamento ?')){
+              var url = 'delete/'+bookId;
+              window.location.href = url;     
+        }
+    }
+</script>
 </head>
 <body class="home">
 	<h2>
@@ -24,8 +33,13 @@
 	            </display:column>
 	            
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
-                    		<a href="adminMedicamento.jsp">Nuevo</a>
-            				<a href="editMedicamento.jsp">Editar</a>
+                    		<a href="${pageContext.request.contextPath}/adminMedicamento.jsp">Nuevo</a>
+            				<a href="${pageContext.request.contextPath}/endos/adminMedicamento/${medicamentoList.idMedicamento}.jsp">Editar</a>
+            				<%-- <a onclick="javascript:deleteBook(${medicamentoList.idMedicamento})" href="edit/${medicamentoList.idMedicamento}">Probar esto ahora</a>
+            				<a onclick="javascript:deleteBook(${medicamentoList.idMedicamento})" >Y que hacemo</a> --%>
+            				
+            				<a href="javascript:deleteBook(${medicamentoList.idMedicamento})">Enlace</a>   <!-- Este creo es el que mejor se ajusta leo -->
+            				
             				<a href="deletMedicamento.jsp">Eliminar</a>
                 </display:column>
 	            
@@ -36,3 +50,8 @@
 <v:javascript formName="endoSearch" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 </c:set>
+
+
+
+
+
