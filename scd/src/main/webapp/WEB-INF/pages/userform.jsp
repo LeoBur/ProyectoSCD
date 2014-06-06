@@ -315,7 +315,7 @@ function onFormSubmit(theForm) {
                     			<img src="<c:url value="/images/iconEmail.gif"/>"
                         	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
             			</c:if>
-            				<a href="editar.html">Editar</a>
+            				<a href="${pageContext.request.contextPath}/editar/${user.id}">Editar</a>
                     </display:column>
     			</display:table>
 				</div>

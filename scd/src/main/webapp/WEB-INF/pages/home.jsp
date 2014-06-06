@@ -16,5 +16,11 @@
     <li>
         <a href="<c:url value='/fileupload'/>"><fmt:message key="menu.selectFile"/></a>
     </li>
+    <li>
+    	<a href="${pageContext.request.contextPath}/userform">viendo</a>
+    </li>
+    <li>
+    	<a href="${pageContext.request.contextPath}/fileupload">viendo2</a>
+    </li>
 </ul>
 </body>
