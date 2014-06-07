@@ -29,5 +29,6 @@
         <mapping class="com.bcpv.model.RegistroComidas"/>
         <mapping class="com.bcpv.model.RegistroSintoma"/>
         <mapping class="com.bcpv.model.RegistroMedicamento"/>
+        <mapping class="com.bcpv.model.Prescripcion"/>
     </session-factory>
 </hibernate-configuration>

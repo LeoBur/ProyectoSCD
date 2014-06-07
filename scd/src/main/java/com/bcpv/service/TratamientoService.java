@@ -20,7 +20,7 @@ public interface TratamientoService {
 	Tratamiento getTratamiento(@PathParam("id") String idTratamiento);
 	
 	@GET
-	List<Tratamiento> getTratamientosByIdPaciente();      //FALTA AGREGAR EL PARÁMETRO DEL IDPACIENTE*/
+	List<Tratamiento> getTratamientosByIdPaciente(Long idPaciente); 
 	
 	@POST
 	Tratamiento saveTratamiento(Tratamiento tratamiento);
@@ -29,6 +29,6 @@ public interface TratamientoService {
 	void removeTratamiento(Tratamiento tratamiento);
 	
 	@GET
-	Tratamiento getUltimoTratamientoByIdPaciente();       //FALTA AGREGAR EL PARÁMETRO DEL IDPACIENTE*/
+	Tratamiento getUltimoTratamientoByIdPaciente(Long idPaciente); 
 
 }

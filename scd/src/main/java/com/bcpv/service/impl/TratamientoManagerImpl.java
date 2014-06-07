@@ -1,5 +1,6 @@
 package com.bcpv.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -34,28 +35,22 @@ public class TratamientoManagerImpl extends GenericManagerImpl<Tratamiento, Long
 	}
 
 	@Override
-	public List<Tratamiento> getTratamientosByIdPaciente() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Tratamiento> getTratamientosByIdPaciente(Long idPaciente) {
+		if (tratamientoDao!=null){
+			return tratamientoDao.getTratamientosByIdPaciente(idPaciente);
+		}
+		return new ArrayList<Tratamiento>();
 	}
 
 	@Override
-	public Tratamiento getUltimoTratamientoByIdPaciente() {
-		// TODO Auto-generated method stub
-		return null;
+	public Tratamiento getUltimoTratamientoByIdPaciente(Long idPaciente) {
+		return tratamientoDao.getUltimoTratamientoByIdPaciente(idPaciente);
 	}
 
 	
 	@Override
 	public Tratamiento getTratamiento(Long idTratamiento) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Tratamiento> getTratamientosByIdPaciente(Long idPaciente) {
-		// TODO Auto-generated method stub
-		return null;
+		return tratamientoDao.get(idTratamiento);
 	}
 
 	@Override
