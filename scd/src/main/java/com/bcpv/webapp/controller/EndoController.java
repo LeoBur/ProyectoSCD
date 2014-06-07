@@ -129,19 +129,6 @@ public class EndoController extends BaseFormController {
         }
         return new Paciente();
 	}
-
-	/*@RequestMapping(value = "/endos/editPaciente", method = RequestMethod.POST)
-	public String update(@ModelAttribute("paciente") Paciente paciente,
-			BindingResult result, SessionStatus status) {
-		validator.validate(paciente, result);
-		if (result.hasErrors()) {
-			return "endos/editPaciente";
-		}
-		pacienteManager.savePaciente(paciente);
-		status.setComplete();
-		return "redirect:/endos/endo";
-		
-	}*/
 	
 	@RequestMapping(value = "/endos/pacienteForm*", method = RequestMethod.POST)
     public String onSubmit(Paciente paciente, BindingResult errors, HttpServletRequest request,
@@ -155,7 +142,7 @@ public class EndoController extends BaseFormController {
             validator.validate(paciente, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "endos/pacienteList";
+                return "endos/pacienteForm";
             }
         }
  
@@ -174,31 +161,12 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:endos/editPaciente?id=" + paciente.getId();
+                success = "redirect:endos/pacienteForm?id=" + paciente.getId();
             }
         }
  
         return success;
     }
-
-	/*
-	@RequestMapping(value="/team/delete/{id}", method=RequestMethod.GET)
-    public ModelAndView deleteTeam(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("home");
-        teamService.deleteTeam(id);
-        String message = "Team was successfully deleted.";
-        modelAndView.addObject("message", message);
-        return modelAndView;
-    }
-	 */
-	/*@RequestMapping("/endos/deletePaciente/{id}")
-	public ModelAndView delete(@PathVariable String id) {
-		ModelAndView mav = new ModelAndView("redirect:/endos/endo");
-		String message = "user.endocrinologist.pacientDeleted";
-        modelAndView.addObject("message", message);
-		pacienteManager.removePaciente(id);
-		return mav;
-	}*/
 
 	/*==========Administración de MEDICAMENTOS================*/
 	
@@ -210,24 +178,51 @@ public class EndoController extends BaseFormController {
         return mav;
     }
 
-    @RequestMapping(value = "/endos/editMedicamento/{id}", method = RequestMethod.GET)
-    public ModelAndView adminMedic(@PathVariable Long id) {
-        ModelAndView mav = new ModelAndView("endos/editMedicamento");
-        Medicamento medicamento = medicamentoManager.getMedicamento(id);
-        mav.addObject("medicamento", medicamento);
-        return mav;
+    @ModelAttribute
+    @RequestMapping(value = "/endos/medicamentoForm*", method = RequestMethod.GET)
+    public Medicamento editMedic(final HttpServletRequest request) {
+    	final String id = request.getParameter("id");
+        if (!StringUtils.isBlank(id)) {
+            return medicamentoManager.getMedicamento(new Long(id));
+        }
+        return new Medicamento();
     }
 
-    @RequestMapping(value = "/endos/editMedicamento", method = RequestMethod.POST)
-    public String updateMedic(@ModelAttribute("medicamento") Medicamento medicamento,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(medicamento, result);
-        if (result.hasErrors()) {
-            return "endos/editMedicamento";
+    @RequestMapping(value = "/endos/medicamentoForm*", method = RequestMethod.POST)
+    public String updateMedic(Medicamento medicamento, BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+    	if (request.getParameter("cancel") != null) {
+            return getCancelView();
         }
-        medicamentoManager.saveMedicamento(medicamento);
-        status.setComplete();
-        return "redirect:endos/medicamentoList";
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(medicamento, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "endos/medicamentoForm";
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        boolean isNew = (medicamento.getIdMedicamento() == null);
+        String success = "endos/medicamentoList";
+        Locale locale = request.getLocale();
+ 
+        if (request.getParameter("delete") != null) {
+        	medicamentoManager.removeMedicamento(medicamento.getIdMedicamento());
+            saveMessage(request, getText("person.deleted", locale));
+        } else {
+        	medicamentoManager.saveMedicamento(medicamento);
+            String key = (isNew) ? "person.added" : "person.updated";
+            saveMessage(request, getText(key, locale));
+ 
+            if (!isNew) {
+                success = "redirect:endos/medicamentoForm?id=" + medicamento.getIdMedicamento();
+            }
+        }
+ 
+        return success;
     }
     
     /*==========Administración de ESPECIALISTA================*/
