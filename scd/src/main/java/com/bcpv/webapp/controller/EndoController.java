@@ -105,19 +105,6 @@ public class EndoController extends BaseFormController {
 		mv.addObject(Constants.PACIENTE_LIST, pacientes);
 		return mv;
 	}
-	
-	/*@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
-	public String create(@ModelAttribute("newPaciente") Paciente paciente,
-			BindingResult result, SessionStatus status) {
-		validator.validate(paciente, result);
-		if (result.hasErrors()) {
-			return "newPaciente";
-		}
-		pacienteManager.savePaciente(paciente);
-		status.setComplete();
-		return "redirect:endo";
-		
-	}*/
 
 	@ModelAttribute
 	@RequestMapping(value = "/endos/pacienteForm*", method = RequestMethod.GET)
@@ -227,7 +214,7 @@ public class EndoController extends BaseFormController {
     
     /*==========Administración de ESPECIALISTA================*/
 
-    @RequestMapping(value = "/endos/especialistaList", method = RequestMethod.GET)
+    @RequestMapping(value = "/endos/especialistaList*", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(){
         ModelAndView mav = new ModelAndView("endos/especialistaList");
         List<Especialista> especialistas = especialistaManager.getEspecialistas();
@@ -235,24 +222,50 @@ public class EndoController extends BaseFormController {
         return mav;
     }
 
-    @RequestMapping(value = "/endos/editEspecialista/{id}", method = RequestMethod.GET)
-    public ModelAndView adminEspec(@PathVariable Long id) {
-        ModelAndView mav = new ModelAndView("editEspecialista");
-        Especialista especialista = especialistaManager.getEspecialista(id);
-        mav.addObject("especialista", especialista);
-        return mav;
+    @ModelAttribute
+    @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.GET)
+    public Especialista editEspec(final HttpServletRequest request) {
+        String id = request.getParameter("id");
+        Especialista especialista = especialistaManager.getEspecialista(new Long(id));
+        return especialista;
     }
 
-    @RequestMapping(value = "/endos/editEspecialista", method = RequestMethod.POST)
-    public String updateEspec(@ModelAttribute("especialista") Especialista especialista,
-                         BindingResult result, SessionStatus status) {
-        validator.validate(especialista, result);
-        if (result.hasErrors()) {
-            return "endos/editEspecialista";
+    @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.POST)
+    public String updateEspec(Especialista especialista, BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+    	
+    	if (request.getParameter("cancel") != null) {
+            return getCancelView();
         }
-        especialistaManager.saveEspecialista(especialista);
-        status.setComplete();
-        return "redirect:endos/especialistaList";
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(especialista, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "endos/especialistaForm";
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        boolean isNew = (especialista.getId() == null);
+        String success = "endos/especialistaList";
+        Locale locale = request.getLocale();
+ 
+        if (request.getParameter("delete") != null) {
+        	especialistaManager.removeEspecialista(especialista.getId());
+            saveMessage(request, getText("person.deleted", locale));
+        } else {
+        	especialistaManager.saveEspecialista(especialista);
+            String key = (isNew) ? "person.added" : "person.updated";
+            saveMessage(request, getText(key, locale));
+ 
+            if (!isNew) {
+                success = "redirect:endos/especialistaForm?id=" + especialista.getId();
+            }
+        }
+ 
+        return success;
     }
     
     /*==========Administración de SINTOMA================*/

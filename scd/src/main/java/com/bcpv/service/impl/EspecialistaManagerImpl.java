@@ -72,7 +72,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 	}
 
 	@Override
-	public void removeEspecialista(String id) {
+	public void removeEspecialista(Long id) {
 		log.debug("removing Especialista: " + id);
 		especialistaDao.remove(new Long(id));
 		

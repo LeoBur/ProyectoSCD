@@ -19,7 +19,7 @@ public interface EspecialistaManager extends GenericManager<Especialista, Long>{
     
     void removeEspecialista(Especialista especialista);
     
-    void removeEspecialista(String id);
+    void removeEspecialista(Long id);
 
     List<Especialista> search(String searchTerm);
 		
