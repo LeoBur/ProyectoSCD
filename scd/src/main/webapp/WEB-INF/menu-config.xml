@@ -24,7 +24,7 @@
         	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>       	
        	 	<Item name="AdminSymptom" title="user.symptom.admin" page="/endos/adminSintoma"/>
         	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
-        	<Item name="AdminEspecialist" title="user.especialist.admin" page="/endos/adminEspecialista"/>
+        	<Item name="AdminEspecialist" title="user.especialist.admin" page="/endos/especialistaList"/>
         </Menu>
         
         <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>

@@ -47,7 +47,7 @@ public class Especialista implements Serializable{
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	public Long getId() {
 		return id;

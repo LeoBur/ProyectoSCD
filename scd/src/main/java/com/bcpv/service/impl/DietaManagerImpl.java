@@ -4,6 +4,7 @@ import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.DietaDao;
 import com.bcpv.model.Dieta;
@@ -12,6 +13,7 @@ import com.bcpv.service.DietaService;
 
 @Service("dietaManager")
 @WebService(serviceName = "DietaService", endpointInterface = "com.bcpv.service.DietaService")
+@Transactional
 public class DietaManagerImpl extends GenericManagerImpl<Dieta, Long> implements DietaManager,DietaService{
 	
 	private DietaDao dietaDao;

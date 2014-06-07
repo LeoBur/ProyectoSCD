@@ -12,9 +12,7 @@
 		<fmt:message key="home.heading" />
 	</h2>
 
-<div class="col-sm-7">
-		
-	
+<div class="col-sm-7">		
     	
 	 	<display:table  name="especialistaList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="especialistaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->

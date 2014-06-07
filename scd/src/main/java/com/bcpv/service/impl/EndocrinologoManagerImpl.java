@@ -8,6 +8,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.EndocrinologoDao;
 import com.bcpv.model.Endocrinologo;
@@ -16,6 +17,7 @@ import com.bcpv.service.EndocrinologoService;
 
 @Service("endocrinologoManager")
 @WebService(serviceName = "EndocrinologoService", endpointInterface = "com.bcpv.service.EndocrinologoService")
+@Transactional
 public class EndocrinologoManagerImpl extends GenericManagerImpl<Endocrinologo, Long> implements EndocrinologoManager, EndocrinologoService{
 
 	private EndocrinologoDao endocrinologoDao;

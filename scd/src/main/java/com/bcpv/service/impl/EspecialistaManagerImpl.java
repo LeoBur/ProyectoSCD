@@ -8,6 +8,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.EspecialistaDao;
 import com.bcpv.model.Especialista;
@@ -16,6 +17,7 @@ import com.bcpv.service.EspecialistaService;
 
 @Service("especialistaManager")
 @WebService(serviceName = "EspecialistaService", endpointInterface = "com.bcpv.service.EspecialistaService")
+@Transactional
 public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Long> implements EspecialistaManager, EspecialistaService{
 
 	private EspecialistaDao especialistaDao;
@@ -41,7 +43,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 	@Override
 	public List<Especialista> getEspecialistas() {
 		if (especialistaDao!=null){
-			return especialistaDao.getAllDistinct();
+			return especialistaDao.getEspecialistas();
 		}
 		return new ArrayList<Especialista>();
 	}

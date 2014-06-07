@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.DomicilioDao;
 import com.bcpv.model.Domicilio;
@@ -15,6 +16,7 @@ import com.bcpv.service.DomicilioService;
 
 @Service("domicilioManager")
 @WebService(serviceName="DomicilioService", endpointInterface = "com.bcpv.service.DomicilioService")
+@Transactional
 public class DomicilioManagerImpl extends GenericManagerImpl<Domicilio, Long> implements DomicilioService,DomicilioManager{
 
 	private DomicilioDao domicilioDao;

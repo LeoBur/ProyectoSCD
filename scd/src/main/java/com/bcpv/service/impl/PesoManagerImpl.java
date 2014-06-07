@@ -8,6 +8,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.PesoDao;
 import com.bcpv.model.Peso;
@@ -16,6 +17,7 @@ import com.bcpv.service.PesoService;
 
 @Service("pesoManager")
 @WebService(serviceName= "PesoService",endpointInterface = "com.bcpv.service.PesoService")
+@Transactional
 public class PesoManagerImpl extends GenericManagerImpl<Peso, Long> implements PesoService, PesoManager{
 
 	private PesoDao pesoDao;
