@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -77,6 +79,7 @@ public class EndoController extends BaseFormController {
 		return getText("endo.pacienteToSearch", Locale.getDefault());
 	}
 
+	/*==========Busqueda de PACIENTE================*/
 	@ModelAttribute
 	@RequestMapping(value = "/endos/endo*", method = RequestMethod.GET)
 	public EndoSearch showForm() {
@@ -103,7 +106,7 @@ public class EndoController extends BaseFormController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/newPaciente", method = RequestMethod.POST)
 	public String create(@ModelAttribute("newPaciente") Paciente paciente,
 			BindingResult result, SessionStatus status) {
 		validator.validate(paciente, result);
@@ -114,17 +117,20 @@ public class EndoController extends BaseFormController {
 		status.setComplete();
 		return "redirect:endo";
 		
+	}*/
+
+	@ModelAttribute
+	@RequestMapping(value = "/endos/pacienteForm*", method = RequestMethod.GET)
+	public Paciente edit(final HttpServletRequest request) {
+		
+		final String id = request.getParameter("id");
+        if (!StringUtils.isBlank(id)) {
+            return pacienteManager.getPaciente(new Long(id));
+        }
+        return new Paciente();
 	}
 
-	@RequestMapping(value = "/endos/editPaciente/{id}", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable Long id) {
-		ModelAndView mav = new ModelAndView("endos/editPaciente");
-		Paciente paciente = pacienteManager.getPaciente(id);
-		mav.addObject("paciente", paciente);
-		return mav;
-	}
-
-	@RequestMapping(value = "/endos/editPaciente", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/endos/editPaciente", method = RequestMethod.POST)
 	public String update(@ModelAttribute("paciente") Paciente paciente,
 			BindingResult result, SessionStatus status) {
 		validator.validate(paciente, result);
@@ -135,16 +141,67 @@ public class EndoController extends BaseFormController {
 		status.setComplete();
 		return "redirect:/endos/endo";
 		
-	}
+	}*/
+	
+	@RequestMapping(value = "/endos/pacienteForm*", method = RequestMethod.POST)
+    public String onSubmit(Paciente paciente, BindingResult errors, HttpServletRequest request,
+                           HttpServletResponse response)
+    throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(paciente, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "endos/pacienteList";
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        boolean isNew = (paciente.getId() == null);
+        String success = "endos/pacienteList";
+        Locale locale = request.getLocale();
+ 
+        if (request.getParameter("delete") != null) {
+        	pacienteManager.removePaciente(paciente.getId());
+            saveMessage(request, getText("person.deleted", locale));
+        } else {
+        	pacienteManager.savePaciente(paciente);
+            String key = (isNew) ? "person.added" : "person.updated";
+            saveMessage(request, getText(key, locale));
+ 
+            if (!isNew) {
+                success = "redirect:endos/editPaciente?id=" + paciente.getId();
+            }
+        }
+ 
+        return success;
+    }
 
-	@RequestMapping("/endos/deletePaciente/{id}")
+	/*
+	@RequestMapping(value="/team/delete/{id}", method=RequestMethod.GET)
+    public ModelAndView deleteTeam(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("home");
+        teamService.deleteTeam(id);
+        String message = "Team was successfully deleted.";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+	 */
+	/*@RequestMapping("/endos/deletePaciente/{id}")
 	public ModelAndView delete(@PathVariable String id) {
 		ModelAndView mav = new ModelAndView("redirect:/endos/endo");
-		
+		String message = "user.endocrinologist.pacientDeleted";
+        modelAndView.addObject("message", message);
 		pacienteManager.removePaciente(id);
 		return mav;
-	}
+	}*/
 
+	/*==========Administración de MEDICAMENTOS================*/
+	
     @RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.GET)
     public ModelAndView showMedicamentos(){
         ModelAndView mav = new ModelAndView("endos/medicamentoList");
@@ -172,6 +229,8 @@ public class EndoController extends BaseFormController {
         status.setComplete();
         return "redirect:endos/medicamentoList";
     }
+    
+    /*==========Administración de ESPECIALISTA================*/
 
     @RequestMapping(value = "/endos/especialistaList", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(){
@@ -200,6 +259,8 @@ public class EndoController extends BaseFormController {
         status.setComplete();
         return "redirect:endos/especialistaList";
     }
+    
+    /*==========Administración de SINTOMA================*/
 
     @RequestMapping(value = "/endos/sintomaList", method = RequestMethod.GET)
     public ModelAndView showSintomas(){

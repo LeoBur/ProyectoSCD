@@ -20,7 +20,7 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
     
     void removePaciente(Paciente paciente);
     
-    void removePaciente(String id);
+    void removePaciente(Long id);
 
     List<Paciente> search(String searchTerm);
 		
