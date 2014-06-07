@@ -42,13 +42,13 @@ public class TratamientoDaoHibernate extends GenericDaoHibernate<Tratamiento, Lo
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Tratamiento> getTratamientosByIdPaciente(Long idPaciente) {
-		Query qry = getSession().createQuery("from Tratamiento t where t.idPaciente = idPaciente order by (t.fechaTratamiento) DESC");
+		Query qry = getSession().createQuery("from Tratamiento t where t.id_paciente = idPaciente order by (t.fechaTratamiento) DESC");
 		return qry.list();
 	}
 
 	@Override
 	public Tratamiento getUltimoTratamientoByIdPaciente(Long idPaciente) {
-		Query qry = getSession().createQuery("from Tratamiento t where t.idPaciente = idPaciente order by (t.fechaTratamiento) DESC");
+		Query qry = getSession().createQuery("from Tratamiento t where t.id_paciente = idPaciente order by (t.fechaTratamiento) DESC");
 		if(qry == null){
 			return null;
 		} else

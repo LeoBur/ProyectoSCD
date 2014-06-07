@@ -1,8 +1,8 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
-import java.util.Hashtable;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Indexed;
+
 import java.util.Date;
 
 @Entity
@@ -31,8 +36,7 @@ public class Tratamiento implements Serializable{
 	private Date fechaTratamiento;
 	private Paciente paciente;
 	private Endocrinologo endocrinologo;
-	private Hashtable<Medicamento, String> prescripciones;
-	//private Map<Medicamento, String> prescipciones = new Hashtable<Medicamento, String>();
+	private Set<Prescripcion> prescripciones = new HashSet<Prescripcion>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -69,23 +73,13 @@ public class Tratamiento implements Serializable{
 		this.endocrinologo = endocrinologo;
 	}
 	
-	
-	public Hashtable<Medicamento, String> getPrescripciones() {
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<Prescripcion> getPrescripciones() {
 		return prescripciones;
 	}
-	public void setPrescripciones(Hashtable<Medicamento, String> prescripciones) {
+	public void setPrescripciones(Set<Prescripcion> prescripciones) {
 		this.prescripciones = prescripciones;
 	}
-	
-	/*@ManyToMany(cascade={})
-	@JoinTable(name="prescripciones_paciente",
-			joinColumns=@JoinColumn(name="idTratamiento"),
-			inverseJoinColumns=@JoinColumn(name="idMedicamento"))*/
-	/*public Map<Medicamento, String> getPrescipciones() {
-		return prescipciones;
-	}
-	public void setPrescipciones(Map<Medicamento, String> prescipciones) {
-		this.prescipciones = prescipciones;
-	}*/
 
 }
