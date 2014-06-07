@@ -11,15 +11,19 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("registroComidasManager")
 @WebService(serviceName = "RegistroComidasService", endpointInterface = "com.bcpv.service.RegistroComidasService")
+@Transactional
 public class RegistroComidasManagerImpl extends GenericManagerImpl<RegistroComidas, Long> implements RegistroComidasService, RegistroComidasManager {
 
 	private RegistroComidasDao registroComidasDao;
 
 	@Override
+	@Autowired
 	public void setRegistroComidasDao(RegistroComidasDao registroComidasDao) {
 		this.dao=registroComidasDao;
 		this.registroComidasDao=registroComidasDao;

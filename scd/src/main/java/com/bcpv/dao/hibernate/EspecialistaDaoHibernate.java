@@ -30,7 +30,7 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
 	
     @SuppressWarnings("unchecked")
     public List<Especialista> getEspecialistas() {
-		Query qry = getSession().createQuery("from especialista e2 order by upper(e2.apellido)");
+		Query qry = getSession().createQuery("from Especialista e2 order by upper(e2.apellido)");
         return qry.list();
 	}
 

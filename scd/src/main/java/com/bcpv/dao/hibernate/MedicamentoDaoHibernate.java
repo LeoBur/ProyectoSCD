@@ -7,13 +7,11 @@ import javax.persistence.EntityNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.MedicamentoDao;
 import com.bcpv.model.Medicamento;
 
 @Repository("medicamentoDao")
-@Transactional
 public class MedicamentoDaoHibernate extends GenericDaoHibernate<Medicamento, Long> implements MedicamentoDao{
 
 	public MedicamentoDaoHibernate(){

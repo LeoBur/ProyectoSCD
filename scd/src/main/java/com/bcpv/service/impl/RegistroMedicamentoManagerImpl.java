@@ -6,7 +6,9 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.RegistroMedicamentoDao;
 import com.bcpv.model.RegistroMedicamento;
@@ -15,11 +17,13 @@ import com.bcpv.service.RegistroMedicamentoService;
 
 @Service("registroMedicamentoManager")
 @WebService(serviceName = "RegistroMedicamentoService", endpointInterface = "com.bcpv.service.RegistroMedicamentoService")
+@Transactional
 public class RegistroMedicamentoManagerImpl extends GenericManagerImpl<RegistroMedicamento, Long> implements RegistroMedicamentoManager, RegistroMedicamentoService{
 
 	private RegistroMedicamentoDao registroMedicamentoDao;
 
 	@Override
+	@Autowired
 	public void setRegistroMedicamentoDao(RegistroMedicamentoDao registroMedicamentoDao) {
 		this.dao=registroMedicamentoDao;
 		this.registroMedicamentoDao=registroMedicamentoDao;

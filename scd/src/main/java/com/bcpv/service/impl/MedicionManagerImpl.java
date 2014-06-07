@@ -8,6 +8,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.MedicionDao;
 import com.bcpv.model.Medicion;
@@ -16,6 +17,7 @@ import com.bcpv.service.MedicionService;
 
 @Service("medicionManager")
 @WebService(serviceName = "MedicionService", endpointInterface = "com.bcpv.service.MedicionService")
+@Transactional
 public class MedicionManagerImpl extends GenericManagerImpl<Medicion, Long> implements MedicionManager, MedicionService {
 
 	private MedicionDao medicionDao;

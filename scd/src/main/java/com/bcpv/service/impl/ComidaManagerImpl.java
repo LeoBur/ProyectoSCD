@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.ComidaDao;
 import com.bcpv.model.Comida;
@@ -15,6 +16,7 @@ import com.bcpv.service.ComidaService;
 
 @Service("comidaManager")
 @WebService(serviceName="ComidaService", endpointInterface="com.bcpv.service.ComidaService")
+@Transactional
 public class ComidaManagerImpl extends GenericManagerImpl<Comida, Long> implements ComidaManager, ComidaService{
 
 	private ComidaDao comidaDao;

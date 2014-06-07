@@ -6,7 +6,9 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.RegistroSintomaDao;
 import com.bcpv.model.RegistroSintoma;
@@ -15,11 +17,13 @@ import com.bcpv.service.RegistroSintomaService;
 
 @Service("registroSintomaManager")
 @WebService(serviceName = "RegistroSintomaService", endpointInterface = "com.bcpv.service.RegistroSintomaService")
+@Transactional
 public class RegistroSintomaManagerImpl extends GenericManagerImpl<RegistroSintoma, Long> implements RegistroSintomaManager,RegistroSintomaService{
 
 	private RegistroSintomaDao registroSintomaDao;
 
 	@Override
+	@Autowired
 	public void setRegistroSintomaDao(RegistroSintomaDao registroSintomaDao) {
 		this.dao=registroSintomaDao;
 		this.registroSintomaDao=registroSintomaDao;

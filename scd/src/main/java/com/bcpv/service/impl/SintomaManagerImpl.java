@@ -8,6 +8,7 @@ import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.SintomaDao;
 import com.bcpv.model.Sintoma;
@@ -16,6 +17,7 @@ import com.bcpv.service.SintomaService;
 
 @Service("sintomaManager")
 @WebService(serviceName = "SintomaService", endpointInterface = "com.bcpv.service.SintomaService")
+@Transactional
 public class SintomaManagerImpl extends GenericManagerImpl<Sintoma, Long> implements SintomaManager, SintomaService{
 
 	private SintomaDao sintomaDao;
@@ -41,7 +43,7 @@ public class SintomaManagerImpl extends GenericManagerImpl<Sintoma, Long> implem
 	@Override
 	public List<Sintoma> getSintomas() {
 		if (sintomaDao!=null){
-			return sintomaDao.getAllDistinct();
+			return sintomaDao.getSintomas();
 		}
 		return new ArrayList<Sintoma>();
 	}
