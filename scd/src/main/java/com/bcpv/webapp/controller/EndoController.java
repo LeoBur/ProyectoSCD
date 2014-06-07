@@ -22,7 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
-import com.bcpv.model.Especialista;
+import com.bcpv.model.Sintoma;
 import com.bcpv.model.Medicamento;
 import com.bcpv.model.Paciente;
 import com.bcpv.model.Sintoma;
@@ -141,10 +141,10 @@ public class EndoController extends BaseFormController {
  
         if (request.getParameter("delete") != null) {
         	pacienteManager.removePaciente(paciente.getId());
-            saveMessage(request, getText("person.deleted", locale));
+            saveMessage(request, getText("user.endocrinologist.pacientDeleted", locale));
         } else {
         	pacienteManager.savePaciente(paciente);
-            String key = (isNew) ? "person.added" : "person.updated";
+            String key = (isNew) ? "user.endocrinologist.pacientSaved" : "user.endocrinologist.pacientUpdated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
@@ -198,10 +198,10 @@ public class EndoController extends BaseFormController {
  
         if (request.getParameter("delete") != null) {
         	medicamentoManager.removeMedicamento(medicamento.getIdMedicamento());
-            saveMessage(request, getText("person.deleted", locale));
+            saveMessage(request, getText("user.endocrinologist.medicinDeleted", locale));
         } else {
         	medicamentoManager.saveMedicamento(medicamento);
-            String key = (isNew) ? "person.added" : "person.updated";
+            String key = (isNew) ? "user.endocrinologist.medicinSaved" : "user.endocrinologist.medicinUpdated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
@@ -217,21 +217,21 @@ public class EndoController extends BaseFormController {
     @RequestMapping(value = "/endos/especialistaList*", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(){
         ModelAndView mav = new ModelAndView("endos/especialistaList");
-        List<Especialista> especialistas = especialistaManager.getEspecialistas();
+        List<Sintoma> especialistas = especialistaManager.getEspecialistas();
         mav.addObject("especialistaList", especialistas);
         return mav;
     }
 
     @ModelAttribute
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.GET)
-    public Especialista editEspec(final HttpServletRequest request) {
+    public Sintoma editEspec(final HttpServletRequest request) {
         String id = request.getParameter("id");
-        Especialista especialista = especialistaManager.getEspecialista(new Long(id));
+        Sintoma especialista = especialistaManager.getEspecialista(new Long(id));
         return especialista;
     }
 
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.POST)
-    public String updateEspec(Especialista especialista, BindingResult errors, HttpServletRequest request,
+    public String updateEspec(Sintoma especialista, BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
     	
     	if (request.getParameter("cancel") != null) {
@@ -254,10 +254,10 @@ public class EndoController extends BaseFormController {
  
         if (request.getParameter("delete") != null) {
         	especialistaManager.removeEspecialista(especialista.getId());
-            saveMessage(request, getText("person.deleted", locale));
+            saveMessage(request, getText("user.endocrinologist.specialistDeleted", locale));
         } else {
         	especialistaManager.saveEspecialista(especialista);
-            String key = (isNew) ? "person.added" : "person.updated";
+            String key = (isNew) ? "user.endocrinologist.specialistSaved" : "user.endocrinologist.specialistUpdated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
@@ -277,48 +277,50 @@ public class EndoController extends BaseFormController {
         mav.addObject("sintomaList", sintomas);
         return mav;
     }
-    
-    /*
-	 * @RequestMapping(value="/team/edit/{id}", method=RequestMethod.GET)
-		public ModelAndView editTeamPage(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("edit-team-form");
-		Team team = teamService.getTeam(id);
-		modelAndView.addObject("team",team);
-		return modelAndView;
-	}
-	
-	
-	@RequestMapping(value="/team/edit/{id}", method=RequestMethod.POST)
-    public ModelAndView edditingTeam(@ModelAttribute Team team, @PathVariable Integer id) {
-         
-        ModelAndView modelAndView = new ModelAndView("home");
-         
-        teamService.updateTeam(team);
-         
-        String message = "Team was successfully edited.";
-        modelAndView.addObject("message", message);
-         
-        return modelAndView;
-    }
-	 */
 
-    @RequestMapping(value = "/endos/editSintoma/{id}", method = RequestMethod.GET)
-    public ModelAndView adminSint(@PathVariable Long id) {
-        ModelAndView mav = new ModelAndView("endos/editSintoma");
-        Sintoma sintoma = sintomaManager.getSintoma(id);
-        mav.addObject("sintoma", sintoma);
-        return mav;
+    @ModelAttribute
+    @RequestMapping(value = "/endos/sintomaForm*", method = RequestMethod.GET)
+    public Sintoma adminSint(final HttpServletRequest request) {
+    	String id = request.getParameter("id");
+        Sintoma sintoma = sintomaManager.getSintoma(new Long(id));
+        return sintoma;
     }
 
-    @RequestMapping(value = "/endos/editSintoma", method = RequestMethod.POST)
-    public String updateSintoma(@ModelAttribute("sintoma") Sintoma sintoma,
-                              BindingResult result, SessionStatus status) {
-        validator.validate(sintoma, result);
-        if (result.hasErrors()) {
-            return "endos/editSintoma";
+    @RequestMapping(value = "/endos/sintomaForm*", method = RequestMethod.POST)
+    public String updateSint(Sintoma sintoma, BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+    	
+    	if (request.getParameter("cancel") != null) {
+            return getCancelView();
         }
-        sintomaManager.saveSintoma(sintoma);
-        status.setComplete();
-        return "redirect:sintomaList";
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(sintoma, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "endos/siontomaForm";
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        boolean isNew = (sintoma.getIdSintoma() == null);
+        String success = "endos/sintomaList";
+        Locale locale = request.getLocale();
+ 
+        if (request.getParameter("delete") != null) {
+        	sintomaManager.removeSintoma(sintoma.getIdSintoma());
+            saveMessage(request, getText("user.endocrinologist.syntomDeleted", locale));
+        } else {
+        	sintomaManager.saveSintoma(sintoma);
+            String key = (isNew) ? "user.endocrinologist.syntomSaved" : "user.endocrinologist.syntomUpdated";
+            saveMessage(request, getText(key, locale));
+ 
+            if (!isNew) {
+                success = "redirect:endos/sintomaForm?id=" + sintoma.getIdSintoma();
+            }
+        }
+ 
+        return success;
     }
 }
