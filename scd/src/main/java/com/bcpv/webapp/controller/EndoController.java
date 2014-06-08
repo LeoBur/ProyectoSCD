@@ -12,17 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
-//import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
-import com.bcpv.model.Sintoma;
+import com.bcpv.model.Especialista;
 import com.bcpv.model.Medicamento;
 import com.bcpv.model.Paciente;
 import com.bcpv.model.Sintoma;
@@ -217,21 +214,21 @@ public class EndoController extends BaseFormController {
     @RequestMapping(value = "/endos/especialistaList*", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(){
         ModelAndView mav = new ModelAndView("endos/especialistaList");
-        List<Sintoma> especialistas = especialistaManager.getEspecialistas();
+        List<Especialista> especialistas = especialistaManager.getEspecialistas();
         mav.addObject("especialistaList", especialistas);
         return mav;
     }
 
     @ModelAttribute
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.GET)
-    public Sintoma editEspec(final HttpServletRequest request) {
+    public Especialista editEspec(final HttpServletRequest request) {
         String id = request.getParameter("id");
-        Sintoma especialista = especialistaManager.getEspecialista(new Long(id));
+        Especialista especialista = especialistaManager.getEspecialista(new Long(id));
         return especialista;
     }
 
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.POST)
-    public String updateEspec(Sintoma especialista, BindingResult errors, HttpServletRequest request,
+    public String updateEspec(Especialista especialista, BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
     	
     	if (request.getParameter("cancel") != null) {
@@ -270,7 +267,7 @@ public class EndoController extends BaseFormController {
     
     /*==========Administración de SINTOMA================*/
 
-    @RequestMapping(value = "/endos/sintomaList", method = RequestMethod.GET)
+    @RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.GET)
     public ModelAndView showSintomas(){
         ModelAndView mav = new ModelAndView("endos/sintomaList");
         List<Sintoma> sintomas = sintomaManager.getSintomas();
