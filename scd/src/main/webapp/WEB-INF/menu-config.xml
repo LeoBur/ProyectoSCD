@@ -24,7 +24,7 @@
         	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>       	
        	 	<Item name="AdminSymptom" title="user.symptom.admin" page="/endos/adminSintoma"/>
         	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
-        	<Item name="AdminEspecialist" title="user.especialist.admin" page="/endos/especialistaList"/>
+        	<Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
         </Menu>
         
         <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
@@ -66,10 +66,10 @@
         	<Item name="2" title="user.endocrinologist.change" page="/admin/users"/>
         	<Item name="3" title="user.endocrinologist.delete" page="/admin/users"/>
         </Menu> 
-        <Menu name="Especialist" title="user.especialist.title" page="/admin/users" roles="ROLE_ADMIN" description="Especialist Admin">
-        	<Item name="1" title="user.especialist.new" page="/admin/users"/>
-        	<Item name="2" title="user.especialist.change" page="/admin/users"/>
-        	<Item name="3" title="user.especialist.delete" page="/admin/users"/>
+        <Menu name="Especialist" title="user.specialist.title" page="/admin/users" roles="ROLE_ADMIN" description="Especialist Admin">
+        	<Item name="1" title="user.specialist.new" page="/admin/users"/>
+        	<Item name="2" title="user.specialist.change" page="/admin/users"/>
+        	<Item name="3" title="user.specialist.delete" page="/admin/users"/>
         </Menu>
         <Menu name="Treatment" title="user.treatment.title" page="/admin/users" roles="ROLE_ADMIN" description="Treatment Admin">
         	<Item name="1" title="user.treatment.new" page="/admin/users"/>
