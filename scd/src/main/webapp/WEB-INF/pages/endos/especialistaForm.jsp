@@ -11,7 +11,7 @@
 </script>
 
 <div class="col-sm-4">
-    <h2><fmt:message key="user.especialist.new"/></h2>
+    <h2><fmt:message key="user.specialist.title"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
             <p><fmt:message key="userProfile.admin.message"/></p>
@@ -24,7 +24,7 @@
 <%-- Acá comienzan los formularios --%>
 
 <div class="col-sm-7">
-            <spring:bind path="user.*">
+            <spring:bind path="especialista.*">
                 <c:if test="${not empty status.errorMessages}">
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" data-dismiss="alert" class="close">&times;</a>
@@ -35,45 +35,40 @@
                 </c:if>
             </spring:bind>
 
-    <form:form commandName="user" method="post" action="endos/especialistaList" id="userForm" autocomplete="off"
+    <form:form commandName="especialista" method="post" action="especialistaForm" id="especialistaForm" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
                 <form:hidden path="id"/>
                 
-                <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
-        
-        
-        
-            	
+                         	
         		
-        
                                         <%-- nombre, apellido,telefono,email,dni sexo, observaciones--%>        
         
                             <div class="row">
-                                    <spring:bind path="user.firstName">
+                                    <spring:bind path="especialista.nombre">
                                         <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     </spring:bind>
                                             <appfuse:label styleClass="control-label" key="user.firstName"/>
-                                            <form:input cssClass="form-control" path="nombre" id="firstName" maxlength="50"/>
-                                            <form:errors path="firstName" cssClass="help-block"/>
+                                            <form:input cssClass="form-control" path="nombre" id="nombre" maxlength="50"/>
+                                            <form:errors path="nombre" cssClass="help-block"/>
                                         </div>
-                                    <spring:bind path="user.lastName">
+                                    <spring:bind path="especialista.apellido">
                                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     </spring:bind>
                                         <appfuse:label styleClass="control-label" key="user.lastName"/>
-                                        <form:input cssClass="form-control" path="apellido" id="lastName" maxlength="50"/>
-                                        <form:errors path="lastName" cssClass="help-block"/>
+                                        <form:input cssClass="form-control" path="apellido" id="apellido" maxlength="50"/>
+                                        <form:errors path="apellido" cssClass="help-block"/>
                                     </div>
                             </div>
 
 
                             <div class="row">
-                                <spring:bind path="user.phoneNumber">
+                                <spring:bind path="especialista.telefono">
                                         <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     </spring:bind>
                                         <appfuse:label styleClass="control-label" key="user.phoneNumber"/>
-                                        <form:input cssClass="form-control" path="telefono" id="phoneNumber"/>
+                                        <form:input cssClass="form-control" path="telefono" id="telefono"/>
                                         </div>
-                                    <spring:bind path="user.email">
+                                    <spring:bind path="especialista.email">
                                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     </spring:bind>
                                         <appfuse:label styleClass="control-label" key="user.email"/>
@@ -82,25 +77,25 @@
                                     </div>
                             </div>                                
                             <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <appfuse:label styleClass="control-label" key="user.dni"/>
-                                    <form:input cssClass="form-control" path="dni" id="dni"/>
-                                </div>
-                                <spring:bind path="user.email">
-                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                            	<spring:bind path="especialista.tipo_esp">
+                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                 </spring:bind>
-                                    <%--<appfuse:label styleClass="control-label" key="user.sexo"/>
-                                    <div cssClass="form-control">
-                                        <form:radiobutton  path="email" label="Femenino"/>&nbsp;
-                                        <form:radiobutton path="email" label="Masculino" />
-                                        <form:errors path="email" cssClass="help-block"/>
-                                    </div>
-                                     --%>
-                            </div>
+	                                    <appfuse:label styleClass="control-label" key="user.dni"/>
+	                                    <form:input cssClass="form-control" path="dni" id="dni"/>
+	                                	</div>
+	                                <spring:bind path="especialista.email">
+	                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                	<appfuse:label styleClass="control-label" key="user.tipo_esp"/>
+		                                <form:select cssClass="form-control" path="tipo_esp">
+			                    			<form:option value="nutricionista" label="Nutricionista"/>
+			                    			<form:option value="entrenadorPersonal" label="Entrenador Personal"/>
+			                    		</form:select>
+		                    		</div>
                         </div>
             
             <%-- Probamos con usuario y contraseña--%>
-		            <spring:bind path="user.username">
+		            <%-- <spring:bind path="user.username">
                     	<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                     </spring:bind>
                     	<appfuse:label styleClass="control-label" key="user.username"/>
@@ -119,10 +114,7 @@
                     	<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                     </spring:bind>
                     	<appfuse:label styleClass="control-label" key="user.tipo"/>
-                    		<form:select cssClass="form-control" path="tipo_esp">
-                    			<form:option value="nutricionista" label="Nutricionista"/>
-                    			<form:option value="entrenadorPersonal" label="Entrenador Personal"/>
-                    		</form:select>
+                    		 --%>
 
                             <br></br>
 
@@ -132,6 +124,11 @@
             <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </button>
+            <c:if test="${not empty especialista.id}">
+              <button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+                  <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+              </button>
+            </c:if>
             <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
                 <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
             </button>
@@ -149,5 +146,6 @@ function onFormSubmit(theForm) {
 </script>
 </c:set>
 
-<v:javascript formName="user" staticJavascript="false"/>
+<v:javascript formName="especialista" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+
