@@ -32,6 +32,8 @@
 	                        style="width: 34%">
 	            </display:column>
 	            
+	            
+	            
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
                     		<a href="${pageContext.request.contextPath}/adminMedicamento.jsp">Nuevo</a>
             				<a href="${pageContext.request.contextPath}/endos/adminMedicamento/${medicamentoList.idMedicamento}.jsp">Editar</a>
