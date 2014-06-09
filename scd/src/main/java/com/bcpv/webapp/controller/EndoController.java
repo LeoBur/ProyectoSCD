@@ -133,7 +133,7 @@ public class EndoController extends BaseFormController {
         log.debug("entering 'onSubmit' method...");
  
         boolean isNew = (paciente.getId() == null);
-        String success = "endos/pacienteList";
+        String success = "redirect:pacienteList";
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
@@ -145,7 +145,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:endos/pacienteForm?id=" + paciente.getId();
+                success = "redirect:pacienteForm?id=" + paciente.getId();
             }
         }
  
@@ -190,7 +190,7 @@ public class EndoController extends BaseFormController {
         log.debug("entering 'onSubmit' method...");
  
         boolean isNew = (medicamento.getIdMedicamento() == null);
-        String success = "endos/medicamentoList";
+        String success = "redirect:medicamentoList";
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
@@ -202,7 +202,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:endos/medicamentoForm?id=" + medicamento.getIdMedicamento();
+                success = "redirect:medicamentoForm?id=" + medicamento.getIdMedicamento();
             }
         }
  
@@ -248,7 +248,7 @@ public class EndoController extends BaseFormController {
         log.debug("entering 'onSubmit' method...");
  
         boolean isNew = (especialista.getId() == null);
-        String success = "endos/especialistaList";
+        String success = "redirect:especialistaList";
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
@@ -260,7 +260,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:endos/especialistaForm?id=" + especialista.getId();
+                success = "redirect:especialistaForm?id=" + especialista.getId();
             }
         }
  
@@ -299,26 +299,26 @@ public class EndoController extends BaseFormController {
             validator.validate(sintoma, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "endos/siontomaForm";
+                return "endos/sintomaForm";
             }
         }
  
         log.debug("entering 'onSubmit' method...");
  
         boolean isNew = (sintoma.getIdSintoma() == null);
-        String success = "endos/sintomaList";
+        String success = "redirect:sintomaList";
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
         	sintomaManager.removeSintoma(sintoma.getIdSintoma());
-            saveMessage(request, getText("user.endocrinologist.syntomDeleted", locale));
+            saveMessage(request, getText("user.endocrinologist.symtomDeleted", locale));
         } else {
         	sintomaManager.saveSintoma(sintoma);
-            String key = (isNew) ? "user.endocrinologist.syntomSaved" : "user.endocrinologist.syntomUpdated";
+            String key = (isNew) ? "user.endocrinologist.symtomSaved" : "user.endocrinologist.symtomUpdated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:endos/sintomaForm?id=" + sintoma.getIdSintoma();
+                success = "redirect:sintomaForm?id=" + sintoma.getIdSintoma();
             }
         }
  
