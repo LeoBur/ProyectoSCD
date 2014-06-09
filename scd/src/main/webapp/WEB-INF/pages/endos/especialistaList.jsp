@@ -12,7 +12,14 @@
 		<fmt:message key="home.heading" />
 	</h2>
 
-<div class="col-sm-7">		
+<div class="col-sm-7">
+
+	<div id="actions" class="btn-group">
+	    <a class="btn btn-primary" href="<c:url value='/endos/especialistaForm'/>">
+	      <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+	    <a class="btn btn-default" href="<c:url value='/mainMenu'/>">
+	      <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+	</div>		
     	
 	 	<display:table  name="especialistaList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="especialistaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
@@ -33,22 +40,15 @@
 	                        style="width: 34%">
 	            </display:column>
 	            
-	            <%--
 	            
+	            <%--
 	            <display:column property="domicilio" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
 	                        style="width: 34%">
 	            </display:column>
-	            
-	            
-	            
-	            
-	            
-	            
+	            --%>            
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
-                    		<a href="${pageContext.request.contextPath}/adminMedicamento.jsp">Nuevo</a>
-            				<a href="${pageContext.request.contextPath}/endos/adminMedicamento/${especialistaList.id}.jsp">Editar</a>
-            				<a href="deletMedicamento.jsp">Eliminar</a>
-                </display:column> --%>
+            		<a href="${pageContext.request.contextPath}/endos/especialistaForm?id=${especialistaList.id}">Editar</a>
+                </display:column> 
 	            
 		</display:table>
 </div>
