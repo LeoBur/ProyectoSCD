@@ -223,8 +223,10 @@ public class EndoController extends BaseFormController {
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.GET)
     public Especialista editEspec(final HttpServletRequest request) {
         String id = request.getParameter("id");
-        Especialista especialista = especialistaManager.getEspecialista(new Long(id));
-        return especialista;
+        if (!StringUtils.isBlank(id)) {
+            return especialistaManager.getEspecialista(new Long(id));
+        } 
+        return new Especialista();
     }
 
     @RequestMapping(value = "/endos/especialistaForm*", method = RequestMethod.POST)
@@ -279,8 +281,10 @@ public class EndoController extends BaseFormController {
     @RequestMapping(value = "/endos/sintomaForm*", method = RequestMethod.GET)
     public Sintoma adminSint(final HttpServletRequest request) {
     	String id = request.getParameter("id");
-        Sintoma sintoma = sintomaManager.getSintoma(new Long(id));
-        return sintoma;
+    	if (!StringUtils.isBlank(id)) {
+            return sintomaManager.getSintoma(new Long(id));
+        } 
+        return new Sintoma();
     }
 
     @RequestMapping(value = "/endos/sintomaForm*", method = RequestMethod.POST)
