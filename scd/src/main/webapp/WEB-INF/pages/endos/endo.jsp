@@ -43,6 +43,14 @@
         </div>
         </c:if>
     </spring:bind>
+    
+    <div id="actions" class="btn-group">
+        <a class="btn btn-primary" href="<c:url value='/endos/pacienteForm'/>">
+            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+        <a class="btn btn-default" href="<c:url value='/mainMenu'/>">
+            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+    </div>
+    
 	<form:form commandName="endoSearch" method="post" action="endo"
 		enctype="multipart/form-data" id="mainSearchBox">
 		<spring:bind path="endoSearch.pacienteToSearch">
@@ -67,6 +75,11 @@
 	                        style="width: 34%">
 	                        <a href="endos/adminMedicamento:<c:out value="Editar Medicamentos"/>"></a>
 	            </display:column>
+	            
+	            <display:column titleKey="activeEndos.acciones" sortable="true">
+            				<a href="${pageContext.request.contextPath}/endos/pacienteForm?id=${pacienteList.id}">Editar</a>            				
+            				<a href="${pageContext.request.contextPath}/endos/pacienteForm" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">Eliminar Tengo que ver para que elimine directo</a>
+                </display:column>
 	</display:table>
 	</form:form>
 	
