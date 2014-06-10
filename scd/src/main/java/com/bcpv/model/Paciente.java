@@ -37,6 +37,7 @@ public class Paciente implements Serializable{
 	private Domicilio domicilio;
 	private Long telefono;
 	private String email;
+	private String username;
 	
 	private String sexo;
 	private String observaciones;
@@ -51,13 +52,14 @@ public class Paciente implements Serializable{
 	public Paciente(){
 	}
 	
-	public Paciente(int dni, String nombre, String apellido, Long telefono, String email, Domicilio domicilio, String sexo, 
+	public Paciente(int dni, String nombre, String apellido, Long telefono, String email, String username, Domicilio domicilio, String sexo, 
 			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
+		this.username = username;
 		this.domicilio=domicilio;
 		this.sexo = sexo;
 		this.observaciones = obs;
@@ -222,5 +224,14 @@ public class Paciente implements Serializable{
 
 	public void setTratamientos(Set<Tratamiento> tratamientos) {
 		this.tratamientos = tratamientos;
+	}
+
+	@Column(name = "username", unique = true, nullable = false)
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

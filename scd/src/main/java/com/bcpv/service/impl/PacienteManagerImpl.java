@@ -86,6 +86,10 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	@Override
 	public List<Paciente> loadPacientesByApellido(String apellido) {
 		return pacientesDao.loadPacientesByApellido(apellido);
-	}	
-
+	}
+	
+	@Override
+	public Paciente getPacienteByUsername(String username) {
+		return pacientesDao.getPacienteByUsername(username);
+	}
 }
