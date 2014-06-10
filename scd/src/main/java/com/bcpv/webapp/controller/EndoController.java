@@ -46,8 +46,6 @@ public class EndoController extends BaseFormController {
 	SintomaManager sintomaManager;
 
 	public EndoController() {
-		setCancelView("redirect:/home");
-		setSuccessView("endo");
 	}
 
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
@@ -71,10 +69,10 @@ public class EndoController extends BaseFormController {
 		return result;
 	}
 
-	@ModelAttribute("mainPlaceHolder")
+	/*@ModelAttribute("mainPlaceHolder")
 	public String getMainPlaceHolder() {
 		return getText("endo.pacienteToSearch", Locale.getDefault());
-	}
+	}*/
 
 	/*==========Busqueda de PACIENTE================*/
 	@ModelAttribute
@@ -119,7 +117,7 @@ public class EndoController extends BaseFormController {
                            HttpServletResponse response)
     throws Exception {
         if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/endos/endo*";
         }
  
         if (validator != null) { // validator is null during testing
@@ -176,7 +174,7 @@ public class EndoController extends BaseFormController {
     public String updateMedic(Medicamento medicamento, BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
     	if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/endos/medicamentoList*";
         }
  
         if (validator != null) { // validator is null during testing
@@ -234,7 +232,7 @@ public class EndoController extends BaseFormController {
             HttpServletResponse response) {
     	
     	if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/endos/especialistaList*";
         }
  
         if (validator != null) { // validator is null during testing
@@ -292,7 +290,7 @@ public class EndoController extends BaseFormController {
             HttpServletResponse response) {
     	
     	if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/endos/sintomaList";
         }
  
         if (validator != null) { // validator is null during testing
