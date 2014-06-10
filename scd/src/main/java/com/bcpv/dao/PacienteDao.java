@@ -18,5 +18,7 @@ public interface PacienteDao extends GenericDao<Paciente, Long>{
     List<Paciente> loadPacientesByTipo (TipoDiabetes tipo);
     
     List<Paciente> loadPacientesByApellido (String apellido);
+    
+    Paciente getPacienteByUsername(String username);
 	
 }

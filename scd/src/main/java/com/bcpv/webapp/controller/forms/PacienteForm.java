@@ -1,15 +1,19 @@
 package com.bcpv.webapp.controller.forms;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.bcpv.model.Comida;
+import com.bcpv.model.MomentoDia.MomentosDia;
 
 public class PacienteForm {
 	
 	public Date fechaHora;
 	public String medicion;
 	public String peso;
-	public Comida comida;
+	public MomentosDia momento;
+	public Set<Comida> comidas;
+	public String username; //pageContext.request.remoteUser
 	
 	public Date getFechaHora() {
 		return fechaHora;
@@ -35,11 +39,13 @@ public class PacienteForm {
 		this.peso = peso;
 	}
 
-	public Comida getComida() {
-		return comida;
+	public Set<Comida> getComidas() {
+		return comidas;
 	}
 
-	public void setComida(Comida comida) {
-		this.comida = comida;
+	public void setComidas(Set<Comida> comidas) {
+		this.comidas = comidas;
 	}
+
+	
 }

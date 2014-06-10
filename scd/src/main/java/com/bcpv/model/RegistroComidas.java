@@ -2,8 +2,6 @@ package com.bcpv.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -32,7 +28,7 @@ public class RegistroComidas implements Serializable{
 	private Long idRegistroComida;
 	private Paciente paciente;
 	private Date fecha_registro_comida;
-	private Set<MomentoDia> momentosDia=new HashSet<MomentoDia>();
+	private MomentoDia momentoDia= new MomentoDia();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -61,13 +57,12 @@ public class RegistroComidas implements Serializable{
 		this.fecha_registro_comida = fecha_registro_comida;
 	}
 	
-	@ManyToMany(cascade={})
-	@JoinTable(name="Reg_Comida_Momentos", joinColumns={@JoinColumn(name="id_reg_comida")}, inverseJoinColumns={@JoinColumn(name="idMomentoD")})
-	@Column(name="momentosDia")
-	public Set<MomentoDia> getMomentosDia() {
-		return momentosDia;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="momentoDia", unique = true)
+	public MomentoDia getMomentoDia() {
+		return momentoDia;
 	}
-	public void setMomentosDia(Set<MomentoDia> momentosDia) {
-		this.momentosDia = momentosDia;
+	public void setMomentoDia(MomentoDia momentoDia) {
+		this.momentoDia = momentoDia;
 	}
 }

@@ -41,7 +41,7 @@ import com.bcpv.webapp.util.RequestUtil;
 //@RequestMapping("/paciente/medicion*")
 //@RequestMapping("/paciente/peso*")
 //@RequestMapping("/paciente/dat*")
-@RequestMapping("/paciente/registrar*")
+//@RequestMapping("/paciente/registrar*")
 public class RegistrarController extends BaseFormController {
 
     private RoleManager roleManager;

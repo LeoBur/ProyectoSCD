@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bcpv.model.Comida;
 import com.bcpv.model.Medicion;
+import com.bcpv.model.MomentoDia;
+import com.bcpv.model.Paciente;
 import com.bcpv.model.Peso;
+import com.bcpv.model.RegistroComidas;
 import com.bcpv.service.ComidaManager;
 import com.bcpv.service.MedicionManager;
+import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PesoManager;
+import com.bcpv.service.RegistroComidasManager;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 
-@RequestMapping("/paciente*")
+@RequestMapping("/paciente/registrar*")
 public class PacienteController extends BaseFormController {
 
 	@Autowired
@@ -30,6 +34,12 @@ public class PacienteController extends BaseFormController {
 	
 	@Autowired
 	ComidaManager comidaManager;
+	
+	@Autowired
+	PacienteManager pacienteManager;
+	
+	@Autowired
+	RegistroComidasManager registroComidasManager;
 	
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
@@ -46,15 +56,15 @@ public class PacienteController extends BaseFormController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(PacienteForm paciente, BindingResult errors, HttpServletRequest request,
-                           HttpServletResponse response)
+    public String onSubmit(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors, 
+    					   HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         if (request.getParameter("cancel") != null) {
             return getCancelView();
         }
  
         if (validator != null) { // validator is null during testing
-            validator.validate(paciente, errors);
+            validator.validate(pacienteForm, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
                 return "/registrar";
@@ -65,30 +75,38 @@ public class PacienteController extends BaseFormController {
  
         String success = getSuccessView();
         Locale locale = request.getLocale();
+        Paciente paciente = pacienteManager.getPacienteByUsername(pacienteForm.username);
         //Date date = formatter.parse(request.getParameter("datepicker"));
         
-        if (paciente.medicion != null){
+        if (pacienteForm.medicion != null){
         	Medicion medicion = new Medicion();
-        	medicion.setF_medicion(paciente.fechaHora);
-        	medicion.setValor(new Integer (paciente.medicion));
+        	medicion.setF_medicion(pacienteForm.fechaHora);
+        	medicion.setValor(new Integer (pacienteForm.medicion));
+        	medicion.setPaciente(paciente);
         	
         	medicionManager.saveMedicion(medicion);
         }
         
-        if(paciente.peso != null){
+        if(pacienteForm.peso != null){
         	Peso peso = new Peso();
-        	peso.setFechaHora(paciente.fechaHora);
-        	peso.setPeso(new Float (paciente.peso));
+        	peso.setFechaHora(pacienteForm.fechaHora);
+        	peso.setPeso(new Float (pacienteForm.peso));
+        	peso.setPaciente(paciente);
         	
         	pesoManager.savePeso(peso);
         }
         
-        if(paciente.comida !=null){
-        	Comida comida = new Comida();
-        	comida.setAlimento(paciente.comida.getAlimento());
-        	comida.setCantidad(paciente.comida.getCantidad());
+        if(!pacienteForm.comidas.isEmpty() && pacienteForm.momento != null){
+        	MomentoDia moment = new MomentoDia();
+        	moment.setNombre(pacienteForm.momento);
+        	moment.setComidas(pacienteForm.getComidas());
         	
-        	comidaManager.saveComida(comida);
+        	RegistroComidas reg = new RegistroComidas();
+        	reg.setFecha_registro_comida(pacienteForm.fechaHora);
+        	reg.setPaciente(paciente);
+        	reg.setMomentoDia(moment);
+        	
+        	registroComidasManager.saveRegistroComidas(reg);
         }
         
         saveMessage(request, getText("user.paciente.savedData", locale));
