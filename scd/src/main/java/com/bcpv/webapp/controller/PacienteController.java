@@ -1,5 +1,6 @@
 package com.bcpv.webapp.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,17 +11,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.bcpv.model.Medicamento;
 import com.bcpv.model.Medicion;
 import com.bcpv.model.MomentoDia;
 import com.bcpv.model.Paciente;
 import com.bcpv.model.Peso;
 import com.bcpv.model.RegistroComidas;
+import com.bcpv.model.RegistroMedicamento;
+import com.bcpv.model.RegistroSintoma;
+import com.bcpv.model.Sintoma;
+import com.bcpv.service.AlimentoManager;
 import com.bcpv.service.ComidaManager;
+import com.bcpv.service.MedicamentoManager;
 import com.bcpv.service.MedicionManager;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PesoManager;
 import com.bcpv.service.RegistroComidasManager;
+import com.bcpv.service.RegistroMedicamentoManager;
+import com.bcpv.service.RegistroSintomaManager;
+import com.bcpv.service.SintomaManager;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 
 @RequestMapping("/paciente/registrar*")
@@ -41,6 +52,21 @@ public class PacienteController extends BaseFormController {
 	@Autowired
 	RegistroComidasManager registroComidasManager;
 	
+	@Autowired
+	RegistroMedicamentoManager registroMedicamentoManager;
+	
+	@Autowired
+	RegistroSintomaManager registroSintomaManager;
+	
+	@Autowired
+	MedicamentoManager medicamentoManager;
+	
+	@Autowired
+	SintomaManager sintomaManager;
+	
+	@Autowired
+	AlimentoManager alimentoManager;
+	
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public PacienteController() {
@@ -48,11 +74,16 @@ public class PacienteController extends BaseFormController {
 		setSuccessView("paciente");
 	}
 	
-	@ModelAttribute
 	@RequestMapping(method = RequestMethod.GET)
-	public PacienteForm showForm() {
+	public ModelAndView showForm() {
+		ModelAndView mv = new ModelAndView("registrar");
 		PacienteForm pacienteForm = new PacienteForm();
-		return pacienteForm;
+		List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
+		List<Sintoma> sintomas = sintomaManager.getSintomas();
+		mv.addObject("pacienteForm", pacienteForm);
+		mv.addObject("medicamentoList", medicamentos);
+		mv.addObject("sintomaList", sintomas);
+		return mv;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -107,6 +138,26 @@ public class PacienteController extends BaseFormController {
         	reg.setMomentoDia(moment);
         	
         	registroComidasManager.saveRegistroComidas(reg);
+        }
+        
+        if(pacienteForm.medicamento != null){
+        	RegistroMedicamento regMed = new RegistroMedicamento();
+        	regMed.setFch_reg_medicamento(pacienteForm.fechaHora);
+        	regMed.setPaciente(paciente);
+        	regMed.setMedicamento(medicamentoManager.getByNombreComercial(pacienteForm.medicamento));
+        	regMed.setObservaciones(pacienteForm.observacionesMedicamento);
+        	
+        	registroMedicamentoManager.saveRegistroMedicamento(regMed);
+        }
+        
+        if(pacienteForm.sintoma != null){
+        	RegistroSintoma regSint = new RegistroSintoma();
+        	regSint.setFch_reg_sintoma(pacienteForm.getFechaHora());
+        	regSint.setPaciente(paciente);
+        	regSint.setObservaciones(pacienteForm.getObservacionesSintoma());
+        	regSint.setSintoma(sintomaManager.getByNombre(pacienteForm.sintoma));
+        	
+        	registroSintomaManager.saveRegistroSintoma(regSint);
         }
         
         saveMessage(request, getText("user.paciente.savedData", locale));

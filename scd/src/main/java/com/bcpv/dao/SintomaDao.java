@@ -13,4 +13,6 @@ public interface SintomaDao extends GenericDao<Sintoma, Long> {
 	List<Sintoma> getSintomas();
 	
 	Sintoma saveSintoma (Sintoma sintoma);
+	
+	Sintoma getByNombre(String nombre);
 }

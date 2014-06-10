@@ -13,5 +13,7 @@ public interface MedicamentoDao extends GenericDao<Medicamento, Long> {
 	List<Medicamento> getMedicamentos();
 	
 	Medicamento save (Medicamento medicamento);
+	
+	Medicamento getByNombreComercial(String nombreComercial);
 
 }

@@ -46,4 +46,14 @@ public class MedicamentoDaoHibernate extends GenericDaoHibernate<Medicamento, Lo
 		return medicamento;
 	}
 
+
+	@Override
+	public Medicamento getByNombreComercial(String nombreComercial) throws EntityNotFoundException {
+		Medicamento medicamento = (Medicamento) getSession().createCriteria(Medicamento.class).add(Restrictions.eq("nombreComercial", nombreComercial));
+		if(medicamento == null)
+			throw new EntityNotFoundException("Medicamento "+nombreComercial+" is not found...");
+		else 
+			return medicamento;
+	}
+
 }

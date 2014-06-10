@@ -6143,9 +6143,9 @@ INSERT INTO `scd`.`tiposDiabetes` (`caracteristica`, `tipo_dibetes`) VALUES
 INSERT INTO `scd`.`endocrinologo` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `idDomicilio`, `matricula_endo`) VALUES 
 ('0', 'Marquez', '32065945', 'meli@mail.com', 'Melisa', '123456', '0', '7894');
 
-INSERT INTO `scd`.`paciente` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `idDomicilio`, `observaciones`, `sexo`, `id_endo`, `id_tipo`) VALUES 
-('0', 'Burgos', '32878634', 'leo@mail.com', 'Leo', '123457', '1', 'asfgas', 'M', '0', '1'), 
-('1', 'Burgadsfasd', '32654985', 'lfsdfnv@mail.com', 'lskadnklf', '1234568', '1', 'serhgsdgh', 'F', '0', '1');
+INSERT INTO `scd`.`paciente` (`id`, `apellido`, `dni`, `email`, `username`, `nombre`, `telefono`, `idDomicilio`, `observaciones`, `sexo`, `id_endo`, `id_tipo`) VALUES 
+('0', 'Burgos', '32878634', 'leo@mail.com', 'user', 'Leo', '123457', '1', 'asfgas', 'M', '0', '1'), 
+('1', 'Burgadsfasd', '32654985', 'lfsdfnv@mail.com', 'otro', 'lskadnklf', '1234568', '1', 'serhgsdgh', 'F', '0', '1');
 
 INSERT INTO `scd`.`especialista` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `tipo_esp`, `idDomicilio`) VALUES 
 (NULL, 'Portillo', '36521489', 'jaskdfq@mail.com', 'Otro', '126846', 'Nutricionista', '1'), 
