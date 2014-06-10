@@ -23,4 +23,5 @@ public interface MedicamentoManager extends GenericManager<Medicamento, Long>{
 	
 	List<Medicamento> search(String searchTerm);
 
+	Medicamento getByNombreComercial(String nombreComercial);
 }

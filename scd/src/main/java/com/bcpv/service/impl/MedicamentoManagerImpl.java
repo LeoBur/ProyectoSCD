@@ -82,4 +82,10 @@ public class MedicamentoManagerImpl extends GenericManagerImpl<Medicamento, Long
 		medicamentoDao.remove(medicamento);		
 	}
 
+
+	@Override
+	public Medicamento getByNombreComercial(String nombreComercial) {
+		return medicamentoDao.getByNombreComercial(nombreComercial);
+	}
+
 }

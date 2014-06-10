@@ -14,6 +14,10 @@ public class PacienteForm {
 	public MomentosDia momento;
 	public Set<Comida> comidas;
 	public String username; //pageContext.request.remoteUser
+	public String medicamento;
+	public String observacionesMedicamento;
+	public String sintoma;
+	public String observacionesSintoma;
 	
 	public Date getFechaHora() {
 		return fechaHora;
@@ -47,5 +51,51 @@ public class PacienteForm {
 		this.comidas = comidas;
 	}
 
-	
+	public MomentosDia getMomento() {
+		return momento;
+	}
+
+	public void setMomento(MomentosDia momento) {
+		this.momento = momento;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getMedicamento() {
+		return medicamento;
+	}
+
+	public void setMedicamento(String medicamento) {
+		this.medicamento = medicamento;
+	}
+
+	public String getObservacionesMedicamento() {
+		return observacionesMedicamento;
+	}
+
+	public void setObservacionesMedicamento(String observacionesMedicamento) {
+		this.observacionesMedicamento = observacionesMedicamento;
+	}
+
+	public String getSintoma() {
+		return sintoma;
+	}
+
+	public void setSintoma(String sintoma) {
+		this.sintoma = sintoma;
+	}
+
+	public String getObservacionesSintoma() {
+		return observacionesSintoma;
+	}
+
+	public void setObservacionesSintoma(String observacionesSintoma) {
+		this.observacionesSintoma = observacionesSintoma;
+	}
 }

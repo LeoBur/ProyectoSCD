@@ -22,5 +22,7 @@ public interface SintomaManager extends GenericManager<Sintoma, Long> {
 	void removeSintoma(Long idSintoma);
 	
 	List<Sintoma> search(String searchTerm);
-
+	
+	Sintoma getByNombre(String nombre)
+;
 }

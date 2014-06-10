@@ -78,5 +78,10 @@ public class SintomaManagerImpl extends GenericManagerImpl<Sintoma, Long> implem
 		
 	}
 
+	@Override
+	public Sintoma getByNombre(String nombre) {
+		return sintomaDao.getByNombre(nombre);
+	}
+
 	
 }
