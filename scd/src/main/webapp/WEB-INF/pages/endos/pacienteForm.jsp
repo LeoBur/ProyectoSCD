@@ -87,8 +87,8 @@
                                 </spring:bind>
                                     <appfuse:label styleClass="control-label" key="user.sexo"/>
                                     <div cssClass="form-control">
-                                        <form:radiobutton  path="sexo" label="Femenino"/>&nbsp;
-                                        <form:radiobutton path="sexo" label="Masculino" />
+                                        <form:radiobutton  path="sexo" value="F" label="Femenino"/>&nbsp;
+                                        <form:radiobutton path="sexo" value="M" label="Masculino" />
                                         <form:errors path="sexo" cssClass="help-block"/>
                                     </div>
                             </div>
@@ -139,7 +139,7 @@
 			        
 			        <div>
 				            <legend class="accordion-heading">
-				                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>
+				                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address1"/></a>
 				            </legend>
 				            <div id="collapse-address" class="accordion-body collapse">
 				                <div class="form-group">

@@ -78,7 +78,7 @@
 	            
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
             				<a href="${pageContext.request.contextPath}/endos/pacienteForm?id=${pacienteList.id}">Editar</a>            				
-            				<a href="${pageContext.request.contextPath}/endos/pacienteForm" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">Eliminar Tengo que ver para que elimine directo</a>
+            				<%-- <a href="${pageContext.request.contextPath}/endos/pacienteForm" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">Eliminar Tengo que ver para que elimine directo</a> --%>
                 </display:column>
 	</display:table>
 	</form:form>
