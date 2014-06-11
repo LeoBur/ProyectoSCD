@@ -29,7 +29,7 @@
 </script>
 
 <div class="col-sm-2">
-    <h2><fmt:message key="userEspecialista.heading"/></h2>
+    <h2><fmt:message key="signup.title"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
             <p><fmt:message key="userProfile.admin.message"/></p>
@@ -75,19 +75,18 @@
 		                <form:input cssClass="form-control" path="" id="peso"/>
 		        </div>
 		        
-		        <div class="form-group">
+		        <%-- <div class="form-group">
 		        		<appfuse:label styleClass="control-label" key="user.food.title"></appfuse:label>
 		                <form:select path="medicamento">
 		                	<form:options items="${medicamentoList}"  itemLabel="nombreComercial"/>
-						</form:select>
-						                
-		        </div>
+						</form:select>		                
+		        </div> --%>
 		         
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
 		        	<form:select cssClass="form-control" path="medicamento">
-		        		<form:option value="otro"> Otro </form:option>
-		        		<form:options items="${medicamentoList}"  itemLabel="nombreComercial"/>
+		        		<%-- <form:option value="otro"> Otro </form:option> --%>
+		        		<form:options items="${medicamentoList}" itemLabel="nombreComercial"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"></appfuse:label>
 		        	<form:textarea cssClass="form-control" path="observacionesMedicamento"/>
@@ -96,8 +95,8 @@
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
 		        	<form:select cssClass="form-control" path="sintoma">
-		        		<form:option value="otro"> Otro </form:option>
-		        		<form:options items="${sintomaList}"  itemLabel="nombre"/>
+		        		
+		        		<form:options items="${sintomaList}"  itemLabel="nombre"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"></appfuse:label>
 		        	<form:textarea cssClass="form-control" path="observacionesSintoma"/>
@@ -107,7 +106,7 @@
 		        	<appfuse:label styleClass="control-label" key="active.momentodia"/>
 		        	<form:select cssClass="form-control" path="momento">
 		        		<form:option value="DESAYUNO" label="Desayuno"/>
-		        		<form:option value="MEDIA_MANIANA" label="Media Mañana" selected="selected"/>
+		        		<form:option value="MEDIA_MANIANA" label="Media Mañana" selected="selected"></form:option>
 		        		<form:option value="ALMUERZO" label="Almuerzo"/>
 		        		<form:option value="MEDIA_TARDE" label="Media Tarde"/>
 		        		<form:option value="CENA" label="Cena"/>
@@ -115,32 +114,39 @@
 		        	</form:select>
 		        </div>
 		        
-		        <table>
+		         <table>
 		        	<tr>
 		        		<th>Alimento</th>
 		        		<th>Cantidad</th>
+		        		<th>Observaciones</th>
 		        	</tr>
 		        	<tr>
 		        		<td><form:input path=""/></td>
 		        		<td><form:input path=""/></td>
+		        		<td><form:textarea path=""/></td>
 		        	</tr>
 		        	<tr>
 		        		<td><form:input path=""/></td>
 		        		<td><form:input path=""/></td>
+						<td><form:textarea path=""/></td>
+		        		
 		        	</tr>
 		        	<tr>
 		        		<td><form:input path=""/></td>
 		        		<td><form:input path=""/></td>
+		        		<td><form:textarea path=""/></td>
 		        	</tr>
 		        	<tr>
 		        		<td><form:input path=""/></td>
 		        		<td><form:input path=""/></td>
+		        		<td><form:textarea path=""/></td>
 		        	</tr>
 		        	<tr>
 		        		<td><form:input path=""/></td>
 		        		<td><form:input path=""/></td>
+		        		<td><form:textarea path=""/></td>
 		        	</tr>
-		        </table>	        
+		        </table>	  <%--  --%>     
 		
 		        <div class="form-group">
 		            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
