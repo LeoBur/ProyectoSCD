@@ -26,6 +26,7 @@ public class Comida implements Serializable{
 	private Long idComida;
 	private String cantidad;
 	private Alimento alimento;
+	private String observaciones;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -51,5 +52,12 @@ public class Comida implements Serializable{
 	}
 	public void setAlimento(Alimento alimento) {
 		this.alimento = alimento;
+	}
+	@Column(name="observaciones")
+	public String getObservaciones() {
+		return observaciones;
+	}
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 }

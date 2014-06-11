@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bcpv.model.Alimento;
 import com.bcpv.model.Medicamento;
 import com.bcpv.model.Medicion;
 import com.bcpv.model.MomentoDia;
@@ -82,9 +83,11 @@ public class PacienteController extends BaseFormController {
 		PacienteForm pacienteForm = new PacienteForm();
 		List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
 		List<Sintoma> sintomas = sintomaManager.getSintomas();
+		List<Alimento> alimentos = alimentoManager.getAlimentos();
 		mv.addObject("pacienteForm", pacienteForm);
 		mv.addObject("medicamentoList", medicamentos);
 		mv.addObject("sintomaList", sintomas);
+		mv.addObject("alimentoList", alimentos);
 		return mv;
 	}
 	

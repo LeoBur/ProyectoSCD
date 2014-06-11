@@ -142,31 +142,34 @@
 				                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address1"/></a>
 				            </legend>
 				            <div id="collapse-address" class="accordion-body collapse">
-				                <div class="form-group">
-				                    <appfuse:label styleClass="control-label" key="user.address.address"/>
-				                    <form:input cssClass="form-control" path="" id="address.address"/>
-				                </div>
-				                <div class="row">
-				                    <div class="col-sm-7 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.dpto"/>
-				                        <form:input cssClass="form-control" path="" id="address.city"/>
-				                    </div>
-				                    <div class="col-sm-2 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.numero"/>
-				                        <form:input cssClass="form-control" path="" id="address.province"/>
-				                    </div>
-				                    <div class="col-sm-3 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.piso"/>
-				                        <form:input cssClass="form-control" path="" id="address.postalCode"/>
-				                    </div>
-				                </div>
-				                <div class="form-group">
+				                 <div class="form-group">
 				                    <appfuse:label styleClass="control-label" key="user.address.province"/>
 				                    <appfuse:country name="" prompt="" default="${user.address.country}"/>
 				                </div>
 				                <div class="form-group">
 				                    <appfuse:label styleClass="control-label" key="user.address.localidad"/>
 				                    <appfuse:country name="" prompt="" default="${user.address.country}"/>
+				                </div>
+				                <div class="row">
+					                <div class="form-group">
+					                    <appfuse:label styleClass="control-label" key="user.address.address"/>
+					                    <form:input cssClass="form-control" path="" id="address.address"/>
+					                </div>
+					                <div class="col-sm-2 form-group">
+				                        <appfuse:label styleClass="control-label" key="user.address.numero"/>
+				                        <form:input cssClass="form-control" path="" id="address.province"/>
+				                    </div>
+					            </div>
+				                <div class="row">
+				                    <div class="col-sm-7 form-group">
+				                        <appfuse:label styleClass="control-label" key="user.address.dpto"/>
+				                        <form:input cssClass="form-control" path="" id="address.city"/>
+				                    </div>
+				                    
+				                    <div class="col-sm-3 form-group">
+				                        <appfuse:label styleClass="control-label" key="user.address.piso"/>
+				                        <form:input cssClass="form-control" path="" id="address.postalCode"/>
+				                    </div>
 				                </div>
 				            </div>
 				     </div>
