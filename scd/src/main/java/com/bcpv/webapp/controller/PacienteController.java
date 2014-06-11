@@ -72,8 +72,8 @@ public class PacienteController extends BaseFormController {
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public PacienteController() {
-		setCancelView("redirect:paciente/registrar");
-		setSuccessView("redirect:paciente/registrar");
+		setCancelView("redirect:/registrar");
+		setSuccessView("redirect:/registrar");
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
