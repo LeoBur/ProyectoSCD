@@ -143,7 +143,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:pacienteForm?id=" + paciente.getId();
+                success = "redirect:pacienteList";
             }
         }
  
@@ -200,7 +200,8 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:medicamentoForm?id=" + medicamento.getIdMedicamento();
+            	success = "redirect:medicamentoList";
+//                success = "redirect:medicamentoForm?id=" + medicamento.getIdMedicamento();
             }
         }
  
@@ -258,7 +259,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:especialistaForm?id=" + especialista.getId();
+                success = "redirect:especialistaList";
             }
         }
  
@@ -316,7 +317,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:sintomaForm?id=" + sintoma.getIdSintoma();
+                success = "redirect:sintomaList";
             }
         }
  
