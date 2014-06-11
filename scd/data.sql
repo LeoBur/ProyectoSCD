@@ -6140,6 +6140,10 @@ INSERT INTO `scd`.`medicamento` (`idMedicamento`, `Grupo_Medicamento`, `Nom_Come
 INSERT INTO `scd`.`tiposDiabetes` (`caracteristica`, `tipo_dibetes`) VALUES 
 ('sadfasdf', 'Insulinodependiente');
 
+INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES 
+(NULL, 'Dolor de cabeza'), 
+(NULL, 'Fiebre');
+
 INSERT INTO `scd`.`endocrinologo` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `idDomicilio`, `matricula_endo`) VALUES 
 ('0', 'Marquez', '32065945', 'meli@mail.com', 'Melisa', '123456', '0', '7894');
 
