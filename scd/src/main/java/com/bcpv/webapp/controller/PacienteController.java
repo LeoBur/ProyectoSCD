@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import com.bcpv.service.SintomaManager;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 
 @RequestMapping("/paciente/registrar*")
+@Controller
 public class PacienteController extends BaseFormController {
 
 	@Autowired
@@ -70,13 +72,13 @@ public class PacienteController extends BaseFormController {
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public PacienteController() {
-		setCancelView("redirect:/home");
-		setSuccessView("paciente");
+		setCancelView("redirect:paciente/registrar");
+		setSuccessView("redirect:paciente/registrar");
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm() {
-		ModelAndView mv = new ModelAndView("registrar");
+		ModelAndView mv = new ModelAndView("paciente/registrar");
 		PacienteForm pacienteForm = new PacienteForm();
 		List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
 		List<Sintoma> sintomas = sintomaManager.getSintomas();
