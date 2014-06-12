@@ -24,8 +24,8 @@
     	
 	 	<display:table  name="sintomaList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="sintomaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-	        	<display:column property="idSintoma" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico" style="width: 25%"/>
-	        	<display:column property="nombre" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
+	        	
+	        	<display:column property="nombre" escapeXml="true" sortable="true" titleKey="sintoma.descripcion"
 	                        style="width: 34%">
 	            </display:column>
 	            

@@ -3,6 +3,15 @@
 <head>
     <title><fmt:message key="userProfile.title"/></title>
     <meta name="menu" content="UserMenu"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
+  });
+  </script>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -38,8 +47,8 @@
     <form:form commandName="paciente" method="post" action="pacienteForm" id="pacienteForm" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
                 <form:hidden path="id"/>
-                
-                <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
+                <form:hidden path="username"/>
+                <%-- <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/> --%>
                 
                                                 
         
@@ -94,17 +103,25 @@
                             </div>
                         </div>
                         
+                        <div class="form-group">
+		                <appfuse:label styleClass="control-label" key="user.paciente.fecha.nacimiento"/>
+		                <form:input cssClass="form-control" path="fch_nac" id="datepicker"  size="12"/>
+		                
+		        		</div>
+		        
+		        		
+                        
 			        <c:if test="${empty paciente.id}">
 			        
-				        <div class="form-group">
+				        <%-- <div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="user.endocrinologist.title"/>
 		                    <form:input cssClass="form-control" path="endocrinologo" id="endocrinologo" type="hidden"/>
-	                	</div>
+	                	</div> --%>
+	                	
 	                	<div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="user.tipo"/>
 		                    <form:input cssClass="form-control" path="tipo" id="tipo"/>
 	                	</div>
-	                	
 	                	<%-- <div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
 		                    <form:input cssClass="form-control" path="mediciones" id="medicion"/>
@@ -133,26 +150,30 @@
 				                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address1"/></a>
 				            </legend>
 				            <div id="collapse-address" class="accordion-body collapse">
-				            	
-				            	<spring:bind path="paciente.domicilio.localidad.provincia.nombre">
-                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                </spring:bind>
-                                    <appfuse:label styleClass="control-label" key="user.address.province"/>
-                                    <div cssClass="form-control">
-                                        <form:input cssClass="form-control" path="domicilio.localidad.provincia.nombre" id="localidad"/>
-                                        <form:errors path="domicilio.localidad.provincia.nombre" cssClass="help-block"/>
-                                	</div>
-                                </div>
-				            	
-				            	<spring:bind path="paciente.domicilio.localidad.nombre">
-                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                </spring:bind>
-                                    <appfuse:label styleClass="control-label" key="user.address.localidad"/>
-                                    <div cssClass="form-control">
-                                        <form:input cssClass="form-control" path="domicilio.localidad.nombre" id="provincia"/>
-                                        <form:errors path="domicilio.localidad.nombre" cssClass="help-block"/>
-                                	</div>
-                                </div>
+                                
+                                <div class="row">
+				                
+					                <spring:bind path="paciente.domicilio.localidad.provincia.nombre">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.province"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.localidad.provincia.nombre" id="localidad"/>
+	                                        <form:errors path="domicilio.localidad.provincia.nombre" cssClass="help-block"/>
+	                                	</div>
+	                                </div>
+				                	
+					                <spring:bind path="paciente.domicilio.localidad.nombre">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.localidad"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.localidad.nombre" id="provincia"/>
+	                                        <form:errors path="domicilio.localidad.nombre" cssClass="help-block"/>
+	                                	</div>
+	                                </div>	
+	
+					            </div>
                                 
 				                <div class="row">
 				                

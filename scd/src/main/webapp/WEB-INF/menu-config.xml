@@ -15,7 +15,7 @@
         
         <Menu name="HomeEndo" title="home.title" page="/endos/endo" roles="ROLE_ADMIN"/>
         <Menu name="Paciente" title="user.paciente" page="/endos/newPaciente" roles="ROLE_ADMIN" description="Paciente Admin">
-        	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/newPaciente"/>
+        	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/pacienteForm"/>
         	<Item name="editPaciente" title="user.paciente.editar" page="/endos/editPaciente"/>
         	<Item name="newTreatment" title="user.treatment.new" page="/admin/users"/>
         	<Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/>

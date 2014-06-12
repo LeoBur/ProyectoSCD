@@ -44,12 +44,12 @@
         </c:if>
     </spring:bind>
     
-    <div id="actions" class="btn-group">
+    <%-- <div id="actions" class="btn-group">
         <a class="btn btn-primary" href="<c:url value='/endos/pacienteForm'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
         <a class="btn btn-default" href="<c:url value='/mainMenu'/>">
             <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
-    </div>
+    </div> --%>
     
 	<form:form commandName="endoSearch" method="post" action="endo"
 		enctype="multipart/form-data" id="mainSearchBox">
@@ -68,13 +68,16 @@
 				<fmt:message key="button.upload" />
 			</button>
 		</div>
+		
 		<display:table  name="pacienteList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="pacienteList" pagesize="25" class="table table-condensed table-striped table-hover" export="false">
-	        	<display:column  property="nombre" escapeXml="true" sortable="true" titleKey="active.momentodia" style="width: 25%"/>
-	        	<display:column property="apellido" escapeXml="true" sortable="true" titleKey="activeUsers.alimentosrecomendados"
+	        	<display:column  property="nombre" escapeXml="true" sortable="true" titleKey="user.firstName" style="width: 25%"/>
+	        	<display:column property="apellido" escapeXml="true" sortable="true" titleKey="user.lastName"
 	                        style="width: 34%">
 	                        <a href="endos/adminMedicamento:<c:out value="Editar Medicamentos"/>"></a>
 	            </display:column>
+	            <display:column  property="email" escapeXml="true" sortable="true" titleKey="user.email" style="width: 25%"/>
+	           <%-- <display:column  property="tipo" escapeXml="true" sortable="true" titleKey="active.momentodia" style="width: 25%"/> --%> 
 	            
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
             				<a href="${pageContext.request.contextPath}/endos/pacienteForm?id=${pacienteList.id}">Editar</a>            				

@@ -23,20 +23,14 @@
     	
 	 	<display:table  name="especialistaList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="especialistaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-	        	<display:column property="dni" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico" style="width: 25%"/>
-	        	<display:column property="nombre" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial" style="width: 34%">
+	                   
+	        	<display:column property="nombre" escapeXml="true" sortable="true" titleKey="user.firstName" style="width: 34%">
 	            </display:column>
-	            <display:column property="apellido" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
-	                        style="width: 34%">
-	            </display:column>
-	            <display:column property="telefono" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
+	            <display:column property="apellido" escapeXml="true" sortable="true" titleKey="user.lastName"
 	                        style="width: 34%">
 	            </display:column>
 	            
-	            <display:column property="email" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
-	                        style="width: 34%">
-	            </display:column>
-	            <display:column property="tipo_esp" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
+	            <display:column property="tipo_esp" escapeXml="true" sortable="true" titleKey="user.tipo_esp"
 	                        style="width: 34%">
 	            </display:column>
 	            
