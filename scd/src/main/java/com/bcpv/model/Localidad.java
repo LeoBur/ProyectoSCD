@@ -24,7 +24,6 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @Table(name = "localidades")
 @Indexed
-@XmlRootElement
 public class Localidad implements Serializable {
 
 	private static final long serialVersionUID = 15876869834L;
@@ -66,7 +65,7 @@ public class Localidad implements Serializable {
 		this.departamento = departamento;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_provincia", nullable = false)
 	public Provincia getProvincia() {
 		return this.provincia;
