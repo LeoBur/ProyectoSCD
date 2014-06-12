@@ -1,5 +1,12 @@
 <%@ include file="/common/taglibs.jsp"%>
-
+<%@page import ="java.util.*" %>
+<%@page import ="java.text.SimpleDateFormat" %>
+<%
+	Date dnow = new Date();
+	SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
+	String currentDate = ft.format(dnow);
+	
+%>
 <head>
     <title><fmt:message key="userProfile.title"/></title>
     <meta name="menu" content="UserMenu"/>
@@ -48,6 +55,7 @@
                cssClass="well" onsubmit="return validateUser(this)">
                 <form:hidden path="id"/>
                 <form:hidden path="username"/>
+                <%-- <form:hidden path="pesos"/> --%>
                 <%-- <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/> --%>
                 
                                                 
@@ -105,11 +113,30 @@
                         
                         <div class="form-group">
 		                <appfuse:label styleClass="control-label" key="user.paciente.fecha.nacimiento"/>
-		                <form:input cssClass="form-control" path="fch_nac" id="datepicker"  size="12"/>
+		                
+		                <form:input cssClass="form-control" path="fch_nac" id="datepicker" value="<%= currentDate %>" size="12"/>
 		                
 		        		</div>
-		        
 		        		
+		        	
+		        		
+		        		<c:if test="${not empty paciente.id}">
+		        		<div class="form-group">
+		                    <appfuse:label styleClass="control-label" key="user.tipo"/>
+		                    <form:select cssClass="form-control" path="tipo.tipoDiab">
+				        		<form:option value="TIPO 1" label="Tipo 1"/>
+				        		<form:option value="TIPO 1.5" label="Tipo 1.5"/>
+				        		<form:option value="TIPO 2" label="Tipo 2"/>
+				        		<form:option value="GESTACIONAL" label="Gestacional"/>
+				        		<form:option value="TIPO 3B" label="Tipo 3b"/>
+				        		<form:option value="TIPO 3C" label="Tipo 3c"/>
+				        		<form:option value="TIPO 3D" label="Tipo 3d"/>
+				        		<form:option value="TIPO 3E" label="Tipo 3e"/>
+				        		<form:option value="TIPO 3F" label="Tipo 3f"/>
+				        		<form:option value="TIPO 3G" label="Tipo 3g"/>
+				        	</form:select>
+	                	</div>
+		        		</c:if>
                         
 			        <c:if test="${empty paciente.id}">
 			        
@@ -120,16 +147,28 @@
 	                	
 	                	<div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="user.tipo"/>
-		                    <form:input cssClass="form-control" path="tipo" id="tipo"/>
+		                    <form:select cssClass="form-control" path="tipo.tipoDiab">
+				        		<form:option value="TIPO 1" label="Tipo 1"/>
+				        		<form:option value="TIPO 1.5" label="Tipo 1.5" selected="selected"/>
+				        		<form:option value="TIPO 2" label="Tipo 2"/>
+				        		<form:option value="GESTACIONAL" label="Gestacional"/>
+				        		<form:option value="TIPO 3B" label="Tipo 3b"/>
+				        		<form:option value="TIPO 3C" label="Tipo 3c"/>
+				        		<form:option value="TIPO 3D" label="Tipo 3d"/>
+				        		<form:option value="TIPO 3E" label="Tipo 3e"/>
+				        		<form:option value="TIPO 3F" label="Tipo 3f"/>
+				        		<form:option value="TIPO 3G" label="Tipo 3g"/>
+				        	</form:select>
 	                	</div>
+	                	
 	                	<%-- <div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
 		                    <form:input cssClass="form-control" path="mediciones" id="medicion"/>
 	                	</div> --%>
-	                	<div class="form-group">
+	                	<%-- <div class="form-group">
 		                    <appfuse:label styleClass="control-label" key="active.peso"/>
 		                    <form:input cssClass="form-control" path="pesos" id="peso"/>
-	                	</div>
+	                	</div> --%>
 	                	<%-- <div class="form-group">
 	                		<appfuse:label styleClass="control-label" key="user.paciente.diet"/>
 	                		<form:input cssClass="form-control" path="dietas" id="dietas"/>
