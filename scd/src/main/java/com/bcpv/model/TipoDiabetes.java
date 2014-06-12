@@ -15,9 +15,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "tiposDiabetes")
+@Indexed
 public class TipoDiabetes implements Serializable{
 
 	private static final long serialVersionUID = 2692401869897053144L;
