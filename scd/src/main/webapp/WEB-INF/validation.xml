@@ -53,7 +53,18 @@
         <form name="endoSearch">
         	<field property="pacienteToSearch" depends="required">
         		<arg key="endoSearch.pacienteToSearch"/>
-        	</field>
+        	</field>	
+        </form>
+        <form name="medicamento">
+            <field property="nombreGenerico" depends="required">
+                <arg key="user.adminMedicamento.nombreGenerico"/>
+            </field>
+            <field property="nombreComercial" depends="required">
+                <arg key="user.adminMedicamento.nombreComercial"/>
+            </field>
+            <field property="presentacion" depends="required">
+                <arg key="user.adminMedicamento.presentacion"/>
+            </field>
         </form>
     </formset>
 </form-validation>

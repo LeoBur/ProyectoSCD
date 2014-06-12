@@ -55,18 +55,30 @@
         
         
         <div class="form-group">
+        	<spring:bind path="medicamento.nombreGenerico">
+				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+			</spring:bind>
                 <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreGenerico"/>
                 <form:input cssClass="form-control" path="nombreGenerico" id="nombreGenerico"/>
+                <form:errors path="nombreGenerico" cssClass="help-block" />
         </div>
         
         <div class="form-group">
+        	<spring:bind path="medicamento.nombreComercial">
+				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+			</spring:bind>
                 <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreComercial"/>
                 <form:input cssClass="form-control" path="nombreComercial" id="nombreComercial"/>
+                <form:errors path="nombreComercial" cssClass="help-block" />
         </div>
         
         <div class="form-group">
+        	<spring:bind path="medicamento.presentacion">
+				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+			</spring:bind>
                 <appfuse:label styleClass="control-label" key="user.adminMedicamento.presentacion"/>
                 <form:input cssClass="form-control" path="presentacion" id="presentacion"/>
+                <form:errors path="presentacion" cssClass="help-block" />
         </div>
         
         <div class="form-group">
