@@ -1,6 +1,7 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,12 +49,13 @@ public class Paciente implements Serializable{
 	private Set<Dieta> dietas = new HashSet<Dieta>();
 	private Set<RegistroComidas> registroComidas = new HashSet<RegistroComidas>();
 	private Set<Tratamiento> tratamientos = new HashSet<Tratamiento>();
+	private Date fch_nac;
 	
 	public Paciente(){
 	}
 	
 	public Paciente(int dni, String nombre, String apellido, Long telefono, String email, String username, Domicilio domicilio, String sexo, 
-			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso){
+			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso,Date fch_nac){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -67,6 +69,7 @@ public class Paciente implements Serializable{
 		this.tipo = tipo;
 		this.mediciones = medicion;
 		this.pesos = peso;
+		this.fch_nac=fch_nac;
 	}
 	
 	@Id
@@ -89,7 +92,7 @@ public class Paciente implements Serializable{
 		this.dni = dni;
 	}
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre",nullable = false)
 	@Field
 	public String getNombre() {
 		return nombre;
@@ -99,7 +102,7 @@ public class Paciente implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	@Column(name = "apellido")
+	@Column(name = "apellido", nullable=false)
 	@Field
 	public String getApellido() {
 		return apellido;
@@ -141,8 +144,7 @@ public class Paciente implements Serializable{
 	public String getSexo() {
 		return sexo;
 	}
-	
-	@Column(name = "sexo")
+	@Column(name = "sexo",nullable=false)
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
@@ -157,7 +159,7 @@ public class Paciente implements Serializable{
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo")
+	@JoinColumn(name = "id_tipo",nullable=false)
 	public TipoDiabetes getTipo() {
 		return tipo;
 	}
@@ -233,5 +235,14 @@ public class Paciente implements Serializable{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Column(name = "fch_nac", nullable=false)
+	public Date getFch_nac() {
+		return fch_nac;
+	}
+
+	public void setFch_nac(Date fch_nac) {
+		this.fch_nac = fch_nac;
 	}
 }

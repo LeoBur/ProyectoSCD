@@ -1,6 +1,7 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,11 +33,13 @@ public class Especialista implements Serializable{
 	private String email;
 	
 	private String tipo_esp;
+	private Date fch_nac;
 	
 	public Especialista(){
 	}
 	
-	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo,Domicilio domicilio){
+	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo,Domicilio domicilio,
+								Date fch_nac){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -44,6 +47,7 @@ public class Especialista implements Serializable{
 		this.email = email;
 		this.domicilio=domicilio;
 		this.tipo_esp = tipo;
+		this.fch_nac=fch_nac;
 	}
 
 	@Id
@@ -66,7 +70,7 @@ public class Especialista implements Serializable{
 		this.dni = dni;
 	}
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable=false)
 	@Field
 	public String getNombre() {
 		return nombre;
@@ -76,7 +80,7 @@ public class Especialista implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	@Column(name = "apellido")
+	@Column(name = "apellido", nullable=false)
 	@Field
 	public String getApellido() {
 		return apellido;
@@ -115,7 +119,7 @@ public class Especialista implements Serializable{
 		this.domicilio = domicilio;
 	}
 	
-	@Column(name = "tipo_esp")
+	@Column(name = "tipo_esp", nullable=false)
 	@Field
 	public String getTipo_esp() {
 		return tipo_esp;
@@ -125,6 +129,14 @@ public class Especialista implements Serializable{
 		this.tipo_esp = tipo_esp;
 	}
 	
+	@Column(name = "fch_nac", nullable=false)
+	public Date getFch_nac() {
+		return fch_nac;
+	}
+
+	public void setFch_nac(Date fch_nac) {
+		this.fch_nac = fch_nac;
+	}
 	
 
 }

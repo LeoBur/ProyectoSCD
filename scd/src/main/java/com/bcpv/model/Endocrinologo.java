@@ -1,6 +1,7 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,11 +39,13 @@ public class Endocrinologo implements Serializable{
 	
 	private Long matricula;
 	private Set<Paciente> pacientes = new HashSet<Paciente>();
+	private Date fch_nac;
     
 	public Endocrinologo() {
 	}
 	
-	public Endocrinologo(int dni, String nombre, String apellido, Long telefono, String email, Long matricula,Domicilio domicilio){
+	public Endocrinologo(int dni, String nombre, String apellido, Long telefono, String email, Long matricula,Domicilio domicilio,
+							Date fch_nac){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -50,6 +53,7 @@ public class Endocrinologo implements Serializable{
 		this.email = email;
 		this.domicilio=domicilio;
 		this.matricula = matricula;
+		this.fch_nac=fch_nac;
 		
 	}
 	
@@ -73,7 +77,7 @@ public class Endocrinologo implements Serializable{
 		this.dni = dni;
 	}
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable=false)
 	@Field
 	public String getNombre() {
 		return nombre;
@@ -83,7 +87,7 @@ public class Endocrinologo implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	@Column(name = "apellido")
+	@Column(name = "apellido", nullable=false)
 	@Field
 	public String getApellido() {
 		return apellido;
@@ -122,7 +126,7 @@ public class Endocrinologo implements Serializable{
 		this.domicilio = domicilio;
 	}
 	
-	@Column(name ="matricula_endo")
+	@Column(name ="matricula_endo", nullable=false)
 	public Long getMatricula() {
 		return matricula;
 	}
@@ -139,6 +143,15 @@ public class Endocrinologo implements Serializable{
 
 	public void setPacientes(Set<Paciente> pacientes) {
 		this.pacientes = pacientes;
+	}
+
+	@Column(name = "fch_nac", nullable=false)
+	public Date getFch_nac() {
+		return fch_nac;
+	}
+
+	public void setFch_nac(Date fch_nac) {
+		this.fch_nac = fch_nac;
 	}
 	
 	
