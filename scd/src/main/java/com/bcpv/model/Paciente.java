@@ -32,11 +32,11 @@ public class Paciente implements Serializable{
 	private static final long serialVersionUID = -6094399498007212046L;
 	
 	private Long id;
-	private int dni;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private Domicilio domicilio;
-	private Long telefono;
+	private String telefono;
 	private String email;
 	private String username;
 	
@@ -54,30 +54,12 @@ public class Paciente implements Serializable{
 	public Paciente(){
 	}
 	
-	public Paciente(int dni, String nombre, String apellido, Long telefono, String email, String username, Domicilio domicilio, String sexo, 
+	public Paciente(String dni, String nombre, String apellido, String telefono, String email, String username, Domicilio domicilio, String sexo, 
 			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso,Date fch_nac){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
-		this.email = email;
-		this.username = username;
-		this.domicilio=domicilio;
-		this.sexo = sexo;
-		this.observaciones = obs;
-		this.endocrinologo = endo;
-		this.tipo = tipo;
-		this.mediciones = medicion;
-		this.pesos = peso;
-		this.fch_nac=fch_nac;
-	}
-	
-	public Paciente(String dni, String nombre, String apellido, String telefono, String email, String username, Domicilio domicilio, String sexo, 
-			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso,Date fch_nac){
-		this.dni = new Integer(dni);
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = new Long(telefono);
 		this.email = email;
 		this.username = username;
 		this.domicilio=domicilio;
@@ -102,11 +84,11 @@ public class Paciente implements Serializable{
 	}
 	
 	@Column(name = "dni", nullable = false, unique = true)
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 	
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	
@@ -131,11 +113,11 @@ public class Paciente implements Serializable{
 	}
 	
 	@Column(name = "telefono")
-	public Long getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 	
-	public void setTelefono(Long telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	
@@ -186,7 +168,7 @@ public class Paciente implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_endo", nullable = false)
 	public Endocrinologo getEndocrinologo() {
 		return endocrinologo;

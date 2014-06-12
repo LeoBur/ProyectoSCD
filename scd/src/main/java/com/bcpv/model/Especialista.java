@@ -25,11 +25,11 @@ public class Especialista implements Serializable{
 	private static final long serialVersionUID = 3657563589343488236L;
 	
 	private Long id;
-	private int dni;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private Domicilio domicilio;
-	private Long telefono;
+	private String telefono;
 	private String email;
 	
 	private String tipo_esp;
@@ -38,7 +38,7 @@ public class Especialista implements Serializable{
 	public Especialista(){
 	}
 	
-	public Especialista(int dni, String nombre, String apellido, Long telefono, String email, String tipo,Domicilio domicilio,
+	public Especialista(String dni, String nombre, String apellido, String telefono, String email, String tipo,Domicilio domicilio,
 								Date fch_nac){
 		this.dni = dni;
 		this.nombre = nombre;
@@ -62,11 +62,11 @@ public class Especialista implements Serializable{
 	}
 	
 	@Column(name = "dni", nullable = false, unique = true)
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 	
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	
@@ -91,11 +91,11 @@ public class Especialista implements Serializable{
 	}
 	
 	@Column(name = "telefono")
-	public Long getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 	
-	public void setTelefono(Long telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	
