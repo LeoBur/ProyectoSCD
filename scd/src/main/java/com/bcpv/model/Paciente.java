@@ -131,7 +131,7 @@ public class Paciente implements Serializable{
 		this.email = email;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idDomicilio", nullable = false)
 	public Domicilio getDomicilio() {
 		return domicilio;

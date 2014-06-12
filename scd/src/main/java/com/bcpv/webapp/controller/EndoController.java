@@ -117,7 +117,7 @@ public class EndoController extends BaseFormController {
                            HttpServletResponse response)
     throws Exception {
         if (request.getParameter("cancel") != null) {
-            return "redirect:/endos/endo*";
+            return "redirect:/endos/endo";
         }
  
         if (validator != null) { // validator is null during testing

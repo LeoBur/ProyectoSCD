@@ -94,15 +94,6 @@
                             </div>
                         </div>
                         
-            		<%-- <div class="form-group">
-	                    <appfuse:label styleClass="control-label" key="user.address.address"/>
-	                    <form:input cssClass="form-control" path="domicilio" id="domicilio"/>
-                	</div> --%>
-                	
-                	<%-- <div  class="form-group">
-			        	<appfuse:label styleClass="control-label" key="user.oservacion.title"/>
-			        	<form:textarea cssClass="form-control" path="observaciones" />
-			        </div> --%>
 			        <c:if test="${empty paciente.id}">
 			        
 				        <div class="form-group">
@@ -142,34 +133,71 @@
 				                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address1"/></a>
 				            </legend>
 				            <div id="collapse-address" class="accordion-body collapse">
-				                 <div class="form-group">
-				                    <appfuse:label styleClass="control-label" key="user.address.province"/>
-				                    <appfuse:country name="" prompt="" default="${user.address.country}"/>
-				                </div>
-				                <div class="form-group">
-				                    <appfuse:label styleClass="control-label" key="user.address.localidad"/>
-				                    <appfuse:country name="" prompt="" default="${user.address.country}"/>
-				                </div>
+				            	
+				            	<spring:bind path="paciente.domicilio.localidad.provincia.nombre">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                </spring:bind>
+                                    <appfuse:label styleClass="control-label" key="user.address.province"/>
+                                    <div cssClass="form-control">
+                                        <form:input cssClass="form-control" path="domicilio.localidad.provincia.nombre" id="localidad"/>
+                                        <form:errors path="domicilio.localidad.provincia.nombre" cssClass="help-block"/>
+                                	</div>
+                                </div>
+				            	
+				            	<spring:bind path="paciente.domicilio.localidad.nombre">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                </spring:bind>
+                                    <appfuse:label styleClass="control-label" key="user.address.localidad"/>
+                                    <div cssClass="form-control">
+                                        <form:input cssClass="form-control" path="domicilio.localidad.nombre" id="provincia"/>
+                                        <form:errors path="domicilio.localidad.nombre" cssClass="help-block"/>
+                                	</div>
+                                </div>
+                                
 				                <div class="row">
-					                <div class="form-group">
-					                    <appfuse:label styleClass="control-label" key="user.address.address"/>
-					                    <form:input cssClass="form-control" path="" id="address.address"/>
-					                </div>
-					                <div class="col-sm-2 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.numero"/>
-				                        <form:input cssClass="form-control" path="" id="address.province"/>
-				                    </div>
+				                
+					                <spring:bind path="paciente.domicilio.calle">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.address"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.calle" id="calle"/>
+	                                        <form:errors path="domicilio.calle" cssClass="help-block"/>
+	                                	</div>
+	                                </div>
+				                	
+					                <spring:bind path="paciente.domicilio.numero">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.numero"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.numero" id="numero"/>
+	                                        <form:errors path="domicilio.numero" cssClass="help-block"/>
+	                                	</div>
+	                                </div>	
+	
 					            </div>
+					            
 				                <div class="row">
-				                    <div class="col-sm-7 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.dpto"/>
-				                        <form:input cssClass="form-control" path="" id="address.city"/>
-				                    </div>
+			                    	<spring:bind path="paciente.domicilio.dpto">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.dpto"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.dpto" id="dpto"/>
+	                                        <form:errors path="domicilio.dpto" cssClass="help-block"/>
+	                                	</div>
+	                                </div>
 				                    
-				                    <div class="col-sm-3 form-group">
-				                        <appfuse:label styleClass="control-label" key="user.address.piso"/>
-				                        <form:input cssClass="form-control" path="" id="address.postalCode"/>
-				                    </div>
+			                    	<spring:bind path="paciente.domicilio.piso">
+	                                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	                                </spring:bind>
+	                                    <appfuse:label styleClass="control-label" key="user.address.piso"/>
+	                                    <div cssClass="form-control">
+	                                        <form:input cssClass="form-control" path="domicilio.piso" id="piso"/>
+	                                        <form:errors path="domicilio.piso" cssClass="help-block"/>
+	                                	</div>
+	                                </div>
 				                </div>
 				            </div>
 				     </div>
