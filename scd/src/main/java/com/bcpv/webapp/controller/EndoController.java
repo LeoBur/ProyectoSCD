@@ -310,10 +310,10 @@ public class EndoController extends BaseFormController {
  
         if (request.getParameter("delete") != null) {
         	sintomaManager.removeSintoma(sintoma.getIdSintoma());
-            saveMessage(request, getText("user.endocrinologist.symtomDeleted", locale));
+            saveMessage(request, getText("user.endocrinologist.symptomDeleted", locale));
         } else {
         	sintomaManager.saveSintoma(sintoma);
-            String key = (isNew) ? "user.endocrinologist.symtomSaved" : "user.endocrinologist.symtomUpdated";
+            String key = (isNew) ? "user.endocrinologist.symptomSaved" : "user.endocrinologist.symptomUpdated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
