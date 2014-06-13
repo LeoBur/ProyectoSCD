@@ -36,6 +36,7 @@ public class Endocrinologo implements Serializable{
 	private Domicilio domicilio;
 	private String telefono;
 	private String email;
+	private String username;
 	
 	private Long matricula;
 	private Set<Paciente> pacientes = new HashSet<Paciente>();
@@ -45,7 +46,7 @@ public class Endocrinologo implements Serializable{
 	}
 	
 	public Endocrinologo(String dni, String nombre, String apellido, String telefono, String email, Long matricula,Domicilio domicilio,
-							Date fch_nac){
+							Date fch_nac, String username){
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -54,6 +55,7 @@ public class Endocrinologo implements Serializable{
 		this.domicilio=domicilio;
 		this.matricula = matricula;
 		this.fch_nac=fch_nac;
+		this.username=username;
 		
 	}
 	
@@ -152,6 +154,15 @@ public class Endocrinologo implements Serializable{
 
 	public void setFch_nac(Date fch_nac) {
 		this.fch_nac = fch_nac;
+	}
+
+	@Column(name = "username", unique = true, nullable = false)
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	

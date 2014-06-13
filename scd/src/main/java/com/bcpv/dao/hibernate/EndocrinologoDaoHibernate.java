@@ -54,6 +54,17 @@ public class EndocrinologoDaoHibernate extends GenericDaoHibernate<Endocrinologo
 			return endocrinologo;
 		}
 	}
+
+	@Override
+	public Long loadIdEndocrinologoByUsername(String username)
+			throws EntityNotFoundException {
+		Endocrinologo endocrinologo = (Endocrinologo) getSession().createCriteria(Endocrinologo.class).add(Restrictions.eq("username", username));
+		if (endocrinologo == null){
+			throw new EntityNotFoundException("No existe Endocrinologo con username :" + username);
+		} else {
+			return endocrinologo.getId();
+		}
+	}
 	
 	
 
