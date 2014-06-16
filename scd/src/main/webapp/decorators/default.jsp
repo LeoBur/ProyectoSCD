@@ -37,13 +37,15 @@
         <div class="row">
             <decorator:body/>
 
-            <c:if test="${currentMenu == 'AdminMenu'}">
+            <%-- Esto comento pero el la columna que se encuentra a la izquierda, tiene Administracion:
+            	ver lista de usuarios, usuarios conectados, recargar opciones y subir un fichero.
+             <c:if test="${currentMenu == 'AdminMenu'}">
                 <div class="col-sm-2">
                 <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
                     <menu:displayMenu name="AdminMenu"/>
                 </menu:useMenuDisplayer>
                 </div>
-            </c:if>
+            </c:if> --%>
         </div>
     </div>
 

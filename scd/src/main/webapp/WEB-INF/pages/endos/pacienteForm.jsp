@@ -102,7 +102,7 @@
                         <div class="form-group">
 			                <appfuse:label styleClass="control-label" key="user.paciente.fecha.nacimiento"/>		                
 			                <spring:bind path="paciente.fch_nac">
-			                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+			                	<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 			                </spring:bind>
 			                	<fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha"/>		                
 			                	<form:input cssClass="form-control" path="fch_nac" id="fch_nac" value="${fecha}" size="12"/>

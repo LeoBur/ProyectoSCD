@@ -136,7 +136,7 @@ public class EndoController extends BaseFormController {
         log.debug("entering 'onSubmit' method...");
  
         boolean isNew = (paciente.getId() == null);
-        String success = "redirect:pacienteList";
+        String success = "redirect:/endos/endo";
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
@@ -150,7 +150,7 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:pacienteList";
+                success = "redirect:/endos/endo";
             }
         }
  

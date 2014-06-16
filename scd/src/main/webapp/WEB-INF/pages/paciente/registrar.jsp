@@ -5,6 +5,7 @@
 	Date dnow = new Date();
 	SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
 	String currentDate = ft.format(dnow);
+	int a = 5;
 	
 %>
 <head>
@@ -53,39 +54,45 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="pacienteForm" method="post" action="registrar" autocomplete="off" id="pacienteForm" 
+    <form:form commandName="pacienteForm" method="post" action="registrar" autocomplete="off" id="pacienteForm" modelAttribute="pacienteForm" 
                cssClass="well" onsubmit="return validateUser(this)">
         	<form:hidden path="username"/>
         
         
 		        <div class="form-group">
 		                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
-		                <form:input cssClass="form-control" path="fechaHora" id="datepicker" value="<%= currentDate %>"  size="12"/>
+		                <fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha"/>		                
+			                	<form:input cssClass="form-control" path="fechaHora" id="fechaHora" value="${fecha}" size="12"/>
+		                <%-- <form:input cssClass="form-control" path="fechaHora" id="datepicker" value="<%= currentDate %>"  size="12"/> --%>
 		                
 		        </div>   
 		        
 		        
 		        <div class="form-group">
+		        	<%-- <spring:bind path="paciente.medicion">
+                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                    </spring:bind> --%>	
+                    
 		                <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
-		                <form:input cssClass="form-control" path="" id="medicion"/>
+		                <form:input cssClass="form-control" path="medicion" id="medicion"/>
+		                <%-- <form:errors path="medicion" cssClass="help-block"/> --%>
 		        </div>
 		        
 		        <div class="form-group">
 		                <appfuse:label styleClass="control-label" key="user.paciente.peso"/>
-		                <form:input cssClass="form-control" path="" id="peso"/>
+		                <form:input cssClass="form-control" path="peso" id="peso"/>
 		        </div>
-		        
-		        <%-- <div class="form-group">
+		        <%-- 
+		        <div class="form-group">
 		        		<appfuse:label styleClass="control-label" key="user.food.title"></appfuse:label>
 		                <form:select path="medicamento">
 		                	<form:options items="${medicamentoList}"  itemLabel="nombreComercial"/>
 						</form:select>		                
-		        </div> --%>
-		         
+		        </div>
+		         --%> 
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
 		        	<form:select cssClass="form-control" path="medicamento">
-		        		<%-- <form:option value="otro"> Otro </form:option> --%>
 		        		<form:options items="${medicamentoList}" itemLabel="nombreComercial"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"></appfuse:label>
@@ -114,6 +121,46 @@
 		        	</form:select>
 		        </div>
 		        
+		        <display:table name="<%= a %>" cellspacing="0" cellpadding="0" requestURI=""
+                   defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="false">
+				        
+				        <display:column titleKey="user.paciente.alimentoIng" sortable="false">
+				            <form:select path="${pacienteForm.comidas[0].alimento}" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            </form:select>
+				            <form:select path="${pacienteForm.comidas[1].alimento}" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            </form:select>
+				            <form:select path="${pacienteForm.comidas[2].alimento}" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            </form:select>
+				            <form:select path="${pacienteForm.comidas[3].alimento}" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            </form:select>
+				            <form:select path="${pacienteForm.comidas[4].alimento}" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            </form:select>
+				        </display:column>
+				        
+				        <display:column titleKey="user.food.cant" sortable="false">
+				            <form:input path="${pacienteForm.comidas[0].cantidad}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[1].cantidad}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[2].cantidad}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[3].cantidad}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[4].cantidad}" cssClass="form-control"/>
+				        </display:column>
+				        <display:column titleKey="user.oservacion.title" sortable="false">
+				            <form:input path="${pacienteForm.comidas[0].observaciones}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[1].observaciones}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[2].observaciones}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[3].observaciones}" cssClass="form-control"/>
+				            <form:input path="${pacienteForm.comidas[4].observaciones}" cssClass="form-control"/>
+				        </display:column>
+				       
+								        
+				    </display:table>    
+						        
+		        <%--
 		         <table>
 		        	<tr>
 		        		<th>Alimento</th>
@@ -146,7 +193,7 @@
 		        		<td><form:input path=""/></td>
 		        		<td><form:textarea path=""/></td>
 		        	</tr>
-		        </table>	  <%--  --%>     
+		        </table>	    --%>     
 		
 		        <div class="form-group">
 		            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">

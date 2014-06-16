@@ -10,7 +10,7 @@
 <p><fmt:message key="home.message"/></p>
 
 <ul class="glassList">
-    <li>
+    <%-- <li>
         <a href="<c:url value='/userform'/>"><fmt:message key="menu.user"/></a>
     </li>
     <li>
@@ -21,6 +21,9 @@
     </li>
     <li>
     	<a href="${pageContext.request.contextPath}/fileupload">viendo2</a>
+    </li> --%>
+    <li>
+    	<a href="<c:url value='/paciente/registrar'/>">Empezar</a>
     </li>
 </ul>
 </body>
