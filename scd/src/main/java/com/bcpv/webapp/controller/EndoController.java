@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
+import com.bcpv.model.Endocrinologo;
 import com.bcpv.model.Especialista;
 import com.bcpv.model.Medicamento;
 import com.bcpv.model.Paciente;
 import com.bcpv.model.Sintoma;
 import com.bcpv.model.Tag;
+import com.bcpv.service.EndocrinologoManager;
 import com.bcpv.service.EspecialistaManager;
 import com.bcpv.service.MedicamentoManager;
 import com.bcpv.service.PacienteManager;
@@ -44,6 +46,9 @@ public class EndoController extends BaseFormController {
 	
 	@Autowired
 	SintomaManager sintomaManager;
+	
+	@Autowired
+	EndocrinologoManager endocrinologoManager;
 
 	public EndoController() {
 	}
@@ -138,6 +143,8 @@ public class EndoController extends BaseFormController {
         	pacienteManager.removePaciente(paciente.getId());
             saveMessage(request, getText("user.endocrinologist.pacientDeleted", locale));
         } else {
+        	paciente.setEndocrinologo(endocrinologoManager.getEndocrinologo(new Long(0))); //para probar BORRAR!!
+        	paciente.setObservaciones("Observaciones"); //para probar BORRAR!!
         	pacienteManager.savePaciente(paciente);
             String key = (isNew) ? "user.endocrinologist.pacientSaved" : "user.endocrinologist.pacientUpdated";
             saveMessage(request, getText(key, locale));

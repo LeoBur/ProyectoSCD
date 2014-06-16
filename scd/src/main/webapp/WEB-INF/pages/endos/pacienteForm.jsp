@@ -1,12 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
-<%@page import ="java.util.*" %>
-<%@page import ="java.text.SimpleDateFormat" %>
-<%
-	Date dnow = new Date();
-	SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
-	String currentDate = ft.format(dnow);
-	
-%>
+
 <head>
     <title><fmt:message key="userProfile.title"/></title>
     <meta name="menu" content="UserMenu"/>
@@ -14,11 +7,6 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
-  });
-  </script>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -112,10 +100,14 @@
                         </div>
                         
                         <div class="form-group">
-		                <appfuse:label styleClass="control-label" key="user.paciente.fecha.nacimiento"/>
-		                
-		                <form:input cssClass="form-control" path="fch_nac" id="datepicker" value="<%= currentDate %>" size="12"/>
-		                
+			                <appfuse:label styleClass="control-label" key="user.paciente.fecha.nacimiento"/>		                
+			                <spring:bind path="paciente.fch_nac">
+			                	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+			                </spring:bind>
+			                	<fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha"/>		                
+			                	<form:input cssClass="form-control" path="fch_nac" id="fch_nac" value="${fecha}" size="12"/>
+			                
+			                </div>
 		        		</div>
 		        		
 		        	
