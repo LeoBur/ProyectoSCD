@@ -66,5 +66,8 @@
                 <arg key="user.adminMedicamento.presentacion"/>
             </field>
         </form>
+        <!-- <form name="paciente">
+        	<field property="fch_nac" depends="date"/>
+        </form> -->
     </formset>
 </form-validation>
