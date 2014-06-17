@@ -66,8 +66,23 @@
                 <arg key="user.adminMedicamento.presentacion"/>
             </field>
         </form>
-        <!-- <form name="paciente">
-        	<field property="fch_nac" depends="date"/>
-        </form> -->
+        <form name="paciente">
+        	<field property="fch_nac" depends="required"/>
+        	<field property="nombre" depends="required"/>
+        	<field property="apellido" depends="required"/>
+        	<field property="telefono" depends="required, long"/>
+        	<field property="email" depends="required, email"/>
+        	<field property="sexo" depends="required"/>
+        	<field property="dni" depends="required"/>
+        	<field property="nombre" depends="required"/>
+        	<field property="provincia" depends="required"/>
+        	<field property="localidad" depends="required"/>
+        	<field property="calle" depends="required"/>
+        	<field property="numero" depends="required, integer"/>
+        </form>
+        <form name="pacienteForm">
+            <field property="medicion" depends="integer"/>
+            <field property="peso" depends="float"/>
+        </form>
     </formset>
 </form-validation>
