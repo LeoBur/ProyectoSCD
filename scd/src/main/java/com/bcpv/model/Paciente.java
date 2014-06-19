@@ -1,7 +1,6 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,9 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name = "paciente")
@@ -32,16 +29,8 @@ public class Paciente implements Serializable{
 	private static final long serialVersionUID = -6094399498007212046L;
 	
 	private Long id;
-	private String dni;
-	private String nombre;
-	private String apellido;
-	private Domicilio domicilio;
-	private String telefono;
-	private String email;
-	private String username;
-	
-	private String sexo;
-	private String observaciones;
+	private int limiteInf;
+	private int limiteSup;
 	private TipoDiabetes tipo;
 	private Endocrinologo endocrinologo;
 	private Set<Medicion> mediciones = new HashSet<Medicion>();
@@ -49,32 +38,21 @@ public class Paciente implements Serializable{
 	private Set<Dieta> dietas = new HashSet<Dieta>();
 	private Set<RegistroComidas> registroComidas = new HashSet<RegistroComidas>();
 	private Set<Tratamiento> tratamientos = new HashSet<Tratamiento>();
-	private Date fch_nac;
+	private User persona;
 	
 	public Paciente(){
 	}
 	
-	public Paciente(String dni, String nombre, String apellido, String telefono, String email, String username, Domicilio domicilio, String sexo, 
-			String obs, TipoDiabetes tipo, Endocrinologo endo, Set<Medicion> medicion, Set<Peso> peso,Date fch_nac){
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.email = email;
-		this.username = username;
-		this.domicilio=domicilio;
-		this.sexo = sexo;
-		this.observaciones = obs;
+	public Paciente(TipoDiabetes tipo, Endocrinologo endo,int limiteInf,int limiteSup){
 		this.endocrinologo = endo;
 		this.tipo = tipo;
-		this.mediciones = medicion;
-		this.pesos = peso;
-		this.fch_nac=fch_nac;
+		this.limiteInf=limiteInf;
+		this.limiteSup=limiteSup;
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "id_paciente")
 	public Long getId() {
 		return id;
 	}
@@ -83,80 +61,6 @@ public class Paciente implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "dni", nullable = false, unique = true)
-	public String getDni() {
-		return dni;
-	}
-	
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
-	@Column(name = "nombre",nullable = false)
-	@Field
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	@Column(name = "apellido", nullable=false)
-	@Field
-	public String getApellido() {
-		return apellido;
-	}
-	
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	
-	@Column(name = "telefono")
-	public String getTelefono() {
-		return telefono;
-	}
-	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	@Column(name = "email")
-	@Email
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idDomicilio", nullable = false)
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
-	
-	public String getSexo() {
-		return sexo;
-	}
-	@Column(name = "sexo",nullable=false)
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	
-	public String getObservaciones() {
-		return observaciones;
-	}
-	
-	@Column(name = "observ")
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo",nullable=false)
@@ -228,21 +132,31 @@ public class Paciente implements Serializable{
 		this.tratamientos = tratamientos;
 	}
 
-	@Column(name = "username", unique = true, nullable = false)
-	public String getUsername() {
-		return username;
+	@Column(name = "limite_inf")
+	public int getLimiteInf() {
+		return limiteInf;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setLimiteInf(int limiteInf) {
+		this.limiteInf = limiteInf;
 	}
 
-	@Column(name = "fch_nac", nullable=false)
-	public Date getFch_nac() {
-		return fch_nac;
+	@Column(name = "limite_sup")
+	public int getLimiteSup() {
+		return limiteSup;
 	}
 
-	public void setFch_nac(Date fch_nac) {
-		this.fch_nac = fch_nac;
+	public void setLimiteSup(int limiteSup) {
+		this.limiteSup = limiteSup;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_persona", nullable = false,unique=true)
+	public User getPersona() {
+		return persona;
+	}
+
+	public void setPersona(User persona) {
+		this.persona = persona;
 	}
 }

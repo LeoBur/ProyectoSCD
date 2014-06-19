@@ -3,7 +3,11 @@ package com.bcpv.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.PrescripcionDao;
 import com.bcpv.model.Prescripcion;
@@ -11,6 +15,9 @@ import com.bcpv.model.Tratamiento;
 import com.bcpv.service.PrescripcionManager;
 import com.bcpv.service.PrescripcionService;
 
+@Service("prescripcionManager")
+@WebService(serviceName = "PrescripcionService", endpointInterface = "com.bcpv.service.PrescripcionService")
+@Transactional
 public class PrescripcionManagerImpl extends GenericManagerImpl<Prescripcion, Long> implements PrescripcionManager, PrescripcionService{
 
 	private PrescripcionDao prescripcionDao;

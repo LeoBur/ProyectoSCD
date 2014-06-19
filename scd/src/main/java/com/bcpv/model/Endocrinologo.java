@@ -1,7 +1,6 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name ="endocrinologo")
@@ -30,102 +27,26 @@ public class Endocrinologo implements Serializable{
 	private static final long serialVersionUID = -1274195813657855646L;
 	
 	private Long id;
-	private String dni;
-	private String nombre;
-	private String apellido;
-	private Domicilio domicilio;
-	private String telefono;
-	private String email;
-	private String username;
-	
 	private Long matricula;
-	private Set<Paciente> pacientes = new HashSet<Paciente>();
-	private Date fch_nac;
+	private Set<PacienteEnTratamiento> pacientesEnTratamiento = new HashSet<PacienteEnTratamiento>();
+	private User persona;
     
 	public Endocrinologo() {
 	}
 	
-	public Endocrinologo(String dni, String nombre, String apellido, String telefono, String email, Long matricula,Domicilio domicilio,
-							Date fch_nac, String username){
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.email = email;
-		this.domicilio=domicilio;
+	public Endocrinologo(Long matricula){
 		this.matricula = matricula;
-		this.fch_nac=fch_nac;
-		this.username=username;
-		
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "id_endocrinologo")
 	public Long getId() {
 		return id;
 	}
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	@Column(name = "dni", nullable = false, unique = true)
-	public String getDni() {
-		return dni;
-	}
-	
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
-	@Column(name = "nombre", nullable=false)
-	@Field
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	@Column(name = "apellido", nullable=false)
-	@Field
-	public String getApellido() {
-		return apellido;
-	}
-	
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	
-	@Column(name = "telefono")
-	public String getTelefono() {
-		return telefono;
-	}
-	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	@Column(name = "email")
-	@Email
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idDomicilio", nullable = false)
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
 	}
 	
 	@Column(name ="matricula_endo", nullable=false)
@@ -139,32 +60,22 @@ public class Endocrinologo implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public Set<Paciente> getPacientes() {
-		return pacientes;
+	public Set<PacienteEnTratamiento> getPacientes() {
+		return pacientesEnTratamiento;
 	}
 
-	public void setPacientes(Set<Paciente> pacientes) {
-		this.pacientes = pacientes;
-	}
-
-	@Column(name = "fch_nac", nullable=false)
-	public Date getFch_nac() {
-		return fch_nac;
-	}
-
-	public void setFch_nac(Date fch_nac) {
-		this.fch_nac = fch_nac;
-	}
-
-	@Column(name = "username", unique = true, nullable = false)
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPacientes(Set<PacienteEnTratamiento> pacientesEnTratamiento) {
+		this.pacientesEnTratamiento = pacientesEnTratamiento;
 	}
 	
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_persona", nullable = false,unique=true)
+	public User getPersona() {
+		return persona;
+	}
+
+	public void setPersona(User persona) {
+		this.persona = persona;
+	}
 
 }
