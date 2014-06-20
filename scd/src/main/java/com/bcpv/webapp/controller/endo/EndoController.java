@@ -1,4 +1,4 @@
-package com.bcpv.webapp.controller;
+package com.bcpv.webapp.controller.endo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ import com.bcpv.service.EspecialistaManager;
 import com.bcpv.service.MedicamentoManager;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.service.SintomaManager;
+import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndoSearch;
 
 @Controller

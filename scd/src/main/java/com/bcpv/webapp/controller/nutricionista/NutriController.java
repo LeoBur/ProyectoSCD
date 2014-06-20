@@ -1,4 +1,4 @@
-package com.bcpv.webapp.controller;
+package com.bcpv.webapp.controller.nutricionista;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.model.Alimento;
 import com.bcpv.service.AlimentoManager;
+import com.bcpv.webapp.controller.BaseFormController;
 
 @Controller
 public class NutriController extends BaseFormController{
@@ -30,6 +31,7 @@ public class NutriController extends BaseFormController{
 //		setSuccessView("");
 	}
 	
+	/*=====================Administración de ALIMENTOS===========================================*/
 	@RequestMapping(value = "/nutri/alimentoList*", method = RequestMethod.GET)
     public ModelAndView showAlimentos(){
         ModelAndView mav = new ModelAndView("nutri/alimentoList");

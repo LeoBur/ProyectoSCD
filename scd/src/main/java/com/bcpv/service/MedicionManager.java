@@ -48,4 +48,6 @@ public interface MedicionManager extends GenericManager<Medicion, Long>{
      * @return a list of matches, or all if no searchTerm.
      */
     List<Medicion> search(String searchTerm);
+    
+    List<Medicion> getMedicionesByIdPaciente(Long idPaciente);
 }

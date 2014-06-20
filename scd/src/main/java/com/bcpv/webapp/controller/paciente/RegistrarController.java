@@ -1,4 +1,4 @@
-package com.bcpv.webapp.controller;
+package com.bcpv.webapp.controller.paciente;
 
 import java.util.List;
 import java.util.Locale;
@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +33,11 @@ import com.bcpv.service.RegistroComidasManager;
 import com.bcpv.service.RegistroMedicamentoManager;
 import com.bcpv.service.RegistroSintomaManager;
 import com.bcpv.service.SintomaManager;
+import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 
-@RequestMapping("/paciente/registrar*")
-@Controller
-public class PacienteController extends BaseFormController {
-
+public class RegistrarController extends BaseFormController{
+	
 	@Autowired
 	MedicionManager medicionManager;
 	
@@ -72,9 +70,8 @@ public class PacienteController extends BaseFormController {
 	
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
-	public PacienteController() {
-		setCancelView("redirect:/registrar");
-		setSuccessView("redirect:/registrar");
+	public RegistrarController(){
+		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -181,4 +178,5 @@ public class PacienteController extends BaseFormController {
         }*/
         return success;
     }
+
 }
