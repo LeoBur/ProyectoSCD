@@ -38,7 +38,7 @@ public class Paciente implements Serializable{
 	private Set<Dieta> dietas = new HashSet<Dieta>();
 	private Set<RegistroComidas> registroComidas = new HashSet<RegistroComidas>();
 	private Set<Tratamiento> tratamientos = new HashSet<Tratamiento>();
-	private User persona;
+	private Persona persona;
 	
 	public Paciente(){
 	}
@@ -152,11 +152,11 @@ public class Paciente implements Serializable{
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_persona", nullable = false,unique=true)
-	public User getPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
 
-	public void setPersona(User persona) {
+	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
 }

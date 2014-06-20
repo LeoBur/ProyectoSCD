@@ -10,7 +10,10 @@ import javax.sql.DataSource;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
+
+import com.bcpv.model.Persona;
 import com.bcpv.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -109,4 +112,22 @@ public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager 
     private Date getExpirationTime() {
         return DateUtils.addDays(new Date(), 1);
     }
+
+	@Override
+	public String generateRecoveryToken(Persona user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isRecoveryTokenValid(Persona user, String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void invalidateRecoveryToken(Persona user, String recoveryToken) {
+		// TODO Auto-generated method stub
+		
+	}
 }

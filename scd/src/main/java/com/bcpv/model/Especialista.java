@@ -34,7 +34,7 @@ public class Especialista implements Serializable{
 	private Long matricula;
 	private TipoEspecialista tipo_esp;
 	private Set<PacienteEnTratamiento> pacientesEnTratamiento = new HashSet<PacienteEnTratamiento>();
-	private User persona;
+	private Persona persona;
 
 	
 	public Especialista(){
@@ -83,11 +83,11 @@ public class Especialista implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_persona", nullable = false,unique=true)
-	public User getPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
 
-	public void setPersona(User persona) {
+	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
 

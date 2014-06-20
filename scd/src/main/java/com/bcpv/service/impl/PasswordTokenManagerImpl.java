@@ -8,7 +8,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.bcpv.model.Persona;
 import com.bcpv.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -103,5 +106,26 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
             return null;
         }
     }
+
+
+	@Override
+	public String generateRecoveryToken(Persona user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean isRecoveryTokenValid(Persona user, String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void invalidateRecoveryToken(Persona user, String recoveryToken) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

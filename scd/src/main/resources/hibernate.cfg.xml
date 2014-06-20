@@ -31,5 +31,6 @@
         <mapping class="com.bcpv.model.RegistroMedicamento"/>
         <mapping class="com.bcpv.model.Prescripcion"/>
         <mapping class="com.bcpv.model.PacienteEnTratamiento"/>
+        <mapping class="com.bcpv.model.Persona"/>
     </session-factory>
 </hibernate-configuration>

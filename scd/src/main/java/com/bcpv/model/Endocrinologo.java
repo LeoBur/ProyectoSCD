@@ -29,7 +29,7 @@ public class Endocrinologo implements Serializable{
 	private Long id;
 	private Long matricula;
 	private Set<PacienteEnTratamiento> pacientesEnTratamiento = new HashSet<PacienteEnTratamiento>();
-	private User persona;
+	private Persona persona;
     
 	public Endocrinologo() {
 	}
@@ -70,11 +70,11 @@ public class Endocrinologo implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_persona", nullable = false,unique=true)
-	public User getPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
 
-	public void setPersona(User persona) {
+	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
 

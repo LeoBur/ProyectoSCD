@@ -1,7 +1,7 @@
 package com.bcpv.dao;
 
 import com.bcpv.Constants;
-import com.bcpv.model.Address;
+//import com.bcpv.model.Address;
 import com.bcpv.model.Role;
 import com.bcpv.model.User;
 import org.junit.Test;

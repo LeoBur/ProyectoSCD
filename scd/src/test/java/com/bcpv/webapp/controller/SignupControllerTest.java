@@ -16,7 +16,7 @@ import org.springframework.validation.DataBinder;
 import org.subethamail.wiser.Wiser;
 
 import com.bcpv.Constants;
-import com.bcpv.model.Address;
+//import com.bcpv.model.Address;
 import com.bcpv.model.User;
 import com.bcpv.webapp.controller.SignupController;
 

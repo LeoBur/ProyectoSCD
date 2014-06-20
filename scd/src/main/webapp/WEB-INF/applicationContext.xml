@@ -40,6 +40,7 @@
     <bean id="registroMedicamentoDao" class="com.bcpv.dao.hibernate.RegistroMedicamentoDaoHibernate"/>
     <bean id="prescripcionDao" class="com.bcpv.dao.hibernate.PrescripcionDaoHibernate"/>
     <bean id="pacienteEnTratamientoDao" class="com.bcpv.dao.hibernate.PacienteEnTratamientoDaoHibernate"/>
+    <bean id="personaDao" class="com.bcpv.dao.hibernate.PersonaDaoHibernate"/>
     
     <!-- Add new Managers here -->
     <bean id="medicionManager" class="com.bcpv.service.impl.MedicionManagerImpl">
@@ -114,6 +115,9 @@
     </bean>
      <bean id= "pacienteEnTratamientoManager" class="com.bcpv.service.impl.PacienteEnTratamientoManagerImpl">
         <property name="pacienteEnTratamientoDao" ref="pacienteEnTratamientoDao"/>
+    </bean>
+    <bean id= "personaManager" class="com.bcpv.service.impl.PersonaManagerImpl">
+        <property name="personaDao" ref="personaDao"/>
     </bean>
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="com.bcpv.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
