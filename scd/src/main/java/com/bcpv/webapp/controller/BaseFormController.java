@@ -56,6 +56,7 @@ public class BaseFormController implements ServletContextAware {
     private ServletContext servletContext;
 
     @Autowired(required = false)
+	protected
     Validator validator;
 
     @Autowired

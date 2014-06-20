@@ -78,4 +78,12 @@ public class MedicionManagerImpl extends GenericManagerImpl<Medicion, Long> impl
 		
 	}
 
+	@Override
+	public List<Medicion> getMedicionesByIdPaciente(Long idPaciente) {
+		if (medicionDao!=null){
+			return medicionDao.getMedicionesByIdPaciente(idPaciente);
+		}
+		return new ArrayList<Medicion>();
+	}
+
 }

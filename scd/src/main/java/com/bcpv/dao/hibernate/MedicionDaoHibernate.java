@@ -61,4 +61,11 @@ public class MedicionDaoHibernate extends GenericDaoHibernate<Medicion, Long> im
     public Medicion save(Medicion medicion) {
         return this.saveMedicion(medicion);
     }
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Medicion> getMedicionesByIdPaciente(Long idPaciente) {
+		Query qry = getSession().createQuery("from Medicion m where m.id_paciente = idPaciente order by (m.fecha_medicion) DESC");
+		return qry.list();
+	}
 }

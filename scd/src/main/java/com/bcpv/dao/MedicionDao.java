@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import com.bcpv.model.Medicion;
+import com.bcpv.model.Paciente;
 
 public interface MedicionDao extends GenericDao<Medicion, Long> {
 	
@@ -29,5 +30,7 @@ public interface MedicionDao extends GenericDao<Medicion, Long> {
      * @return the persisted Medicion object
      */
     Medicion saveMedicion(Medicion medicion);
+    
+    List<Medicion> getMedicionesByIdPaciente(Long idPaciente);
 
 }
