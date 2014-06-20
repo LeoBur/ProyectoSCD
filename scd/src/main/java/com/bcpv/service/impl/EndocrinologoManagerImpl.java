@@ -67,7 +67,7 @@ public class EndocrinologoManagerImpl extends GenericManagerImpl<Endocrinologo, 
 
 	@Override
 	public void removeEndocrinologo(Endocrinologo persona) {
-		log.debug("removing persona: " + persona.getNombre() + persona.getApellido());
+		log.debug("removing persona: " + persona.getPersona().getFirstName()+ persona.getPersona().getFirstName());
         endocrinologoDao.remove(persona);
 	}
 

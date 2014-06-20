@@ -41,6 +41,8 @@
     <jaxws:endpoint id="registroSintomaService" address="RegistroSintomaService" implementor="#registroSintomaManager"/>
     <jaxws:endpoint id="registroMedicamentoService" address="RegistroMedicamentoService" implementor="#registroMedicamentoManager"/>
     <jaxws:endpoint id="prescripcionService" address="PrescripcionService" implementor="#prescripcionManager"/>
+    <jaxws:endpoint id="pacienteEnTratamientoService" address="PacienteEnTratamientoService" implementor="#pacienteEnTratamientoManager"/>
+    <jaxws:endpoint id="personaService" address="PersonaService" implementor="#personaManager"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
     <jaxrs:server address="/api">
@@ -74,6 +76,8 @@
             <ref bean="registroSintomaManager"/>
             <ref bean="registroMedicamentoManager"/>
             <ref bean="prescripcionManager"/>
+            <ref bean="pacienteEnTratamientoManager"/>
+            <ref bean="personaManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>

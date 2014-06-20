@@ -61,7 +61,7 @@ public class EndoController extends BaseFormController {
 		List<Tag> result = new ArrayList<Tag>();
 
 		for (Paciente paciente : pacienteManager.getPacientes()) {
-			data.add(new Tag(cont++, paciente.getApellido()));
+			data.add(new Tag(cont++, paciente.getPersona().getLastName()));
 		}
 
 		// iterate a list and filter by tagName
@@ -144,7 +144,6 @@ public class EndoController extends BaseFormController {
             saveMessage(request, getText("user.endocrinologist.pacientDeleted", locale));
         } else {
         	paciente.setEndocrinologo(endocrinologoManager.getEndocrinologo(new Long(0))); //para probar BORRAR!!
-        	paciente.setObservaciones("Observaciones"); //para probar BORRAR!!
         	pacienteManager.savePaciente(paciente);
             String key = (isNew) ? "user.endocrinologist.pacientSaved" : "user.endocrinologist.pacientUpdated";
             saveMessage(request, getText(key, locale));

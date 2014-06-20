@@ -67,7 +67,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 
 	@Override
 	public void removePaciente(Paciente paciente) {
-		log.debug("removing paciente: " + paciente.getNombre() + paciente.getApellido());
+		log.debug("removing paciente: " + paciente.getPersona().getFirstName() + paciente.getPersona().getLastName());
 		pacientesDao.remove(paciente);
 	}
 

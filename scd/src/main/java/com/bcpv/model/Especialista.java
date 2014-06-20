@@ -1,21 +1,25 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.search.annotations.Field;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Indexed;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 
 @Entity
 @Table(name ="especialista")
@@ -24,35 +28,21 @@ public class Especialista implements Serializable{
 	
 	private static final long serialVersionUID = 3657563589343488236L;
 	
-	private Long id;
-	private String dni;
-	private String nombre;
-	private String apellido;
-	private Domicilio domicilio;
-	private String telefono;
-	private String email;
+	public enum TipoEspecialista {NUTRICIONISTA,ENTRENADOR_PERSONAL}
 	
-	private String tipo_esp;
-	private Date fch_nac;
+	private Long id;
+	private Long matricula;
+	private TipoEspecialista tipo_esp;
+	private Set<PacienteEnTratamiento> pacientesEnTratamiento = new HashSet<PacienteEnTratamiento>();
+	private Persona persona;
+
 	
 	public Especialista(){
 	}
 	
-	public Especialista(String dni, String nombre, String apellido, String telefono, String email, String tipo,Domicilio domicilio,
-								Date fch_nac){
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.email = email;
-		this.domicilio=domicilio;
-		this.tipo_esp = tipo;
-		this.fch_nac=fch_nac;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "id_especialista")
 	public Long getId() {
 		return id;
 	}
@@ -60,83 +50,45 @@ public class Especialista implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	@Column(name = "dni", nullable = false, unique = true)
-	public String getDni() {
-		return dni;
-	}
-	
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
-	@Column(name = "nombre", nullable=false)
-	@Field
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	@Column(name = "apellido", nullable=false)
-	@Field
-	public String getApellido() {
-		return apellido;
-	}
-	
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	
-	@Column(name = "telefono")
-	public String getTelefono() {
-		return telefono;
-	}
-	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	@Column(name = "email")
-	@Email
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idDomicilio", nullable = false)
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
-	
 	@Column(name = "tipo_esp", nullable=false)
-	@Field
-	public String getTipo_esp() {
+	@Enumerated(EnumType.STRING)
+	public TipoEspecialista getTipo_esp() {
 		return tipo_esp;
 	}
 
-	public void setTipo_esp(String tipo_esp) {
+	public void setTipo_esp(TipoEspecialista tipo_esp) {
 		this.tipo_esp = tipo_esp;
 	}
 	
-	@Column(name = "fch_nac", nullable=false)
-	public Date getFch_nac() {
-		return fch_nac;
+	@Column(name ="matricula_endo", nullable=false)
+	public Long getMatricula() {
+		return matricula;
 	}
 
-	public void setFch_nac(Date fch_nac) {
-		this.fch_nac = fch_nac;
+	public void setMatricula(Long matricula) {
+		this.matricula = matricula;
 	}
 	
+	@OneToMany(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Set<PacienteEnTratamiento> getPacientesEnTratamiento() {
+		return pacientesEnTratamiento;
+	}
+
+	public void setPacientesEnTratamiento(Set<PacienteEnTratamiento> pacientesEnTratamiento) {
+		this.pacientesEnTratamiento = pacientesEnTratamiento;
+	}
+
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_persona", nullable = false,unique=true)
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 }

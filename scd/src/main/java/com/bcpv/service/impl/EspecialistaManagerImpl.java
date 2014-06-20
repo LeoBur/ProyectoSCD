@@ -67,7 +67,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 
 	@Override
 	public void removeEspecialista(Especialista especialista) {
-		log.debug("removing Especialista: " + especialista.getNombre() + especialista.getApellido());
+		log.debug("removing Especialista: " + especialista.getPersona().getFirstName()+ especialista.getPersona().getLastName());
         especialistaDao.remove(especialista);
 	}
 

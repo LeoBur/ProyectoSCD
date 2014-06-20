@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,27 +33,22 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * This class represents the basic "user" object in AppFuse that allows for authentication
- * and user management.  It implements Acegi Security's UserDetails interface.
- *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *         Updated by Dan Kibler (dan@getrolling.com)
- *         Extended to implement Acegi UserDetails interface
- *         by David Carter david@carter.net
- */
+
 @Entity
-@Table(name = "app_user")
+@Table(name = "persona")
 @Indexed
 @XmlRootElement
-public class User extends BaseObject implements Serializable, UserDetails {
-    private static final long serialVersionUID = 3832626162173359411L;
+public class Persona extends BaseObject implements Serializable, UserDetails {
+    
 
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7488082444003178560L;
+	private Long id;
     private String username;                    // required
     private String password;                    // required
     private String confirmPassword;
@@ -63,19 +57,21 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String lastName;                    // required
     private String email;                       // required; unique
     private String phoneNumber;
-    private String website;
-    private Address address = new Address();
-    private Integer version;
+    private String dni;
+    private Date fch_nac;
+    private boolean sexo;
+    private Domicilio domicilio = new Domicilio();
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
     private boolean accountExpired;
     private boolean accountLocked;
     private boolean credentialsExpired;
+    private Integer version;
 
     /**
      * Default constructor - creates a new instance with no values set.
      */
-    public User() {
+    public Persona() {
     }
 
     /**
@@ -83,7 +79,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      *
      * @param username login name for user.
      */
-    public User(final String username) {
+    public Persona(final String username) {
         this.username = username;
     }
 
@@ -143,11 +139,22 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-    @Field
-    public String getWebsite() {
-        return website;
+    
+    @Column(name = "dni", nullable = false, unique = true)
+    public String getDni() {
+        return dni;
     }
+    
+    @Column(name = "fch_nac", nullable=false)
+	public Date getFch_nac() {
+		return fch_nac;
+	}
+    
+    @Column(name = "sexo",nullable=false)
+    public boolean getSexo() {
+		return sexo;
+	}
+
 
     /**
      * Returns the full name.
@@ -159,17 +166,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return firstName + ' ' + lastName;
     }
 
-    @Embedded
-    @IndexedEmbedded
-    public Address getAddress() {
-        return address;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idDomicilio", nullable = false)
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)    
     @JoinTable(
-            name = "user_role",
-            joinColumns = { @JoinColumn(name = "user_id") },
+            name = "persona_rol",
+            joinColumns = { @JoinColumn(name = "persona_id") },
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     public Set<Role> getRoles() {
@@ -215,10 +222,6 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return authorities;
     }
 
-    @Version
-    public Integer getVersion() {
-        return version;
-    }
 
     @Column(name = "account_enabled")
     public boolean isEnabled() {
@@ -302,21 +305,25 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void setWebsite(String website) {
-        this.website = website;
+    
+    public void setDni(String dni) {
+        this.dni=dni;
     }
+    
+    public void setFch_nac(Date fch_nac) {
+		this.fch_nac = fch_nac;
+	}
+    
+    public void setSexo(boolean sexo) {
+		this.sexo = sexo;
+	}
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+    public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public void setEnabled(boolean enabled) {
@@ -386,4 +393,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return sb.toString();
     }
+    
+    @Version
+    public Integer getVersion() {
+        return version;
+    }
+    
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
 }
