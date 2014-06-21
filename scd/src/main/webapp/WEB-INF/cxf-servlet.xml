@@ -41,7 +41,7 @@
     <jaxws:endpoint id="registroSintomaService" address="RegistroSintomaService" implementor="#registroSintomaManager"/>
     <jaxws:endpoint id="registroMedicamentoService" address="RegistroMedicamentoService" implementor="#registroMedicamentoManager"/>
     <jaxws:endpoint id="prescripcionService" address="PrescripcionService" implementor="#prescripcionManager"/>
-    <jaxws:endpoint id="pacienteEnTratamientoService" address="PacienteEnTratamientoService" implementor="#pacienteEnTratamientoManager"/>
+    <jaxws:endpoint id="pacienteEnTratamientoService" implementor="#pacienteEnTratamientoManager" address="/pacienteEnTratamientoService"/>
     <jaxws:endpoint id="personaService" address="PersonaService" implementor="#personaManager"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     

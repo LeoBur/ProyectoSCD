@@ -15,7 +15,7 @@ import com.bcpv.service.PacienteEnTratamientoManager;
 import com.bcpv.service.PacienteEnTratamientoService;
 
 @Service("pacienteEnTratamientoManager")
-@WebService(serviceName = "pacienteEnTratamientoService", endpointInterface = "com.bcpv.service.pacienteEnTratamientoService")
+@WebService(serviceName = "PacienteEnTratamientoService", endpointInterface = "com.bcpv.service.PacienteEnTratamientoService")
 @Transactional
 public class PacienteEnTratamientoManagerImpl extends GenericManagerImpl<PacienteEnTratamiento, Long> implements PacienteEnTratamientoManager, PacienteEnTratamientoService{
 

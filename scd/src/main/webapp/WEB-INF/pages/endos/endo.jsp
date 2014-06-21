@@ -57,7 +57,7 @@
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		</spring:bind>
 			<appfuse:label key="endo.pacienteToSearch" styleClass="control-label" />
-			<form:input cssClass="form-control" path="pacienteToSearch" placeHolder="${mainPlaceHolder}" id="pacienteToSearch" />
+			<form:input cssClass="form-control" path="pacienteToSearch" placeHolder="endoSearch.pacienteToSearch" id="pacienteToSearch" />
 			<form:errors path="pacienteToSearch" cssClass="help-block" />
 		</div>
 		
