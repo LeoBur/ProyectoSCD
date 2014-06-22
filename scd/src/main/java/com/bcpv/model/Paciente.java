@@ -32,7 +32,6 @@ public class Paciente implements Serializable{
 	private int limiteInf;
 	private int limiteSup;
 	private TipoDiabetes tipo;
-	private Endocrinologo endocrinologo;
 	private Set<Medicion> mediciones = new HashSet<Medicion>();
 	private Set<Peso> pesos = new HashSet<Peso>();
 	private Set<Dieta> dietas = new HashSet<Dieta>();
@@ -44,7 +43,6 @@ public class Paciente implements Serializable{
 	}
 	
 	public Paciente(TipoDiabetes tipo, Endocrinologo endo,int limiteInf,int limiteSup){
-		this.endocrinologo = endo;
 		this.tipo = tipo;
 		this.limiteInf=limiteInf;
 		this.limiteSup=limiteSup;
@@ -70,16 +68,6 @@ public class Paciente implements Serializable{
 	
 	public void setTipo(TipoDiabetes tipo) {
 		this.tipo = tipo;
-	}
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_endo", nullable = false)
-	public Endocrinologo getEndocrinologo() {
-		return endocrinologo;
-	}
-	
-	public void setEndocrinologo(Endocrinologo endocrinologo) {
-		this.endocrinologo = endocrinologo;
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY)
