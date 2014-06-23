@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.bcpv.model.Medicamento;
 import com.bcpv.service.MedicamentoManager;
 import com.bcpv.webapp.controller.BaseFormController;
 
+@Controller
 public class AbmMedicamentoController extends BaseFormController{
 	
 	@Autowired
@@ -49,7 +51,7 @@ public class AbmMedicamentoController extends BaseFormController{
     public String updateMedic(Medicamento medicamento, BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
     	if (request.getParameter("cancel") != null) {
-            return "redirect:/endos/medicamentoList*";
+            return "redirect:/endos/medicamentoList";
         }
  
         if (validator != null) { // validator is null during testing

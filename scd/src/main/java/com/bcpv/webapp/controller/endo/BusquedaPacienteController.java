@@ -2,10 +2,12 @@ package com.bcpv.webapp.controller.endo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.bcpv.service.PacienteManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndoSearch;
 
+@Controller
 public class BusquedaPacienteController extends BaseFormController{
 	
 	@Autowired
@@ -51,10 +54,15 @@ public class BusquedaPacienteController extends BaseFormController{
 		return result;
 	}
 
-	/*@ModelAttribute("mainPlaceHolder")
-	public String getMainPlaceHolder() {
-		return getText("endo.pacienteToSearch", Locale.getDefault());
-	}*/
+	@ModelAttribute("apellidoPlaceHolder")
+	public String getApellidoPlaceHolder() {
+		return getText("endo.apellidoEjemplo", Locale.getDefault());
+	}
+	
+	@ModelAttribute("dniPlaceHolder")
+	public String getDNIPlaceHolder() {
+		return getText("endo.dniEjemplo", Locale.getDefault());
+	}
 
 	/*==========Busqueda de PACIENTE================*/
 	@ModelAttribute
@@ -65,8 +73,8 @@ public class BusquedaPacienteController extends BaseFormController{
 	}
 
 	@RequestMapping(value = "/endos/endo*", method = RequestMethod.POST)
-	public ModelAndView onSubmit(EndoSearch endoSearch, BindingResult errors,
-			HttpServletRequest request) throws Exception {
+	public ModelAndView onSubmit(final EndoSearch endoSearch, final BindingResult errors,
+			final HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("endos/endo");
 
@@ -77,9 +85,11 @@ public class BusquedaPacienteController extends BaseFormController{
 				return mv;
 			}
 		}
-
-		List<Paciente> pacientes = pacienteManager.loadPacientesByApellido(endoSearch.getPacienteToSearch());
-		mv.addObject(Constants.PACIENTE_LIST, pacientes);
+		if (endoSearch.getApellidoPaciente() != null){
+			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(endoSearch.getApellidoPaciente()));
+		} else {
+			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacienteByDNI(new Long (endoSearch.getDniPaciente())));
+		}
 		return mv;
 	}
 

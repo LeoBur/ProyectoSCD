@@ -1,25 +1,15 @@
 <%@ include file="/common/taglibs.jsp"%>
-<%@page import ="java.util.*" %>
-<%@page import ="java.text.SimpleDateFormat" %>
-<%
-	Date dnow = new Date();
-	SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
-	String currentDate = ft.format(dnow);
-	int a = 5;
-	
-%>
+<%@ page import = "java.util.*"%>
+<% int a = 5; %>
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script src="/scripts/script.js" type="text/javascript"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
-  });
-  </script>
+
 </head>
 <body>
 
@@ -60,10 +50,9 @@
         
         
 		        <div class="form-group">
-		                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
-		                <fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha"/>		                
-			                	<form:input cssClass="form-control" path="fechaHora" id="fechaHora" value="${fecha}" size="12"/>
-		                <%-- <form:input cssClass="form-control" path="fechaHora" id="datepicker" value="<%= currentDate %>"  size="12"/> --%>
+	                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>	                
+		            <form:input cssClass="form-control" path="fechaHora" id="fechaHora" size="12" onblur="dateValidate(this)"/>
+	                <%-- <form:input cssClass="form-control" path="fechaHora" id="datepicker" value="<%= currentDate %>"  size="12"/> --%>
 		                
 		        </div>   
 		        

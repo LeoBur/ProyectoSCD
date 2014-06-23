@@ -2,13 +2,22 @@ package com.bcpv.webapp.controller.forms;
 
 public class EndoSearch {
 	
-	private String pacienteToSearch;
+	private String apellidoPaciente;
+	private String dniPaciente;
 
-	public String getPacienteToSearch() {
-		return pacienteToSearch;
+	public String getApellidoPaciente() {
+		return apellidoPaciente;
 	}
 
-	public void setPacienteToSearch(String pacienteToSearch) {
-		this.pacienteToSearch = pacienteToSearch;
+	public void setApellidoPaciente(String apellido) {
+		this.apellidoPaciente = apellido;
+	}
+	
+	public String getDniPaciente() {
+		return dniPaciente;
+	}
+
+	public void setDniPaciente(String dniPaciente) {
+		this.dniPaciente = dniPaciente;
 	}
 }
