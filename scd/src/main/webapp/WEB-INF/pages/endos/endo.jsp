@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	//javascript para el autocomplete de ciudades
 	$(document).ready(function() {
-		$('#pacienteToSearch').autocomplete({
+		$('#apellidoPaciente').autocomplete({
 			serviceUrl : '/getTags',
 			paramName : "tagName",
 			delimiter : ",",
@@ -51,15 +51,22 @@
             <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
     </div> --%>
     
-	<form:form commandName="endoSearch" method="post" action="endo"
-		enctype="multipart/form-data" id="mainSearchBox">
-		<spring:bind path="endoSearch.pacienteToSearch">
+	<form:form commandName="endoSearch" method="post" action="endo" enctype="multipart/form-data" id="mainSearchBox">
+		<spring:bind path="endoSearch.apellidoPaciente">
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		</spring:bind>
-			<appfuse:label key="endo.pacienteToSearch" styleClass="control-label" />
-			<form:input cssClass="form-control" path="pacienteToSearch" placeHolder="endoSearch.pacienteToSearch" id="pacienteToSearch" />
-			<form:errors path="pacienteToSearch" cssClass="help-block" />
-		</div>
+				<appfuse:label key="endo.apellidoToSearch" styleClass="control-label" />
+				<form:input cssClass="form-control" path="apellidoPaciente" placeHolder="${apellidoPlaceHolder}" id="apellidoPaciente" />
+				<form:errors path="apellidoPaciente" cssClass="help-block" />
+			</div>
+		
+		<spring:bind path="endoSearch.dniPaciente">
+			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+		</spring:bind>
+				<appfuse:label key="endo.dniToSearch" styleClass="control-label" />
+				<form:input cssClass="form-control" path="dniPaciente" placeHolder="${dniPlaceHolder}" id="dniPaciente" />
+				<form:errors path="dniPaciente" cssClass="help-block" />
+			</div>
 		
 		<div class="form-group">
 			<button type="submit" name="upload" class="btn btn-primary"
