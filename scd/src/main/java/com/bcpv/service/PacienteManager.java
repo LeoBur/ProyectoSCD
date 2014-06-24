@@ -29,4 +29,6 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
 	List<Paciente> loadPacientesByApellido(String apellido);
 	
 	Paciente getPacienteByUsername(String username);
+	
+	Paciente loadPacienteByDNI(Long dni);
 }

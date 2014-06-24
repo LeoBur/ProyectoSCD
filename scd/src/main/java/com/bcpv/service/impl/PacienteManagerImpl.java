@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,5 +92,10 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	@Override
 	public Paciente getPacienteByUsername(String username) {
 		return pacientesDao.getPacienteByUsername(username);
+	}
+	
+	@Override
+	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException{
+		return pacientesDao.loadPacienteByDNI(dni);
 	}
 }
