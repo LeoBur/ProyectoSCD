@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.bcpv.service.EndocrinologoManager;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.webapp.controller.BaseFormController;
 
+@Controller
 public class AbmPacienteController extends BaseFormController{
 	
 	@Autowired
@@ -66,7 +68,7 @@ public class AbmPacienteController extends BaseFormController{
         	pacienteManager.removePaciente(paciente.getId());
             saveMessage(request, getText("user.endocrinologist.pacientDeleted", locale));
         } else {
-        	paciente.setEndocrinologo(endocrinologoManager.getEndocrinologo(new Long(0))); //para probar BORRAR!!
+        	//paciente.setEndocrinologo(endocrinologoManager.getEndocrinologo(new Long(0))); //para probar BORRAR!!
         	pacienteManager.savePaciente(paciente);
             String key = (isNew) ? "user.endocrinologist.pacientSaved" : "user.endocrinologist.pacientUpdated";
             saveMessage(request, getText(key, locale));

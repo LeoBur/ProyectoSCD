@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,8 @@ import com.bcpv.service.SintomaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 
+@Controller
+@RequestMapping("/paciente/registrar*")
 public class RegistrarController extends BaseFormController{
 	
 	@Autowired
@@ -71,7 +74,8 @@ public class RegistrarController extends BaseFormController{
 	//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 	
 	public RegistrarController(){
-		
+		setCancelView("redirect:/registrar");
+		setSuccessView("redirect:/registrar");
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
