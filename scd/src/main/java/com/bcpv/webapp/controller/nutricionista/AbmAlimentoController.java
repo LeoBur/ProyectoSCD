@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,16 @@ import com.bcpv.model.Alimento;
 import com.bcpv.service.AlimentoManager;
 import com.bcpv.webapp.controller.BaseFormController;
 
+@Controller
 public class AbmAlimentoController extends BaseFormController{
 	
 	@Autowired
 	AlimentoManager alimentoManager;
 	
 	public AbmAlimentoController(){
-		
+//		ver si es necesario esto:
+//		setCancelView("redirect:");
+//		setSuccessView("");	
 	}
 	
 	@RequestMapping(value = "/nutri/alimentoList*", method = RequestMethod.GET)
