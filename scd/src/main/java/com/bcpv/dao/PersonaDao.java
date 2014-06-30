@@ -43,4 +43,6 @@ public interface PersonaDao extends GenericDao<Persona, Long>{
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     String getUserPassword(Long userId);
     
+    List<Persona> getPersonasByApellido(String apellido);
+    
 }

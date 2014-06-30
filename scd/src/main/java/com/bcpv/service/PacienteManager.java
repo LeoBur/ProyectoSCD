@@ -6,6 +6,7 @@ import javax.persistence.EntityExistsException;
 
 import com.bcpv.dao.PacienteDao;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.TipoDiabetes;
 
 public interface PacienteManager extends GenericManager<Paciente, Long>{
@@ -26,7 +27,7 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
 		
 	List<Paciente> getPacientesByTipo(TipoDiabetes tipo);
 	
-	List<Paciente> loadPacientesByApellido(String apellido);
+	List<Paciente> loadPacientesByApellido(List<Persona> persList);
 	
 	Paciente getPacienteByUsername(String username);
 	

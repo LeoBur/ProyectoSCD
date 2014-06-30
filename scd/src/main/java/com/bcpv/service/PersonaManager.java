@@ -13,9 +13,9 @@ import com.bcpv.model.User;
 public interface PersonaManager extends GenericManager<Persona, Long>{
 	/**
      * Convenience method for testing - allows you to mock the DAO and set it on an interface.
-     * @param userDao the UserDao implementation to use
+     * @param personaDao the PersonaDao implementation to use
      */
-    void setPersonaDao(PersonaDao userDao);
+    void setPersonaDao(PersonaDao personaDao);
 
     /**
      * Convenience method for testing - allows you to mock the PasswordEncoder and set it on an interface.
@@ -132,4 +132,6 @@ public interface PersonaManager extends GenericManager<Persona, Long>{
      * @throws UserExistsException
      */
     Persona updatePassword(String username, String currentPassword, String recoveryToken, String newPassword, String applicationUrl) throws UserExistsException;
+    
+    List<Persona> getPersonasByApellido(String apellido);
 }

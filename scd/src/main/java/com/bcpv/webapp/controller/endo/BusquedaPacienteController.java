@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.Tag;
 import com.bcpv.service.PacienteManager;
+import com.bcpv.service.PersonaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndoSearch;
 
@@ -28,6 +30,9 @@ public class BusquedaPacienteController extends BaseFormController{
 	
 	@Autowired
 	PacienteManager pacienteManager;
+	
+	@Autowired
+	PersonaManager personaManager;
 	
 	public BusquedaPacienteController(){
 		
@@ -86,7 +91,8 @@ public class BusquedaPacienteController extends BaseFormController{
 			}
 		}
 		if (endoSearch.getApellidoPaciente() != null){
-			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(endoSearch.getApellidoPaciente()));
+			List<Persona> persList = personaManager.getPersonasByApellido(endoSearch.getApellidoPaciente());
+			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(persList));
 		} else {
 			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacienteByDNI(new Long (endoSearch.getDniPaciente())));
 		}

@@ -22,6 +22,7 @@ import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.PersonaForm;
 
 @Controller
+@RequestMapping(value="/endo/personaForm*")
 public class ABMPersonaController extends BaseFormController{
 	
 	@Autowired

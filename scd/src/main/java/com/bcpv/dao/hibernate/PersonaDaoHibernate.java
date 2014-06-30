@@ -2,6 +2,7 @@ package com.bcpv.dao.hibernate;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Table;
 
 import org.hibernate.Query;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.bcpv.dao.PersonaDao;
+import com.bcpv.model.Paciente;
 import com.bcpv.model.Persona;
 
 public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> implements PersonaDao, UserDetailsService{
@@ -81,5 +83,15 @@ public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> impl
         return jdbcTemplate.queryForObject(
                 "select password from " + table.name() + " where id=?", String.class, userId);
     }
+
+	@Override
+	public List<Persona> getPersonasByApellido(String apellido) {
+		List<Persona> persList = getSession().createCriteria(Persona.class).add(Restrictions.eq("last_name", apellido)).list();
+        if (persList == null || persList.isEmpty()) {
+            throw new EntityNotFoundException("No existen personas con el apellido " + apellido);
+        } else {
+            return persList;
+        }
+	}
 
 }

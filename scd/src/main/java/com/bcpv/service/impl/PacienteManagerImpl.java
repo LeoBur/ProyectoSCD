@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bcpv.dao.PacienteDao;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.TipoDiabetes;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PacienteService;
@@ -22,29 +23,29 @@ import com.bcpv.service.PacienteService;
 @Transactional
 public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> implements PacienteService, PacienteManager{
 
-	private PacienteDao pacientesDao;
+	private PacienteDao pacienteDao;
 	
 	@Override
 	@Autowired
 	public void setPacientesDao(PacienteDao pacienteDao) {
 		this.dao = pacienteDao;
-		this.pacientesDao = pacienteDao;
+		this.pacienteDao = pacienteDao;
 	}
 
 	@Override
 	public Paciente getPaciente(String id) {
-		return pacientesDao.get(new Long(id));
+		return pacienteDao.get(new Long(id));
 	}
 
 	@Override
 	public Paciente getPaciente(Long id) {
-		return pacientesDao.get(id);
+		return pacienteDao.get(id);
 	}
 
 	@Override
 	public List<Paciente> getPacientes() {
-		if (pacientesDao!=null){
-			return pacientesDao.getAllDistinct();
+		if (pacienteDao!=null){
+			return pacienteDao.getAllDistinct();
 		}
 		return new ArrayList<Paciente>();
 	}
@@ -53,7 +54,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	public Paciente savePaciente(final Paciente paciente)
 			throws EntityExistsException {
 		try {
-			return pacientesDao.savePaciente(paciente);
+			return pacienteDao.savePaciente(paciente);
 		} catch (final Exception e){
 			e.printStackTrace();
 			log.warn(e.getMessage());
@@ -69,33 +70,33 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	@Override
 	public void removePaciente(Paciente paciente) {
 		log.debug("removing paciente: " + paciente.getPersona().getFirstName() + paciente.getPersona().getLastName());
-		pacientesDao.remove(paciente);
+		pacienteDao.remove(paciente);
 	}
 
 	@Override
 	public void removePaciente(Long id) {
 		log.debug("removing paciente: " + id);
-		pacientesDao.remove(id);
+		pacienteDao.remove(id);
 		
 	}
 	
 	@Override
 	public List<Paciente> getPacientesByTipo(TipoDiabetes tipo) {
-		return pacientesDao.loadPacientesByTipo(tipo);
+		return pacienteDao.loadPacientesByTipo(tipo);
 	}
 
 	@Override
-	public List<Paciente> loadPacientesByApellido(String apellido) {
-		return pacientesDao.loadPacientesByApellido(apellido);
+	public List<Paciente> loadPacientesByApellido(List<Persona> persList) {
+		return pacienteDao.loadPacientesByApellido(persList);
 	}
 	
 	@Override
 	public Paciente getPacienteByUsername(String username) {
-		return pacientesDao.getPacienteByUsername(username);
+		return pacienteDao.getPacienteByUsername(username);
 	}
 	
 	@Override
 	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException{
-		return pacientesDao.loadPacienteByDNI(dni);
+		return pacienteDao.loadPacienteByDNI(dni);
 	}
 }
