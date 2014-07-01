@@ -10,7 +10,7 @@ import com.bcpv.model.TipoDiabetes;
 
 public interface PacienteDao extends GenericDao<Paciente, Long>{
 	
-	Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException;
+	Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException;
 
     List<Paciente> getPacientes();
     

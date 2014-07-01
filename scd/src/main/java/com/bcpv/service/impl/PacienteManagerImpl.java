@@ -96,7 +96,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	}
 	
 	@Override
-	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException{
-		return pacienteDao.loadPacienteByDNI(dni);
+	public Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException{
+		return pacienteDao.loadPacienteByDNI(persona);
 	}
 }

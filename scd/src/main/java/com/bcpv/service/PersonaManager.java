@@ -134,4 +134,6 @@ public interface PersonaManager extends GenericManager<Persona, Long>{
     Persona updatePassword(String username, String currentPassword, String recoveryToken, String newPassword, String applicationUrl) throws UserExistsException;
     
     List<Persona> getPersonasByApellido(String apellido);
+    
+    Persona getPersonaByDni(Long dni);
 }

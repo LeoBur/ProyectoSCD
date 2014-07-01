@@ -31,5 +31,5 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
 	
 	Paciente getPacienteByUsername(String username);
 	
-	Paciente loadPacienteByDNI(Long dni);
+	Paciente loadPacienteByDNI(Persona persona);
 }

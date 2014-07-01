@@ -20,11 +20,10 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
         super(Paciente.class);
     }
 	
-	@Override
-	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException {
-		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("dni", dni));
+	public Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException {
+		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("id_persona", persona.getId()));
 		if (paciente == null){
-			throw new EntityNotFoundException("Paciente con DNI :" + dni + " no existe");
+			throw new EntityNotFoundException("Paciente con DNI :" + persona.getDni() + " no existe");
 		} else {
 			return paciente;
 		}
@@ -59,7 +58,7 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
         }
     }
 
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public List<Paciente> loadPacientesByApellido(List<Persona> persList) {
 		List<Paciente> pacList = null;

@@ -84,13 +84,24 @@ public class PersonaDaoHibernate extends GenericDaoHibernate<Persona, Long> impl
                 "select password from " + table.name() + " where id=?", String.class, userId);
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> getPersonasByApellido(String apellido) {
-		List<Persona> persList = getSession().createCriteria(Persona.class).add(Restrictions.eq("last_name", apellido)).list();
+		List<Persona> persList = getSession().createCriteria(Persona.class).add(Restrictions.eq("lastName", apellido)).list();
         if (persList == null || persList.isEmpty()) {
             throw new EntityNotFoundException("No existen personas con el apellido " + apellido);
         } else {
             return persList;
+        }
+	}
+
+	@Override
+	public Persona getPersonaByDni(Long dni) {
+		Persona persona = (Persona) getSession().createCriteria(Persona.class).add(Restrictions.eq("dni", dni));
+		if (persona == null) {
+            throw new EntityNotFoundException("No existen personas con el dni" + dni);
+        } else {
+            return persona;
         }
 	}
 

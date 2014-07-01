@@ -269,4 +269,9 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
 	public List<Persona> getPersonasByApellido(String apellido) {
 		return personaDao.getPersonasByApellido(apellido);
 	}
+
+	@Override
+	public Persona getPersonaByDni(Long dni) {
+		return personaDao.getPersonaByDni(dni);
+	}
 }

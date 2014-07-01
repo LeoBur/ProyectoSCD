@@ -44,5 +44,7 @@ public interface PersonaDao extends GenericDao<Persona, Long>{
     String getUserPassword(Long userId);
     
     List<Persona> getPersonasByApellido(String apellido);
+
+	Persona getPersonaByDni(Long dni);
     
 }
