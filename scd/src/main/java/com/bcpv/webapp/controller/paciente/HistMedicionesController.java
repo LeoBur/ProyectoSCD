@@ -29,7 +29,7 @@ public class HistMedicionesController extends BaseFormController{
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/paciente/historial/mediciones",method = RequestMethod.GET)
 	public ModelAndView showHistorialMediciones(){
 		ModelAndView mav = new ModelAndView("paciente/historial/mediciones");
 		Paciente paciente = (Paciente)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

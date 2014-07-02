@@ -5,11 +5,12 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.TipoDiabetes;
 
 public interface PacienteDao extends GenericDao<Paciente, Long>{
 	
-	Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException;
+	Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException;
 
     List<Paciente> getPacientes();
     
@@ -17,7 +18,7 @@ public interface PacienteDao extends GenericDao<Paciente, Long>{
 	
     List<Paciente> loadPacientesByTipo (TipoDiabetes tipo);
     
-    List<Paciente> loadPacientesByApellido (String apellido);
+    List<Paciente> loadPacientesByApellido (List<Persona> persList);
     
     Paciente getPacienteByUsername(String username);
 	

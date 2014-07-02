@@ -16,9 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.PersonaDao;
-import com.bcpv.dao.UserDao;
 import com.bcpv.model.Persona;
-import com.bcpv.model.User;
 import com.bcpv.service.MailEngine;
 import com.bcpv.service.PersonaManager;
 import com.bcpv.service.PersonaService;
@@ -28,7 +26,7 @@ import com.bcpv.service.UserExistsException;
 @WebService(serviceName = "PersonaService", endpointInterface = "com.bcpv.service.PersonaService")
 public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implements PersonaManager,PersonaService{
     private PasswordEncoder passwordEncoder;
-    private PersonaDao userDao;
+    private PersonaDao personaDao;
 
 
     private MailEngine mailEngine;
@@ -46,9 +44,9 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
 
     @Override
     @Autowired
-    public void setPersonaDao(final PersonaDao userDao) {
-        this.dao = userDao;
-        this.userDao = userDao;
+    public void setPersonaDao(final PersonaDao personaDao) {
+        this.dao = personaDao;
+        this.personaDao = personaDao;
     }
 
     @Autowired(required = false)
@@ -93,7 +91,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
      */
     @Override
     public Persona getPersona(final String userId) {
-        return userDao.get(new Long(userId));
+        return personaDao.get(new Long(userId));
     }
 
     /**
@@ -101,7 +99,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
      */
     @Override
     public List<Persona> getPersonas() {
-        return userDao.getAllDistinct();
+        return personaDao.getAllDistinct();
     }
 
     /**
@@ -124,7 +122,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                final String currentPassword = userDao.getUserPassword(user.getId());
+                final String currentPassword = personaDao.getUserPassword(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
@@ -143,7 +141,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
         }
 
         try {
-            return userDao.savePersona(user);
+            return personaDao.savePersona(user);
         } catch (final Exception e) {
             e.printStackTrace();
             log.warn(e.getMessage());
@@ -157,7 +155,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
     @Override
     public void removePersona(final Persona user) {
         log.debug("removing user: " + user);
-        userDao.remove(user);
+        personaDao.remove(user);
     }
 
     /**
@@ -166,7 +164,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
     @Override
     public void removePersona(final String userId) {
         log.debug("removing user: " + userId);
-        userDao.remove(new Long(userId));
+        personaDao.remove(new Long(userId));
     }
 
     /**
@@ -178,7 +176,7 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
      */
     @Override
     public Persona getPersonaByUsername(final String username) throws UsernameNotFoundException {
-        return (Persona) userDao.loadUserByUsername(username);
+        return (Persona) personaDao.loadUserByUsername(username);
     }
 
     /**
@@ -266,4 +264,14 @@ public class PersonaManagerImpl extends GenericManagerImpl<Persona, Long> implem
         // or throw exception
         return null;
     }
+
+	@Override
+	public List<Persona> getPersonasByApellido(String apellido) {
+		return personaDao.getPersonasByApellido(apellido);
+	}
+
+	@Override
+	public Persona getPersonaByDni(Long dni) {
+		return personaDao.getPersonaByDni(dni);
+	}
 }

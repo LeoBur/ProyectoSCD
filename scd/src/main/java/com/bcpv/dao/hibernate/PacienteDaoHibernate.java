@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bcpv.dao.PacienteDao;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.TipoDiabetes;
 
 @Repository("pacienteDao")
@@ -19,11 +20,10 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
         super(Paciente.class);
     }
 	
-	@Override
-	public Paciente loadPacienteByDNI(Long dni) throws EntityNotFoundException {
-		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("dni", dni));
+	public Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException {
+		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("id_persona", persona.getId()));
 		if (paciente == null){
-			throw new EntityNotFoundException("Paciente con DNI :" + dni + " no existe");
+			throw new EntityNotFoundException("Paciente con DNI :" + persona.getDni() + " no existe");
 		} else {
 			return paciente;
 		}
@@ -58,12 +58,15 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
         }
     }
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked"})
 	@Override
-	public List<Paciente> loadPacientesByApellido(String apellido) {
-		List<Paciente> pacList = getSession().createCriteria(Paciente.class).add(Restrictions.eq("apellido", apellido)).list();
-        if (pacList == null || pacList.isEmpty()) {
-            throw new EntityNotFoundException("No existen pacientes " + apellido);
+	public List<Paciente> loadPacientesByApellido(List<Persona> persList) {
+		List<Paciente> pacList = null;
+		for(Persona persona:persList){
+			pacList.add((Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("id_persona", persona.getId())));
+		}
+		if (pacList == null || pacList.isEmpty()) {
+            throw new EntityNotFoundException("No existen pacientes");
         } else {
             return pacList;
         }

@@ -1,9 +1,11 @@
 package com.bcpv.webapp.controller.endo;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Persona;
 import com.bcpv.model.Tag;
 import com.bcpv.service.PacienteManager;
+import com.bcpv.service.PersonaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndoSearch;
 
@@ -28,6 +32,9 @@ public class BusquedaPacienteController extends BaseFormController{
 	
 	@Autowired
 	PacienteManager pacienteManager;
+	
+	@Autowired
+	PersonaManager personaManager;
 	
 	public BusquedaPacienteController(){
 		
@@ -85,11 +92,26 @@ public class BusquedaPacienteController extends BaseFormController{
 				return mv;
 			}
 		}
-		if (endoSearch.getApellidoPaciente() != null){
-			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(endoSearch.getApellidoPaciente()));
-		} else {
-			mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacienteByDNI(new Long (endoSearch.getDniPaciente())));
+		try{
+			if (/*endoSearch.getApellidoPaciente() != null || */endoSearch.getApellidoPaciente() != " "){
+				List<Persona> persList = personaManager.getPersonasByApellido(endoSearch.getApellidoPaciente());
+				pacienteManager.loadPacientesByApellido(persList).isEmpty();
+				mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(persList));
+				
+			} else {
+				Persona persona = personaManager.getPersonaByDni(new Long(endoSearch.getDniPaciente()));
+				mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacienteByDNI(persona));
+			}
+		} catch (EntityNotFoundException enfe){
+			//COMPLETAR EL TRATAMIENTO DEL ERROR
+			/*enfe.getMessage();
+			errors.rejectValue(endoSearch.getApellidoPaciente(), "No existe");*/
+			//para probar sin tratatmiento de error
+			System.out.println(enfe.getMessage());
+			//
+			return mv;
 		}
+			
 		return mv;
 	}
 
