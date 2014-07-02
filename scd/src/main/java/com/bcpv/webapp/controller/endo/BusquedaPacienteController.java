@@ -93,7 +93,7 @@ public class BusquedaPacienteController extends BaseFormController{
 			}
 		}
 		try{
-			if (endoSearch.getApellidoPaciente() != null || endoSearch.getApellidoPaciente()!=""){
+			if (/*endoSearch.getApellidoPaciente() != null || */endoSearch.getApellidoPaciente() != " "){
 				List<Persona> persList = personaManager.getPersonasByApellido(endoSearch.getApellidoPaciente());
 				pacienteManager.loadPacientesByApellido(persList).isEmpty();
 				mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(persList));

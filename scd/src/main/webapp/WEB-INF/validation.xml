@@ -50,11 +50,6 @@
                 <arg key="user.password"/>
             </field>
         </form>
-        <form name="endoSearch">
-        	<field property="pacienteToSearch" depends="required">
-        		<arg key="endoSearch.pacienteToSearch"/>
-        	</field>	
-        </form>
         <form name="medicamento">
             <field property="nombreGenerico" depends="required">
                 <arg key="user.adminMedicamento.nombreGenerico"/>
