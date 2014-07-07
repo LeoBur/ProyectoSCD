@@ -34,8 +34,9 @@ public class Endocrinologo implements Serializable{
 	public Endocrinologo() {
 	}
 	
-	public Endocrinologo(Long matricula){
+	public Endocrinologo(Long matricula, Persona persona){
 		this.matricula = matricula;
+		this.persona = persona;
 	}
 	
 	@Id

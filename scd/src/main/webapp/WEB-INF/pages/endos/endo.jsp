@@ -56,15 +56,18 @@
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		</spring:bind>
 				<appfuse:label key="endo.apellidoToSearch" styleClass="control-label" />
-				<form:input cssClass="form-control" path="apellidoPaciente" placeHolder="${apellidoPlaceHolder}" id="apellidoPaciente" />
+				<form:input cssClass="form-control" path="apellidoPaciente" placeHolder="${apellidoPlaceHolder}" id="apellidoPaciente"/>
 				<form:errors path="apellidoPaciente" cssClass="help-block" />
 			</div>
 		
+		<input type="text" name="dni" id="dni" class="form-control"
+           placeholder="<fmt:message key="endo.dniToSearch"/>" required tabindex="1">
+           
 		<spring:bind path="endoSearch.dniPaciente">
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		</spring:bind>
 				<appfuse:label key="endo.dniToSearch" styleClass="control-label" />
-				<form:input cssClass="form-control" path="dniPaciente" placeHolder="${dniPlaceHolder}" id="dniPaciente" />
+				<form:input cssClass="form-control" path="dniPaciente" placeHolder="${dniPlaceHolder}" id="dniPaciente"/>
 				<form:errors path="dniPaciente" cssClass="help-block" />
 			</div>
 		
