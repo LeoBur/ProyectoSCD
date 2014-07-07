@@ -6,11 +6,6 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
 </head>
 <body>
 
@@ -20,7 +15,7 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="col-sm-4">
+<div class="col-md-2">
     <h2><fmt:message key="user.medicine.title"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
@@ -33,7 +28,7 @@
 </div>
 
 
-<div class="col-sm-7">
+<div class="col-md-4">
     <spring:bind path="medicamento.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-danger alert-dismissable">
@@ -51,69 +46,58 @@
         <%-- <form:hidden path="version"/> --%>
         <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
         
-          
+        <spring:bind path="nombreGenerico">
+        <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreGenerico"/>
+        <input type="text" name="nombreGenerico" id="nombreGenerico" class="form-control"
+           placeholder="<fmt:message key="user.adminMedicamento.nombreGenerico"/>" value="${status.value}" tabindex="1">
+        </spring:bind>
         
+        <spring:bind path="nombreComercial"> 
+        <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreComercial"/>  
+		<input type="text" name="nombreComercial" id="nombreComercial" class="form-control"
+           placeholder="<fmt:message key="user.adminMedicamento.nombreComercial"/>" value="${status.value}" tabindex="2">  
+        </spring:bind>
         
-        <div class="form-group">
-        	<spring:bind path="medicamento.nombreGenerico">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-			</spring:bind>
-                <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreGenerico"/>
-                <form:input cssClass="form-control" path="nombreGenerico" id="nombreGenerico"/>
-                <form:errors path="nombreGenerico" cssClass="help-block" />
-        </div>
+        <spring:bind path="presentacion">
+        <appfuse:label styleClass="control-label" key="user.adminMedicamento.presentacion"/>
+        <input type="text" name="presentacion" id="presentacion" class="form-control"
+           placeholder="<fmt:message key="user.adminMedicamento.presentacion"/>" value="${status.value}" tabindex="3">
+        </spring:bind>
         
-        <div class="form-group">
-        	<spring:bind path="medicamento.nombreComercial">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-			</spring:bind>
-                <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreComercial"/>
-                <form:input cssClass="form-control" path="nombreComercial" id="nombreComercial"/>
-                <form:errors path="nombreComercial" cssClass="help-block" />
-        </div>
-        
-        <div class="form-group">
-        	<spring:bind path="medicamento.presentacion">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-			</spring:bind>
-                <appfuse:label styleClass="control-label" key="user.adminMedicamento.presentacion"/>
-                <form:input cssClass="form-control" path="presentacion" id="presentacion"/>
-                <form:errors path="presentacion" cssClass="help-block" />
-        </div>
-        
-        <div class="form-group">
-        	<appfuse:label styleClass="control-label" key="user.adminMedicamento.grupoMedicamento"/>
-        	<form:select cssClass="form-control" path="grupoMedicamento">
-        		<form:option value="INHIBIDOR_DE_ALFA_GLUCOSIDASA" label="INHIBIDOR DE ALFA GLUCOSIDASA"/>
-        		<form:option value="SULFONILUREA" label="SULFONILUREA" selected="selected"/>
-        		<form:option value="BIGUANIDA" label="BIGUANIDA"/>
-        		<form:option value="GLINIDA" label="GLINIDA"/>
-        		<form:option value="MEGLITINIDA" label="MEGLITINIDA"/>
-        		<form:option value="TZD" label="TZD"/>
-        		<form:option value="INSULINA" label="INSULINA"/>
-        		<form:option value="GLP_1" label="GLP_1"/>
-        		<form:option value="IAPP" label="IAPP"/>
-        		<form:option value="DPP_4" label="DPP_4"/>
-        	</form:select>
-        </div>
+        <spring:bind path="grupoMedicamento">
+        <appfuse:label styleClass="control-label" key="user.adminMedicamento.grupoMedicamento"/>
+        <input list="drogas" name="grupoMedicamento" id="grupoMedicamento" class="form-control"
+          value="${status.value}" tabindex="4">
+		</spring:bind>
+		
+		<datalist id="drogas">
+		  <option value="INHIBIDOR DE ALFA GLUCOSIDASA">
+		  <option value="SULFONILUREA">
+		  <option value="BIGUANIDA">
+		  <option value="GLINIDA">
+		  <option value="MEGLITINIDA">
+		  <option value="TZD">
+		  <option value="INSULINA">
+		  <option value="GLP_1">
+		  <option value="IAPP">
+		  <option value="DPP_4">
+		</datalist>
         
         <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> <form:options/>  --%>
-               
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-                <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
-            </button>
+        <br>               
+        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+            <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
+        </button>
 
-            <c:if test="${not empty medicamento.idMedicamento}">
-              <button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-                  <i class="icon-trash"></i> <fmt:message key="button.delete"/>
-              </button>
-            </c:if>
+        <c:if test="${not empty medicamento.idMedicamento}">
+          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+          </button>
+        </c:if>
 
-            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
-                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
-            </button>
-        </div>
+        <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+        </button>
     </form:form>
 </div>
 
