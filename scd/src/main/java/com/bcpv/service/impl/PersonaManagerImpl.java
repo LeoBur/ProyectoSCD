@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jws.WebService;
+import javax.persistence.EntityExistsException;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,9 +80,48 @@ public class PersonaManagerImpl extends UserManagerImpl implements PersonaManage
 		return null;
 	}
 
-	@Override
-	public Persona savePersona(Persona persona) throws UserExistsException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/*	@Override
+	    public Persona savePersona(final Persona user) throws EntityExistsException {
+
+	        if (user.getVersion() == null) {
+	            // if new user, lowercase userId
+	            user.setUsername(user.getUsername().toLowerCase());
+	        }
+
+	        // Get and prepare password management-related artifacts
+	        boolean passwordChanged = false;
+	        if (passwordEncoder != null) {
+	            // Check whether we have to encrypt (or re-encrypt) the password
+	            if (user.getVersion() == null) {
+	                // New user, always encrypt
+	                passwordChanged = true;
+	            } else {
+	                // Existing user, check password in DB
+	                final String currentPassword = personaDao.getUserPassword(user.getId());
+	                if (currentPassword == null) {
+	                    passwordChanged = true;
+	                } else {
+	                    if (!currentPassword.equals(user.getPassword())) {
+	                        passwordChanged = true;
+	                    }
+	                }
+	            }
+
+	            // If password was changed (or new user), encrypt it
+	            if (passwordChanged) {
+	                user.setPassword(passwordEncoder.encode(user.getPassword()));
+	            }
+	        } else {
+	            log.warn("PasswordEncoder not set, skipping password encryption...");
+	        }
+
+	        try {
+	            return personaDao.savePersona(user);
+	        } catch (final Exception e) {
+	            e.printStackTrace();
+	            log.warn(e.getMessage());
+	            throw new UserExistsException("Persona '" + user.getUsername() + "' already exists!");
+	        }
+
+	}*/
 }

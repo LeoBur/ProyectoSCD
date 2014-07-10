@@ -2,6 +2,8 @@ package com.bcpv.service;
 
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -20,4 +22,6 @@ public interface PersonaManager extends UserManager{
     List<Persona> getPersonasByApellido(String apellido);
     
     Persona getPersonaByDni(Long dni);
+    
+    //Persona savePersona(Persona persona) throws EntityExistsException;
 }

@@ -14,7 +14,7 @@ import com.bcpv.model.User;
 
 @WebService
 @Path("/personas")
-public interface PersonaService {
+public interface PersonaService extends UserService{
 	   /**
      * Retrieves a user by userId.  An exception is thrown if user not found
      *
@@ -47,9 +47,9 @@ public interface PersonaService {
      * @param user the user's information
      * @return updated user
      * @throws UserExistsException thrown when user already exists
-     */
+     *//*
     @POST
-    Persona savePersona(Persona persona) throws UserExistsException;
+    Persona savePersona(Persona persona) throws UserExistsException;*/
 
     /**
      * Removes a user from the database by their userId

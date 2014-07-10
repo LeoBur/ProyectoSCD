@@ -47,7 +47,7 @@ public class AbmEndocrinologoController extends BaseFormController{
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm() {
-		ModelAndView mv = new ModelAndView("paciente/registrar");
+		ModelAndView mv = new ModelAndView("admin/newEndocrinologo");
 		EndocrinologoForm endocrinologoForm = new EndocrinologoForm();
 		List<Provincia> provincias = provinciaManager.getProvincias();
 		List<Localidad> localidades = localidadManager.getLocalidades();
@@ -73,12 +73,13 @@ public class AbmEndocrinologoController extends BaseFormController{
             }
         }
  
+        boolean isNew = (endocrinologoForm.getId() == null);
         log.debug("entering 'onSubmit' method...");
  
         String success = getSuccessView();
         Locale locale = request.getLocale();
         
-        Persona persona = personaManager.getPersona(endocrinologoForm.getDni()); //Implementar una busqueda por dni en personaManager y cambiar por ese metodo
+        Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
         	
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
@@ -89,26 +90,24 @@ public class AbmEndocrinologoController extends BaseFormController{
         persona.setFch_nac(endocrinologoForm.getFch_nac());
         persona.setSexo(endocrinologoForm.getSexo());
         persona.setDomicilio(endocrinologoForm.getDomicilio());
-        	
-        personaManager.save(persona);
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-        endocrinologoManager.saveEndocrinologo(endocrinologo);
         
-        saveMessage(request, getText("user.paciente.savedData", locale));
+        saveMessage(request, getText("user.savedData", locale));
  
-        /*if (request.getParameter("delete") != null) {
-            personManager.remove(person.getId());
-            saveMessage(request, getText("person.deleted", locale));
+        if (request.getParameter("delete") != null) {
+            endocrinologoManager.remove(endocrinologoForm.getId());
+            saveMessage(request, getText("admin.endocrinologist.deleted", locale));
         } else {
-            personManager.save(person);
-            String key = (isNew) ? "person.added" : "person.updated";
+        	personaManager.saveUser(persona);//.savePersona(persona);
+        	endocrinologoManager.saveEndocrinologo(endocrinologo);
+            String key = (isNew) ? "admin.endocrinologist.added" : "admin.endocrinologist.updated";
             saveMessage(request, getText(key, locale));
  
             if (!isNew) {
-                success = "redirect:personform?id=" + person.getId();
+                success = "redirect:newEndocrinologo";
             }
-        }*/
+        }
         return success;
     }	
 }

@@ -5,8 +5,9 @@ import java.util.Date;
 import com.bcpv.model.Domicilio;
 
 public class EndocrinologoForm {
-	
-	private String username;                    
+
+	private Long id;
+    private String username;                    
     private String password;                    
     private String confirmPassword;
     private String firstName;                   
@@ -18,6 +19,13 @@ public class EndocrinologoForm {
     private com.bcpv.model.Persona.Sexo sexo;
     private Domicilio domicilio = new Domicilio();
 	private Long matricula;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getUsername() {
 		return username;
 	}

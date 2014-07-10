@@ -28,7 +28,7 @@
 <!-- Acá comienzan los formularios -->
 
 <div class="col-sm-7">
-	<spring:bind path="endocrinologo.*">
+	<spring:bind path="endocrinologoForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
           	<a href="#" data-dismiss="alert" class="close">&times;</a>
@@ -39,7 +39,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="endocrinologo" method="post" action="endocrinologoForm" id="endocrinologoForm" autocomplete="off"
+	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="endocrinologoForm" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden"/>
@@ -57,36 +57,36 @@
 		</div>
 		
         <div class="row">
-          <spring:bind path="endocrinologo.nombre">
+          <spring:bind path="endocrinologoForm.firstName">
             <appfuse:label styleClass="control-label" key="user.firstName"/>
-        	<input type="text" name="nombre" id="nombre" class="form-control"
+        	<input type="text" name="firstName" id="firstName" class="form-control"
            	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
            	autofocus="autofocus" tabindex="2">
           </spring:bind>
-          <form:errors path="nombre" cssClass="help-block"/>
+          <form:errors path="firstName" cssClass="help-block"/>
         
-          <spring:bind path="endocrinologo.apellido">
+          <spring:bind path="endocrinologoForm.lastName">
             <appfuse:label styleClass="control-label" key="user.lastName"/>
-        	<input type="text" name="apellido" id="apellido" class="form-control"
+        	<input type="text" name="lastName" id="lastName" class="form-control"
            	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
            	autofocus="autofocus" tabindex="3">
           </spring:bind>
-	   	  <form:errors path="apellido" cssClass="help-block"/>
+	   	  <form:errors path="lastName" cssClass="help-block"/>
         </div>
         
 		<div class="form-group">
 			<appfuse:label styleClass="control-label" key="user.fecha.nacimiento" />
-			<spring:bind path="endocrinologo.fch_nac">
+			<spring:bind path="endocrinologoForm.fch_nac">
 <%-- 				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}"> --%>
 			
 <%-- 					<fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha" /> --%>
-					<input type="date" name="fch_nac" id="fch_nac" class="form-control"
+					<input type="text" name="fch_nac" id="fch_nac" class="form-control"
 					placeholder="<fmt:message key="date.format"/>" value="${status.value}" tabindex="4" size="12" />
 			</spring:bind>
 		</div>
 
 		<div class="row">
-			<spring:bind path="endocrinologo.sexo">
+			<spring:bind path="endocrinologoForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 					<input type="radio" name="sex" value="F" class="form-control">Femenino<br>
@@ -104,14 +104,14 @@
 		</div>
 		
 		<div class="row">
-		  <spring:bind path="endocrinologo.telefono">
+		  <spring:bind path="endocrinologoForm.phoneNumber">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
-		  		<input type="number" name="telefono" id="telefono" class="form-control"
+		  		<input type="number" name="phoneNumber" id="phoneNumber" class="form-control"
 		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="5"/>
 		  	</div>
 		  </spring:bind>
-		  <spring:bind path="endocrinologo.email">
+		  <spring:bind path="endocrinologoForm.email">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
@@ -121,13 +121,9 @@
 		  </spring:bind>
 		</div>
 		
-		<div>
-			<legend class="accordion-heading">
-				<a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address1" /></a>
-			</legend>
-			<div id="collapse-address" class="accordion-body collapse">
+			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
-					<spring:bind path="endocrinologo.domicilio.localidad.provincia.nombre">
+					<spring:bind path="endocrinologoForm.domicilio.localidad.provincia.nombre">
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
@@ -137,7 +133,7 @@
 						  </div>
 						</div>
 					</spring:bind>
-					<spring:bind path="endocrinologo.domicilio.localidad.nombre">
+					<spring:bind path="endocrinologoForm.domicilio.localidad.nombre">
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
@@ -150,7 +146,7 @@
 			</div>
 
 			<div class="row">
-				<spring:bind path="endocrinologo.domicilio.calle">
+				<spring:bind path="endocrinologoForm.domicilio.calle">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<div cssClass="form-control">
@@ -160,7 +156,7 @@
 						</div>
 					</div>
 				</spring:bind>
-				<spring:bind path="endocrinologo.domicilio.numero">
+				<spring:bind path="endocrinologoForm.domicilio.numero">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<div cssClass="form-control">
@@ -173,7 +169,7 @@
 			</div>
 
 			<div class="row">
-				<spring:bind path="endocrinologo.domicilio.dpto">
+				<spring:bind path="endocrinologoForm.domicilio.dpto">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
@@ -183,7 +179,7 @@
 						</div>
 					</div>	
 				</spring:bind>
-				<spring:bind path="endocrinologo.domicilio.piso">
+				<spring:bind path="endocrinologoForm.domicilio.piso">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
@@ -194,17 +190,16 @@
 					</div>
 				</spring:bind>
 			</div>
-		</div>
 		
 		<div class="row">
-		  <spring:bind path="endocrinologo.password">
+		  <spring:bind path="endocrinologoForm.password">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.password" />
 		  		<input type="text" id="password" name="password" class="form-control"
 		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="13"/>
 		  	</div>
 		  </spring:bind>
-		  <spring:bind path="endocrinologo.confirmPassword">
+		  <spring:bind path="endocrinologoForm.confirmPassword">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.confirmPassword" />
 				<input type="text" id="confirmPassword" name="confirmPassword" class="form-control"
@@ -214,7 +209,7 @@
 		  </spring:bind>
 		</div>
 		
-		<spring:bind path="endocrinologo.matricula">
+		<spring:bind path="endocrinologoForm.matricula">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
 				<input type="number" id="matricula" name="matricula" class="form-control"
@@ -227,7 +222,7 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty paciente.id}">
+			<c:if test="${not empty endocrinologoForm.dni}">
 				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
@@ -250,5 +245,5 @@
 	</script>
 </c:set>
 
-<v:javascript formName="paciente" staticJavascript="false" />
+<v:javascript formName="endocrinologoForm" staticJavascript="false" />
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
