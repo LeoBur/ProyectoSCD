@@ -87,10 +87,10 @@ public class AbmEndocrinologoController extends BaseFormController{
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setFch_nac(endocrinologoForm.getFch_nac());
-        //FIXME persona.setSexo(endocrinologoForm.getSexo()); Cambiar tipo de sexo en persona a String
+        persona.setSexo(endocrinologoForm.getSexo());
         persona.setDomicilio(endocrinologoForm.getDomicilio());
         	
-        personaManager.savePersona(persona);
+        personaManager.save(persona);
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
         endocrinologoManager.saveEndocrinologo(endocrinologo);

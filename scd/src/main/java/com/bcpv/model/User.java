@@ -2,19 +2,21 @@ package com.bcpv.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -34,7 +36,6 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -51,6 +52,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "app_user")
 @Indexed
 @XmlRootElement
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DIS", discriminatorType=DiscriminatorType.STRING)
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -64,7 +67,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String email;                       // required; unique
     private String phoneNumber;
     private String website;
-    private Address address = new Address();
+    private Domicilio domicilio;
     private Integer version;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
@@ -159,11 +162,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return firstName + ' ' + lastName;
     }
 
-    @Embedded
-    @IndexedEmbedded
-    public Address getAddress() {
-        return address;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_domicilio")
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)    
@@ -307,9 +310,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.website = website;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+    public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

@@ -5,8 +5,8 @@ import java.util.Date;
 import com.bcpv.model.Domicilio;
 
 public class EndocrinologoForm {
-
-    private String username;                    
+	
+	private String username;                    
     private String password;                    
     private String confirmPassword;
     private String firstName;                   
@@ -15,7 +15,7 @@ public class EndocrinologoForm {
     private String phoneNumber;
     private String dni;
     private Date fch_nac;
-    private String sexo;
+    private com.bcpv.model.Persona.Sexo sexo;
     private Domicilio domicilio = new Domicilio();
 	private Long matricula;
 	public String getUsername() {
@@ -84,10 +84,10 @@ public class EndocrinologoForm {
 	public void setMatricula(Long matricula) {
 		this.matricula = matricula;
 	}
-	public String getSexo() {
+	public com.bcpv.model.Persona.Sexo getSexo() {
 		return sexo;
 	}
-	public void setSexo(String sexo) {
+	public void setSexo(com.bcpv.model.Persona.Sexo sexo) {
 		this.sexo = sexo;
 	}
 }
