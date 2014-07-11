@@ -3,16 +3,10 @@ package com.bcpv.dao.hibernate;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Table;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.bcpv.dao.PersonaDao;
 import com.bcpv.model.Persona;
@@ -59,9 +53,12 @@ public class PersonaDaoHibernate extends UserDaoHibernate implements PersonaDao,
 
 	@Override
 	public Persona getPersonaByDni(Long dni) {
-		Persona persona = (Persona) getSession().createCriteria(Persona.class).add(Restrictions.eq("dni", dni));
+		//Persona persona = (Persona) getSession().createCriteria(Persona.class).add(Restrictions.eq("dni", dni));
+		Query qry = getSession().createQuery("from Persona p where p.dni = dni");
+		if qry.
 		if (persona == null) {
-            throw new EntityNotFoundException("No existen personas con el dni" + dni);
+            //throw new EntityNotFoundException("No existen personas con el dni" + dni);
+			return new Persona();
         } else {
             return persona;
         }

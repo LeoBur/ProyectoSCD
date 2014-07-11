@@ -52,8 +52,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "app_user")
 @Indexed
 @XmlRootElement
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="DIS", discriminatorType=DiscriminatorType.STRING)
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 

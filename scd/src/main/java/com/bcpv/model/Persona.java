@@ -13,7 +13,6 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @Indexed
 @XmlRootElement
-@DiscriminatorValue(value="PER")
 public class Persona extends User implements Serializable{
     
 	/**

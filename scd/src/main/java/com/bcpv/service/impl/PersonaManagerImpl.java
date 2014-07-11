@@ -1,27 +1,17 @@
 package com.bcpv.service.impl;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.jws.WebService;
-import javax.persistence.EntityExistsException;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bcpv.dao.PersonaDao;
 import com.bcpv.model.Persona;
-import com.bcpv.service.MailEngine;
 import com.bcpv.service.PersonaManager;
 import com.bcpv.service.PersonaService;
-import com.bcpv.service.UserExistsException;
 
 @Service("personaManager")
 @WebService(serviceName = "PersonaService", endpointInterface = "com.bcpv.service.PersonaService")

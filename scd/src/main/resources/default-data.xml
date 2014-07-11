@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     <table name="app_user">
-        <column>DIS</column>
         <column>id</column>
         <column>username</column>
         <column>password</column>
         <column>first_name</column>
         <column>last_name</column>
-        <column>dni</column>
         <!-- <column>address</column>
         <column>city</column>
         <column>country</column> -->
@@ -23,13 +21,11 @@
         <column>account_locked</column>
         <column>credentials_expired</column>
         <row>
-            <value description="DIS">per</value>
             <value description="id">1</value>
             <value description="username">user</value>
             <value description="password">$2a$10$CnQVJ9bsWBjMpeSKrrdDEeuIptZxXrwtI6CZ/OgtNxhIgpKxXeT9y</value>
             <value description="first_name">Tomcat</value>
             <value description="last_name">User</value>
-            <value description="dni">123456</value>
             <!-- <value description="address"></value>
             <value description="city">Denver</value>
             <value description="country">US</value> -->
@@ -46,13 +42,11 @@
             <value description="credentials_expired">0</value>
         </row>
         <row>
-            <value description="DIS">per</value>
             <value description="id">2</value>
             <value description="username">admin</value>
             <value description="password">$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO</value>
             <value description="first_name">Matt</value>
             <value description="last_name">Raible</value>
-            <value description="dni">789123</value>
             <!-- <value description="address"></value>
             <value description="city">Denver</value>
             <value description="country">US</value> -->
