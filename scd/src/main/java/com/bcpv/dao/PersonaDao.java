@@ -11,7 +11,7 @@ import com.bcpv.model.Persona;
 
 public interface PersonaDao extends UserDao{
 
-    Persona save(Persona persona);
+    Persona savePersona(Persona persona);
     
     List<Persona> getPersonasByApellido(String apellido);
 

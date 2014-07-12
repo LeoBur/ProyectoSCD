@@ -35,10 +35,10 @@ public class PersonaDaoHibernate extends UserDaoHibernate implements PersonaDao,
      * @param user the user to save
      * @return the modified user (with a primary key set if they're new)
      */
-    @Override
+    /*@Override
     public Persona save(Persona persona) {
         return this.savePersona(persona);
-    }
+    }*/
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -53,15 +53,12 @@ public class PersonaDaoHibernate extends UserDaoHibernate implements PersonaDao,
 
 	@Override
 	public Persona getPersonaByDni(Long dni) {
-		//Persona persona = (Persona) getSession().createCriteria(Persona.class).add(Restrictions.eq("dni", dni));
 		Query qry = getSession().createQuery("from Persona p where p.dni = dni");
-		if qry.
-		if (persona == null) {
-            //throw new EntityNotFoundException("No existen personas con el dni" + dni);
+		Persona persona = (Persona) qry.uniqueResult();
+		if (persona == null){
 			return new Persona();
-        } else {
-            return persona;
-        }
+		} else
+			return persona;
 	}
 
 }

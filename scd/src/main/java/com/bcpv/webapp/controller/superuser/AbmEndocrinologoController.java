@@ -99,7 +99,7 @@ public class AbmEndocrinologoController extends BaseFormController{
             endocrinologoManager.remove(endocrinologoForm.getId());
             saveMessage(request, getText("admin.endocrinologist.deleted", locale));
         } else {
-        	personaManager.saveUser(persona);//.savePersona(persona);
+        	personaManager.savePersona(persona);
         	endocrinologoManager.saveEndocrinologo(endocrinologo);
             String key = (isNew) ? "admin.endocrinologist.added" : "admin.endocrinologist.updated";
             saveMessage(request, getText(key, locale));

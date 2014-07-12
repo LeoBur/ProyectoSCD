@@ -23,5 +23,5 @@ public interface PersonaManager extends UserManager{
     
     Persona getPersonaByDni(Long dni);
     
-    //Persona savePersona(Persona persona) throws EntityExistsException;
+    Persona savePersona(Persona persona) throws EntityExistsException;
 }

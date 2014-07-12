@@ -47,9 +47,9 @@ public interface PersonaService extends UserService{
      * @param user the user's information
      * @return updated user
      * @throws UserExistsException thrown when user already exists
-     *//*
+     */
     @POST
-    Persona savePersona(Persona persona) throws UserExistsException;*/
+    Persona savePersona(Persona persona) throws UserExistsException;
 
     /**
      * Removes a user from the database by their userId
