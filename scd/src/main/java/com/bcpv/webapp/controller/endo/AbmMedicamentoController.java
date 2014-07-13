@@ -1,5 +1,6 @@
 package com.bcpv.webapp.controller.endo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,9 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.model.Medicamento;
+import com.bcpv.model.Tag;
 import com.bcpv.service.MedicamentoManager;
 import com.bcpv.webapp.controller.BaseFormController;
 
@@ -83,6 +87,25 @@ public class AbmMedicamentoController extends BaseFormController{
         }
  
         return success;
+    }
+    
+    @RequestMapping(value = "/getMedicamento", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getTags(@RequestParam String tagName) {
+    	int cont = 0;
+    	List<Tag> data = new ArrayList<Tag>();
+    	List<Tag> result = new ArrayList<Tag>();
+
+    	for (Medicamento medicamento : medicamentoManager.getMedicamentos() ) {
+    		data.add(new Tag(cont++, medicamento.getNombreComercial()));
+    	}
+
+    	for (Tag tag : data) {
+    		if (tag.getTagName().toLowerCase().startsWith(tagName.toLowerCase())) {
+    			result.add(tag);
+    		}
+    	}
+    	return result;
     }
 
 }

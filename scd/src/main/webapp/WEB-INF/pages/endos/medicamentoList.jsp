@@ -7,13 +7,30 @@
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    function deleteBook(bookId){
+	$(document).ready(function() {
+		$('#medicamentoBusqueda').autocomplete({
+			serviceUrl : '/getMedicamento',
+			paramName : "tagName",
+			delimiter : ",",
+			transformResult : function(response) {
+				return {
+					suggestions : $.map($.parseJSON(response), function(item) {
+						return {
+							value : item.tagName,
+							data : item.id
+						};
+					})
+				};
+			}
+		});
+	});
+    /* function deleteBook(bookId){
     	
     	  if(window.confirm('Esta seguro de querer eliminar este Medicamento ?')){
               var url = 'delete/'+bookId;
               window.location.href = url;     
         }
-    }
+    } */
 </script>
 </head>
 <body class="home">
@@ -22,6 +39,10 @@
 	</h2>
 
 <div class="col-sm-7">
+
+		<appfuse:label key="endo.apellidoToSearch" styleClass="control-label" />
+		<form:input cssClass="form-control" path="medicamentoList" id="medicamentoBusqueda"/>
+		<br>
 		
 		<div id="actions" class="btn-group">
 	        <a class="btn btn-primary" href="<c:url value='/endos/medicamentoForm'/>">
