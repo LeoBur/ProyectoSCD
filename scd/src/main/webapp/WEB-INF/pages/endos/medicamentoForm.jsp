@@ -3,9 +3,21 @@
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+	  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+	  <script src="/scripts/validator.js" type="text/javascript"></script>
+	  <script type="text/javascript">
+	  	function CancelFormButton(button) {
+	  		onsubmit: false;
+	  	window.location.href = "http://localhost:8080/endos/medicamentoList";
+	  	}
+	  </script>
+  
 </head>
 <body>
 
@@ -40,30 +52,34 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="medicamento" method="post" action="medicamentoForm" id="medicamentoForm" autocomplete="off"
+    <form:form commandName="medicamento" method="post" action="medicamentoForm" id="formulario" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
         <form:hidden path="idMedicamento"/>
         <%-- <form:hidden path="version"/> --%>
         <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
-        
+        <div>
         <spring:bind path="nombreGenerico">
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreGenerico"/>
         <input type="text" name="nombreGenerico" id="nombreGenerico" class="form-control"
            placeholder="<fmt:message key="user.adminMedicamento.nombreGenerico"/>" value="${status.value}" tabindex="1">
         </spring:bind>
-        
+        	<label for="nombreGenerico" generated="true" class="error"></label>
+        </div>
+        <div>
         <spring:bind path="nombreComercial"> 
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.nombreComercial"/>  
 		<input type="text" name="nombreComercial" id="nombreComercial" class="form-control"
            placeholder="<fmt:message key="user.adminMedicamento.nombreComercial"/>" value="${status.value}" tabindex="2">  
         </spring:bind>
-        
+        </div>
+        <div>
         <spring:bind path="presentacion">
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.presentacion"/>
         <input type="text" name="presentacion" id="presentacion" class="form-control"
            placeholder="<fmt:message key="user.adminMedicamento.presentacion"/>" value="${status.value}" tabindex="3">
         </spring:bind>
-        
+        </div>
+        <div>
         <spring:bind path="grupoMedicamento">
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.grupoMedicamento"/>
         <input list="drogas" name="grupoMedicamento" id="grupoMedicamento" class="form-control"
@@ -82,7 +98,7 @@
 		  <option value="IAPP">
 		  <option value="DPP_4">
 		</datalist>
-        
+        </div>
         <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> <form:options/>  --%>
         <br>               
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
@@ -95,9 +111,12 @@
           </button>
         </c:if>
 
-        <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+		<button type="submit" class="btn btn-warning " name="cancel" onclick="CancelFormButton(this);">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button>
+        <%-- <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+        </button> --%>
     </form:form>
 </div>
 
