@@ -17,7 +17,7 @@ public class EndocrinologoForm {
     private String dni;
     private Date fch_nac;
     private com.bcpv.model.Persona.Sexo sexo;
-    private Domicilio domicilio = new Domicilio();
+    private Domicilio domicilio;
 	private Long matricula;
 	
 	public Long getId() {

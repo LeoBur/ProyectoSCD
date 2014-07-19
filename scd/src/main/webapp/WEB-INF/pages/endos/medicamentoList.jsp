@@ -40,9 +40,18 @@
 
 <div class="col-sm-7">
 
-		<appfuse:label key="endo.apellidoToSearch" styleClass="control-label" />
-		<form:input cssClass="form-control" path="medicamentoList" id="medicamentoBusqueda"/>
+	<form:form commandName="medicamento" method="post" action="medicamentoList" enctype="multipart/form-data" id="mainSearchBox">
+		<appfuse:label key="medicamento.nombreToSearch" styleClass="control-label" />
+		<form:input cssClass="form-control" path="nombreComercial" id="medicamentoBusqueda"/>
 		<br>
+		
+		<div class="form-group">
+			<button type="submit" name="upload" class="btn btn-primary"
+				onclick="bCancel=false">
+				<i class="icon-upload icon-white"></i>
+				<fmt:message key="button.upload" />
+			</button>
+		</div>
 		
 		<div id="actions" class="btn-group">
 	        <a class="btn btn-primary" href="<c:url value='/endos/medicamentoForm'/>">
@@ -73,6 +82,8 @@
                 </display:column>
 	            
 		</display:table>
+		
+	</form:form>
 </div>
 </body>
 <c:set var="scripts" scope="request">
