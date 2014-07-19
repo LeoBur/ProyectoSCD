@@ -4,6 +4,7 @@
     <meta name="menu" content="UserMenu"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
 	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -18,6 +19,8 @@
 	  	}
 	  </script>
   
+
+
 </head>
 <body>
 
@@ -71,6 +74,7 @@
 		<input type="text" name="nombreComercial" id="nombreComercial" class="form-control"
            placeholder="<fmt:message key="user.adminMedicamento.nombreComercial"/>" value="${status.value}" tabindex="2">  
         </spring:bind>
+        	<label for="nombreComercial" generated="true" class="error"></label>
         </div>
         <div>
         <spring:bind path="presentacion">
@@ -78,6 +82,7 @@
         <input type="text" name="presentacion" id="presentacion" class="form-control"
            placeholder="<fmt:message key="user.adminMedicamento.presentacion"/>" value="${status.value}" tabindex="3">
         </spring:bind>
+        	<label for="presentacion" generated="true" class="error"></label>
         </div>
         <div>
         <spring:bind path="grupoMedicamento">
