@@ -3,9 +3,11 @@ package com.bcpv.webapp.controller.superuser;
 import java.util.List;
 import java.util.Locale;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,7 +28,6 @@ import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndocrinologoForm;
 
 @Controller
-@RequestMapping("admin/newEndocrinologo*")
 public class AbmEndocrinologoController extends BaseFormController{
 	
 	@Autowired
@@ -45,9 +46,34 @@ public class AbmEndocrinologoController extends BaseFormController{
 		
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showForm() {
+	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
+	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
+    					   HttpServletRequest request) {
+		try {
+			Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
+			
+			endocrinologoForm.setId(persona.getId());
+			endocrinologoForm.setUsername(persona.getUsername());
+			endocrinologoForm.setPassword(persona.getPassword());
+			endocrinologoForm.setConfirmPassword(persona.getConfirmPassword());
+			endocrinologoForm.setFirstName(persona.getFirstName());
+			endocrinologoForm.setLastName(persona.getLastName());
+			endocrinologoForm.setEmail(persona.getEmail());
+			endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
+			endocrinologoForm.setFch_nac(persona.getFch_nac());
+			endocrinologoForm.setSexo(persona.getSexo());
+			endocrinologoForm.setDomicilio(persona.getDomicilio());
+		} catch (EntityNotFoundException enfe){
+			saveInfo(request, "No existe una persona con ese DNI. Por favor complete los campos.");
+			return "admin/newEndocrinologo";
+		}
+		return "admin/newEndocrinologo";
+	}
+	
+	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)
+	public ModelAndView showForm(final HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("admin/newEndocrinologo");
+		if (StringUtils.isBlank(request.getAttribute(name)))
 		EndocrinologoForm endocrinologoForm = new EndocrinologoForm();
 		List<Provincia> provincias = provinciaManager.getProvincias();
 		List<Localidad> localidades = localidadManager.getLocalidades();
@@ -57,7 +83,7 @@ public class AbmEndocrinologoController extends BaseFormController{
 		return mv;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
     					   HttpServletRequest request, HttpServletResponse response)
     throws Exception {
