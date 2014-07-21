@@ -60,9 +60,6 @@
 				<form:errors path="apellidoPaciente" cssClass="help-block" />
 			</div>
 		
-		<input type="text" name="dni" id="dni" class="form-control"
-           placeholder="<fmt:message key="endo.dniToSearch"/>" required tabindex="1">
-           
 		<spring:bind path="endoSearch.dniPaciente">
 			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		</spring:bind>
@@ -75,7 +72,7 @@
 			<button type="submit" name="upload" class="btn btn-primary"
 				onclick="bCancel=false">
 				<i class="icon-upload icon-white"></i>
-				<fmt:message key="button.upload" />
+				<fmt:message key="button.search" />
 			</button>
 		</div>
 		

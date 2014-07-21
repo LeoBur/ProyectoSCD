@@ -7,7 +7,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -51,18 +50,20 @@ public class AbmEndocrinologoController extends BaseFormController{
     					   HttpServletRequest request) {
 		try {
 			Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
+			if (persona.getId() != null) {
+				endocrinologoForm.setId(persona.getId());
+				endocrinologoForm.setUsername(persona.getUsername());
+				endocrinologoForm.setPassword(persona.getPassword());
+				endocrinologoForm.setConfirmPassword(persona.getConfirmPassword());
+				endocrinologoForm.setFirstName(persona.getFirstName());
+				endocrinologoForm.setLastName(persona.getLastName());
+				endocrinologoForm.setEmail(persona.getEmail());
+				endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
+				endocrinologoForm.setFch_nac(persona.getFch_nac());
+				endocrinologoForm.setSexo(persona.getSexo());
+				endocrinologoForm.setDomicilio(persona.getDomicilio());
+			} else throw new EntityNotFoundException();
 			
-			endocrinologoForm.setId(persona.getId());
-			endocrinologoForm.setUsername(persona.getUsername());
-			endocrinologoForm.setPassword(persona.getPassword());
-			endocrinologoForm.setConfirmPassword(persona.getConfirmPassword());
-			endocrinologoForm.setFirstName(persona.getFirstName());
-			endocrinologoForm.setLastName(persona.getLastName());
-			endocrinologoForm.setEmail(persona.getEmail());
-			endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-			endocrinologoForm.setFch_nac(persona.getFch_nac());
-			endocrinologoForm.setSexo(persona.getSexo());
-			endocrinologoForm.setDomicilio(persona.getDomicilio());
 		} catch (EntityNotFoundException enfe){
 			saveInfo(request, "No existe una persona con ese DNI. Por favor complete los campos.");
 			return "admin/newEndocrinologo";
@@ -73,11 +74,12 @@ public class AbmEndocrinologoController extends BaseFormController{
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)
 	public ModelAndView showForm(final HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("admin/newEndocrinologo");
-		if (StringUtils.isBlank(request.getAttribute(name)))
-		EndocrinologoForm endocrinologoForm = new EndocrinologoForm();
+		if (request.getAttribute("endocrinologoForm") == null) {
+			EndocrinologoForm endocrinologoForm = new EndocrinologoForm();
+			mv.addObject("endocrinologoForm", endocrinologoForm);
+		}
 		List<Provincia> provincias = provinciaManager.getProvincias();
 		List<Localidad> localidades = localidadManager.getLocalidades();
-		mv.addObject("endocrinologoForm", endocrinologoForm);
 		mv.addObject("provinciaList", provincias);
 		mv.addObject("localidadList", localidades);
 		return mv;
@@ -106,7 +108,8 @@ public class AbmEndocrinologoController extends BaseFormController{
         Locale locale = request.getLocale();
         
         Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
-        	
+        
+        persona.setDni(endocrinologoForm.getDni());
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
         persona.setPassword(endocrinologoForm.getPassword());

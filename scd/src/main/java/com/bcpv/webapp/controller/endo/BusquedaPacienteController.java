@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -107,6 +108,8 @@ public class BusquedaPacienteController extends BaseFormController{
 			/*enfe.getMessage();
 			errors.rejectValue(endoSearch.getApellidoPaciente(), "No existe");*/
 			//para probar sin tratatmiento de error
+			saveError(request, "No Existe Paciente");
+			//errors.addError(new ObjectError(ERRORS_MESSAGES_KEY, "No Existe Paciente"));
 			System.out.println(enfe.getMessage());
 			//
 			return mv;

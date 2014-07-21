@@ -72,6 +72,13 @@
 				    </spring:bind>
 				    	
 				  </div>
+				  <div class="form-group">
+					<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
+						 formnovalidate="formnovalidate" onclick="bCancel=false">
+						<i class="icon-upload icon-white"></i>
+						<fmt:message key="button.search" />
+					</button>
+				</div>
 			</div>
 			
 		</div>
@@ -148,8 +155,8 @@
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
-						<input type="radio" name="sex" value="F"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sex" value="M"/>  Masculino
+						<input type="radio" name="sex" value="F" value="${status.value}"/>  Femenino &nbsp; &nbsp; &nbsp;
+						<input type="radio" name="sex" value="M" value="${status.value}"/>  Masculino
 						</div>
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>

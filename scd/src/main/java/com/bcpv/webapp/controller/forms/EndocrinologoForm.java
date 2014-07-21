@@ -3,6 +3,7 @@ package com.bcpv.webapp.controller.forms;
 import java.util.Date;
 
 import com.bcpv.model.Domicilio;
+import com.bcpv.model.Persona.Sexo;
 
 public class EndocrinologoForm {
 
@@ -16,7 +17,7 @@ public class EndocrinologoForm {
     private String phoneNumber;
     private String dni;
     private Date fch_nac;
-    private com.bcpv.model.Persona.Sexo sexo;
+    private Sexo sexo;
     private Domicilio domicilio;
 	private Long matricula;
 	
