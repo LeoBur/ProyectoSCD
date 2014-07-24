@@ -17,7 +17,8 @@
 	  	function CancelFormButton(button) {
 	  		onsubmit: false;
 	  	window.location.href = "http://localhost:8080/endos/endo";
-	  	}
+	  	};
+	  	
 	  </script>
 </head>
 
@@ -72,14 +73,21 @@
 				    </spring:bind>
 				    	
 				  </div>
-				  <div class="form-group">
+				  
+				  <div class="col-sm-6 form-group">
+				  <br>
+				  <div>
 					<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
-						 formnovalidate="formnovalidate" onclick="bCancel=false">
+						formnovalidate="formnovalidate" onclick="bCancel=false">
 						<i class="icon-upload icon-white"></i>
 						<fmt:message key="button.search" />
 					</button>
-				</div>
+					</div>
+				 </div>
+				  
 			</div>
+			
+			
 			
 		</div>
         
@@ -139,16 +147,6 @@
 		</div> --%>
 		
 		<div class="row">
-		  
-		  <div>
-			<spring:bind path="endocrinologoForm.matricula">
-				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
-					<input type="text" id="matricula" name="matricula" class="form-control"
-					value="${status.value}" tabindex="5"/>
-				</div>
-			</spring:bind>
-		  </div>
 		
 		  <div>
 		    <spring:bind path="endocrinologoForm.sexo">
@@ -291,6 +289,17 @@
 		 </div>
 		</div>
 		
+		<div class="row">
+		<div>
+			<spring:bind path="endocrinologoForm.matricula">
+				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
+					<input type="text" id="matricula" name="matricula" class="form-control"
+					value="${status.value}" tabindex="5"/>
+				</div>
+			</spring:bind>
+		</div>
+		</div>
        	<div class="form-group">
 			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 				<i class="icon-ok icon-white"></i>
@@ -313,6 +322,15 @@
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
 		// This is here so we can exclude the selectAll call when roles is hidden
+		$('button[name="search"]').click(function(e){
+			e.preventDefault();
+			var dni = $('#dni').val();
+			//console.log($.get('http://localhost:8080/admin/buscar', { dni: dni}));
+			console.log($.get('http://localhost:8080/admin/buscar', dni));
+			$.get('http://localhost:8080/admin/buscar', {dni: dni});
+			//window.location.href = "http://localhost:8080/admin/buscar";
+			console.log(e);
+		});
 		function onFormSubmit(theForm) {
 			return validateUser(theForm);
 		}

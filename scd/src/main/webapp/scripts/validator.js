@@ -53,6 +53,12 @@ $(document).ready(function(){
 				matricula:{
 					digits:true
 				},
+				calle:{
+					required:true
+				},
+				numero:{
+					required:true
+				},
 				dni:{
 					required:true,
 					number:true,
