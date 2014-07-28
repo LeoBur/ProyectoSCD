@@ -34,7 +34,7 @@
 			<p><fmt:message key="userProfile.admin.message"/></p>
 		</c:when>
 		<c:otherwise>
-			<p><fmt:message key="userProfile.message.cliente"/></p>
+			<p><fmt:message key="userProfile.message.endocrinologo"/></p>
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -78,7 +78,7 @@
 				  <br>
 				  <div>
 					<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
-						formnovalidate="formnovalidate" onclick="bCancel=false">
+						formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2">
 						<i class="icon-upload icon-white"></i>
 						<fmt:message key="button.search" />
 					</button>
@@ -97,7 +97,7 @@
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	        	<input type="text" name="firstName" id="firstName" class="form-control"
 	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="2">
+	           	 tabindex="3">
 	          </spring:bind>
 	          		<label for="firstName" generated="true" class="error"></label>
 	          <form:errors path="firstName" cssClass="help-block"/>
@@ -107,7 +107,7 @@
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	        	<input type="text" name="lastName" id="lastName" class="form-control"
 	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="3">
+	           	 tabindex="4">
 	          </spring:bind>
 	          		<label for="lastName" generated="true" class="error"></label>
 		   	  <form:errors path="lastName" cssClass="help-block"/>
@@ -121,7 +121,7 @@
 			
 <%-- 					<fmt:formatDate value="${fecha}" pattern="dd-MM-yyyy" var="fecha" /> --%>
 					<input type="text" name="fch_nac" id="fch_nac" class="form-control"
-					placeholder="<fmt:message key="date.format"/>" value="${status.value}" tabindex="4" size="12" />
+					placeholder="<fmt:message key="date.format"/>" value="${status.value}" tabindex="5" size="12" />
 			</spring:bind>
 		</div>
 
@@ -153,8 +153,8 @@
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
-						<input type="radio" name="sex" value="F" value="${status.value}"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sex" value="M" value="${status.value}"/>  Masculino
+						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="6"/>  Femenino &nbsp; &nbsp; &nbsp;
+						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="7"/>  Masculino
 						</div>
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>
@@ -168,7 +168,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
 		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="7"/>
+		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="8"/>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -177,7 +177,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
-				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="8"/>
+				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="9"/>
 				<form:errors path="email" cssClass="help-block" />
 			</div>
 		  </spring:bind>
@@ -193,7 +193,7 @@
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
 							<input type="text" id="provincia" name="provincia" class="form-control"
-							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="9"/>
+							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="10"/>
 							<form:errors path="domicilio.localidad.provincia.nombre" cssClass="help-block" />
 						  </div>
 						</div>
@@ -205,7 +205,7 @@
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
 								<input id="localidad" name="localidad" class="form-control"
-								placeholder="<fmt:message key="user.address.localidad"/>" value="${status.value}" tabindex="10"/>
+								placeholder="<fmt:message key="user.address.localidad"/>" value="${status.value}" tabindex="11"/>
 								<form:errors path="domicilio.localidad.nombre" cssClass="help-block" />
 							</div>
 						</div>
@@ -220,7 +220,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
-							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="11"/>
+							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="12"/>
 							<form:errors path="domicilio.calle" cssClass="help-block" />
 						</div>
 					</div>
@@ -232,7 +232,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
-							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="12"/>
+							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="13"/>
 							<form:errors path="domicilio.numero" cssClass="help-block" />
 						</div>
 					</div>
@@ -247,7 +247,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
 							<input id="dpto" name="dpto" class="form-control"
-							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="13"/>
+							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="14"/>
 							<form:errors path="domicilio.dpto" cssClass="help-block" />
 						</div>
 					</div>	
@@ -259,7 +259,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
 							<input id="piso" name="piso" class="form-control"
-							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" tabindex="14"/>
+							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" tabindex="15"/>
 							<form:errors path="domicilio.piso" cssClass="help-block" />
 						</div>
 					</div>
@@ -273,7 +273,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.password" />
 		  		<input type="password" id="password" name="password" class="form-control"
-		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="15"/>
+		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="16"/>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -282,7 +282,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.confirmPassword" />
 				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="16"/>
+				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="17"/>
 				<form:errors path="confirmPassword" cssClass="help-block" />
 			</div>
 		  </spring:bind>
@@ -295,23 +295,23 @@
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
 					<input type="text" id="matricula" name="matricula" class="form-control"
-					value="${status.value}" tabindex="5"/>
+					value="${status.value}" tabindex="18"/>
 				</div>
 			</spring:bind>
 		</div>
 		</div>
        	<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="19">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
 			<c:if test="${not empty endocrinologoForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="20">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
 				</button>
 			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="CancelFormButton(this);">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="CancelFormButton(this);" tabindex="21">
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
 			</button>

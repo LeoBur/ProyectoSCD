@@ -122,6 +122,7 @@ public class AbmEndocrinologoController extends BaseFormController{
         persona.setFch_nac(endocrinologoForm.getFch_nac());
         persona.setSexo(endocrinologoForm.getSexo());
         persona.setDomicilio(endocrinologoForm.getDomicilio());
+        persona.setUsername(endocrinologoForm.getEmail());
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
         
