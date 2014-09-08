@@ -60,36 +60,34 @@
   		<spring:bind path="username">
   			<input type="hidden"/>                                             
   		</spring:bind>
-  
-  		 <div class="form-group">
-	  		 <div class="row">
-				  <div>
-				  	<spring:bind path="dni">
-					  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				        	<appfuse:label styleClass="control-label" key="user.dni"/>
-				        	<input type="text" name="dni" id="dni" class="form-control"
-				           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
-				        </div>
-				    </spring:bind>
-				    	
-				  </div>
-				  
-				  <div class="col-sm-6 form-group">
-				  <br>
-				  <div>
-					<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
-						formnovalidate="formnovalidate" onclick="bCancel=false">
-						<i class="icon-upload icon-white"></i>
-						<fmt:message key="button.search" />
-					</button>
+			
+			<div class="form-group">
+		  		<div class="row">
+					  <div>
+					  	<spring:bind path="dni">
+						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					        	<appfuse:label styleClass="control-label" key="user.dni"/>
+					        	<input type="text" name="dni" id="dni" class="form-control"
+					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+					        </div>
+					    </spring:bind>
+					    	
+					  </div>
+					  
+					  <div class="col-sm-6 form-group">
+					  <br>
+					  <div>
+						<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
+							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2">
+							<i class="icon-upload icon-white"></i>
+							<fmt:message key="button.search" />
+						</button>
+						</div>
 					</div>
-				 </div>
-				  
+					  
+				</div>			
+			
 			</div>
-			
-			
-			
-		</div>
         
         <div class="form-group">
 	        <div>
@@ -295,7 +293,7 @@
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
 					<input type="text" id="matricula" name="matricula" class="form-control"
-					value="${status.value}" tabindex="5"/>
+					value="${status.value}" tabindex="25"/>
 				</div>
 			</spring:bind>
 		</div>
@@ -311,7 +309,7 @@
 					<fmt:message key="button.delete" />
 				</button>
 			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="CancelFormButton(this);">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
 			</button>
@@ -322,19 +320,27 @@
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
 		// This is here so we can exclude the selectAll call when roles is hidden
-		$('button[name="search"]').click(function(e){
-			e.preventDefault();
-			var dni = $('#dni').val();
-			//console.log($.get('http://localhost:8080/admin/buscar', { dni: dni}));
-			console.log($.get('http://localhost:8080/admin/buscar', dni));
-			$.get('http://localhost:8080/admin/buscar', {dni: dni});
-			//window.location.href = "http://localhost:8080/admin/buscar";
-			console.log(e);
-		});
+		
 		function onFormSubmit(theForm) {
 			return validateUser(theForm);
-		}
+		};
 	</script>
+	<script type="text/javascript">
+		 $('button[name="cancel"]').click(function(e){
+				e.preventDefault();
+				window.location.href = "http://localhost:8080/endos/endo";
+			});
+	</script>	 
+	<script type="text/javascript">	 
+		 $('button[name="search"]').click(function(e){
+			  	e.preventDefault();
+				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
+				var dni = $('input[name=dni]').val();
+				window.location.href = "http://localhost:8080/admin/buscar?dni="+dni;
+			});
+	</script>
+	
+	
 </c:set>
 
 <v:javascript formName="endocrinologoForm" staticJavascript="false" />

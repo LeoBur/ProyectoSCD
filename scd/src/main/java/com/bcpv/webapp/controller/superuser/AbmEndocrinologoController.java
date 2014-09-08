@@ -13,7 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.bcpv.model.Endocrinologo;
 import com.bcpv.model.Localidad;
@@ -27,29 +30,34 @@ import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndocrinologoForm;
 
 @Controller
-public class AbmEndocrinologoController extends BaseFormController{
-	
+public class AbmEndocrinologoController extends BaseFormController {
+
 	@Autowired
 	PersonaManager personaManager;
-	
+
 	@Autowired
 	EndocrinologoManager endocrinologoManager;
-	
+
 	@Autowired
 	ProvinciaManager provinciaManager;
-	
+
 	@Autowired
 	LocalidadManager localidadManager;
-	
-	public AbmEndocrinologoController(){
-		
+
+	public AbmEndocrinologoController() {
+
 	}
 
 	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
 	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
 						 HttpServletRequest request) {
-		final String dni = request.getParameter("dni");
+        Locale locale = request.getLocale();
+
+        final String dni = request.getParameter("dni");
 		try {
+			if (StringUtils.isEmpty(dni)){
+                throw new NullPointerException();
+            }
 			Persona persona = personaManager.getPersonaByDni(new Long (dni));
 			if (persona.getId() != null) {
 				endocrinologoForm.setId(persona.getId());
@@ -67,13 +75,17 @@ public class AbmEndocrinologoController extends BaseFormController{
 				endocrinologoForm.setDomicilio(persona.getDomicilio());
 			} else throw new EntityNotFoundException();
 			
-		} catch (EntityNotFoundException enfe){
-			saveInfo(request, "No existe una persona con ese DNI. Por favor complete los campos.");
+		} catch (NullPointerException npe){
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+            return "admin/newEndocrinologo";
+        }
+            catch (EntityNotFoundException enfe){
+			saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
 			return "admin/newEndocrinologo";
 		}
 		return "admin/newEndocrinologo";
 	}
-	
+
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)
 	public ModelAndView showForm(final HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("admin/newEndocrinologo");
@@ -87,59 +99,67 @@ public class AbmEndocrinologoController extends BaseFormController{
 		mv.addObject("localidadList", localidades);
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
-    					   HttpServletRequest request, HttpServletResponse response)
-    throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return getCancelView();
-        }
- 
-        if (validator != null) { // validator is null during testing
-            validator.validate(endocrinologoForm, errors);
- 
-            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/registrar";
-            }
-        }
- 
-        boolean isNew = (endocrinologoForm.getId() == null);
-        log.debug("entering 'onSubmit' method...");
- 
-        String success = getSuccessView();
-        Locale locale = request.getLocale();
-        
-        Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
-        
-        persona.setDni(endocrinologoForm.getDni());
-        persona.setFirstName(endocrinologoForm.getFirstName());
-        persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(endocrinologoForm.getPassword());
-        persona.setConfirmPassword(endocrinologoForm.getConfirmPassword());
-        persona.setEmail(endocrinologoForm.getEmail());
-        persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
-        persona.setFch_nac(endocrinologoForm.getFch_nac());
-        persona.setSexo(endocrinologoForm.getSexo());
-        persona.setDomicilio(endocrinologoForm.getDomicilio());
-        
-        Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-        
-        saveMessage(request, getText("user.savedData", locale));
- 
-        if (request.getParameter("delete") != null) {
-            endocrinologoManager.remove(endocrinologoForm.getId());
-            saveMessage(request, getText("admin.endocrinologist.deleted", locale));
-        } else {
-        	personaManager.savePersona(persona);
-        	endocrinologoManager.saveEndocrinologo(endocrinologo);
-            String key = (isNew) ? "admin.endocrinologist.added" : "admin.endocrinologist.updated";
-            saveMessage(request, getText(key, locale));
- 
-            if (!isNew) {
-                success = "redirect:newEndocrinologo";
-            }
-        }
-        return success;
-    }	
+	public String onSubmit(
+			@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (request.getParameter("cancel") != null) {
+			return getCancelView();
+		}
+
+		if (validator != null) { // validator is null during testing
+			validator.validate(endocrinologoForm, errors);
+
+			if (errors.hasErrors() && request.getParameter("delete") == null) { // don't
+																				// validate
+																				// when
+																				// deleting
+				return "/registrar";
+			}
+		}
+
+		boolean isNew = (endocrinologoForm.getId() == null);
+		log.debug("entering 'onSubmit' method...");
+
+		String success = getSuccessView();
+		Locale locale = request.getLocale();
+
+		Persona persona = personaManager.getPersonaByDni(new Long(
+				endocrinologoForm.getDni()));
+
+		persona.setDni(endocrinologoForm.getDni());
+		persona.setFirstName(endocrinologoForm.getFirstName());
+		persona.setLastName(endocrinologoForm.getLastName());
+		persona.setPassword(endocrinologoForm.getPassword());
+		persona.setConfirmPassword(endocrinologoForm.getConfirmPassword());
+		persona.setEmail(endocrinologoForm.getEmail());
+		persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
+		persona.setFch_nac(endocrinologoForm.getFch_nac());
+		persona.setSexo(endocrinologoForm.getSexo());
+		persona.setDomicilio(endocrinologoForm.getDomicilio());
+
+		Endocrinologo endocrinologo = new Endocrinologo(
+				endocrinologoForm.getMatricula(), persona);
+
+		saveMessage(request, getText("user.savedData", locale));
+
+		if (request.getParameter("delete") != null) {
+			endocrinologoManager.remove(endocrinologoForm.getId());
+			saveMessage(request,
+					getText("admin.endocrinologist.deleted", locale));
+		} else {
+			personaManager.savePersona(persona);
+			endocrinologoManager.saveEndocrinologo(endocrinologo);
+			String key = (isNew) ? "admin.endocrinologist.added"
+					: "admin.endocrinologist.updated";
+			saveMessage(request, getText(key, locale));
+
+			if (!isNew) {
+				success = "redirect:newEndocrinologo";
+			}
+		}
+		return success;
+	}
 }
