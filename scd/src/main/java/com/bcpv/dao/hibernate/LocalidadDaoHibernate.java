@@ -21,6 +21,7 @@ public class LocalidadDaoHibernate extends GenericDaoHibernate<Localidad, Long> 
 	@SuppressWarnings("unchecked")
     public List<Localidad> getLocalidades() {
         Query qry = getSession().createQuery("from localidades l order by upper(l.nombre)");
+        getSession().flush();
         return qry.list();
     }
 
@@ -44,6 +45,7 @@ public class LocalidadDaoHibernate extends GenericDaoHibernate<Localidad, Long> 
     @SuppressWarnings("unchecked")
 	public Localidad loadLocalidadByNombre(String nombre) throws EntityNotFoundException {
         List<Localidad> locList = getSession().createCriteria(Localidad.class).add(Restrictions.eq("nombre", nombre)).list();
+        getSession().flush();
         if (locList == null || locList.isEmpty()) {
             throw new EntityNotFoundException("localidad '" + nombre + "' not found...");
         } else {
@@ -51,4 +53,12 @@ public class LocalidadDaoHibernate extends GenericDaoHibernate<Localidad, Long> 
         }
     }
 
+    @Override
+    public List<Localidad> getByNombreYProv(String nombre, String provincia) {
+        //select e.name, a.city from Employee e INNER JOIN e.address a
+        Query qry = getSession().createQuery("select l from Localidad l INNER JOIN l.provincia p WHERE p.nombre ='" +provincia+ "' AND l.nombre ='" +nombre+"'");
+        getSession().flush();
+        //Query qry = getSession().createQuery("SELECT l from Localidad l WHERE l.nombre='" +nombre+ "' AND l.provincia.nombre='" +provincia+ "'");
+        return qry.list();
+    }
 }

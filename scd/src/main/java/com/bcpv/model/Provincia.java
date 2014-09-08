@@ -35,7 +35,7 @@ public class Provincia implements Serializable {
 	}
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id_provincia", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}

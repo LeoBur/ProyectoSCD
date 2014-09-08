@@ -1,12 +1,22 @@
 package com.bcpv.webapp.controller.superuser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
+import com.bcpv.Constants;
+import com.bcpv.model.Domicilio;
+import com.bcpv.model.Role;
+import com.bcpv.service.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,6 +50,9 @@ public class AbmEndocrinologoController extends BaseFormController{
 	
 	@Autowired
 	LocalidadManager localidadManager;
+
+    @Autowired
+    RoleManager roleManager;
 	
 	public AbmEndocrinologoController(){
 		
@@ -49,7 +62,7 @@ public class AbmEndocrinologoController extends BaseFormController{
 	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
     					   HttpServletRequest request) {
 		try {
-			Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
+			Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
 			if (persona.getId() != null) {
 				endocrinologoForm.setId(persona.getId());
 				endocrinologoForm.setUsername(persona.getUsername());
@@ -59,7 +72,7 @@ public class AbmEndocrinologoController extends BaseFormController{
 				endocrinologoForm.setLastName(persona.getLastName());
 				endocrinologoForm.setEmail(persona.getEmail());
 				endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-				endocrinologoForm.setFch_nac(persona.getFch_nac());
+				endocrinologoForm.setFechaNac(persona.getFch_nac());
 				endocrinologoForm.setSexo(persona.getSexo());
 				endocrinologoForm.setDomicilio(persona.getDomicilio());
 			} else throw new EntityNotFoundException();
@@ -92,23 +105,23 @@ public class AbmEndocrinologoController extends BaseFormController{
         if (request.getParameter("cancel") != null) {
             return getCancelView();
         }
- 
+
         if (validator != null) { // validator is null during testing
             validator.validate(endocrinologoForm, errors);
- 
+
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
                 return "/registrar";
             }
         }
- 
+
         boolean isNew = (endocrinologoForm.getId() == null);
         log.debug("entering 'onSubmit' method...");
- 
+
         String success = getSuccessView();
         Locale locale = request.getLocale();
-        
-        Persona persona = personaManager.getPersonaByDni(new Long (endocrinologoForm.getDni()));
-        
+
+        Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
+
         persona.setDni(endocrinologoForm.getDni());
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
@@ -116,9 +129,26 @@ public class AbmEndocrinologoController extends BaseFormController{
         persona.setConfirmPassword(endocrinologoForm.getConfirmPassword());
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
-        persona.setFch_nac(endocrinologoForm.getFch_nac());
         persona.setSexo(endocrinologoForm.getSexo());
-        persona.setDomicilio(endocrinologoForm.getDomicilio());
+        persona.setUsername(endocrinologoForm.getEmail());
+        persona.setAccountExpired(false);
+        persona.setAccountLocked(false);
+        persona.setEnabled(true);
+
+        Role role = roleManager.getRole(Constants.ENDO_ROLE);
+        if (role == null) {
+            role = new Role();
+            role.setDescription("Endocrinologist role (can edit users)");
+            role.setName(Constants.ENDO_ROLE);
+            roleManager.saveRole(role);
+        }
+        persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
+
+        persona.setFch_nac(getFechaNac(endocrinologoForm));
+        persona.setDomicilio(createDomicilio(endocrinologoForm));
+
+        //TODO Se agrega para probar ELIMINAR una vez que esta corregido lo de sexo!!!!
+        persona.setSexo(Persona.Sexo.M);
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
         
@@ -132,11 +162,27 @@ public class AbmEndocrinologoController extends BaseFormController{
         	endocrinologoManager.saveEndocrinologo(endocrinologo);
             String key = (isNew) ? "admin.endocrinologist.added" : "admin.endocrinologist.updated";
             saveMessage(request, getText(key, locale));
- 
+            success = "redirect:newEndocrinologo";
             if (!isNew) {
                 success = "redirect:newEndocrinologo";
             }
         }
         return success;
-    }	
+    }
+
+    public Domicilio createDomicilio(EndocrinologoForm endo) {
+        Domicilio domicilio = new Domicilio();
+        domicilio.setLocalidad(localidadManager.getLocalidadByNombreYProvincia(endo.getLocalidad(), endo.getProvincia()).get(0));
+        domicilio.setPiso(endo.getPiso());
+        domicilio.setDpto(endo.getDpto());
+        domicilio.setCalle(endo.getCalle());
+        domicilio.setNumero(new Long (endo.getNumero()));
+        return domicilio;
+    }
+
+    public Date getFechaNac(EndocrinologoForm endo) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = endo.getDia() + "/" + endo.getMes() + "/" + endo.getAnio();
+        return formatter.parse(strDate);
+    }
 }

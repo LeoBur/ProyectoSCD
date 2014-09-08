@@ -56,7 +56,7 @@ public class PersonaManagerImpl extends UserManagerImpl implements PersonaManage
 	}
 
 	@Override
-	public Persona getPersonaByDni(Long dni) {
+	public Persona getPersonaByDni(String dni) {
 		return personaDao.getPersonaByDni(dni);
 	}
 

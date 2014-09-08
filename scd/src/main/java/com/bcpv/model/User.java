@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyze;
@@ -163,6 +165,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_domicilio")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
@@ -227,7 +230,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return enabled;
     }
 
-    @Column(name = "account_expired", nullable = false)
+    @Column(name = "account_expired")
     public boolean isAccountExpired() {
         return accountExpired;
     }
@@ -241,7 +244,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountExpired();
     }
 
-    @Column(name = "account_locked", nullable = false)
+    @Column(name = "account_locked")
     public boolean isAccountLocked() {
         return accountLocked;
     }
@@ -255,7 +258,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountLocked();
     }
 
-    @Column(name = "credentials_expired", nullable = false)
+    @Column(name = "credentials_expired")
     public boolean isCredentialsExpired() {
         return credentialsExpired;
     }
