@@ -100,7 +100,7 @@ public class BusquedaPacienteController extends BaseFormController{
 				mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacientesByApellido(persList));
 				
 			} else {
-				Persona persona = personaManager.getPersonaByDni(new Long(endoSearch.getDniPaciente()));
+				Persona persona = personaManager.getPersonaByDni(endoSearch.getDniPaciente());
 				mv.addObject(Constants.PACIENTE_LIST, pacienteManager.loadPacienteByDNI(persona));
 			}
 		} catch (EntityNotFoundException enfe){

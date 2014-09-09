@@ -25,7 +25,7 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-<!-- Acá comienzan los formularios -->
+<!-- Acï¿½ comienzan los formularios -->
 
 <div class="col-sm-7">
 	<spring:bind path="paciente.*">
@@ -147,7 +147,7 @@
 							</div>
 						</div>
 					</spring:bind>
-			</div>
+			    </div>
 
 			<div class="row">
 				<spring:bind path="paciente.domicilio.calle">
@@ -305,7 +305,7 @@
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 	
 	
-<!-- Probamos con usuario y contraseña -->
+<!-- Probamos con usuario y contraseï¿½a -->
    <%--   <spring:bind path="user.username">
               <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
               </spring:bind>

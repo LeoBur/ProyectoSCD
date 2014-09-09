@@ -15,6 +15,6 @@ public interface PersonaDao extends UserDao{
     
     List<Persona> getPersonasByApellido(String apellido);
 
-	Persona getPersonaByDni(Long dni);
+	Persona getPersonaByDni(String dni);
     
 }

@@ -1,9 +1,12 @@
 package com.bcpv.webapp.controller.forms;
 
-import java.util.Date;
-
+import com.bcpv.dao.LocalidadDao;
 import com.bcpv.model.Domicilio;
+import com.bcpv.model.Localidad;
 import com.bcpv.model.Persona.Sexo;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EndocrinologoForm {
 
@@ -16,11 +19,18 @@ public class EndocrinologoForm {
     private String email;                       
     private String phoneNumber;
     private String dni;
-    private Date fch_nac;
+    private String dia;
+    private String mes;
+    private String anio;
     private Sexo sexo;
-    private Domicilio domicilio;
+    private String provincia;
+    private String localidad;
+    private String calle;
+    private String numero;
+    private String dpto;
+    private String piso;
 	private Long matricula;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -75,19 +85,97 @@ public class EndocrinologoForm {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public Date getFch_nac() {
-		return fch_nac;
-	}
-	public void setFch_nac(Date fch_nac) {
-		this.fch_nac = fch_nac;
-	}
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
-	public Long getMatricula() {
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getDpto() {
+        return dpto;
+    }
+
+    public void setDpto(String dpto) {
+        this.dpto = dpto;
+    }
+
+    public String getPiso() {
+        return piso;
+    }
+
+    public void setPiso(String piso) {
+        this.piso = piso;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.setProvincia(domicilio.getLocalidad().getProvincia().getNombre());
+        this.setLocalidad(domicilio.getLocalidad().getNombre());
+        this.setCalle(domicilio.getCalle());
+        this.setDpto(domicilio.getDpto());
+        this.setPiso(domicilio.getPiso());
+        this.setNumero(domicilio.getNumero().toString());
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public String getMes() {
+        return mes;
+    }
+
+    public String getAnio() {
+        return anio;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public void setMes(String mes) {
+        this.mes = mes;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+
+    public void setFechaNac(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(date);
+        this.setDia(strDate.substring(0, 1));
+        this.setMes(strDate.substring(3,4));
+        this.setAnio(strDate.substring(6,9));
+    }
+
+    public Long getMatricula() {
 		return matricula;
 	}
 	public void setMatricula(Long matricula) {

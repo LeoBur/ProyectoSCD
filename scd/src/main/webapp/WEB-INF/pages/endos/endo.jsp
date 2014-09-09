@@ -7,7 +7,7 @@
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-	//javascript para el autocomplete de ciudades
+	//javascript para el autocomplete de apellidoPaciente
 	$(document).ready(function() {
 		$('#apellidoPaciente').autocomplete({
 			serviceUrl : '/getTags',
