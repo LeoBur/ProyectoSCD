@@ -42,7 +42,7 @@ public class Domicilio implements Serializable{
 		this.idDomicilio = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_localidad", nullable = false)
 	public Localidad getLocalidad() {
 		return localidad;

@@ -55,7 +55,7 @@ public class Localidad implements Serializable {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_departamento", nullable = false)
 	public Departamento getDepartamento() {
 		return this.departamento;
@@ -65,7 +65,7 @@ public class Localidad implements Serializable {
 		this.departamento = departamento;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_provincia", nullable = false)
 	public Provincia getProvincia() {
 		return this.provincia;
@@ -85,7 +85,7 @@ public class Localidad implements Serializable {
 	}
 	
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Domicilio> getDomicilios() {
 		return domicilios;

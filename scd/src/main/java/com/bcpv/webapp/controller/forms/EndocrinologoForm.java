@@ -170,9 +170,9 @@ public class EndocrinologoForm {
     public void setFechaNac(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
-        this.setDia(strDate.substring(0, 1));
-        this.setMes(strDate.substring(3,4));
-        this.setAnio(strDate.substring(6,9));
+        this.setDia(strDate.substring(0, 2));
+        this.setMes(strDate.substring(3,5));
+        this.setAnio(strDate.substring(6,10));
     }
 
     public Long getMatricula() {
@@ -187,4 +187,8 @@ public class EndocrinologoForm {
 	public void setSexo(com.bcpv.model.Persona.Sexo sexo) {
 		this.sexo = sexo;
 	}
+
+    public void setMatriculaByPersona() {
+
+    }
 }

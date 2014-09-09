@@ -3,9 +3,11 @@ package com.bcpv.service;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
 import com.bcpv.dao.EndocrinologoDao;
 import com.bcpv.model.Endocrinologo;
+import com.bcpv.model.Persona;
 
 public interface EndocrinologoManager extends GenericManager<Endocrinologo, Long>{
 	
@@ -24,5 +26,7 @@ public interface EndocrinologoManager extends GenericManager<Endocrinologo, Long
     List<Endocrinologo> search(String searchTerm);
 		
 	Endocrinologo getEndocrinologoByMatricula(Long matricula);
+
+    Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException;
 
 }

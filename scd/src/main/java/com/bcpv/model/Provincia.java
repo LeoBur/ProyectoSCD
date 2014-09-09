@@ -63,7 +63,7 @@ public class Provincia implements Serializable {
 		this.departamentos = departamentos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Localidad> getLocalidades() {
 		return this.localidades;
