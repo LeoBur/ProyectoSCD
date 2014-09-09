@@ -63,12 +63,22 @@ $(document).ready(function(){
 				dni:{
 					required:true,
 					number:true,
-					minlength:7
+					minlength:7,
+					maxlength:8
 				},
 				sexo:{
 					required:true
 				},
 				fch_nac:{
+					required:true
+				},
+				dia:{
+					required:true
+				},
+				mes:{
+					required:true
+				},
+				anio:{
 					required:true
 				},
 				provincia:{

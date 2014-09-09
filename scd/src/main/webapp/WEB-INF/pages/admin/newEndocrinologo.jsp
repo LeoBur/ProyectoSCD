@@ -9,18 +9,18 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
 	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
 	<script src="/scripts/validator.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
 	  	window.location.href = "http://localhost:8080/endos/endo";
 	  	};
 	</script>
-	<script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
-    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+	
     <script type="text/javascript">
     	//javascript para el autocomplete de provincia
     	$(document).ready(function() {
@@ -159,7 +159,7 @@
 	            <appfuse:label styleClass="control-label" key="user.dia"/>
 	        	<input type="text" name="dia" id="dia" class="form-control"
 	           	placeholder="<fmt:message key="user.dia"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="4">
+	           	 tabindex="5">
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
@@ -169,7 +169,7 @@
 	            <appfuse:label styleClass="control-label" key="user.mes"/>
 	        	<input type="text" name="mes" id="mes" class="form-control"
 	           	placeholder="<fmt:message key="user.mes"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="5">
+	           	 tabindex="6">
 	          </spring:bind>
 	          		<label for="mes" generated="true" class="error"></label>
 		   	  <form:errors path="mes" cssClass="help-block"/>
@@ -179,7 +179,7 @@
 	            <appfuse:label styleClass="control-label" key="user.anio"/>
 	        	<input type="text" name="anio" id="anio" class="form-control"
 	           	placeholder="<fmt:message key="user.anio"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="6">
+	           	 tabindex="7">
 	          </spring:bind>
 	          		<label for="anio" generated="true" class="error"></label>
 		   	  <form:errors path="anio" cssClass="help-block"/>
@@ -192,9 +192,10 @@
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
-						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="6"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="7"/>  Masculino
+						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="8"/>  Femenino &nbsp; &nbsp; &nbsp;
+						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="8"/>  Masculino
 						</div>
+						<label for="sexo" generated="true" class="error"></label>
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>
 			</spring:bind>
@@ -207,7 +208,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
 		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="8"/>
+		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="10"/>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -216,7 +217,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
-				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="9"/>
+				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="11"/>
 				<form:errors path="email" cssClass="help-block" />
 			</div>
 		  </spring:bind>
@@ -232,7 +233,7 @@
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
 							<input type="text" id="provincia" name="provincia" class="form-control"
-							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="10"/>
+							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="12"/>
 							<form:errors path="provincia" cssClass="help-block" />
 						  </div>
 						</div>
@@ -244,7 +245,7 @@
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
 								<input id="localidad" name="localidad" class="form-control"
-								placeholder="<fmt:message key="user.address.localidad"/>" value="${status.value}" tabindex="11"/>
+								placeholder="<fmt:message key="user.address.localidad"/>" value="${status.value}" tabindex="13"/>
 								<form:errors path="localidad" cssClass="help-block" />
 							</div>
 						</div>
@@ -259,7 +260,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
-							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="12"/>
+							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="14"/>
 							<form:errors path="calle" cssClass="help-block" />
 						</div>
 					</div>
@@ -271,7 +272,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
-							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="13"/>
+							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="15"/>
 							<form:errors path="numero" cssClass="help-block" />
 						</div>
 					</div>
@@ -286,7 +287,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
 							<input id="dpto" name="dpto" class="form-control"
-							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="14"/>
+							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="16"/>
 							<form:errors path="dpto" cssClass="help-block" />
 						</div>
 					</div>	
@@ -298,7 +299,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
 							<input id="piso" name="piso" class="form-control"
-							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" tabindex="15"/>
+							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" tabindex="17"/>
 							<form:errors path="piso" cssClass="help-block" />
 						</div>
 					</div>
@@ -314,7 +315,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.password" />
 		  		<input type="password" id="password" name="password" class="form-control"
-		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="16"/>
+		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="18"/>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -323,7 +324,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.confirmPassword" />
 				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="17"/>
+				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="19"/>
 				<form:errors path="confirmPassword" cssClass="help-block" />
 			</div>
 		  </spring:bind>
@@ -334,24 +335,24 @@
          	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
          	  <input type="text" id="matricula" name="matricula" class="form-control"
-              value="${status.value}" tabindex="18"/>
+              value="${status.value}" tabindex="20"/>
          	</div>
            </spring:bind>
          </div>
 		</div>
 		
        	<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="19">
+			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="21">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
 			<c:if test="${not empty endocrinologoForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="20">
+				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="22">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
 				</button>
 			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="23">
 
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
