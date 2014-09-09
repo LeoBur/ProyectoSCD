@@ -10,8 +10,6 @@ import java.util.Locale;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 
 import com.bcpv.Constants;
 import com.bcpv.model.Domicilio;
@@ -60,17 +58,20 @@ public class AbmEndocrinologoController extends BaseFormController{
 
 	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
 	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
-    					   HttpServletRequest request) {
+						 HttpServletRequest request) {
+		final String dni = request.getParameter("dni");
 		try {
 			Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
 			if (persona.getId() != null) {
 				endocrinologoForm.setId(persona.getId());
+				endocrinologoForm.setDni(dni);
 				endocrinologoForm.setUsername(persona.getUsername());
 				endocrinologoForm.setPassword(persona.getPassword());
 				endocrinologoForm.setConfirmPassword(persona.getConfirmPassword());
 				endocrinologoForm.setFirstName(persona.getFirstName());
 				endocrinologoForm.setLastName(persona.getLastName());
 				endocrinologoForm.setEmail(persona.getEmail());
+				endocrinologoForm.setUsername(persona.getUsername());
 				endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
 				endocrinologoForm.setFechaNac(persona.getFch_nac());
 				endocrinologoForm.setSexo(persona.getSexo());

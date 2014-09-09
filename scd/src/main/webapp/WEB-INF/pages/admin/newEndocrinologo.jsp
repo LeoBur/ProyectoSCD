@@ -17,7 +17,8 @@
 	  	function CancelFormButton(button) {
 	  		onsubmit: false;
 	  	window.location.href = "http://localhost:8080/endos/endo";
-	  	}
+	  	};
+	  	
 	  </script>
 </head>
 
@@ -33,7 +34,7 @@
 			<p><fmt:message key="userProfile.admin.message"/></p>
 		</c:when>
 		<c:otherwise>
-			<p><fmt:message key="userProfile.message.cliente"/></p>
+			<p><fmt:message key="userProfile.message.endocrinologo"/></p>
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -72,13 +73,18 @@
 				    </spring:bind>
 				    	
 				  </div>
-				  <div class="form-group">
+				  
+				  <div class="col-sm-6 form-group">
+				  <br>
+				  <div>
 					<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
-						 formnovalidate="formnovalidate" onclick="bCancel=false">
+						formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2">
 						<i class="icon-upload icon-white"></i>
 						<fmt:message key="button.search" />
 					</button>
-				</div>
+					</div>
+				 </div>
+				  
 			</div>
 			
 		</div>
@@ -89,7 +95,7 @@
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	        	<input type="text" name="firstName" id="firstName" class="form-control"
 	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="2">
+	           	 tabindex="3">
 	          </spring:bind>
 	          		<label for="firstName" generated="true" class="error"></label>
 	          <form:errors path="firstName" cssClass="help-block"/>
@@ -99,7 +105,7 @@
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	        	<input type="text" name="lastName" id="lastName" class="form-control"
 	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="3">
+	           	 tabindex="4">
 	          </spring:bind>
 	          		<label for="lastName" generated="true" class="error"></label>
 		   	  <form:errors path="lastName" cssClass="help-block"/>
@@ -161,13 +167,24 @@
 		</div> --%>
 		
 		<div class="row">
+		  
+		  <div>
+			<spring:bind path="endocrinologoForm.matricula">
+				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
+					<input type="text" id="matricula" name="matricula" class="form-control"
+					value="${status.value}" tabindex="5"/>
+				</div>
+			</spring:bind>
+		  </div>
+		
 		  <div>
 		    <spring:bind path="endocrinologoForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
-						<input type="radio" name="sex" value="F" value="${status.value}" tabindex="7"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sex" value="M" value="${status.value}"/>  Masculino
+						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="6"/>  Femenino &nbsp; &nbsp; &nbsp;
+						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="7"/>  Masculino
 						</div>
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>
@@ -320,12 +337,12 @@
 				<fmt:message key="button.save" />
 			</button>
 			<c:if test="${not empty endocrinologoForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="20">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
 				</button>
 			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="CancelFormButton(this);">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="CancelFormButton(this);" tabindex="21">
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
 			</button>
@@ -336,6 +353,15 @@
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
 		// This is here so we can exclude the selectAll call when roles is hidden
+		$('button[name="search"]').click(function(e){
+			e.preventDefault();
+			var dni = $('#dni').val();
+			//console.log($.get('http://localhost:8080/admin/buscar', { dni: dni}));
+			console.log($.get('http://localhost:8080/admin/buscar', dni));
+			$.get('http://localhost:8080/admin/buscar', {dni: dni});
+			//window.location.href = "http://localhost:8080/admin/buscar";
+			console.log(e);
+		});
 		function onFormSubmit(theForm) {
 			return validateUser(theForm);
 		}
