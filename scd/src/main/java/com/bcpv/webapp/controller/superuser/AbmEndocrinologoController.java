@@ -147,9 +147,6 @@ public class AbmEndocrinologoController extends BaseFormController{
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
         persona.setDomicilio(createDomicilio(endocrinologoForm));
-
-        //TODO Se agrega para probar ELIMINAR una vez que esta corregido lo de sexo!!!!
-        persona.setSexo(Persona.Sexo.M);
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
         

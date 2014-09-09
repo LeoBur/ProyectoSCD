@@ -9,17 +9,58 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
-	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
-	  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
-	  <script src="/scripts/validator.js" type="text/javascript"></script>
-	  <script type="text/javascript">
-	  	function CancelFormButton(button) {
-	  		onsubmit: false;
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+	<script src="/scripts/validator.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function CancelFormButton(button) {
+			onsubmit: false;
 	  	window.location.href = "http://localhost:8080/endos/endo";
 	  	};
-	  	
-	  </script>
+	</script>
+	<script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    	//javascript para el autocomplete de provincia
+    	$(document).ready(function() {
+    		$('#provincia').autocomplete({
+    			serviceUrl : '/getTags',
+    			paramName : "tagName",
+    			delimiter : ",",
+    			transformResult : function(response) {
+    				return {
+    					suggestions : $.map($.parseJSON(response), function(item) {
+    						return {
+    							value : item.tagName,
+    							data : item.id
+    						};
+    					})
+    				};
+    			}
+    		});
+    	});
+    </script>
+    <script type="text/javascript">
+        	//javascript para el autocomplete de localidad
+        	$(document).ready(function() {
+        		$('#localidad').autocomplete({
+        			serviceUrl : '/getTags',
+        			paramName : "tagName",
+        			delimiter : ",",
+        			transformResult : function(response) {
+        				return {
+        					suggestions : $.map($.parseJSON(response), function(item) {
+        						return {
+        							value : item.tagName,
+        							data : item.id
+        						};
+        					})
+        				};
+        			}
+        		});
+        	});
+        </script>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -167,18 +208,7 @@
 		</div> --%>
 		
 		<div class="row">
-		  
-		  <div>
-			<spring:bind path="endocrinologoForm.matricula">
-				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
-					<input type="text" id="matricula" name="matricula" class="form-control"
-					value="${status.value}" tabindex="5"/>
-				</div>
-			</spring:bind>
-		  </div>
-		
-		  <div>
+		<div>
 		    <spring:bind path="endocrinologoForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
