@@ -1,11 +1,14 @@
 package com.bcpv.service.impl;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,5 +85,10 @@ public class EndocrinologoManagerImpl extends GenericManagerImpl<Endocrinologo, 
 	public Endocrinologo getEndocrinologoByMatricula(Long matricula) {
 		return endocrinologoDao.getEndocrinologoByMatricula(matricula);
 	}
+
+    @Override
+    public Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException{
+        return endocrinologoDao.getEndocrinologoByPersona(persona);
+    }
 	
 }

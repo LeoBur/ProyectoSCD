@@ -83,6 +83,7 @@ public class AbmEndocrinologoController extends BaseFormController {
 				endocrinologoForm.setFechaNac(persona.getFch_nac());
 				endocrinologoForm.setSexo(persona.getSexo());
 				endocrinologoForm.setDomicilio(persona.getDomicilio());
+                endocrinologoForm.setMatricula(getMatricula(persona));
 			} else throw new EntityNotFoundException();
 			
 		} catch (NullPointerException npe){
@@ -179,7 +180,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         return success;
     }
 
-    public Domicilio createDomicilio(EndocrinologoForm endo) {
+    private Domicilio createDomicilio(EndocrinologoForm endo) {
         Domicilio domicilio = new Domicilio();
         domicilio.setLocalidad(localidadManager.getLocalidadByNombreYProvincia(endo.getLocalidad(), endo.getProvincia()).get(0));
         domicilio.setPiso(endo.getPiso());
@@ -189,9 +190,17 @@ public class AbmEndocrinologoController extends BaseFormController {
         return domicilio;
     }
 
-    public Date getFechaNac(EndocrinologoForm endo) throws ParseException {
+    private Date getFechaNac(EndocrinologoForm endo) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = endo.getDia() + "/" + endo.getMes() + "/" + endo.getAnio();
         return formatter.parse(strDate);
+    }
+
+    private Long getMatricula (Persona persona) {
+        try {
+            return endocrinologoManager.getEndocrinologoByPersona(persona).getMatricula();
+        } catch (EntityNotFoundException e) {
+            return null;
+        }
     }
 }

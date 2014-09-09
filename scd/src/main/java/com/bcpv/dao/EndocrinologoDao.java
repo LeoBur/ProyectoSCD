@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import com.bcpv.model.Endocrinologo;
+import com.bcpv.model.Persona;
 
 public interface EndocrinologoDao extends GenericDao<Endocrinologo, Long>{
 	
@@ -17,5 +18,7 @@ public interface EndocrinologoDao extends GenericDao<Endocrinologo, Long>{
 	Endocrinologo getEndocrinologoByMatricula (Long matricula);
 	
 	Long loadIdEndocrinologoByUsername(String username) throws EntityNotFoundException;
+
+    Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException;
 
 }
