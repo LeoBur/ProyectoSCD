@@ -65,6 +65,11 @@ public final class Constants {
     public static final String ADMIN_ROLE = "ROLE_ADMIN";
 
     /**
+     * The name of the Endocrinologist role
+     */
+    public static final String ENDO_ROLE = "ROLE_ENDO";
+
+    /**
      * The name of the User role, as specified in web.xml
      */
     public static final String USER_ROLE = "ROLE_USER";

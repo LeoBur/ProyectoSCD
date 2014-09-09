@@ -51,6 +51,7 @@ $(document).ready(function(){
 					digits:true
 				},
 				matricula:{
+					required:true,
 					digits:true
 				},
 				calle:{
@@ -63,6 +64,17 @@ $(document).ready(function(){
 					required:true,
 					number:true,
 					minlength:7
+				},
+				sexo:{
+					required:true
+				},
+				fch_nac:{
+					required:true
+				},
+				provincia:{
+					required:true
+				},
+				localidad:{
 				}
 			},
 			success:function(etiqueta){

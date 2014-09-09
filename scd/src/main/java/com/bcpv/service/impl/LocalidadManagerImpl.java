@@ -77,4 +77,10 @@ public class LocalidadManagerImpl extends GenericManagerImpl<Localidad, Long> im
 		localidadDao.remove(new Long(id));
 		
 	}
+
+    @Override
+    public List<Localidad> getLocalidadByNombreYProvincia(String nombre, String provincia) {
+        log.debug("Searching Localidad by Nombre and Provincia");
+        return localidadDao.getByNombreYProv(nombre, provincia);
+    }
 }

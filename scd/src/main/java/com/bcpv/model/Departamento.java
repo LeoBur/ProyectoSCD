@@ -64,7 +64,7 @@ public class Departamento implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Localidad> getLocalidades() {
 		return this.localidades;
 	}

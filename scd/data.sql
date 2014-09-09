@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `provincias` (
-  `id` int(2) NOT NULL,
+  `id_provincia` int(2) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `provincias` (
 -- Volcado de datos para la tabla `provincias`
 --
 
-INSERT INTO `provincias` (`id`, `nombre`) VALUES
+INSERT INTO `provincias` (`id_provincia`, `nombre`) VALUES
 (1, 'Buenos Aires y Cap.'),
 (2, 'Catamarca'),
 (3, 'Chaco'),
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `id` int(3) NOT NULL,
   `id_provincia` int(2) NOT NULL,
    FOREIGN KEY (id_provincia) 
-        REFERENCES provincias(id)
+        REFERENCES provincias(id_provincia)
         ON DELETE CASCADE,
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -670,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `localidades` (
         ON DELETE CASCADE,
   `id_provincia` int(3) NOT NULL,
    FOREIGN KEY (id_provincia) 
-        REFERENCES provincias(id)
+        REFERENCES provincias(id_provincia)
         ON DELETE CASCADE,
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)

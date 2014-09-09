@@ -52,8 +52,9 @@ public class PersonaDaoHibernate extends UserDaoHibernate implements PersonaDao,
 	}
 
 	@Override
-	public Persona getPersonaByDni(Long dni) {
-		Query qry = getSession().createQuery("from Persona p where p.dni = dni");
+	public Persona getPersonaByDni(String dni) {
+		Query qry = getSession().createQuery("from Persona p where p.dni = :dni")
+                .setParameter("dni", dni);
 		Persona persona = (Persona) qry.uniqueResult();
 		if (persona == null){
 			return new Persona();
