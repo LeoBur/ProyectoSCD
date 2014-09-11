@@ -60,6 +60,7 @@ public class AbmEndocrinologoController extends BaseFormController {
 	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
 						 HttpServletRequest request) {
         Locale locale = request.getLocale();
+        Long matricula;
 
         final String dni = request.getParameter("dni");
 		try {
@@ -74,7 +75,7 @@ public class AbmEndocrinologoController extends BaseFormController {
 				endocrinologoForm.setDni(dni);
 				endocrinologoForm.setUsername(persona.getUsername());
 				endocrinologoForm.setPassword(persona.getPassword());
-				endocrinologoForm.setConfirmPassword(persona.getConfirmPassword());
+				endocrinologoForm.setConfirmPassword(persona.getPassword());
 				endocrinologoForm.setFirstName(persona.getFirstName());
 				endocrinologoForm.setLastName(persona.getLastName());
 				endocrinologoForm.setEmail(persona.getEmail());
@@ -88,13 +89,13 @@ public class AbmEndocrinologoController extends BaseFormController {
 			
 		} catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));
+        } catch (EntityNotFoundException enfe) {
+                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+        }
+		finally {
             return "admin/newEndocrinologo";
         }
-            catch (EntityNotFoundException enfe){
-			saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
-			return "admin/newEndocrinologo";
-		}
-		return "admin/newEndocrinologo";
+
 	}
 
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)

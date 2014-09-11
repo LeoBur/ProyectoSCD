@@ -69,13 +69,13 @@ public class EndocrinologoDaoHibernate extends GenericDaoHibernate<Endocrinologo
 	
 	@Override
     public Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException{
-        Query qry = getSession().createQuery("from endocrinologo e where  = :id");
-        qry.setParameter("id", persona.getId());
-        List<Endocrinologo> list = qry.list();
-        if (list == null) {
+        Query qry = getSession().createQuery("from Endocrinologo e where  e.persona.id = :id_persona");
+        qry.setParameter("id_persona", persona.getId());
+        Endocrinologo endocrinologo = (Endocrinologo) qry.uniqueResult();
+        if (endocrinologo == null) {
             throw new EntityNotFoundException("No existe endocrinologo asociado a la persona");
         } else {
-            return list.get(0);
+            return endocrinologo;
         }
     }
 
