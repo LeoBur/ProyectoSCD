@@ -20,47 +20,20 @@
 	  	window.location.href = "http://localhost:8080/endos/endo";
 	  	};
 	</script>
-	
-    <script type="text/javascript">
-    	//javascript para el autocomplete de provincia
-    	$(document).ready(function() {
-    		$('#provincia').autocomplete({
-    			serviceUrl : '/getTags',
-    			paramName : "tagName",
-    			delimiter : ",",
-    			transformResult : function(response) {
-    				return {
-    					suggestions : $.map($.parseJSON(response), function(item) {
-    						return {
-    							value : item.tagName,
-    							data : item.id
-    						};
-    					})
-    				};
-    			}
-    		});
-    	});
+
+	<script type="text/javascript" charset="utf-8">
+    $(function(){
+      $("select#provincia").change(function(){
+        $.getJSON("/getLocalidades?provincia="+$(this).val(), function(j){
+          var options = '';
+          for (var i = 0; i < j.length; i++) {
+            options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+          }
+          $("select#localidad").html(options);
+        })
+      })
+    })
     </script>
-    <script type="text/javascript">
-        	//javascript para el autocomplete de localidad
-        	$(document).ready(function() {
-        		$('#localidad').autocomplete({
-        			serviceUrl : '/getTags',
-        			paramName : "tagName",
-        			delimiter : ",",
-        			transformResult : function(response) {
-        				return {
-        					suggestions : $.map($.parseJSON(response), function(item) {
-        						return {
-        							value : item.tagName,
-        							data : item.id
-        						};
-        					})
-        				};
-        			}
-        		});
-        	});
-        </script>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -233,9 +206,9 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
-							<input type="text" id="provincia" name="provincia" class="form-control"
-							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="12"/>
-							<label for="provincia" generated="true" class="error"></label>
+							<form:select id="provincia" name="provincia" class="form-control" path="provincia" tabindex="12">
+							  <form:options items="${provinciaList}"/>
+							</form:select>
 							<form:errors path="provincia" cssClass="help-block" />
 						  </div>
 						</div>
@@ -246,8 +219,8 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
-								<input id="localidad" name="localidad" class="form-control"
-								placeholder="<fmt:message key="user.address.localidad"/>" value="${status.value}" tabindex="13"/>
+								<form:select id="localidad" name="localidad" class="form-control"
+								 path="localidad" tabindex="13"/>
 								<form:errors path="localidad" cssClass="help-block" />
 							</div>
 						</div>

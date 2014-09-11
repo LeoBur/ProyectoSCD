@@ -2,21 +2,28 @@ package com.bcpv.webapp.controller.superuser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.model.Tag;
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.Constants;
@@ -55,6 +62,24 @@ public class AbmEndocrinologoController extends BaseFormController {
 	public AbmEndocrinologoController(){
 	
 	}
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades")
+    @ResponseBody
+    public String getLocalidades( @RequestParam("provincia") String provincia) {
+        List<Localidad> localidades = localidadManager.getLocalidades();
+        JSONArray ja = new JSONArray();
+        int i = 0;
+        for (Localidad localidad : localidades) {
+            JSONObject j = new JSONObject();
+            if (provincia.equals(localidad.getProvincia().getNombre())) {
+                j.put("opotionValue", i);
+                j.put("optionDisplay", localidad.getNombre());
+                ja.add(i, j);
+                i++;
+            }
+        }
+        return ja.toString();
+    }
 
 	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
 	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
