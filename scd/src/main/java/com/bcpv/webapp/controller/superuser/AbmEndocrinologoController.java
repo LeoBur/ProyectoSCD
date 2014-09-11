@@ -72,7 +72,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         for (Localidad localidad : localidades) {
             JSONObject j = new JSONObject();
             if (provincia.equals(localidad.getProvincia().getNombre())) {
-                j.put("opotionValue", i);
+                j.put("optionValue", localidad.getNombre());
                 j.put("optionDisplay", localidad.getNombre());
                 ja.add(i, j);
                 i++;
@@ -82,7 +82,7 @@ public class AbmEndocrinologoController extends BaseFormController {
     }
 
 	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
-	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
+	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
 						 HttpServletRequest request) {
         Locale locale = request.getLocale();
         Long matricula;

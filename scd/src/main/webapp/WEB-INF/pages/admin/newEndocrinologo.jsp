@@ -166,7 +166,7 @@
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
 						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="8"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="8"/>  Masculino
+						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="9"/>  Masculino
 						</div>
 						<label for="sexo" generated="true" class="error"></label>
 					<form:errors path="sexo" cssClass="help-block" />
@@ -206,7 +206,7 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
-							<form:select id="provincia" name="provincia" class="form-control" path="provincia" tabindex="12">
+							<form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="12">
 							  <form:options items="${provinciaList}"/>
 							</form:select>
 							<form:errors path="provincia" cssClass="help-block" />
@@ -220,7 +220,9 @@
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
 								<form:select id="localidad" name="localidad" class="form-control"
-								 path="localidad" tabindex="13"/>
+								 path="localidad" tabindex="13">
+								 <form:options items="${localidad}"/>
+								</form:select>
 								<form:errors path="localidad" cssClass="help-block" />
 							</div>
 						</div>
