@@ -73,13 +73,19 @@ $(document).ready(function(){
 					required:true
 				},
 				dia:{
-					required:true
+					required:true,
+					digits:true,
+					maxlength:2
 				},
 				mes:{
-					required:true
+					required:true,
+                    digits:true,
+                    maxlength:2
 				},
 				anio:{
-					required:true
+					required:true,
+					digits:true,
+					maxlength:4
 				},
 				provincia:{
 					required:true

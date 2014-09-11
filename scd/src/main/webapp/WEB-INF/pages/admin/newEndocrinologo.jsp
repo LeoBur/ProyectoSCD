@@ -218,6 +218,7 @@
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
 				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="11"/>
+				<label for="email" generated="true" class="error"></label>
 				<form:errors path="email" cssClass="help-block" />
 			</div>
 		  </spring:bind>
@@ -234,6 +235,7 @@
 						  <div cssClass="form-control">
 							<input type="text" id="provincia" name="provincia" class="form-control"
 							placeholder="<fmt:message key="user.address.province"/>" value="${status.value}" tabindex="12"/>
+							<label for="provincia" generated="true" class="error"></label>
 							<form:errors path="provincia" cssClass="help-block" />
 						  </div>
 						</div>
@@ -261,6 +263,7 @@
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
 							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="14"/>
+							<label for="calle" generated="true" class="error"></label>
 							<form:errors path="calle" cssClass="help-block" />
 						</div>
 					</div>
@@ -273,6 +276,7 @@
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
 							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="15"/>
+							<label for="numero" generated="true" class="error"></label>
 							<form:errors path="numero" cssClass="help-block" />
 						</div>
 					</div>
@@ -316,6 +320,7 @@
 		  		<appfuse:label styleClass="control-label" key="user.password" />
 		  		<input type="password" id="password" name="password" class="form-control"
 		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="18"/>
+		  		<label for="password" generated="true" class="error"></label>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -325,17 +330,20 @@
 				<appfuse:label styleClass="control-label" key="user.confirmPassword" />
 				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
 				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="19"/>
+				<label for="confirmPassword" generated="true" class="error"></label>
 				<form:errors path="confirmPassword" cssClass="help-block" />
 			</div>
 		  </spring:bind>
 		 </div>
-
+         </div>
+         <div class="row">
 		 <div>
            <spring:bind path="endocrinologoForm.matricula">
          	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
          	  <input type="text" id="matricula" name="matricula" class="form-control"
               value="${status.value}" tabindex="20"/>
+              <label for="matricula" generated="true" class="error"></label>
          	</div>
            </spring:bind>
          </div>
