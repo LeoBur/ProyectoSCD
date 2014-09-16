@@ -69,10 +69,10 @@
 	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="formulario" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
-  			<input type="hidden"/>
+  			<input type="hidden" value="${status.value}"/>
   		</spring:bind>
   		<spring:bind path="username">
-  			<input type="hidden"/>                                             
+  			<input type="hidden" value="${status.value}"/>
   		</spring:bind>
 			
 			<div class="form-group">
@@ -130,7 +130,7 @@
             <div class="col-sm-2">
 	          <spring:bind path="endocrinologoForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.dia"/>
-	        	<input type="text" name="dia" id="dia" class="form-control"
+	        	<input type="number" name="dia" id="dia" class="form-control"
 	           	placeholder="<fmt:message key="user.dia"/>" value="${status.value}" maxlength="50"
 	           	 tabindex="5">
 	          </spring:bind>
@@ -140,7 +140,7 @@
             <div class="col-sm-2">
 	          <spring:bind path="endocrinologoForm.mes">
 	            <appfuse:label styleClass="control-label" key="user.mes"/>
-	        	<input type="text" name="mes" id="mes" class="form-control"
+	        	<input type="number" name="mes" id="mes" class="form-control"
 	           	placeholder="<fmt:message key="user.mes"/>" value="${status.value}" maxlength="50"
 	           	 tabindex="6">
 	          </spring:bind>
@@ -150,7 +150,7 @@
             <div class="col-sm-2">
 	          <spring:bind path="endocrinologoForm.anio">
 	            <appfuse:label styleClass="control-label" key="user.anio"/>
-	        	<input type="text" name="anio" id="anio" class="form-control"
+	        	<input type="number" name="anio" id="anio" class="form-control"
 	           	placeholder="<fmt:message key="user.anio"/>" value="${status.value}" maxlength="50"
 	           	 tabindex="7">
 	          </spring:bind>
@@ -166,7 +166,7 @@
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
 						<input type="radio" name="sexo" value="F" value="${status.value}" tabindex="8"/>  Femenino &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="sexo" value="M" value="${status.value}" tabindex="9"/>  Masculino
+						<input type="radio" name="sexo" value="M" value="${status.value}"/>  Masculino
 						</div>
 						<label for="sexo" generated="true" class="error"></label>
 					<form:errors path="sexo" cssClass="help-block" />
