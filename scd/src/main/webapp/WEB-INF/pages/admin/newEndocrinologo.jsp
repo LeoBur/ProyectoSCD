@@ -69,10 +69,10 @@
 	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="formulario" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
-  			<input type="hidden" value="${status.value}"/>
+  			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
   		</spring:bind>
   		<spring:bind path="username">
-  			<input type="hidden" value="${status.value}"/>
+  			<input type="hidden" id="username" class="form-control" value="${status.value}"/>
   		</spring:bind>
 			
 			<div class="form-group">

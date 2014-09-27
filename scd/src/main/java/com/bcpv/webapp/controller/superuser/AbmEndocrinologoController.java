@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -186,12 +187,17 @@ public class AbmEndocrinologoController extends BaseFormController {
             endocrinologoManager.remove(endocrinologoForm.getId());
             saveMessage(request, getText("admin.endocrinologist.deleted", locale));
         } else {
-        	personaManager.savePersona(persona);
-        	endocrinologoManager.saveEndocrinologo(endocrinologo);
-            String key = (isNew) ? "admin.endocrinologist.added" : "admin.endocrinologist.updated";
-            saveMessage(request, getText(key, locale));
-            success = "redirect:newEndocrinologo";
-            if (!isNew) {
+            try{
+                personaManager.savePersona(persona);
+                endocrinologoManager.saveEndocrinologo(endocrinologo);
+            } catch (EntityExistsException e) {
+                if (!isNew) {
+                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
+                    success = "redirect:newEndocrinologo";
+                }
+            }
+            if (isNew) {
+                saveMessage(request, getText("admin.endocrinologist.added", locale));
                 success = "redirect:newEndocrinologo";
             }
         }
