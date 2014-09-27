@@ -18,6 +18,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,74 +67,65 @@ public class AbmEndocrinologoController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades")
     @ResponseBody
     public String getLocalidades( @RequestParam("provincia") String provincia) {
-        List<Localidad> localidades = localidadManager.getLocalidades();
-        JSONArray ja = new JSONArray();
-        int i = 0;
-        for (Localidad localidad : localidades) {
-            JSONObject j = new JSONObject();
-            if (provincia.equals(localidad.getProvincia().getNombre())) {
-                j.put("optionValue", localidad.getNombre());
-                j.put("optionDisplay", localidad.getNombre());
-                ja.add(i, j);
-                i++;
-            }
-        }
-        return ja.toString();
+        return localidades(provincia);
     }
 
-	@RequestMapping(value = "admin/buscar*", method = RequestMethod.GET)
-	public String buscar(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
-						 HttpServletRequest request) {
-        Locale locale = request.getLocale();
-        Long matricula;
-
-        final String dni = request.getParameter("dni");
-		try {
-			if (StringUtils.isEmpty(dni)){
+	private void buscar(ModelAndView mv, EndocrinologoForm endocrinologoForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
+        final String dni = endocrinologoForm.getDni();
+        try {
+            if (StringUtils.isEmpty(dni)){
                 throw new NullPointerException();
             }
 
-			Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
-
-			if (persona.getId() != null) {
-				endocrinologoForm.setId(persona.getId());
-				endocrinologoForm.setDni(dni);
-				endocrinologoForm.setUsername(persona.getUsername());
-				endocrinologoForm.setPassword(persona.getPassword());
-				endocrinologoForm.setConfirmPassword(persona.getPassword());
-				endocrinologoForm.setFirstName(persona.getFirstName());
-				endocrinologoForm.setLastName(persona.getLastName());
-				endocrinologoForm.setEmail(persona.getEmail());
-				endocrinologoForm.setUsername(persona.getUsername());
-				endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-				endocrinologoForm.setFechaNac(persona.getFch_nac());
-				endocrinologoForm.setSexo(persona.getSexo());
-				endocrinologoForm.setDomicilio(persona.getDomicilio());
+            Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
+            mv.addObject("provinciaList", provincias);
+            if (persona.getId() != null) {
+                endocrinologoForm.setId(persona.getId());
+                endocrinologoForm.setDni(dni);
+                endocrinologoForm.setUsername(persona.getUsername());
+                endocrinologoForm.setPassword(persona.getPassword());
+                endocrinologoForm.setConfirmPassword(persona.getPassword());
+                endocrinologoForm.setFirstName(persona.getFirstName());
+                endocrinologoForm.setLastName(persona.getLastName());
+                endocrinologoForm.setEmail(persona.getEmail());
+                endocrinologoForm.setUsername(persona.getUsername());
+                endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
+                endocrinologoForm.setFechaNac(persona.getFch_nac());
+                endocrinologoForm.setSexo(persona.getSexo());
+                endocrinologoForm.setDomicilio(persona.getDomicilio());
                 endocrinologoForm.setMatricula(getMatricula(persona));
-			} else throw new EntityNotFoundException();
-			
-		} catch (NullPointerException npe){
+                mv.addObject("endocrinologoForm", endocrinologoForm);
+                List<Localidad> filtradas = new ArrayList<>();
+                for (Localidad localidad : localidades) {
+                    if (localidad.getProvincia().getNombre().equals(endocrinologoForm.getProvincia())) {
+                        filtradas.add(localidad);
+                    }
+                }
+                mv.addObject("localidadList", filtradas);
+            } else throw new EntityNotFoundException();
+
+        } catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } catch (EntityNotFoundException enfe) {
-                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
         }
-		finally {
-            return "admin/newEndocrinologo";
-        }
-
-	}
+    }
 
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)
-	public ModelAndView showForm(final HttpServletRequest request) {
+	public ModelAndView showForm(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
+                                 final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
 		ModelAndView mv = new ModelAndView("admin/newEndocrinologo");
-		if (request.getAttribute("endocrinologoForm") == null) {
-			EndocrinologoForm endocrinologoForm = new EndocrinologoForm();
-			mv.addObject("endocrinologoForm", endocrinologoForm);
-		}
-		List<Provincia> provincias = provinciaManager.getProvincias();
-		List<Localidad> localidades = localidadManager.getLocalidades();
-		mv.addObject("provinciaList", provincias);
-		mv.addObject("localidadList", localidades);
+        Locale locale = request.getLocale();
+        List<Provincia> provincias = provinciaManager.getProvincias();
+        List<Localidad> localidades = localidadManager.getLocalidades();
+		if (null == search && request.getAttribute("endocrinologoForm") == null) {
+			EndocrinologoForm endo = new EndocrinologoForm();
+			mv.addObject("endocrinologoForm", endo);
+            mv.addObject("provinciaList", provincias);
+            mv.addObject("localidadList", localidades);
+		} else {
+            buscar(mv, endocrinologoForm, request, provincias, localidades, locale);
+        }
 		return mv;
 	}
 
@@ -149,7 +141,7 @@ public class AbmEndocrinologoController extends BaseFormController {
             validator.validate(endocrinologoForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/registrar";
+                return "/newEndocrinologo";
             }
         }
 
@@ -228,5 +220,21 @@ public class AbmEndocrinologoController extends BaseFormController {
         } catch (EntityNotFoundException e) {
             return null;
         }
+    }
+
+    private String localidades (String provincia) {
+        List<Localidad> localidades = localidadManager.getLocalidades();
+        JSONArray ja = new JSONArray();
+        int i = 0;
+        for (Localidad localidad : localidades) {
+            JSONObject j = new JSONObject();
+            if (provincia.equals(localidad.getProvincia().getNombre())) {
+                j.put("optionValue", localidad.getNombre());
+                j.put("optionDisplay", localidad.getNombre());
+                ja.add(i, j);
+                i++;
+            }
+        }
+        return ja.toString();
     }
 }

@@ -91,8 +91,8 @@
 					  <div class="col-sm-6 form-group">
 					  <br>
 					  <div>
-						<button type="submit" name="search" class="btn btn-primary" formaction="buscar" formmethod="get"
-							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2">
+						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
+							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
 							<i class="icon-upload icon-white"></i>
 							<fmt:message key="button.search" />
 						</button>
@@ -220,8 +220,8 @@
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
 								<form:select id="localidad" name="localidad" class="form-control"
-								 path="localidad" tabindex="13">
-								 <form:options items="${localidad}"/>
+								 path="localidad" tabindex="13" value="${status.value}">
+								 <form:options items="${localidadList}"/>
 								</form:select>
 								<form:errors path="localidad" cssClass="help-block" />
 							</div>
@@ -278,7 +278,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
 							<input id="piso" name="piso" class="form-control"
-							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" tabindex="17"/>
+							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="17"/>
 							<form:errors path="piso" cssClass="help-block" />
 						</div>
 					</div>
@@ -294,7 +294,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.password" />
 		  		<input type="password" id="password" name="password" class="form-control"
-		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" tabindex="18"/>
+		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" autocomplete="off" tabindex="18"/>
 		  		<label for="password" generated="true" class="error"></label>
 		  	</div>
 		  </spring:bind>
@@ -355,15 +355,15 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/endo";
+				window.location.href = "http://localhost:8080/admin/newEndocrinologo";
 			});
-	</script>	 
-	<script type="text/javascript">	 
+	</script>
+	<script type="text/javascript">
 		 $('button[name="search"]').click(function(e){
 			  	e.preventDefault();
 				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
 				var dni = $('input[name=dni]').val();
-				window.location.href = "http://localhost:8080/admin/buscar?dni="+dni;
+				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
 			});
 	</script>
 	
