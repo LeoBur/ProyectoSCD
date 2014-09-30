@@ -87,6 +87,10 @@ $(document).ready(function(){
 					digits:true,
 					maxlength:4
 				},
+				medicion:{
+				    required:true,
+				    digits:true
+				},
 				provincia:{
 					required:true
 				},
