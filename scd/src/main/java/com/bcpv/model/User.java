@@ -171,7 +171,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
 	}
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)    
+    @Fetch(FetchMode.SELECT)
+    @Cascade(CascadeType.DELETE)
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },
