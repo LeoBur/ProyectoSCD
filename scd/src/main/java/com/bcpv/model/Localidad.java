@@ -42,7 +42,7 @@ public class Localidad implements Serializable {
 		this.id = id;
 		this.departamento = departamento;
 		this.provincia = provincia;
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 
 	@Id
@@ -81,7 +81,7 @@ public class Localidad implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 	
 	

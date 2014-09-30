@@ -49,7 +49,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
      * @param name name of the role.
      */
     public Role(final String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     @Id
@@ -82,11 +82,11 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description.toUpperCase();
     }
 
     /**

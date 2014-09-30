@@ -88,7 +88,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @param username login name for user.
      */
     public User(final String username) {
-        this.username = username;
+        this.username = username.toUpperCase();
     }
 
     @Id
@@ -277,7 +277,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toUpperCase();
     }
 
     public void setPassword(String password) {
@@ -293,15 +293,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toUpperCase();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toUpperCase();
     }
 
     public void setPhoneNumber(String phoneNumber) {

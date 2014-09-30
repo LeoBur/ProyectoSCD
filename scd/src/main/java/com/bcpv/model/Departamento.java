@@ -60,7 +60,7 @@ public class Departamento implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)

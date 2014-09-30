@@ -43,7 +43,7 @@ public class Comida implements Serializable{
 		return cantidad;
 	}
 	public void setCantidad(String cantidad) {
-		this.cantidad = cantidad;
+		this.cantidad = cantidad.toUpperCase();
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlimento",nullable=false)
@@ -58,6 +58,6 @@ public class Comida implements Serializable{
 		return observaciones;
 	}
 	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+		this.observaciones = observaciones.toUpperCase();
 	}
 }

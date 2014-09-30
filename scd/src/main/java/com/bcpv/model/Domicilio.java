@@ -56,7 +56,7 @@ public class Domicilio implements Serializable{
 		return calle;
 	}
 	public void setCalle(String calle) {
-		this.calle = calle;
+		this.calle = calle.toUpperCase();
 	}
 	
 	@Column(name="nro")
@@ -72,7 +72,7 @@ public class Domicilio implements Serializable{
 		return piso;
 	}
 	public void setPiso(String piso) {
-		this.piso = piso;
+		this.piso = piso.toUpperCase();
 	}
 	
 	@Column(name="dpto")
@@ -80,7 +80,7 @@ public class Domicilio implements Serializable{
 		return dpto;
 	}
 	public void setDpto(String dpto) {
-		this.dpto = dpto;
+		this.dpto = dpto.toUpperCase();
 	}
 
 }

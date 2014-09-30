@@ -51,7 +51,7 @@ public class Prescripcion implements Serializable{
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.toUpperCase();
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)

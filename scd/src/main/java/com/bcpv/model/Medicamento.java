@@ -44,7 +44,7 @@ public class Medicamento implements Serializable{
 		return nombreGenerico;
 	}
 	public void setNombreGenerico(String nombreGenerico) {
-		this.nombreGenerico = nombreGenerico;
+		this.nombreGenerico = nombreGenerico.toUpperCase();
 	}
 	
 	@Column(name="Nom_Comercial", nullable = false)
@@ -52,7 +52,7 @@ public class Medicamento implements Serializable{
 		return nombreComercial;
 	}
 	public void setNombreComercial(String nombreComercial) {
-		this.nombreComercial = nombreComercial;
+		this.nombreComercial = nombreComercial.toUpperCase();
 	}
 	
 	@Column(name="Presentacion", nullable = false)
@@ -60,7 +60,7 @@ public class Medicamento implements Serializable{
 		return presentacion;
 	}
 	public void setPresentacion(String presentacion) {
-		this.presentacion = presentacion;
+		this.presentacion = presentacion.toUpperCase();
 	}
 	@Column(name="Grupo_Medicamento",nullable = false)
 	@Enumerated(EnumType.STRING)
