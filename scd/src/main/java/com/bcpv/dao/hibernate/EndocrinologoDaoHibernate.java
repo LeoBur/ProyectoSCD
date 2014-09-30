@@ -48,6 +48,7 @@ public class EndocrinologoDaoHibernate extends GenericDaoHibernate<Endocrinologo
     
 	@Override
 	public Endocrinologo getEndocrinologoByMatricula(Long matricula) {
+        //TODO FIX QUERY
 		Endocrinologo endocrinologo = (Endocrinologo) getSession().createCriteria(Endocrinologo.class).add(Restrictions.eq("matricula_endo", matricula));
 		if (endocrinologo == null){
 			throw new EntityNotFoundException("No existe Endocrinologo con matricula :" + matricula);

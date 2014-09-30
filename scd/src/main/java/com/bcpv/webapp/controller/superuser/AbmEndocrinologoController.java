@@ -149,7 +149,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         boolean isNew = (endocrinologoForm.getId() == null);
         log.debug("entering 'onSubmit' method...");
 
-        String success = getSuccessView();
+        String success = "redirect:newEndocrinologo";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
@@ -184,7 +184,10 @@ public class AbmEndocrinologoController extends BaseFormController {
         saveMessage(request, getText("user.savedData", locale));
  
         if (request.getParameter("delete") != null) {
-            endocrinologoManager.remove(endocrinologoForm.getId());
+            Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
+            endocrinologoManager.remove(endo);
+            persona.getRoles().remove(roleManager.getRole(Constants.ENDO_ROLE));
+            personaManager.savePersona(persona);
             saveMessage(request, getText("admin.endocrinologist.deleted", locale));
         } else {
             try{
@@ -193,12 +196,10 @@ public class AbmEndocrinologoController extends BaseFormController {
             } catch (EntityExistsException e) {
                 if (!isNew) {
                     saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                    success = "redirect:newEndocrinologo";
                 }
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
-                success = "redirect:newEndocrinologo";
             }
         }
         return success;
