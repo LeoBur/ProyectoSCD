@@ -23,4 +23,6 @@ public interface LocalidadManager extends GenericManager<Localidad, Long>{
 
     List<Localidad> search(String searchTerm);
 
+    List<Localidad> getLocalidadByNombreYProvincia(String nombre, String provincia);
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -47,6 +48,7 @@ public class EndocrinologoDaoHibernate extends GenericDaoHibernate<Endocrinologo
     
 	@Override
 	public Endocrinologo getEndocrinologoByMatricula(Long matricula) {
+        //TODO FIX QUERY
 		Endocrinologo endocrinologo = (Endocrinologo) getSession().createCriteria(Endocrinologo.class).add(Restrictions.eq("matricula_endo", matricula));
 		if (endocrinologo == null){
 			throw new EntityNotFoundException("No existe Endocrinologo con matricula :" + matricula);
@@ -66,6 +68,16 @@ public class EndocrinologoDaoHibernate extends GenericDaoHibernate<Endocrinologo
 		}
 	}
 	
-	
+	@Override
+    public Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException{
+        Query qry = getSession().createQuery("from Endocrinologo e where  e.persona.id = :id_persona");
+        qry.setParameter("id_persona", persona.getId());
+        Endocrinologo endocrinologo = (Endocrinologo) qry.uniqueResult();
+        if (endocrinologo == null) {
+            throw new EntityNotFoundException("No existe endocrinologo asociado a la persona");
+        } else {
+            return endocrinologo;
+        }
+    }
 
 }

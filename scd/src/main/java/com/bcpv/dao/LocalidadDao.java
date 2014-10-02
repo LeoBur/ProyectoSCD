@@ -12,4 +12,6 @@ public interface LocalidadDao extends GenericDao<Localidad, Long> {
 	
 	Localidad saveLocalidad(Localidad localidad);
 
+    List<Localidad> getByNombreYProv(String nombre, String provincia);
+
 }

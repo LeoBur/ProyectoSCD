@@ -44,7 +44,7 @@ public class Alimento implements Serializable {
 		return nombre;
 	}
 	public void setNombreAlimento(String nombreAlimento) {
-		this.nombre = nombreAlimento;
+		this.nombre = nombreAlimento.toUpperCase();
 	}
 	
 	@Column(name = "cantGlucosaX100")

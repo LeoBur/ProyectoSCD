@@ -47,7 +47,7 @@ public class Medicion implements Serializable{
 	}
 	
 	public void setUnidad(String unidad){
-		this.unidad = unidad;
+		this.unidad = unidad.toUpperCase();
 	}
 	
 	@Column(name = "valor", nullable = false, unique = false)

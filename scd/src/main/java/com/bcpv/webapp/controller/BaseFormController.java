@@ -44,6 +44,7 @@ import com.bcpv.service.UserManager;
 public class BaseFormController implements ServletContextAware {
     public static final String MESSAGES_KEY = "successMessages";
     public static final String ERRORS_MESSAGES_KEY = "errors";
+    public static final String INFO_MESSAGES_KEY = "infos";
     protected final transient Log log = LogFactory.getLog(getClass());
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
@@ -93,6 +94,18 @@ public class BaseFormController implements ServletContextAware {
 
         messages.add(msg);
         request.getSession().setAttribute(MESSAGES_KEY, messages);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void saveInfo(HttpServletRequest request, String info) {
+        List infos = (List) request.getSession().getAttribute(INFO_MESSAGES_KEY);
+
+        if (infos == null) {
+            infos = new ArrayList();
+        }
+
+        infos.add(info);
+        request.getSession().setAttribute(INFO_MESSAGES_KEY, infos);
     }
 
     /**

@@ -16,7 +16,15 @@
 	  	function CancelFormButton(button) {
 	  		onsubmit: false;
 	  	window.location.href = "http://localhost:8080/endos/medicamentoList";
-	  	}
+	  	};
+	  	
+	  	/* $('button[name="cancel"]').click(function(e){
+			e.preventDefault();
+			console.log($.get('http://localhost:8080/endos/medicamentoList', function(data) { 
+				console.log(data);	
+				//$()
+			}));
+		}); */
 	  </script>
   
 
@@ -115,15 +123,27 @@
               <i class="icon-trash"></i> <fmt:message key="button.delete"/>
           </button>
         </c:if>
-
-		<button type="submit" class="btn btn-warning " name="cancel" onclick="CancelFormButton(this);">
-            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
-        </button>
-        <%-- <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+		
+		<%-- <button type="submit" class="btn btn-warning " name="cancel" onclick="CancelFormButton(this);">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button> --%>
+         <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+        </button> 
     </form:form>
 </div>
+
+<c:set var="scripts" scope="request">
+	<script type="text/javascript">
+		// This is here so we can exclude the selectAll call when roles is hidden
+		 $('button[name="cancel"]').click(function(e){
+			e.preventDefault();
+			window.location.href = "http://localhost:8080/endos/medicamentoList";
+			
+		}); 
+		
+	</script>
+</c:set>
 
 </body>
 </html>

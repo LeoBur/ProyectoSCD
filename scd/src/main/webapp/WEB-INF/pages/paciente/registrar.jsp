@@ -5,9 +5,16 @@
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
+    	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+    	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+    	  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+    	  <script src="/scripts/validator.js" type="text/javascript"></script>
+
 
 </head>
 <body>
@@ -43,16 +50,14 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="pacienteForm" method="post" action="registrar" autocomplete="off" id="pacienteForm" modelAttribute="pacienteForm" 
+    <form:form commandName="pacienteForm" method="post" action="registrar" autocomplete="off" id="formulario" modelAttribute="pacienteForm"
                cssClass="well" onsubmit="return validateUser(this)">
         	<form:hidden path="username"/>
         
         
 		        <div class="form-group">
 	                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>	                
-		            <form:input cssClass="form-control" path="fechaHora" id="fechaHora" size="12" onblur="dateValidate(this)"/>
-	                <%-- <form:input cssClass="form-control" path="fechaHora" id="datepicker" value="<%= currentDate %>"  size="12"/> --%>
-		                
+		            <form:input type="date" cssClass="form-control" path="fechaHora" id="fechaHora" size="12" onblur="dateValidate(this)"/>
 		        </div>   
 		        
 		        
@@ -63,6 +68,9 @@
                     
 		                <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
 		                <form:input cssClass="form-control" path="medicion" id="medicion"/>
+		                <label for="medicion" generated="true" class="error"></label>
+                        <form:errors path="medicion" cssClass="help-block"/>
+                        <form:errors path="medicion" cssClass="help-block"/>
 		                <%-- <form:errors path="medicion" cssClass="help-block"/> --%>
 		        </div>
 		        
@@ -101,7 +109,7 @@
 		        	<appfuse:label styleClass="control-label" key="active.momentodia"/>
 		        	<form:select cssClass="form-control" path="momento">
 		        		<form:option value="DESAYUNO" label="Desayuno"/>
-		        		<form:option value="MEDIA_MANIANA" label="Media Mañana" selected="selected"></form:option>
+		        		<form:option value="MEDIA_MANIANA" label="Media Maï¿½ana" selected="selected"></form:option>
 		        		<form:option value="ALMUERZO" label="Almuerzo"/>
 		        		<form:option value="MEDIA_TARDE" label="Media Tarde"/>
 		        		<form:option value="CENA" label="Cena"/>

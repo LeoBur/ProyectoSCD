@@ -2,19 +2,21 @@ package com.bcpv.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -28,13 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -51,6 +54,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "app_user")
 @Indexed
 @XmlRootElement
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -64,7 +68,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private String email;                       // required; unique
     private String phoneNumber;
     private String website;
-    private Address address = new Address();
+    private Domicilio domicilio;
     private Integer version;
     private Set<Role> roles = new HashSet<Role>();
     private boolean enabled;
@@ -84,7 +88,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @param username login name for user.
      */
     public User(final String username) {
-        this.username = username;
+        this.username = username.toUpperCase();
     }
 
     @Id
@@ -159,14 +163,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return firstName + ' ' + lastName;
     }
 
-    @Embedded
-    @IndexedEmbedded
-    public Address getAddress() {
-        return address;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_domicilio")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)    
+    @Fetch(FetchMode.SELECT)
+    @Cascade(CascadeType.DELETE)
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -225,7 +231,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return enabled;
     }
 
-    @Column(name = "account_expired", nullable = false)
+    @Column(name = "account_expired")
     public boolean isAccountExpired() {
         return accountExpired;
     }
@@ -239,7 +245,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountExpired();
     }
 
-    @Column(name = "account_locked", nullable = false)
+    @Column(name = "account_locked")
     public boolean isAccountLocked() {
         return accountLocked;
     }
@@ -253,7 +259,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountLocked();
     }
 
-    @Column(name = "credentials_expired", nullable = false)
+    @Column(name = "credentials_expired")
     public boolean isCredentialsExpired() {
         return credentialsExpired;
     }
@@ -272,7 +278,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toUpperCase();
     }
 
     public void setPassword(String password) {
@@ -288,15 +294,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toUpperCase();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toUpperCase();
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -307,9 +313,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.website = website;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+    public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

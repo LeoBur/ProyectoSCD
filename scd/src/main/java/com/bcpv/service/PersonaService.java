@@ -14,7 +14,7 @@ import com.bcpv.model.User;
 
 @WebService
 @Path("/personas")
-public interface PersonaService {
+public interface PersonaService extends UserService{
 	   /**
      * Retrieves a user by userId.  An exception is thrown if user not found
      *

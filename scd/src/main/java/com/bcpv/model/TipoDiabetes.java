@@ -46,7 +46,7 @@ public class TipoDiabetes implements Serializable{
 	}
 	
 	public void setTipoDiab(String tipoDiab) {
-		this.tipoDiab = tipoDiab;
+		this.tipoDiab = tipoDiab.toUpperCase();
 	}
 	
 	@Column(name = "caracteristica")
@@ -54,7 +54,7 @@ public class TipoDiabetes implements Serializable{
 		return Caract;
 	}
 	public void setCaract(String caract) {
-		Caract = caract;
+		Caract = caract.toUpperCase();
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)

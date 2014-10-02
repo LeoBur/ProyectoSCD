@@ -72,6 +72,6 @@ public class RegistroMedicamento implements Serializable{
 		return observaciones;
 	}
 	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+		this.observaciones = observaciones.toUpperCase();
 	}
 }

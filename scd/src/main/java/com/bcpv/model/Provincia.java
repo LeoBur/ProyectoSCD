@@ -35,7 +35,7 @@ public class Provincia implements Serializable {
 	}
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id_provincia", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -50,7 +50,7 @@ public class Provincia implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY)
@@ -63,7 +63,7 @@ public class Provincia implements Serializable {
 		this.departamentos = departamentos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Localidad> getLocalidades() {
 		return this.localidades;

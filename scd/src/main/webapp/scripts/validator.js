@@ -51,12 +51,50 @@ $(document).ready(function(){
 					digits:true
 				},
 				matricula:{
+					required:true,
 					digits:true
+				},
+				calle:{
+					required:true
+				},
+				numero:{
+					required:true
 				},
 				dni:{
 					required:true,
 					number:true,
-					minlength:7
+					minlength:7,
+					maxlength:8
+				},
+				sexo:{
+					required:true
+				},
+				fch_nac:{
+					required:true
+				},
+				dia:{
+					required:true,
+					digits:true,
+					maxlength:2
+				},
+				mes:{
+					required:true,
+                    digits:true,
+                    maxlength:2
+				},
+				anio:{
+					required:true,
+					digits:true,
+					maxlength:4
+				},
+				medicion:{
+				    required:true,
+				    digits:true
+				},
+				provincia:{
+					required:true
+				},
+				localidad:{
 				}
 			},
 			success:function(etiqueta){

@@ -60,11 +60,11 @@ public class Departamento implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Localidad> getLocalidades() {
 		return this.localidades;
 	}

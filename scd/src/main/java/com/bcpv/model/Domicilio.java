@@ -2,15 +2,18 @@ package com.bcpv.model;
 
 import java.io.Serializable;
 
+
+import org.hibernate.search.annotations.Indexed;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name="Domicilio")
@@ -22,15 +25,16 @@ public class Domicilio implements Serializable{
 	 */
 	private static final long serialVersionUID = 9013815718475143878L;
 	
-	private Long idDomicilio;
-	private Localidad localidad;
-	private String calle;
+	private Long idDomicilio;       //required
+	private Localidad localidad;    //required
+	private String calle;           //required
 	private Long numero;
 	private String piso;
 	private String dpto;
 	
 	@Id
 	@Column(name="id", unique = true, nullable= false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return idDomicilio;
 	}
@@ -52,7 +56,7 @@ public class Domicilio implements Serializable{
 		return calle;
 	}
 	public void setCalle(String calle) {
-		this.calle = calle;
+		this.calle = calle.toUpperCase();
 	}
 	
 	@Column(name="nro")
@@ -68,7 +72,7 @@ public class Domicilio implements Serializable{
 		return piso;
 	}
 	public void setPiso(String piso) {
-		this.piso = piso;
+		this.piso = piso.toUpperCase();
 	}
 	
 	@Column(name="dpto")
@@ -76,7 +80,7 @@ public class Domicilio implements Serializable{
 		return dpto;
 	}
 	public void setDpto(String dpto) {
-		this.dpto = dpto;
+		this.dpto = dpto.toUpperCase();
 	}
 
 }

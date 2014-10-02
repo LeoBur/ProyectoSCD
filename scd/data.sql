@@ -27,16 +27,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `provincias` (
-  `id` int(2) NOT NULL,
+  `id_provincia` int(2) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id_provincia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `provincias`
 --
 
-INSERT INTO `provincias` (`id`, `nombre`) VALUES
+INSERT INTO `provincias` (`id_provincia`, `nombre`) VALUES
 (1, 'Buenos Aires y Cap.'),
 (2, 'Catamarca'),
 (3, 'Chaco'),
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `id` int(3) NOT NULL,
   `id_provincia` int(2) NOT NULL,
    FOREIGN KEY (id_provincia) 
-        REFERENCES provincias(id)
+        REFERENCES provincias(id_provincia)
         ON DELETE CASCADE,
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -670,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `localidades` (
         ON DELETE CASCADE,
   `id_provincia` int(3) NOT NULL,
    FOREIGN KEY (id_provincia) 
-        REFERENCES provincias(id)
+        REFERENCES provincias(id_provincia)
         ON DELETE CASCADE,
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -6144,16 +6144,20 @@ INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES
 (NULL, 'Dolor de cabeza'), 
 (NULL, 'Fiebre');
 
-INSERT INTO `scd`.`endocrinologo` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `idDomicilio`, `matricula_endo`,`fch_nac`) VALUES 
-('0', 'Marquez', '32065945', 'meli@mail.com', 'Melisa', '123456', '0', '7894', '1959/05/15');
+/*INSERT INTO `scd`.`persona` (`dni`, `fch_nac`, `sexo`, `id`) VALUES
+('12345678', '1975-05-10 00:00:00', 1, 1);
 
-INSERT INTO `scd`.`paciente` (`id`, `apellido`, `dni`, `email`, `username`, `nombre`, `telefono`, `idDomicilio`, `observaciones`, `sexo`, `id_endo`, `id_tipo`,`fch_nac`) VALUES 
-('0', 'Burgos', '32878634', 'leo@mail.com', 'user', 'Leo', '123457', '1', 'asfgas', 'M', '0', '1', '1960/10/12'), 
-('1', 'Burgadsfasd', '32654985', 'lfsdfnv@mail.com', 'otro', 'lskadnklf', '1234568', '1', 'serhgsdgh', 'F', '0', '1', '1940/02/21');
+INSERT INTO `scd`.`app_user` (`id`, `account_expired`, `account_locked`, `credentials_expired`, `email`, `account_enabled`, `first_name`, `last_name`, `password`, `password_hint`, `phone_number`, `username`, `version`, `website`, `id_domicilio`)
+VALUES (1, b'0', b'0', b'0', 'juan@mail.com', b'1', 'Juan', 'Perez', '123456', NULL, '444444', 'juan@mail.com', 0, NULL, 1);
 
-INSERT INTO `scd`.`especialista` (`id`, `apellido`, `dni`, `email`, `nombre`, `telefono`, `tipo_esp`, `idDomicilio`,`fch_nac`) VALUES 
-(NULL, 'Portillo', '36521489', 'jaskdfq@mail.com', 'Otro', '126846', 'Nutricionista', '1', '1980/09/04'), 
-(NULL, 'Fulano', '32654985', 'lfsdfnv@mail.com', 'lskadnklf', '854126', 'Otro', '0', '1975/07/15');
+INSERT INTO `scd`.`endocrinologo` (`id_endocrinologo`, `matricula_endo`, `id_persona`) VALUES
+(1, 7777, 1);
+
+INSERT INTO `scd`.`role` (`id`, `description`, `name`) VALUES
+(1, 'Endocrinologist role (can edit users)', 'ROLE_ENDO');
+
+INSERT INTO `scd`.`user_role` (`user_id`, `role_id`) VALUES
+(1,1);*/
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
