@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script src="jquery-1.4.2.min.js"></script>
+    <script src="jquery-ui-1.8.6.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="jquery.ui.datepicker-es.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -14,6 +23,8 @@
 	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
 	<script src="/scripts/validator.js" type="text/javascript"></script>
     <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
@@ -126,41 +137,18 @@
 		   	</div>
         </div>
         
-		<div class="form_group">
-            <div class="col-sm-2">
+		<div class="row">
+            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="endocrinologoForm.dia">
-	            <appfuse:label styleClass="control-label" key="user.dia"/>
-	        	<input type="number" name="dia" id="dia" class="form-control"
-	           	placeholder="<fmt:message key="user.dia"/>" value="${status.value}" maxlength="50"
+	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
+	        	<input type="text" name="dia" id="dia" class="form-control"
+	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
 	           	 tabindex="5">
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
 		   	</div>
-            <div class="col-sm-2">
-	          <spring:bind path="endocrinologoForm.mes">
-	            <appfuse:label styleClass="control-label" key="user.mes"/>
-	        	<input type="number" name="mes" id="mes" class="form-control"
-	           	placeholder="<fmt:message key="user.mes"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="6">
-	          </spring:bind>
-	          		<label for="mes" generated="true" class="error"></label>
-		   	  <form:errors path="mes" cssClass="help-block"/>
-		   	</div>
-            <div class="col-sm-2">
-	          <spring:bind path="endocrinologoForm.anio">
-	            <appfuse:label styleClass="control-label" key="user.anio"/>
-	        	<input type="number" name="anio" id="anio" class="form-control"
-	           	placeholder="<fmt:message key="user.anio"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="7">
-	          </spring:bind>
-	          		<label for="anio" generated="true" class="error"></label>
-		   	  <form:errors path="anio" cssClass="help-block"/>
-		   	</div>
-		</div>
-		
-		<div class="row">
-		<div>
+
 		    <spring:bind path="endocrinologoForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
@@ -180,7 +168,6 @@
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>
 			</spring:bind>
-		  </div>
 		</div>
 		
 		<div class="row">
@@ -367,13 +354,20 @@
 			});
 	</script>
 	<script type="text/javascript">
-		 $('button[name="search"]').click(function(e){
-			  	e.preventDefault();
-				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
-				var dni = $('input[name=dni]').val();
-				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
-			});
+    $(document).ready(function (e) {
+	$(function() {
+	    $("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '-100:+0'});
+        });
+    });
 	</script>
+	<script type="text/javascript">
+    		 $('button[name="search"]').click(function(e){
+    			  	e.preventDefault();
+    				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
+    				var dni = $('input[name=dni]').val();
+    				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
+    			});
+    	</script>
 	
 	
 </c:set>

@@ -170,9 +170,10 @@ public class EndocrinologoForm {
     public void setFechaNac(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
-        this.setDia(strDate.substring(0, 2));
-        this.setMes(strDate.substring(3,5));
-        this.setAnio(strDate.substring(6,10));
+        this.setDia(strDate);
+        //this.setDia(strDate.substring(0, 2));
+        //this.setMes(strDate.substring(3,5));
+        //this.setAnio(strDate.substring(6,10));
     }
 
     public Long getMatricula() {
