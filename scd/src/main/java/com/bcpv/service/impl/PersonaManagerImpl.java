@@ -6,6 +6,7 @@ import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class PersonaManagerImpl extends UserManagerImpl implements PersonaManage
     public void setPersonaDao(final PersonaDao personaDao) {
         this.dao = personaDao;
         this.personaDao = personaDao;
+    }
+
+    @Autowired
+    @Qualifier("passwordEncoder")
+    public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
