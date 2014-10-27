@@ -72,11 +72,9 @@ $(document).ready(function(){
 				fch_nac:{
 					required:true
 				},
-				dia:{
-					required:true,
-					digits:true,
-					maxlength:2
-				},
+                dia:{
+                    required:true
+                },
 				mes:{
 					required:true,
                     digits:true,
