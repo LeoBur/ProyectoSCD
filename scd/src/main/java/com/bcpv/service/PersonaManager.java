@@ -22,6 +22,8 @@ public interface PersonaManager extends UserManager{
     List<Persona> getPersonasByApellido(String apellido);
     
     Persona getPersonaByDni(String dni);
+
+    Persona getPersonaByUsername(final String username) throws UsernameNotFoundException;
     
     Persona savePersona(Persona persona) throws EntityExistsException;
 }

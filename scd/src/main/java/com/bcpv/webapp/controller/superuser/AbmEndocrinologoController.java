@@ -179,7 +179,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
         
-        saveMessage(request, getText("user.savedData", locale));
+        //saveMessage(request, getText("user.savedData", locale));
  
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
