@@ -53,15 +53,8 @@
 </script>
 
 <div class="col-sm-2">
-    <h2><fmt:message key="user.endocrinologist.new"/></h2>
-	<c:choose>
-		<c:when test="${param.from == 'list'}">
-			<p><fmt:message key="userProfile.admin.message"/></p>
-		</c:when>
-		<c:otherwise>
-			<p><fmt:message key="userProfile.message.endocrinologo"/></p>
-		</c:otherwise>
-	</c:choose>
+    <h3>Administraci&oacuten</h2>
+    <h3>de Usuarios</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
@@ -280,32 +273,7 @@
 				</spring:bind>
 			 </div>
 			</div>
-
-
-
-		<div class="row">
-		 <div>
-		  <spring:bind path="endocrinologoForm.password">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-		  		<appfuse:label styleClass="control-label" key="user.password" />
-		  		<input type="password" id="password" name="password" class="form-control"
-		  		placeholder="<fmt:message key="user.password"/>" value="${status.value}" autocomplete="off" tabindex="20"/>
-		  		<label for="password" generated="true" class="error"></label>
-		  	</div>
-		  </spring:bind>
-		 </div>
-		 <div>
-		  <spring:bind path="endocrinologoForm.confirmPassword">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				<appfuse:label styleClass="control-label" key="user.confirmPassword" />
-				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-				placeholder="<fmt:message key="user.confirmPassword"/>" value="${status.value}" tabindex="21"/>
-				<label for="confirmPassword" generated="true" class="error"></label>
-				<form:errors path="confirmPassword" cssClass="help-block" />
-			</div>
-		  </spring:bind>
-		 </div>
-         </div>
+			
          <div class="row">
 		 <div>
            <spring:bind path="endocrinologoForm.matricula">

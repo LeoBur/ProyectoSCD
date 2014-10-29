@@ -1,8 +1,6 @@
 package com.bcpv.webapp.controller.forms;
 
-import com.bcpv.dao.LocalidadDao;
 import com.bcpv.model.Domicilio;
-import com.bcpv.model.Localidad;
 import com.bcpv.model.Persona.Sexo;
 
 import java.text.SimpleDateFormat;
