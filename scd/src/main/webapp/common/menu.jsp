@@ -23,6 +23,7 @@
     <menu:displayMenu name="HomeEndoLista"/>
     <menu:displayMenu name="Paciente"/>
     <menu:displayMenu name="Ajuste"/>
+    <menu:displayMenu name="EditProfile"/>
     
     
     <menu:displayMenu name="PacienteMenu"/>

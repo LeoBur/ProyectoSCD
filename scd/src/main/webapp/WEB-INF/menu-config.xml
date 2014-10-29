@@ -29,6 +29,8 @@
         	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
         	<Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
         </Menu>
+
+        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO,ROLE_USER"/>
         
         <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
         
@@ -86,7 +88,6 @@
         	<Item name="2" title="user.diet.change" page="/admin/users"/>
         	<Item name="3" title="user.diet.delete" page="/admin/users"/>
         </Menu> -->
-        
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_ENDO,ROLE_USER"/>
         
     </Menus>

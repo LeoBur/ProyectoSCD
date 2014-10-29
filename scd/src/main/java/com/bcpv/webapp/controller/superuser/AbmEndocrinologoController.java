@@ -84,8 +84,6 @@ public class AbmEndocrinologoController extends BaseFormController {
                 endocrinologoForm.setId(persona.getId());
                 endocrinologoForm.setDni(dni);
                 endocrinologoForm.setUsername(persona.getUsername());
-                endocrinologoForm.setPassword(persona.getPassword());
-                endocrinologoForm.setConfirmPassword(persona.getPassword());
                 endocrinologoForm.setFirstName(persona.getFirstName());
                 endocrinologoForm.setLastName(persona.getLastName());
                 endocrinologoForm.setEmail(persona.getEmail());
@@ -166,8 +164,8 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setDni(endocrinologoForm.getDni());
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(endocrinologoForm.getPassword());
-        persona.setConfirmPassword(endocrinologoForm.getConfirmPassword());
+        persona.setPassword(endocrinologoForm.getDni());
+        persona.setConfirmPassword(endocrinologoForm.getDni());
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setSexo(endocrinologoForm.getSexo());
