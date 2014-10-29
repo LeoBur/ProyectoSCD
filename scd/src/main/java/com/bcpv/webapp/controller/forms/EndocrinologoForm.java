@@ -30,7 +30,15 @@ public class EndocrinologoForm {
     private String dpto;
     private String piso;
 	private Long matricula;
+    private boolean enabled;
 
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 	public Long getId() {
 		return id;
 	}
