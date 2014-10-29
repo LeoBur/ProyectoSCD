@@ -131,6 +131,14 @@ public class AbmEndocrinologoController extends BaseFormController {
 		return mv;
 	}
 
+    @RequestMapping(value = "admin/endocrinologoList*", method = RequestMethod.GET)
+    public ModelAndView showEndocrinologos() {
+        ModelAndView mv = new ModelAndView("admin/endocrinologoList");
+        List<Endocrinologo> endocrinologos = endocrinologoManager.getEndocrinologos();
+        mv.addObject("endocrinologoList", endocrinologos);
+        return mv;
+    }
+
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
     					   HttpServletRequest request, HttpServletResponse response)

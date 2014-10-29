@@ -20,6 +20,7 @@
     
 
     <menu:displayMenu name="HomeEndo"/>
+    <menu:displayMenu name="HomeEndoLista"/>
     <menu:displayMenu name="Paciente"/>
     <menu:displayMenu name="Ajuste"/>
     
