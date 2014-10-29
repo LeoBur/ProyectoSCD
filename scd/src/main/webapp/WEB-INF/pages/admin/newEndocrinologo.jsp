@@ -344,7 +344,7 @@
 	<script type="text/javascript">
     $(document).ready(function (e) {
 	$(function() {
-	    $("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '-100:+0'});
+	    $("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: -27010, maxDate:0, yearRange: '-100:+0'});
         });
     });
 	</script>
