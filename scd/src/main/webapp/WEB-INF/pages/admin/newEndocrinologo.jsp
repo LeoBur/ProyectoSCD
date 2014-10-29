@@ -317,6 +317,26 @@
          	</div>
            </spring:bind>
          </div>
+         <div>
+         		  <spring:bind path="endocrinologoForm.enabled">
+         			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+         				<appfuse:label styleClass="control-label" key="user.enabled" />
+         				<c:choose>
+                                                    <c:when test="${endocrinologoForm.enabled == 'true'}">
+                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
+                                                        value="${status.value}" tabindex="24"/>
+                                                    </c:when>
+                                                    <c:when test="${endocrinologoForm.enabled == 'false'}">
+                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
+                                                        value="${status.value}" tabindex="24"/>
+                                                    </c:when>
+                                                </c:choose>
+
+         				<label for="enabled" generated="true" class="error"></label>
+         				<form:errors path="enabled" cssClass="help-block" />
+         			</div>
+         		  </spring:bind>
+         		 </div>
 		</div>
 		
        	<div class="form-group">

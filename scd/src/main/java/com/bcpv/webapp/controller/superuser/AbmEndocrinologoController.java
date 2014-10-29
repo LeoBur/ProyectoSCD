@@ -95,6 +95,7 @@ public class AbmEndocrinologoController extends BaseFormController {
                 endocrinologoForm.setSexo(persona.getSexo());
                 endocrinologoForm.setDomicilio(persona.getDomicilio());
                 endocrinologoForm.setMatricula(getMatricula(persona));
+                endocrinologoForm.setEnabled(persona.isEnabled());
                 mv.addObject("endocrinologoForm", endocrinologoForm);
                 List<Localidad> filtradas = new ArrayList<>();
                 for (Localidad localidad : localidades) {
@@ -165,7 +166,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setUsername(endocrinologoForm.getEmail());
         persona.setAccountExpired(false);
         persona.setAccountLocked(false);
-        persona.setEnabled(true);
+        persona.setEnabled(endocrinologoForm.isEnabled());
 
         Role role = roleManager.getRole(Constants.ENDO_ROLE);
         if (role == null) {
@@ -185,10 +186,15 @@ public class AbmEndocrinologoController extends BaseFormController {
  
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
-            endocrinologoManager.remove(endo);
-            persona.getRoles().remove(roleManager.getRole(Constants.ENDO_ROLE));
-            personaManager.savePersona(persona);
-            saveMessage(request, getText("admin.endocrinologist.deleted", locale));
+            if (endo.getPacientes().isEmpty()){
+                endocrinologoManager.remove(endo);
+                persona.getRoles().remove(roleManager.getRole(Constants.ENDO_ROLE));
+                personaManager.savePersona(persona);
+                saveMessage(request, getText("admin.endocrinologist.deleted", locale));
+            } else {
+                saveMessage(request, getText("admin.endocrinologist.not.deleted", locale));
+            }
+
         } else {
             try{
                 personaManager.savePersona(persona);
