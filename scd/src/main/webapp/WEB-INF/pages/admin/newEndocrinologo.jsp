@@ -85,6 +85,7 @@
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
+					        	    <span class="required">*</span>
 					        	<input type="text" name="dni" id="dni" class="form-control"
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
@@ -134,6 +135,7 @@
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="endocrinologoForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
+	                <span class="required">*</span>
 	        	<input type="text" name="dia" id="dia" class="form-control"
 	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
 	           	 tabindex="5">
@@ -145,6 +147,7 @@
 		    <spring:bind path="endocrinologoForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
+					  <span class="required">*</span>
 						<div class="form-control">
                         <c:choose>
                             <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
@@ -223,6 +226,7 @@
 				<spring:bind path="endocrinologoForm.calle">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
+						<span class="required">*</span>
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
 							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
@@ -236,6 +240,7 @@
 				<spring:bind path="endocrinologoForm.numero">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
+						<span class="required">*</span>
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
 							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
@@ -279,6 +284,7 @@
            <spring:bind path="endocrinologoForm.matricula">
          	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
+         	  <span class="required">*</span>
          	  <input type="text" id="matricula" name="matricula" class="form-control"
               value="${status.value}" tabindex="22"/>
               <label for="matricula" generated="true" class="error"></label>

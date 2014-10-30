@@ -16,14 +16,14 @@
         <!-- <Menu name="HomeEndo" title="home.endocrinologist" page="/endos/endo" roles="ROLE_ADMIN"/> A los 2 menus de abajo le cambie a ROLE_USER-->
         <Menu name="HomeEndo" title="home.AbmEndocrinologo" page="/admin/newEndocrinologo" roles="ROLE_ADMIN"/>
         <Menu name="HomeEndoLista" title="home.Endo.Lista" page="/admin/endocrinologoList" roles="ROLE_ADMIN"/>
-        <Menu name="Paciente" title="user.paciente" page="/endos/newPaciente" roles="ROLE_ENDO" description="Paciente Admin">
+        <Menu name="Paciente" title="user.paciente" page="/endos/newPaciente" roles="" description="Paciente Admin">
         	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/pacienteForm"/>
         	<!-- <Item name="editPaciente" title="user.paciente.editar" page="/endos/editPaciente"/> -->
         	<Item name="newTreatment" title="user.treatment.new" page="/admin/users"/>
         	<Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/>
         </Menu>
         
-        <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">
+        <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="" description="Ajustes del Sistema">
         	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>       	
        	 	<Item name="AdminSymptom" title="user.symptom.admin" page="/endos/sintomaList"/>
         	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
