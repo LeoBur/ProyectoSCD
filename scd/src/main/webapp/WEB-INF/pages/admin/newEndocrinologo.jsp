@@ -298,11 +298,11 @@
          				<c:choose>
                                                     <c:when test="${endocrinologoForm.enabled == 'true'}">
                                                         <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
-                                                        value="${status.value}" tabindex="24"/>
+                                                        value="${status.value}" tabindex="23"/>
                                                     </c:when>
                                                     <c:when test="${endocrinologoForm.enabled == 'false'}">
                                                         <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
-                                                        value="${status.value}" tabindex="24"/>
+                                                        value="${status.value}" tabindex="23"/>
                                                     </c:when>
                                                 </c:choose>
 
@@ -314,17 +314,17 @@
 		</div>
 		
        	<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="23">
+			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
 			<c:if test="${not empty endocrinologoForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="24">
+				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
 				</button>
 			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="25">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
 
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
