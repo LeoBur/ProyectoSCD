@@ -59,7 +59,7 @@ public class Endocrinologo implements Serializable{
 		this.matricula = matricula;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<PacienteEnTratamiento> getPacientes() {
 		return pacientesEnTratamiento;
