@@ -70,7 +70,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="formulario" autocomplete="off"
+	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="formulario" autocomplete="off" name="miFormulario"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
@@ -362,7 +362,54 @@
     				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
     			});
     	</script>
-	
+
+    <script>
+        $(function() {
+            $('#dia').blur(function(){
+                var txtVal =  $('#dia').val();
+                if(isDate(txtVal)){
+                    ;
+                }
+                else{
+                    $(this).parent().find(".error").text("La fecha ingresada es incorrecta");
+                    document.miFormulario.dia.value = "";
+                    }
+            });
+
+        function isDate(txtDate)
+        {
+            var currVal = txtDate;
+            if(currVal == '')
+                return false;
+
+            var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/; //Declare Regex
+            var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+            if (dtArray == null)
+                return false;
+
+            //Checks for mm/dd/yyyy format.
+            dtMonth = dtArray[3];
+            dtDay= dtArray[1];
+            dtYear = dtArray[5];
+
+            if (dtMonth < 1 || dtMonth > 12)
+                return false;
+            else if (dtDay < 1 || dtDay> 31)
+                return false;
+            else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
+                return false;
+            else if (dtMonth == 2)
+            {
+                var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+                if (dtDay> 29 || (dtDay ==29 && !isleap))
+                        return false;
+            }
+            return true;
+        }
+
+        });
+    </script>
 	
 </c:set>
 
