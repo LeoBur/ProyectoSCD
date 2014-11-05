@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,5 +87,11 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 		}
 		return new ArrayList<Especialista>();
 	}
+
+    @Override
+    public Especialista getEspecialistaByPersona(Persona persona) throws EntityNotFoundException {
+
+        return especialistaDao.getEspecialistaByPersona(persona);
+    }
 
 }

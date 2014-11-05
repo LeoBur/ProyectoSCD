@@ -70,6 +70,16 @@ public final class Constants {
     public static final String ENDO_ROLE = "ROLE_ENDO";
 
     /**
+     * The name of the Nutricionist role
+     */
+    public static final String NUTRI_ROLE = "ROLE_NUTRI";
+
+    /**
+     * The name of the Personal Trainner role
+     */
+    public static final String PTRAI_ROLE = "ROLE_PTRAI";
+
+    /**
      * The name of the User role, as specified in web.xml
      */
     public static final String USER_ROLE = "ROLE_USER";

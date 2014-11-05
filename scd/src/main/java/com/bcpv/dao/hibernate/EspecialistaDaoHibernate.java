@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -50,5 +51,17 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
 		Query qry = getSession().createQuery("from Especialista e order by upper(e.tipo_esp)");
         return qry.list();
 	}
+
+    @Override
+    public Especialista getEspecialistaByPersona(Persona persona) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where  es.persona.id = :id_persona");
+        qry.setParameter("id_persona", persona.getId());
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe especialista asociado a la persona");
+        } else {
+            return especialista;
+        }
+    }
 
 }
