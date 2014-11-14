@@ -65,12 +65,6 @@ public class AbmEndocrinologoController extends BaseFormController {
 	
 	}
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades")
-    @ResponseBody
-    public String getLocalidades( @RequestParam("provincia") String provincia) {
-        return localidades(provincia);
-    }
-
 	private void buscar(ModelAndView mv, EndocrinologoForm endocrinologoForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
         final String dni = endocrinologoForm.getDni();
         try {
@@ -239,21 +233,5 @@ public class AbmEndocrinologoController extends BaseFormController {
         } catch (EntityNotFoundException e) {
             return null;
         }
-    }
-
-    private String localidades (String provincia) {
-        List<Localidad> localidades = localidadManager.getLocalidades();
-        JSONArray ja = new JSONArray();
-        int i = 0;
-        for (Localidad localidad : localidades) {
-            JSONObject j = new JSONObject();
-            if (provincia.equals(localidad.getProvincia().getNombre())) {
-                j.put("optionValue", localidad.getNombre());
-                j.put("optionDisplay", localidad.getNombre());
-                ja.add(i, j);
-                i++;
-            }
-        }
-        return ja.toString();
     }
 }

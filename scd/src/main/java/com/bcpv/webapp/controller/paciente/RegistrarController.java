@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.webapp.controller.forms.RegistroForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -81,11 +82,11 @@ public class RegistrarController extends BaseFormController{
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		ModelAndView mv = new ModelAndView("paciente/registrar");
-		PacienteForm pacienteForm = new PacienteForm();
+		RegistroForm registroForm = new RegistroForm();
 		List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
 		List<Sintoma> sintomas = sintomaManager.getSintomas();
 		List<Alimento> alimentos = alimentoManager.getAlimentos();
-		mv.addObject("pacienteForm", pacienteForm);
+		mv.addObject("pacienteForm", registroForm);
 		mv.addObject("medicamentoList", medicamentos);
 		mv.addObject("sintomaList", sintomas);
 		mv.addObject("alimentoList", alimentos);
@@ -93,7 +94,7 @@ public class RegistrarController extends BaseFormController{
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors, 
+    public String onSubmit(@ModelAttribute("pacienteForm") RegistroForm registroForm, BindingResult errors,
     					   HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         if (request.getParameter("cancel") != null) {
@@ -101,7 +102,7 @@ public class RegistrarController extends BaseFormController{
         }
  
         if (validator != null) { // validator is null during testing
-            validator.validate(pacienteForm, errors);
+            validator.validate(registroForm, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
                 return "/registrar";
@@ -112,56 +113,56 @@ public class RegistrarController extends BaseFormController{
  
         String success = getSuccessView();
         Locale locale = request.getLocale();
-        Paciente paciente = pacienteManager.getPacienteByUsername(pacienteForm.username);
+        Paciente paciente = pacienteManager.getPacienteByUsername(registroForm.username);
         //Date date = formatter.parse(request.getParameter("datepicker"));
         
-        if (pacienteForm.medicion != null){
+        if (registroForm.medicion != null){
         	Medicion medicion = new Medicion();
-        	medicion.setF_medicion(pacienteForm.fechaHora);
-        	medicion.setValor(new Integer (pacienteForm.medicion));
+        	medicion.setF_medicion(registroForm.fechaHora);
+        	medicion.setValor(new Integer (registroForm.medicion));
         	medicion.setPaciente(paciente);
         	
         	medicionManager.saveMedicion(medicion);
         }
         
-        if(pacienteForm.peso != null){
+        if(registroForm.peso != null){
         	Peso peso = new Peso();
-        	peso.setFechaHora(pacienteForm.fechaHora);
-        	peso.setPeso(new Float (pacienteForm.peso));
+        	peso.setFechaHora(registroForm.fechaHora);
+        	peso.setPeso(new Float (registroForm.peso));
         	peso.setPaciente(paciente);
         	
         	pesoManager.savePeso(peso);
         }
         
-        if(!pacienteForm.comidas.isEmpty() && pacienteForm.momento != null){
+        if(!registroForm.comidas.isEmpty() && registroForm.momento != null){
         	MomentoDia moment = new MomentoDia();
-        	moment.setNombre(pacienteForm.momento);
-        	moment.setComidas(pacienteForm.getComidas());
+        	moment.setNombre(registroForm.momento);
+        	moment.setComidas(registroForm.getComidas());
         	
         	RegistroComidas reg = new RegistroComidas();
-        	reg.setFecha_registro_comida(pacienteForm.fechaHora);
+        	reg.setFecha_registro_comida(registroForm.fechaHora);
         	reg.setPaciente(paciente);
         	reg.setMomentoDia(moment);
         	
         	registroComidasManager.saveRegistroComidas(reg);
         }
         
-        if(pacienteForm.medicamento != null){
+        if(registroForm.medicamento != null){
         	RegistroMedicamento regMed = new RegistroMedicamento();
-        	regMed.setFch_reg_medicamento(pacienteForm.fechaHora);
+        	regMed.setFch_reg_medicamento(registroForm.fechaHora);
         	regMed.setPaciente(paciente);
-        	regMed.setMedicamento(medicamentoManager.getByNombreComercial(pacienteForm.medicamento));
-        	regMed.setObservaciones(pacienteForm.observacionesMedicamento);
+        	regMed.setMedicamento(medicamentoManager.getByNombreComercial(registroForm.medicamento));
+        	regMed.setObservaciones(registroForm.observacionesMedicamento);
         	
         	registroMedicamentoManager.saveRegistroMedicamento(regMed);
         }
         
-        if(pacienteForm.sintoma != null){
+        if(registroForm.sintoma != null){
         	RegistroSintoma regSint = new RegistroSintoma();
-        	regSint.setFch_reg_sintoma(pacienteForm.getFechaHora());
+        	regSint.setFch_reg_sintoma(registroForm.getFechaHora());
         	regSint.setPaciente(paciente);
-        	regSint.setObservaciones(pacienteForm.getObservacionesSintoma());
-        	regSint.setSintoma(sintomaManager.getByNombre(pacienteForm.sintoma));
+        	regSint.setObservaciones(registroForm.getObservacionesSintoma());
+        	regSint.setSintoma(sintomaManager.getByNombre(registroForm.sintoma));
         	
         	registroSintomaManager.saveRegistroSintoma(regSint);
         }

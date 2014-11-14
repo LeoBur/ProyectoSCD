@@ -12,6 +12,8 @@ public interface TipoDiabetesManager extends GenericManager<TipoDiabetes, Long> 
 	void setTipoDiabetesDao(TipoDiabetesDao tipoDao);
 	
 	TipoDiabetes getTipoDiabetes (Long id_tipo);
+
+    TipoDiabetes getTipoDiabetesByName (String tipo);
 	
 	List<TipoDiabetes> getTiposDiabetes();
 	

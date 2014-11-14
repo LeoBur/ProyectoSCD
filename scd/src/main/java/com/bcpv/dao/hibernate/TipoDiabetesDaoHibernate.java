@@ -28,6 +28,16 @@ public class TipoDiabetesDaoHibernate extends GenericDaoHibernate<TipoDiabetes, 
 		}
 	}
 
+    @Override
+    public TipoDiabetes loadTipoDiabetesByTipo(String name) throws EntityNotFoundException {
+        TipoDiabetes tipo = (TipoDiabetes) getSession().createCriteria(TipoDiabetes.class).add(Restrictions.eq("tipo_diabetes", name));
+        if (tipo == null){
+            throw new EntityNotFoundException("Tipo de diabetes: " + name + "not found");
+        } else {
+            return tipo;
+        }
+    }
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipoDiabetes> getTipoDiabeteses() {
