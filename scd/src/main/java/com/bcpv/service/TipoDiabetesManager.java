@@ -16,6 +16,8 @@ public interface TipoDiabetesManager extends GenericManager<TipoDiabetes, Long> 
     TipoDiabetes getTipoDiabetesByName (String tipo);
 	
 	List<TipoDiabetes> getTiposDiabetes();
+
+    List<String> getTipoDiabetes();
 	
 	TipoDiabetes saveTipoDiabetes(TipoDiabetes tipo) throws EntityExistsException;
 	

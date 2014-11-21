@@ -12,10 +12,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.Constants;
 import com.bcpv.model.Paciente;
 import com.bcpv.model.TipoDiabetes;
 import com.bcpv.service.EndocrinologoManager;
 import com.bcpv.service.PacienteManager;
+import com.bcpv.service.RoleManager;
 import com.bcpv.service.TipoDiabetesManager;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +60,9 @@ public class AbmPacienteController extends BaseFormController {
 
     @Autowired
     TipoDiabetesManager tipoDiabetesManager;
+
+    @Autowired
+    RoleManager roleManager;
 
     public AbmPacienteController(){
 
@@ -109,7 +114,7 @@ public class AbmPacienteController extends BaseFormController {
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
-        List<TipoDiabetes> tipoDiabetesList = tipoDiabetesManager.getTiposDiabetes();
+        List<String> tipoDiabetesList = tipoDiabetesManager.getTipoDiabetes();
         if (null == search && request.getAttribute("pacienteForm") == null) {
             PacienteForm paciente = new PacienteForm();
             mv.addObject("pacienteForm", paciente);
@@ -166,7 +171,7 @@ public class AbmPacienteController extends BaseFormController {
         persona.setAccountExpired(false);
         persona.setAccountLocked(false);
         persona.setEnabled(pacienteForm.isEnabled());
-
+        persona.addRole(roleManager.getRole(Constants.USER_ROLE));
         /*Role role = roleManager.getRole(Constants.ENDO_ROLE);
         if (role == null) {
             role = new Role();
@@ -180,7 +185,7 @@ public class AbmPacienteController extends BaseFormController {
         persona.setDomicilio(createDomicilio(pacienteForm));
         Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser()));
         TipoDiabetes tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
-        Paciente paciente = new Paciente(tipoDiabetes, endo, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior());
+        Paciente paciente = new Paciente(tipoDiabetes, endo, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
 
         //saveMessage(request, getText("user.savedData", locale));
 

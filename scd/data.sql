@@ -6137,8 +6137,7 @@ INSERT INTO `scd`.`medicamento` (`idMedicamento`, `Grupo_Medicamento`, `Nom_Come
 (NULL, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibupirac', 'Ibuprofeno', 'Capsula Blanda'), 
 (NULL, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibu evanol', 'Ibuprofeno', 'Comprimidos');
 
-INSERT INTO `scd`.`tiposDiabetes` (`caracteristica`, `tipo_dibetes`) VALUES 
-('sadfasdf', 'Insulinodependiente');
+INSERT INTO `scd`.`tiposdiabetes` (`id_tipo`, `caracteristica`, `tipo_diabetes`) VALUES ('1', 'Algun', 'TIPO1'), ('2', 'Otro', 'TIPO2');
 
 INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES 
 (NULL, 'Dolor de cabeza'), 

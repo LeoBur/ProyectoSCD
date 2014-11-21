@@ -51,6 +51,14 @@ public class TipoDiabetesManagerImpl extends GenericManagerImpl<TipoDiabetes, Lo
 		}
 		return new ArrayList<TipoDiabetes>();
 	}
+
+    @Override
+    public List<String> getTipoDiabetes() {
+        if (tipoDiabetesDao != null){
+            return tipoDiabetesDao.getTipoDiabetes();
+        }
+        return new ArrayList<String>();
+    }
 	
 	@Override
 	public TipoDiabetes saveTipoDiabetes(final TipoDiabetes tipo) throws EntityExistsException {
