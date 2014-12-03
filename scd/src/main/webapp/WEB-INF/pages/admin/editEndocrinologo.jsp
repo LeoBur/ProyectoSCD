@@ -33,17 +33,17 @@
 	</script>
 
 	<script type="text/javascript" charset="utf-8">
-    $(function(){
-      $("select#provincia").change(function(){
-        $.getJSON("/getLocalidades?provincia="+$(this).val(), function(j){
-          var options = '';
-          for (var i = 0; i < j.length; i++) {
-            options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-          }
-          $("select#localidad").html(options);
-        })
-      })
-    })
+		$(function(){
+		  $("select#provincia").change(function(){
+			$.getJSON("/getLocalidades?provincia="+$(this).val(), function(j){
+			  var options = '';
+			  for (var i = 0; i < j.length; i++) {
+				options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+			  }
+			  $("select#localidad").html(options);
+			});
+		  });
+		});
     </script>
 </head>
 
@@ -70,7 +70,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="endocrinologoForm" method="post" action="newEndocrinologo" id="formulario" autocomplete="off" name="miFormulario"
+	<form:form commandName="endocrinologoForm" method="post" action="editEndocrinologo" id="formulario" autocomplete="off" name="miFormulario"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
@@ -78,39 +78,32 @@
   		<spring:bind path="username">
   			<input type="hidden" id="username" class="form-control" value="${status.value}"/>
   		</spring:bind>
-        <spring:bind path="dni">
+  		<spring:bind path="dni">
         	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
         </spring:bind>
-			
+
 			<div class="form-group">
 		  		<div class="row">
 					  <div>
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	    <span class="required">*</span>
-					        	<input type="text" name="dni" id="dni" class="form-control"
+					        	<input type="text" name="dni" id="dni" class="form-control" disabled
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
 					    </spring:bind>
-					    	
+
 					  </div>
-					  
+
 					  <div class="col-sm-6 form-group">
 					  <br>
-					  	<div>
-							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-								<i class="icon-upload icon-white"></i>
-								<fmt:message key="button.search" />
-							</button>
-						</div>
+
 					</div>
-					  
-				</div>			
-			
+
+				</div>
+
 			</div>
-        
+
         <div class="form-group">
 	        <div>
 	          <spring:bind path="endocrinologoForm.firstName">
@@ -133,7 +126,7 @@
 		   	  <form:errors path="lastName" cssClass="help-block"/>
 		   	</div>
         </div>
-        
+
 		<div class="row">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="endocrinologoForm.dia">
@@ -168,7 +161,7 @@
 				</div>
 			</spring:bind>
 		</div>
-		
+
 		<div class="row">
 		 <div>
 		  <spring:bind path="endocrinologoForm.phoneNumber">
@@ -189,10 +182,10 @@
 				<form:errors path="email" cssClass="help-block" />
 			</div>
 		  </spring:bind>
-		  		
+
 		 </div>
 		</div>
-		
+
 			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
@@ -265,7 +258,7 @@
 							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
 							<form:errors path="dpto" cssClass="help-block" />
 						</div>
-					</div>	
+					</div>
 				</spring:bind>
 			 </div>
 			 <div>
@@ -281,7 +274,7 @@
 				</spring:bind>
 			 </div>
 			</div>
-			
+
          <div class="row">
 		 <div>
            <spring:bind path="endocrinologoForm.matricula">
@@ -315,7 +308,7 @@
          		  </spring:bind>
          		 </div>
 		</div>
-		
+
        	<div class="form-group">
 			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
 				<i class="icon-ok icon-white"></i>
@@ -339,7 +332,7 @@
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
 		// This is here so we can exclude the selectAll call when roles is hidden
-		
+
 		function onFormSubmit(theForm) {
 			return validateUser(theForm);
 		};
@@ -413,7 +406,7 @@
 
         });
     </script>
-	
+
 </c:set>
 
 <v:javascript formName="endocrinologoForm" staticJavascript="false" />
