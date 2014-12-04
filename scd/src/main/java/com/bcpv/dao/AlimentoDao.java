@@ -37,4 +37,6 @@ public interface AlimentoDao extends GenericDao<Alimento, Long> {
      */
     Alimento saveAlimento(Alimento alimento);
 
+    Alimento getByNombre(String nombre);
+
 }

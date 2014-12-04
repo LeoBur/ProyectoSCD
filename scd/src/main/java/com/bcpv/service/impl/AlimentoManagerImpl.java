@@ -78,5 +78,9 @@ public class AlimentoManagerImpl extends GenericManagerImpl<Alimento, Long> impl
 		
 	}
 
-	
+	@Override
+    public Alimento getByNombre(String nombre) {
+        log.debug("Searching Alimento by nombre");
+        return alimentoDao.getByNombre(nombre);
+    }
 }

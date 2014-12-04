@@ -68,7 +68,7 @@ public class AbmPacienteController extends BaseFormController {
 
     }
 
-    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
+    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request, List<Localidad> localidades, Locale locale) {
         final String dni = pacienteForm.getDni();
         try {
             if (StringUtils.isEmpty(dni)){
@@ -76,7 +76,6 @@ public class AbmPacienteController extends BaseFormController {
             }
 
             Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
-            mv.addObject("provinciaList", provincias);
             if (persona.getId() != null) {
                 pacienteForm.setId(persona.getId());
                 pacienteForm.setDni(dni);
@@ -90,6 +89,12 @@ public class AbmPacienteController extends BaseFormController {
                 pacienteForm.setSexo(persona.getSexo());
                 pacienteForm.setDomicilio(persona.getDomicilio());
                 pacienteForm.setEnabled(persona.isEnabled());
+                Paciente paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
+                if (paciente != null) {
+                    pacienteForm.setLimiteInferior(paciente.getLimiteInf());
+                    pacienteForm.setLimiteSuperior(paciente.getLimiteSup());
+                    pacienteForm.setTipoDiabetes(paciente.getTipo().getTipoDiab());
+                }
                 mv.addObject("pacienteForm", pacienteForm);
                 List<Localidad> filtradas = new ArrayList<>();
                 for (Localidad localidad : localidades) {
@@ -117,13 +122,13 @@ public class AbmPacienteController extends BaseFormController {
         List<String> tipoDiabetesList = tipoDiabetesManager.getTipoDiabetes();
         if (null == search && request.getAttribute("pacienteForm") == null) {
             PacienteForm paciente = new PacienteForm();
-            mv.addObject("pacienteForm", paciente);
-            mv.addObject("provinciaList", provincias);
             mv.addObject("localidadList", localidades);
-            mv.addObject("tipoDiabetesList", tipoDiabetesList);
+            mv.addObject("pacienteForm", paciente);
         } else {
-            buscar(mv, pacienteForm, request, provincias, localidades, locale);
+            buscar(mv, pacienteForm, request, localidades, locale);
         }
+        mv.addObject("provinciaList", provincias);
+        mv.addObject("tipoDiabetesList", tipoDiabetesList);
         return mv;
     }
 
@@ -196,9 +201,10 @@ public class AbmPacienteController extends BaseFormController {
                     && paciente.getRegistroComidas().isEmpty()){
                 pacienteManager.remove(paciente);
                 personaManager.savePersona(persona);
-                saveMessage(request, getText("admin.endocrinologist.deleted", locale));
+                log.debug("Se eliminó al paciente");
+                saveMessage(request, getText("user.endocrinologist.pacient.deleted", locale));
             } else {
-                saveMessage(request, getText("admin.endocrinologist.not.deleted", locale));
+                saveMessage(request, getText("user.endocrinologist.pacient.not.deleted", locale));
             }
 
         } else {
@@ -207,11 +213,11 @@ public class AbmPacienteController extends BaseFormController {
                 pacienteManager.savePaciente(paciente);
             } catch (EntityExistsException e) {
                 if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
+                    saveMessage(request, getText("user.endocrinologist.pacientUpdated", locale));
                 }
             }
             if (isNew) {
-                saveMessage(request, getText("admin.endocrinologist.added", locale));
+                saveMessage(request, getText("user.endocrinologist.pacientSaved", locale));
             }
         }
         return success;

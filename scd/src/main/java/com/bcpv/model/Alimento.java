@@ -40,10 +40,10 @@ public class Alimento implements Serializable {
 	}
 	
 	@Column(name = "Nombre_Alimento", nullable = false)
-	public String getNombreAlimento() {
+	public String getNombre() {
 		return nombre;
 	}
-	public void setNombreAlimento(String nombreAlimento) {
+	public void setNombre(String nombreAlimento) {
 		this.nombre = nombreAlimento.toUpperCase();
 	}
 	

@@ -282,7 +282,7 @@
            <div>
 				<spring:bind path="pacienteForm.limiteInferior">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						<appfuse:label styleClass="control-label" key="user.address.dpto" />
+						<appfuse:label styleClass="control-label" key="user.paciente.limit.inferior" />
 						<div cssClass="form-control">
 							<input id="limiteInferior" name="limiteInferior" class="form-control"
 							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="20"/>
@@ -294,7 +294,7 @@
 			 <div>
 				<spring:bind path="pacienteForm.limiteSuperior">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						<appfuse:label styleClass="control-label" key="user.address.piso" />
+						<appfuse:label styleClass="control-label" key="user.paciente.limit.superior" />
 						<div cssClass="form-control">
 							<input id="limiteSuperior" name="limiteSuperior" class="form-control"
 							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="21"/>
@@ -309,7 +309,7 @@
          <div>
            <spring:bind path="pacienteForm.tipoDiabetes">
              <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-               <appfuse:label styleClass="control-label" key="user.address.province" />
+               <appfuse:label styleClass="control-label" key="user.paciente.tipoDiabetes" />
                <div cssClass="form-control">
                  <form:select id="tipoDiabetes" name="tipoDiabetes" class="form-control" path="tipoDiabetes" value="${status.value}" tabindex="22">
                    <form:options items="${tipoDiabetesList}"/>
@@ -372,7 +372,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/admin/newPaciente";
+				window.location.href = "http://localhost:8080/endos/newPaciente";
 			});
 	</script>
 	<script type="text/javascript">
@@ -387,7 +387,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/admin/newPaciente?search=search&dni="+dni;
+    				window.location.href = "http://localhost:8080/endos/newPaciente?search=search&dni="+dni;
     			});
     	</script>
 

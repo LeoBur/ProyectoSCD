@@ -48,5 +48,7 @@ public interface AlimentoManager extends GenericManager<Alimento, Long> {
      * @return a list of matches, or all if no searchTerm.
      */
     List<Alimento> search(String searchTerm);
+
+    Alimento getByNombre(String nombre);
 }
 

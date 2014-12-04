@@ -6143,6 +6143,10 @@ INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES
 (NULL, 'Dolor de cabeza'), 
 (NULL, 'Fiebre');
 
+INSERT INTO `scd`.`alimento` (`idAlimento`, `cantCaloriasX100`, `cantCarbohidratosX100`, `cantGlucosaX100`, `cantGrasasX100`, `cantProteinasX100`, `Nombre_Alimento`) VALUES
+('1', '100', '10', '5', '10', '4', 'PAN'),
+('2', '500', '400', '20', '250', '300', 'MILANESA');
+
 /*INSERT INTO `scd`.`persona` (`dni`, `fch_nac`, `sexo`, `id`) VALUES
 ('12345678', '1975-05-10 00:00:00', 1, 1);
 

@@ -50,9 +50,10 @@ public class SintomaDaoHibernate extends GenericDaoHibernate<Sintoma, Long> impl
 
 	@Override
 	public Sintoma getByNombre(String nombre) throws EntityNotFoundException{
-		Sintoma sintoma = (Sintoma) getSession().createCriteria(Sintoma.class).add(Restrictions.eq("nombre",nombre));
+        Query qry = getSession().createQuery("from Sintoma s where s.nombre=:nombre");
+        qry.setParameter("nombre", nombre);
+        Sintoma sintoma = (Sintoma) qry.uniqueResult();
 		if (sintoma == null) throw new EntityNotFoundException("Sintoma "+nombre+" not found");
 		else return sintoma;
 	}
-
 }
