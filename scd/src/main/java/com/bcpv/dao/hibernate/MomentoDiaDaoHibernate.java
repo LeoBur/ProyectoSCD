@@ -2,16 +2,22 @@ package com.bcpv.dao.hibernate;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.dao.ComidaDao;
+import com.bcpv.model.Comida;
 import org.hibernate.criterion.Restrictions;
 
 import com.bcpv.dao.MomentoDiaDao;
 import com.bcpv.model.MomentoDia;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MomentoDiaDaoHibernate extends GenericDaoHibernate<MomentoDia, Long> implements MomentoDiaDao{
 
 	public MomentoDiaDaoHibernate(){
 		super(MomentoDia.class);
 	}
+
+    @Autowired
+    private ComidaDao comidaDao;
 
 	@Override
 	public MomentoDia loadMomentoDiaById(Long idMomentoD) throws EntityNotFoundException{
@@ -28,8 +34,10 @@ public class MomentoDiaDaoHibernate extends GenericDaoHibernate<MomentoDia, Long
 		if(log.isDebugEnabled()){
 			log.debug("MomentoDia id:"+momentoD.getIdMomentoD());
 		}
+        for (Comida comida : momentoD.getComidas()) {
+            comidaDao.saveComida(comida);
+        }
 		getSession().saveOrUpdate(momentoD);
-		getSession().flush();
 		return momentoD;
 	}
 

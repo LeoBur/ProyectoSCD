@@ -4,26 +4,31 @@
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <link rel="stylesheet" href="/styles/style.css">
-    	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
-    	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
-    	  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
-    	  <script src="/scripts/validator.js" type="text/javascript"></script>
 
+    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+    <script  type="text/css" src="/scripts/bootstrap.min.js">
+    <script  type="text/css" src="/scripts/bootstrap-datetimepicker.min.js">
+    <script  type="text/css" src="/scripts/collapse.js">
+    <script  type="text/css" src="/scripts/moment.min.js">
+    <script  type="text/css" src="/scripts/transition.min.js">
+
+    <script src="${pageScope.bootstrapJavascriptUrl}"></script>
+    <script src="${pageScope.datetimepickerJavaScriptUrl}"></script>
+    <link rel="stylesheet" href="${pageScope.bootstrapStylesheetUrl}"/>
+    <link rel="stylesheet" href="${pageScope.datetimepickerStyleSheet}"/>
 
 </head>
-<body>
-
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
+
+<spring:url scope="page" var="datetimepickerJavaScriptUrl" value="/scripts/bootstrap-datetimepicker.min.js"/>
+<spring:url scope="page" var="datetimepickerStyleSheet" value="/styles/bootstrap-datetimepicker.min.css"/>
+<spring:url scope="page" var="bootstrapStyleSheetUrl" value="/styles/bootstrap.min.css"/>
+<spring:url scope="page" var="bootstrapJavaScriptUrl" value="/scripts/bootstrap.min.js"/>
 
 <div class="col-sm-2">
     <h2><fmt:message key="signup.title"/></h2>
@@ -53,67 +58,89 @@
     <form:form commandName="pacienteForm" method="post" action="registrar" autocomplete="off" id="formulario" modelAttribute="pacienteForm"
                cssClass="well" onsubmit="return validateUser(this)">
         	<form:hidden path="username"/>
-        
-        
+
+        	  <div class="row">
+		        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                  <spring:bind path="fechaHora">
+                    <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
+                	<span class="required">*</span>
+                	<input type="text" name="fechaHora" id="fechaHora" class="form-control"
+                	placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
+                    tabindex="1">
+                  </spring:bind>
+                  <label for="fechaHora" generated="true" class="error"></label>
+                  <form:errors path="fechaHora" cssClass="help-block"/>
+                </div>
+                <%--
+                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? 'has-error' : ''}">
+                  <spring:bind path="hora">
+                    <appfuse:label styleClass="control-label" key="user.paciente.hora"/>
+                    <span class="required">*</span>
+                    <input type="datetime" name="hora" id="hora" class="form-control"
+                      placeholder="<fmt:message key="user.paciente.hora"/>" value="${status.value}" maxlength="50"
+                      tabindex="2">
+                  </spring:bind>
+                </div>
+                --%>
+
+                <div class="container">
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <div class='input-group date' id='hora'>
+                                    <input type='text' class="form-control" path="hora"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#hora').datetimepicker();
+                            });
+                        </script>
+                    </div>
+                </div>
+
+		      </div>
 		        <div class="form-group">
-	                <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>	                
-		            <form:input type="date" cssClass="form-control" path="fechaHora" id="fechaHora" size="12" onblur="dateValidate(this)"/>
-		        </div>   
-		        
-		        
-		        <div class="form-group">
-		        	<%-- <spring:bind path="paciente.medicion">
-                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                    </spring:bind> --%>	
-                    
 		                <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
 		                <form:input cssClass="form-control" path="medicion" id="medicion"/>
 		                <label for="medicion" generated="true" class="error"></label>
                         <form:errors path="medicion" cssClass="help-block"/>
-                        <form:errors path="medicion" cssClass="help-block"/>
-		                <%-- <form:errors path="medicion" cssClass="help-block"/> --%>
 		        </div>
 		        
 		        <div class="form-group">
 		                <appfuse:label styleClass="control-label" key="user.paciente.peso"/>
 		                <form:input cssClass="form-control" path="peso" id="peso"/>
 		        </div>
-		        <%-- 
-		        <div class="form-group">
-		        		<appfuse:label styleClass="control-label" key="user.food.title"></appfuse:label>
-		                <form:select path="medicamento">
-		                	<form:options items="${medicamentoList}"  itemLabel="nombreComercial"/>
-						</form:select>		                
-		        </div>
-		         --%> 
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
 		        	<form:select cssClass="form-control" path="medicamento">
-		        		<form:options items="${medicamentoList}" itemLabel="nombreComercial"></form:options>
+		        		<form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
 		        	</form:select>
-		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"></appfuse:label>
+		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
 		        	<form:textarea cssClass="form-control" path="observacionesMedicamento"/>
 		        </div> 
 		        
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
 		        	<form:select cssClass="form-control" path="sintoma">
-		        		
-		        		<form:options items="${sintomaList}"  itemLabel="nombre"></form:options>
+		        		<form:options items="${sintomaList}" itemValue="nombre" itemLabel="nombre"></form:options>
 		        	</form:select>
-		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"></appfuse:label>
+		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
 		        	<form:textarea cssClass="form-control" path="observacionesSintoma"/>
 		        </div> 
 		        
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="active.momentodia"/>
 		        	<form:select cssClass="form-control" path="momento">
-		        		<form:option value="DESAYUNO" label="Desayuno"/>
-		        		<form:option value="MEDIA_MANIANA" label="Media Ma�ana" selected="selected"></form:option>
-		        		<form:option value="ALMUERZO" label="Almuerzo"/>
-		        		<form:option value="MEDIA_TARDE" label="Media Tarde"/>
-		        		<form:option value="CENA" label="Cena"/>
-		        		<form:option value="ANTES_DE_ACOSTARSE" label="Antes de Acostarse"/>
+		        		<form:option value="DESAYUNO" label="DESAYUNO"/>
+		        		<form:option value="MEDIA_MANIANA" selected="selected">MEDIA MA&Ntilde;ANA</form:option>
+		        		<form:option value="ALMUERZO" label="ALMUERZO"/>
+		        		<form:option value="MEDIA_TARDE" label="MEDIA TARDE"/>
+		        		<form:option value="CENA" label="CENA"/>
+		        		<form:option value="ANTES_DE_ACOSTARSE" label="ANTES DE ACOSTARSE"/>
 		        	</form:select>
 		        </div>
 		        
@@ -121,36 +148,36 @@
                    defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="false">
 				        
 				        <display:column titleKey="user.paciente.alimentoIng" sortable="false">
-				            <form:select path="${pacienteForm.comidas[0].alimento}" cssClass="form-control">
-				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            <form:select path="alimento1" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
-				            <form:select path="${pacienteForm.comidas[1].alimento}" cssClass="form-control">
-				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            <form:select path="alimento2" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
-				            <form:select path="${pacienteForm.comidas[2].alimento}" cssClass="form-control">
-				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            <form:select path="alimento3" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
-				            <form:select path="${pacienteForm.comidas[3].alimento}" cssClass="form-control">
-				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            <form:select path="alimento4" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
-				            <form:select path="${pacienteForm.comidas[4].alimento}" cssClass="form-control">
-				            	<form:options items="${alimentoList}" itemLabel="idAlimento"/>
+				            <form:select path="alimento5" cssClass="form-control">
+				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				        </display:column>
 				        
 				        <display:column titleKey="user.food.cant" sortable="false">
-				            <form:input path="${pacienteForm.comidas[0].cantidad}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[1].cantidad}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[2].cantidad}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[3].cantidad}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[4].cantidad}" cssClass="form-control"/>
+				            <form:input path="cantidad1" cssClass="form-control"/>
+				            <form:input path="cantidad2" cssClass="form-control"/>
+				            <form:input path="cantidad3" cssClass="form-control"/>
+				            <form:input path="cantidad4" cssClass="form-control"/>
+				            <form:input path="cantidad5" cssClass="form-control"/>
 				        </display:column>
-				        <display:column titleKey="user.oservacion.title" sortable="false">
-				            <form:input path="${pacienteForm.comidas[0].observaciones}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[1].observaciones}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[2].observaciones}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[3].observaciones}" cssClass="form-control"/>
-				            <form:input path="${pacienteForm.comidas[4].observaciones}" cssClass="form-control"/>
+				        <display:column titleKey="user.observation.title" sortable="false">
+				            <form:input path="observacion1" cssClass="form-control" value="${status.value}"/>
+				            <form:input path="observacion2" cssClass="form-control" value="${status.value}"/>
+				            <form:input path="observacion3" cssClass="form-control" value="${status.value}"/>
+				            <form:input path="observacion4" cssClass="form-control" value="${status.value}"/>
+				            <form:input path="observacion5" cssClass="form-control" value="${status.value}"/>
 				        </display:column>
 				       
 								        
@@ -209,122 +236,44 @@
     </form:form>
 </div>
 
-</body>
-</html>
+<c:set var="scripts" scope="request">
+	<script type="text/javascript">
+		// This is here so we can exclude the selectAll call when roles is hidden
 
+		function onFormSubmit(theForm) {
+			return validateUser(theForm);
+		};
+	</script>
+	<script type="text/javascript">
+		 $('button[name="cancel"]').click(function(e){
+				e.preventDefault();
+				window.location.href = "http://localhost:8080/paciente/registrar";
+			});
+	</script>
 
+	<script type="text/javascript">
+    		 $('button[name="search"]').click(function(e){
+    			  	e.preventDefault();
+    				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
+    				var dni = $('input[name=dni]').val();
+    				window.location.href = "http://localhost:8080/admin/newPaciente?search=search&dni="+dni;
+    			});
+    	</script>
 
+    <script type="text/javascript"
+        <script type="text/javascript"
+         src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+        </script>
+        <script type="text/javascript"
+         src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+        </script>
+        <script type="text/javascript">
+          $('#datetimepicker').datetimepicker({
+            format: 'dd/MM/yyyy hh:mm:ss',
+            language: 'pt-BR'
+          });
+        </script>
+</c:set>
 
-<%--  <div>
-		            <legend class="accordion-heading">
-		                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.paciente.alimentoIng"/></a>
-		            </legend>
-		            <div id="collapse-address" class="accordion-body collapse">
-		                <div class="col-sm-10">
-		    				
-		        		<display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-		                		   defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
-		        			<display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username"
-		                        sortable="true"/>
-		        			<display:column titleKey="activeUsers.fullName" sortable="true">
-		            			<c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>
-		            			<c:if test="${not empty user.email}">
-		                			<a href="mailto:<c:out value="${user.email}"/>">
-		                    			<img src="<c:url value="/images/iconEmail.gif"/>"
-		                        	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
-		            			</c:if>
-		        			</display:column>
-		
-		        			<display:setProperty name="paging.banner.item_name" value="user"/>
-		        			<display:setProperty name="paging.banner.items_name" value="users"/>
-		    			</display:table> 
-		    			<display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-		                		   defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
-		                	<display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.paciente.momentoDia"
-		                        sortable="true"/>
-		                    <display:column titleKey="activePaiente.comidas" sortable="true">
-		                    	<c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>
-		                    	<c:if test="${not empty user.email}">
-		                			<a href="mailto:<c:out value="${user.email}"/>">
-		                    			<img src="<c:url value="/images/iconEmail.gif"/>"
-		                        	 alt="<fmt:message key="icon.email"/>" class="icon"/></a>
-		            			</c:if>
-		            				<a href="editar.html">Editar</a>
-		                    </display:column>
-		    			</display:table>
-						</div>
-		            </div>
-		        </div> --%>
-		        
-		        
-		        <%-- <div class="form-group">
-		        	<input type="checkbox" name="cv1" value="1" checked> Opcion 1 <br>
-		        	<input type="checkbox" name="cv2" value="2" > Opcion 2 <br>
-		        	<input type="checkbox" name="cv3" value="3" > Opcion 3 <br>
-		        </div>
-		        
-		        <div class="form-group">
-		        	<form:select path="phoneNumber">
-		        		<form:option value="Enfermedod" label="Enfermo"/>
-		        		<form:option value="Dolor" label="Dolor de Cabeza" selected="selected"/>
-		        	</form:select> 
-		        </div>--%>
-		        <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> --%>
-		        
-		        
-		        
-		        <%-- <div>
-		            <legend class="accordion-heading">
-		                <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>
-		            </legend>
-		            <div id="collapse-address" class="accordion-body collapse">
-		                <div class="form-group">
-		                    <appfuse:label styleClass="control-label" key="user.address.address"/>
-		                    <form:input cssClass="form-control" path="address.address" id="address.address"/>
-		                </div>
-		                <div class="row">
-		                    <div class="col-sm-7 form-group">
-		                        <appfuse:label styleClass="control-label" key="user.address.city"/>
-		                        <form:input cssClass="form-control" path="address.city" id="address.city"/>
-		                    </div>
-		                    <div class="col-sm-2 form-group">
-		                        <appfuse:label styleClass="control-label" key="user.address.province"/>
-		                        <form:input cssClass="form-control" path="address.province" id="address.province"/>
-		                    </div>
-		                    <div class="col-sm-3 form-group">
-		                        <appfuse:label styleClass="control-label" key="user.address.postalCode"/>
-		                        <form:input cssClass="form-control" path="address.postalCode" id="address.postalCode"/>
-		                    </div>
-		                </div>
-		                <div class="form-group">
-		                    <appfuse:label styleClass="control-label" key="user.address.country"/>
-		                    <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
-		                    <appfuse:country/>
-		                    
-		                </div>
-		            </div>
-		        </div> --%>
-		        
-		        
-		        <%-- <div class="form-group">
-		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
-		        	<form:select cssClass="form-control" path="phoneNumber">
-		        		<form:option value="BayasC" label="Bayaspirina"/>
-		        		<form:option value="Plus" label="Cura Plus" selected="selected"/>
-		        	</form:select>
-		        </div>
-		        
-		        
-		        <div  class="form-group">
-		        	<appfuse:label styleClass="control-label" key="user.oservacion.title"/>
-		        	<form:textarea cssClass="form-control" path="phoneNumber" />
-		        </div>
-		        
-		        <div class="form-group">
-		        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
-		        	<form:select cssClass="form-control" path="phoneNumber">
-		        		<form:option value="Enfermedod" label="Enfermo"/>
-		        		<form:option value="Dolor" label="Dolor de Cabeza" selected="selected"/>
-		        	</form:select>
-		        </div>
-		        --%>
+<v:javascript formName="pacienteForm" staticJavascript="false" />
+<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>

@@ -33,7 +33,7 @@ public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> im
 
 	@SuppressWarnings("unchecked")
 	public List<Alimento> getAlimentos() {
-		Query qry = getSession().createQuery("from Alimento a order by upper(a.nombre)");
+		Query qry = getSession().createQuery("select a.nombre from Alimento a order by upper(a.nombre)");
         return qry.list();
 	}
 
@@ -62,5 +62,10 @@ public class AlimentoDaoHibernate extends GenericDaoHibernate<Alimento, Long> im
         return this.saveAlimento(alimento);
     }
 
-
+    @Override
+    public Alimento getByNombre(String nombre) {
+        Query qry = getSession().createQuery("from Alimento a where a.nombre = :alimento");
+        qry.setParameter("alimento", nombre);
+        return (Alimento) qry.uniqueResult();
+    }
 }

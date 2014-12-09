@@ -31,7 +31,6 @@ public class ComidaDaoHibernate extends GenericDaoHibernate<Comida, Long> implem
 			log.debug("Comida id: "+ comida.getIdComida());
 		}
 		getSession().saveOrUpdate(comida);
-		getSession().flush();
 		return comida;
 	}
 

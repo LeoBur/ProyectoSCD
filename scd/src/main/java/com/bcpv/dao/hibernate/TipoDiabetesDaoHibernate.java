@@ -28,12 +28,30 @@ public class TipoDiabetesDaoHibernate extends GenericDaoHibernate<TipoDiabetes, 
 		}
 	}
 
+    @Override
+    public TipoDiabetes loadTipoDiabetesByTipo(String name) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from TipoDiabetes t where  t.tipoDiab = :tipoDiabetes");
+        qry.setParameter("tipoDiabetes", name);
+        if (qry.list().isEmpty()) {
+            throw new EntityNotFoundException("Tipo de diabetes: " + name + "not found");
+        } else {
+            return (TipoDiabetes) qry.list().get(0);
+        }
+    }
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipoDiabetes> getTipoDiabeteses() {
 		Query qry = getSession().createQuery("from TipoDiabetes t order by upper (t.id_tipo)");
 		return qry.list();
 	}
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getTipoDiabetes() {
+        Query qry = getSession().createQuery("select t.tipoDiab from TipoDiabetes t order by upper (t.tipoDiab)");
+        return qry.list();
+    }
 
 	@Override
 	public TipoDiabetes saveTipoDiabetes(TipoDiabetes tipo) {

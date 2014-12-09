@@ -67,7 +67,7 @@ public class ABMPersonaController extends BaseFormController{
         }
  
         log.debug("entering 'onSubmit' method...");
-        boolean isNew = (personaForm.getIdPersona() == null);
+        boolean isNew = (personaForm.getId() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
         if (request.getParameter("delete") != null) {

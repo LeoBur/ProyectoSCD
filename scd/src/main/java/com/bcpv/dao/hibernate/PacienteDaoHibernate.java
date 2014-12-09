@@ -74,7 +74,9 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
 
 	@Override
 	public Paciente getPacienteByUsername(String username) {
-		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("username", username));
+        Query qry = getSession().createQuery("from Paciente p where p.persona.username = :user");
+        qry.setParameter("user", username);
+		Paciente paciente = (Paciente) qry.uniqueResult();
 		if (paciente == null){
 			throw new EntityNotFoundException("Paciente con username :" + username + " no existe");
 		} else {

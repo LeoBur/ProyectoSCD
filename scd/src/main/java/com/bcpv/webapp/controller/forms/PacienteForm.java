@@ -1,101 +1,32 @@
 package com.bcpv.webapp.controller.forms;
 
-import java.util.Date;
-import java.util.Set;
+public class PacienteForm extends PersonaForm {
 
-import com.bcpv.model.Comida;
-import com.bcpv.model.MomentoDia.MomentosDia;
+    private int limiteInferior;
+    private int limiteSuperior;
+    private String tipoDiabetes;
 
-public class PacienteForm {
-	
-	public Date fechaHora;
-	public String medicion;
-	public String peso;
-	public MomentosDia momento;
-	public Set<Comida> comidas;
-	public String username; //pageContext.request.remoteUser
-	public String medicamento;
-	public String observacionesMedicamento;
-	public String sintoma;
-	public String observacionesSintoma;
-	
-	public Date getFechaHora() {
-		return fechaHora;
-	}
-	
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-	
-	public String getMedicion() {
-		return medicion;
-	}
-	
-	public void setMedicion(String medicion) {
-		this.medicion = medicion;
-	}
-	
-	public String getPeso() {
-		return peso;
-	}
-	
-	public void setPeso(String peso) {
-		this.peso = peso;
-	}
+    public int getLimiteInferior() {
+        return limiteInferior;
+    }
 
-	public Set<Comida> getComidas() {
-		return comidas;
-	}
+    public void setLimiteInferior(int limiteInferior) {
+        this.limiteInferior = limiteInferior;
+    }
 
-	public void setComidas(Set<Comida> comidas) {
-		this.comidas = comidas;
-	}
+    public int getLimiteSuperior() {
+        return limiteSuperior;
+    }
 
-	public MomentosDia getMomento() {
-		return momento;
-	}
+    public void setLimiteSuperior(int limiteSuperior) {
+        this.limiteSuperior = limiteSuperior;
+    }
 
-	public void setMomento(MomentosDia momento) {
-		this.momento = momento;
-	}
+    public String getTipoDiabetes() {
+        return tipoDiabetes;
+    }
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getMedicamento() {
-		return medicamento;
-	}
-
-	public void setMedicamento(String medicamento) {
-		this.medicamento = medicamento;
-	}
-
-	public String getObservacionesMedicamento() {
-		return observacionesMedicamento;
-	}
-
-	public void setObservacionesMedicamento(String observacionesMedicamento) {
-		this.observacionesMedicamento = observacionesMedicamento;
-	}
-
-	public String getSintoma() {
-		return sintoma;
-	}
-
-	public void setSintoma(String sintoma) {
-		this.sintoma = sintoma;
-	}
-
-	public String getObservacionesSintoma() {
-		return observacionesSintoma;
-	}
-
-	public void setObservacionesSintoma(String observacionesSintoma) {
-		this.observacionesSintoma = observacionesSintoma;
-	}
+    public void setTipoDiabetes(String tipoDiabetes) {
+        this.tipoDiabetes = tipoDiabetes;
+    }
 }

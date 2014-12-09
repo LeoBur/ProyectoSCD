@@ -16,12 +16,11 @@ public interface TipoDiabetesDao extends GenericDao<TipoDiabetes, Long>{
      */
     TipoDiabetes loadTipoDiabetesById(Long id) throws EntityNotFoundException;
 
-    /**
-     * Gets a list of mediciones
-     *
-     * @return List populated list of mediciones
-     */
+    TipoDiabetes loadTipoDiabetesByTipo(String tipo) throws EntityNotFoundException;
+
     List<TipoDiabetes> getTipoDiabeteses();
+
+    List<String> getTipoDiabetes();
 
     /**
      * Saves a medicion.

@@ -1,6 +1,9 @@
 package com.bcpv.service.impl;
 
+import com.bcpv.dao.ComidaDao;
+import com.bcpv.dao.MomentoDiaDao;
 import com.bcpv.dao.RegistroComidasDao;
+
 import com.bcpv.model.RegistroComidas;
 import com.bcpv.service.RegistroComidasManager;
 import com.bcpv.service.RegistroComidasService;
@@ -29,6 +32,9 @@ public class RegistroComidasManagerImpl extends GenericManagerImpl<RegistroComid
 		this.registroComidasDao=registroComidasDao;
 		
 	}
+
+    @Autowired
+    private MomentoDiaDao momentoDiaDao;
 
 	@Override
 	public RegistroComidas getRegistroComidas(Long idRegComidas) {
@@ -64,7 +70,8 @@ public class RegistroComidasManagerImpl extends GenericManagerImpl<RegistroComid
 	public RegistroComidas saveRegistroComidas(RegistroComidas registroComidas)
 			throws EntityExistsException {
 		try{
-			return registroComidasDao.save(registroComidas);
+            registroComidas.setMomentoDia(momentoDiaDao.saveMomentoD(registroComidas.getMomentoDia()));
+			return registroComidasDao.saveRegistroComidas(registroComidas);
 		} 
 		catch (final Exception e){
 			e.printStackTrace();

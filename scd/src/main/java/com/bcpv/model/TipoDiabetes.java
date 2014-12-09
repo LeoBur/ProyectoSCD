@@ -40,7 +40,7 @@ public class TipoDiabetes implements Serializable{
 		this.id_tipo = id_tipo;
 	}
 	
-	@Column(name = "tipo_dibetes")
+	@Column(name = "tipo_diabetes")
 	public String getTipoDiab() {
 		return tipoDiab;
 	}

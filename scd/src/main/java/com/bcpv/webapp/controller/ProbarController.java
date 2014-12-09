@@ -1,5 +1,6 @@
 package com.bcpv.webapp.controller;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ import com.bcpv.service.RoleManager;
 import com.bcpv.service.UserExistsException;
 import com.bcpv.service.UserManager;
 import com.bcpv.webapp.util.RequestUtil;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -37,7 +39,7 @@ import com.bcpv.webapp.util.RequestUtil;
 @Controller
 //@RequestMapping("/endos/editPaciente*")
 //@RequestMapping("/endos/newPaciente*")
-@RequestMapping("/endos/adminMedicamento*")
+@RequestMapping("/probar*")
 //@RequestMapping("/endos/adminEspecialista*")
 //@RequestMapping("/endos/adminSintoma*")
 public class ProbarController extends BaseFormController {
@@ -191,10 +193,22 @@ public class ProbarController extends BaseFormController {
 
     @ModelAttribute
     @RequestMapping(method = RequestMethod.GET)
-    protected User showForm(final HttpServletRequest request, final HttpServletResponse response)
+    protected ModelAndView showForm(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
+
+        ModelAndView mv = new ModelAndView("probar");
+        Date hora = new Date();
+        mv.addObject("probar", hora);
+        /*List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
+        List<Sintoma> sintomas = sintomaManager.getSintomas();
+        List<Alimento> alimentos = alimentoManager.getAlimentos();
+        mv.addObject("medicamentoList", medicamentos);
+        mv.addObject("sintomaList", sintomas);
+        mv.addObject("alimentoList", alimentos);*/
+        return mv;
+
         // If not an administrator, make sure user is not trying to add or edit another user
-        if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
+        /*if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit user with id '" +
@@ -221,7 +235,7 @@ public class ProbarController extends BaseFormController {
         } else {
             // populate user object from database, so all fields don't need to be hidden fields in form
             return getUserManager().getUser(request.getParameter("id"));
-        }
+        }*/
     }
 
     private boolean isFormSubmission(final HttpServletRequest request) {
