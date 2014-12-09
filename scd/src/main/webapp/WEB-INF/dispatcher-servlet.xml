@@ -30,6 +30,7 @@
 
     <mvc:resources mapping="/styles/**" location="/styles/"/>
     <mvc:resources mapping="/scripts/**" location="/scripts/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
 
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven/>

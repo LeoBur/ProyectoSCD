@@ -5,7 +5,7 @@
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
 
-    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap.css" rel="stylesheet"/>
+    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap.min.css" rel="stylesheet"/>
     <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
     <script  type="text/css" src="/scripts/bootstrap.min.js">
     <script  type="text/css" src="/scripts/bootstrap-datetimepicker.min.js">
@@ -13,6 +13,10 @@
     <script  type="text/css" src="/scripts/moment.min.js">
     <script  type="text/css" src="/scripts/transition.min.js">
 
+    <script src="${pageScope.bootstrapJavascriptUrl}"></script>
+    <script src="${pageScope.datetimepickerJavaScriptUrl}"></script>
+    <link rel="stylesheet" href="${pageScope.bootstrapStylesheetUrl}"/>
+    <link rel="stylesheet" href="${pageScope.datetimepickerStyleSheet}"/>
 
 </head>
 
@@ -21,10 +25,10 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<spring:url scope="page" var="datetimepickerJavaScriptUrl" value="/scripts/bootstrap-datetimepicker.min.js"
-<spring:url scope="page" var="datetimepickerStyleSheet" value="/styles/bootstrap-datetimepicker.min.css"
-<spring:url scope="page" var="bootstrapStyleSheet" value="/styles/bootstrap.css"
-<spring:url scope="page" var="bootstrapJavaScriptUrl" value="/scripts/bootstrap.min.js"
+<spring:url scope="page" var="datetimepickerJavaScriptUrl" value="/scripts/bootstrap-datetimepicker.min.js"/>
+<spring:url scope="page" var="datetimepickerStyleSheet" value="/styles/bootstrap-datetimepicker.min.css"/>
+<spring:url scope="page" var="bootstrapStyleSheetUrl" value="/styles/bootstrap.min.css"/>
+<spring:url scope="page" var="bootstrapJavaScriptUrl" value="/scripts/bootstrap.min.js"/>
 
 <div class="col-sm-2">
     <h2><fmt:message key="signup.title"/></h2>
