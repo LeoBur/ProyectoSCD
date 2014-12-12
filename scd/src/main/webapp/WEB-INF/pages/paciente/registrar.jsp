@@ -5,30 +5,37 @@
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
 
-    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap.min.css" rel="stylesheet"/>
-    <link type="text/css" href="<%=request.getContextPath() %>/styles/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
-    <script  type="text/css" src="/scripts/bootstrap.min.js">
-    <script  type="text/css" src="/scripts/bootstrap-datetimepicker.min.js">
-    <script  type="text/css" src="/scripts/collapse.js">
-    <script  type="text/css" src="/scripts/moment.min.js">
-    <script  type="text/css" src="/scripts/transition.min.js">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+    <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+    <script src="/scripts/validator.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 
-    <script src="${pageScope.bootstrapJavascriptUrl}"></script>
-    <script src="${pageScope.datetimepickerJavaScriptUrl}"></script>
-    <link rel="stylesheet" href="${pageScope.bootstrapStylesheetUrl}"/>
-    <link rel="stylesheet" href="${pageScope.datetimepickerStyleSheet}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css"/>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+    <link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
+
+<div class="container">
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
-
-<spring:url scope="page" var="datetimepickerJavaScriptUrl" value="/scripts/bootstrap-datetimepicker.min.js"/>
-<spring:url scope="page" var="datetimepickerStyleSheet" value="/styles/bootstrap-datetimepicker.min.css"/>
-<spring:url scope="page" var="bootstrapStyleSheetUrl" value="/styles/bootstrap.min.css"/>
-<spring:url scope="page" var="bootstrapJavaScriptUrl" value="/scripts/bootstrap.min.js"/>
 
 <div class="col-sm-2">
     <h2><fmt:message key="signup.title"/></h2>
@@ -41,7 +48,6 @@
         </c:otherwise>
     </c:choose>
 </div>
-
 
 <div class="col-sm-7">
     <spring:bind path="pacienteForm.*">
@@ -64,44 +70,26 @@
                   <spring:bind path="fechaHora">
                     <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
                 	<span class="required">*</span>
-                	<input type="text" name="fechaHora" id="fechaHora" class="form-control"
-                	placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
-                    tabindex="1">
+                	<div class='input-group date' id='datetimepicker1'>
+	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control" readonly="readonly"
+ 	                	placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
+	                    tabindex="1">
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+                    </div>
                   </spring:bind>
                   <label for="fechaHora" generated="true" class="error"></label>
                   <form:errors path="fechaHora" cssClass="help-block"/>
+                  <script type="text/javascript">
+            		$(function () {
+                	$('#datetimepicker1').datetimepicker({
+                	    useStrict: true,
+                	    language: 'es-AR',
+                	    showToday: true,
+                	});
+            		});
+        	      </script>
                 </div>
-                <%--
-                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? 'has-error' : ''}">
-                  <spring:bind path="hora">
-                    <appfuse:label styleClass="control-label" key="user.paciente.hora"/>
-                    <span class="required">*</span>
-                    <input type="datetime" name="hora" id="hora" class="form-control"
-                      placeholder="<fmt:message key="user.paciente.hora"/>" value="${status.value}" maxlength="50"
-                      tabindex="2">
-                  </spring:bind>
-                </div>
-                --%>
-
-                <div class="container">
-                    <div class="row">
-                        <div class='col-sm-6'>
-                            <div class="form-group">
-                                <div class='input-group date' id='hora'>
-                                    <input type='text' class="form-control" path="hora"/>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#hora').datetimepicker();
-                            });
-                        </script>
-                    </div>
-                </div>
-
 		      </div>
 		        <div class="form-group">
 		                <appfuse:label styleClass="control-label" key="user.paciente.medicion"/>
@@ -235,6 +223,7 @@
 		        </div>
     </form:form>
 </div>
+</div>
 
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
@@ -259,20 +248,6 @@
     				window.location.href = "http://localhost:8080/admin/newPaciente?search=search&dni="+dni;
     			});
     	</script>
-
-    <script type="text/javascript"
-        <script type="text/javascript"
-         src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-        </script>
-        <script type="text/javascript"
-         src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-        </script>
-        <script type="text/javascript">
-          $('#datetimepicker').datetimepicker({
-            format: 'dd/MM/yyyy hh:mm:ss',
-            language: 'pt-BR'
-          });
-        </script>
 </c:set>
 
 <v:javascript formName="pacienteForm" staticJavascript="false" />
