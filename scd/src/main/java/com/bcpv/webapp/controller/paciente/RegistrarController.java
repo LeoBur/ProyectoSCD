@@ -1,5 +1,6 @@
 package com.bcpv.webapp.controller.paciente;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -14,11 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.bcpv.model.Comida;
 import com.bcpv.webapp.controller.forms.RegistroForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.model.Alimento;
@@ -84,6 +90,22 @@ public class RegistrarController extends BaseFormController{
 		setCancelView("redirect:/paciente/registrar");
 		setSuccessView("redirect:/paciente/registrar");
 	}
+
+    @Override
+    protected void initBinder(HttpServletRequest request,
+                              ServletRequestDataBinder binder) {
+        binder.registerCustomEditor(Integer.class, null,
+                new CustomNumberEditor(Integer.class, null, true));
+        binder.registerCustomEditor(Long.class, null,
+                new CustomNumberEditor(Long.class, null, true));
+        binder.registerCustomEditor(byte[].class,
+                new ByteArrayMultipartFileEditor());
+        SimpleDateFormat dateFormat =
+                new SimpleDateFormat(getText("datetime.format", request.getLocale()));
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, null,
+                new CustomDateEditor(dateFormat, true));
+    }
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm() {
