@@ -1,8 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-
-
-
 <menu:useMenuDisplayer name="Velocity" config="navbarMenu.vm" permissions="rolesAdapter">
 
 <div class="collapse navbar-collapse" id="navbar">
@@ -19,7 +16,7 @@
     
     
 
-    <menu:displayMenu name="HomeEndo"/>
+    <%--<menu:displayMenu name="HomeEndo"/>--%>
     <menu:displayMenu name="HomeEndoLista"/>
     <menu:displayMenu name="Paciente"/>
     <menu:displayMenu name="Ajuste"/>

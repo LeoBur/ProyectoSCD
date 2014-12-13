@@ -3,25 +3,17 @@
 <% int a = 5; %>
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
-    <meta name="menu" content="UserMenu"/>
 
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
     <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
     <script src="/scripts/validator.js" type="text/javascript"></script>
     <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css"/>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
@@ -31,6 +23,7 @@
 </head>
 
 <div class="container">
+<meta name="menu" content="UserMenu"/>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
