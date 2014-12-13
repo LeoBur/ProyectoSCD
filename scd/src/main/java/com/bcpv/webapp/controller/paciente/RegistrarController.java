@@ -143,20 +143,6 @@ public class RegistrarController extends BaseFormController{
         Locale locale = request.getLocale();
         Paciente paciente = pacienteManager.getPacienteByUsername(request.getRemoteUser());
         Set<Comida> comidas = setComidas(registroForm);
-        if (!registroForm.hora.isEmpty()) {
-            Calendar calendar=Calendar.getInstance();
-            calendar.setTime(registroForm.fechaHora);
-            //calendar.set(Calendar.HOUR_OF_DAY, registroForm.hora);
-            Date date=calendar.getTime();
-            registroForm.setFechaHora(date);
-        } else {
-            Calendar calendar=Calendar.getInstance();
-            calendar.setTime(registroForm.fechaHora);
-            calendar.setTimeInMillis(request.getSession().getLastAccessedTime());
-            Date date=calendar.getTime();
-            registroForm.setFechaHora(date);
-        }
-        //Date date = formatter.parse(request.getParameter("datepicker"));
 
         if (!registroForm.medicion.isEmpty()){
         	Medicion medicion = new Medicion();

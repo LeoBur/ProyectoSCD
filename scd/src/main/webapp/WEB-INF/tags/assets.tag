@@ -10,14 +10,18 @@
 <c:choose>
 
     <c:when test="${sessionScope.debugAssets}">
-        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/spacelab/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootstrap-datetimepicker/6aa746736d/css/datetimepicker.css"/>
+        <%-- <link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/spacelab/bootstrap.min.css"/> --%>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
 
-        <script type="text/javascript" src="${base}/webjars/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/javascript" src="${base}/webjars/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <%-- <script type="text/javascript" src="${base}/webjars/jquery/1.8.3/jquery.min.js"></script> --%>
+        <%-- <script type="text/javascript" src="${base}/webjars/bootstrap/3.0.2/js/bootstrap.min.js"></script> --%>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
         <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>
-        <script type="text/javascript" src="${base}/webjars/bootstrap-datetimepicker/6aa746736d/js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="${base}/scripts/script.js"></script>
     </c:when>
     <c:otherwise>
