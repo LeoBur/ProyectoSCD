@@ -50,7 +50,7 @@ public class AbmEspecialistaController extends BaseFormController {
 		
 	}
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades")
+    @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades1")
     @ResponseBody
     public String getLocalidades( @RequestParam("provincia") String provincia) {
         return localidades(provincia);
@@ -159,35 +159,26 @@ public class AbmEspecialistaController extends BaseFormController {
         persona.setAccountExpired(false);
         persona.setAccountLocked(false);
         persona.setEnabled(especialistaForm.isEnabled());
-        if (especialistaForm.getTipoEspecialista()==TipoEspecialista.NUTRICIONISTA){
+        if (especialistaForm.getTipoEspecialista() == TipoEspecialista.NUTRICIONISTA){
             persona.addRole(roleManager.getRole(Constants.NUTRI_ROLE));
         } else {
             persona.addRole(roleManager.getRole(Constants.PTRAI_ROLE));
         }
-//---------------------------------
-        Role role = roleManager.getRole(Constants.ENDO_ROLE);
-        if (role == null) {
-            role = new Role();
-            role.setDescription("Endocrinologist role (can edit users)");
-            role.setName(Constants.);
-            roleManager.saveRole(role);
-        }
-        persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
-//-------------------------------
+
         persona.setFch_nac(getFechaNac(especialistaForm));
         persona.setDomicilio(createDomicilio(especialistaForm));
 
         Especialista especialista = new Especialista(especialistaForm.getMatricula(), especialistaForm.getTipoEspecialista(), persona);
 
-        //saveMessage(request, getText("user.savedData", locale));
-
         if (request.getParameter("delete") != null) {
             Especialista espe = especialistaManager.getEspecialistaByPersona(persona);
             if (espe.getPacientes().isEmpty()){
                 especialistaManager.remove(espe);
-//---------------------------------
-                persona.getRoles().remove(roleManager.getRole(Constants.ENDO_ROLE));
-//---------------------------------
+                if (espe.getTipo_esp() == TipoEspecialista.NUTRICIONISTA){
+                    persona.getRoles().remove(roleManager.getRole(Constants.NUTRI_ROLE));
+                } else {
+                    persona.getRoles().remove(roleManager.getRole(Constants.PTRAI_ROLE));
+                }
                 personaManager.savePersona(persona);
                 saveMessage(request, getText("user.endocrinologist.specialistDeleted", locale));
             } else {

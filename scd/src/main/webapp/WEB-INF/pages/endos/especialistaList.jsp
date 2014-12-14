@@ -15,7 +15,7 @@
 <div class="col-sm-7">
 
 	<div id="actions" class="btn-group">
-	    <a class="btn btn-primary" href="<c:url value='/endos/especialistaForm'/>">
+	    <a class="btn btn-primary" href="<c:url value='/endos/adminEspecialista'/>">
 	      <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
 	    <a class="btn btn-default" href="<c:url value='/endos/endo'/>">
 	      <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
