@@ -149,6 +149,7 @@ public class AbmEndocrinologoController extends BaseFormController {
             }
             if (endocrinologosFilter.size() == 0) {
                 mv.addObject("endocrinologoList", endocrinologos);
+                saveInfo(request, "No existe el Endocrinologo");
                 return mv;
             } else {
             mv.addObject("endocrinologoList", endocrinologosFilter);
@@ -237,11 +238,9 @@ public class AbmEndocrinologoController extends BaseFormController {
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
         persona.setDomicilio(createDomicilio(endocrinologoForm));
-        
+
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-        
-        //saveMessage(request, getText("user.savedData", locale));
- 
+
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
             if (endo.getPacientes().isEmpty()){
@@ -296,8 +295,6 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(request.getParameter("dniposta"));
-        persona.setConfirmPassword(request.getParameter("dniposta"));
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setSexo(endocrinologoForm.getSexo());
@@ -318,9 +315,8 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setFch_nac(getFechaNac(endocrinologoForm));
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
-        Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-
-        //saveMessage(request, getText("user.savedData", locale));
+        Endocrinologo endocrinologo = endocrinologoManager.getEndocrinologo(endocrinologoForm.getId());;
+        endocrinologo.setMatricula(endocrinologoForm.getMatricula());
 
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);

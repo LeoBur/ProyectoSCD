@@ -52,14 +52,14 @@ public class EndocrinologoManagerImpl extends GenericManagerImpl<Endocrinologo, 
 	}
 
 	@Override
-	public Endocrinologo saveEndocrinologo(final Endocrinologo persona)
+	public Endocrinologo saveEndocrinologo(final Endocrinologo endocrinologo)
 			throws EntityExistsException {
 		try {
-			return endocrinologoDao.saveEndocrinologo(persona);
+			return endocrinologoDao.saveEndocrinologo(endocrinologo);
 		} catch (final Exception e){
 			e.printStackTrace();
 			log.warn(e.getMessage());
-			throw new EntityExistsException("La persona ya existe");
+			throw new EntityExistsException("El endocrinologo ya existe");
 		}
 	}
 
