@@ -257,12 +257,12 @@ public class AbmEndocrinologoController extends BaseFormController {
                 personaManager.savePersona(persona);
                 endocrinologoManager.saveEndocrinologo(endocrinologo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
+            } else {
+                saveMessage(request, getText("admin.endocrinologist.updated", locale));
             }
         }
         return success;
@@ -334,12 +334,12 @@ public class AbmEndocrinologoController extends BaseFormController {
                 personaManager.savePersona(persona);
                 endocrinologoManager.saveEndocrinologo(endocrinologo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
+            } else {
+                saveMessage(request, getText("admin.endocrinologist.updated", locale));
             }
         }
         return success;
