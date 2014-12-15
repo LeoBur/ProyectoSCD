@@ -32,7 +32,6 @@
 
 <div class="col-sm-2">
     <h3>Endocrinologos</h2>
-    <p>Listado de usuarios reqistrados.</p>
 </div>
 
 <div class="col-sm-7">
@@ -79,10 +78,10 @@
                             <c:out value="${endo.persona.dni}" />
                         </td>
                         <td style="width: 28%">
-                            <c:out value="${endo.persona.firstName}" />
+                            <c:out value="${endo.persona.lastName}" />
                         </td>
                         <td style="width: 34%">
-                            <c:out value="${endo.persona.lastName}" />
+                            <c:out value="${endo.persona.firstName}" />
                         </td>
                         <td style="width: 28%">
                             <c:choose>

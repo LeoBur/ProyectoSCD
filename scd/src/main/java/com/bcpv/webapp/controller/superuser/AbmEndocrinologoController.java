@@ -149,6 +149,7 @@ public class AbmEndocrinologoController extends BaseFormController {
             }
             if (endocrinologosFilter.size() == 0) {
                 mv.addObject("endocrinologoList", endocrinologos);
+                saveInfo(request, "No existe el Endocrinologo");
                 return mv;
             } else {
             mv.addObject("endocrinologoList", endocrinologosFilter);
@@ -230,11 +231,9 @@ public class AbmEndocrinologoController extends BaseFormController {
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
         persona.setDomicilio(createDomicilio(endocrinologoForm));
-        
+
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-        
-        //saveMessage(request, getText("user.savedData", locale));
- 
+
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
             if (endo.getPacientes().isEmpty()){
@@ -251,12 +250,12 @@ public class AbmEndocrinologoController extends BaseFormController {
                 personaManager.savePersona(persona);
                 endocrinologoManager.saveEndocrinologo(endocrinologo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
+            } else {
+                saveMessage(request, getText("admin.endocrinologist.updated", locale));
             }
         }
         return success;
@@ -289,8 +288,6 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(request.getParameter("dniposta"));
-        persona.setConfirmPassword(request.getParameter("dniposta"));
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setSexo(endocrinologoForm.getSexo());
@@ -299,21 +296,13 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setAccountLocked(false);
         persona.setEnabled(endocrinologoForm.isEnabled());
 
-        Role role = roleManager.getRole(Constants.ENDO_ROLE);
-        if (role == null) {
-            role = new Role();
-            role.setDescription("Endocrinologist role (can edit users)");
-            role.setName(Constants.ENDO_ROLE);
-            roleManager.saveRole(role);
-        }
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
-        Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-
-        //saveMessage(request, getText("user.savedData", locale));
+        Endocrinologo endocrinologo = endocrinologoManager.getEndocrinologo(endocrinologoForm.getId());;
+        endocrinologo.setMatricula(endocrinologoForm.getMatricula());
 
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
@@ -331,12 +320,12 @@ public class AbmEndocrinologoController extends BaseFormController {
                 personaManager.savePersona(persona);
                 endocrinologoManager.saveEndocrinologo(endocrinologo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
+            } else {
+                saveMessage(request, getText("admin.endocrinologist.updated", locale));
             }
         }
         return success;
