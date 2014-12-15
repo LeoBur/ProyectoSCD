@@ -227,13 +227,6 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setAccountLocked(false);
         persona.setEnabled(endocrinologoForm.isEnabled());
 
-        Role role = roleManager.getRole(Constants.ENDO_ROLE);
-        if (role == null) {
-            role = new Role();
-            role.setDescription("Endocrinologist role (can edit users)");
-            role.setName(Constants.ENDO_ROLE);
-            roleManager.saveRole(role);
-        }
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
@@ -303,13 +296,6 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setAccountLocked(false);
         persona.setEnabled(endocrinologoForm.isEnabled());
 
-        Role role = roleManager.getRole(Constants.ENDO_ROLE);
-        if (role == null) {
-            role = new Role();
-            role.setDescription("Endocrinologist role (can edit users)");
-            role.setName(Constants.ENDO_ROLE);
-            roleManager.saveRole(role);
-        }
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
 
         persona.setFch_nac(getFechaNac(endocrinologoForm));
