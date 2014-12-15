@@ -2,10 +2,7 @@ package com.bcpv.webapp.controller.endo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -49,12 +46,6 @@ public class AbmEspecialistaController extends BaseFormController {
 	public AbmEspecialistaController(){
 		
 	}
-
-    @RequestMapping(method = RequestMethod.GET, value = "/getLocalidades1")
-    @ResponseBody
-    public String getLocalidades( @RequestParam("provincia") String provincia) {
-        return localidades(provincia);
-    }
 
     private void buscar(ModelAndView mv, EspecialistaForm especialistaForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
         final String dni = especialistaForm.getDni();
@@ -100,7 +91,12 @@ public class AbmEspecialistaController extends BaseFormController {
     @RequestMapping(value = "endos/adminEspecialista*", method = RequestMethod.GET)
     public ModelAndView showForm(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                  final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("endos/adminEspecialista");
+        ModelAndView mv;
+        if (null == search && request.getAttribute("especialistaForm") == null){
+            mv = new ModelAndView("admin/newEspecialista");
+        }else {
+            mv = new ModelAndView("admin/editEspecialista");
+        }
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
@@ -115,12 +111,74 @@ public class AbmEspecialistaController extends BaseFormController {
         return mv;
     }
 
-    @RequestMapping(value = "endos/especialistaList*", method = RequestMethod.GET)
-    public ModelAndView showEspecialistas() {
-        ModelAndView mv = new ModelAndView("endos/especialistaList");
-        List<Especialista> especialistas = especialistaManager.getEspecialistas();
-        mv.addObject("especialistaList", especialistas);
+    @RequestMapping(value = "admin/editEspecialista*", method = RequestMethod.GET)
+    public ModelAndView showFormEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
+                                     final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("admin/editEspecialista");
+        Locale locale = request.getLocale();
+        List<Provincia> provincias = provinciaManager.getProvincias();
+        List<Localidad> localidades = localidadManager.getLocalidades();
+        buscar(mv, especialistaForm, request, provincias, localidades, locale);
         return mv;
+    }
+    
+    @RequestMapping(value = "admin/especialistaList*", method = RequestMethod.GET)
+    public ModelAndView showEspecialistas(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
+                                           final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("admin/especialistaList");
+        List<Especialista> especialistas = especialistaManager.getEspecialistas();
+        List<Especialista> especialistasFilter = new ArrayList<Especialista>();
+
+        if (search == null) {
+            mv.addObject("especialistaList", especialistas);
+            return mv;
+        } else {
+            for (Especialista especialistafilter : especialistas) {
+                if (especialistafilter.getPersona().getDni().startsWith(especialistaForm.getDni()) || (especialistafilter.getPersona().getLastName().startsWith(especialistaForm.getDni().toUpperCase()))) {
+                    especialistasFilter.add(especialistafilter);
+                }
+            }
+            if (especialistasFilter.size() == 0) {
+                mv.addObject("especialistaList", especialistas);
+                saveInfo(request, "No existe el Especialista");
+                return mv;
+            } else {
+                mv.addObject("especialistaList", especialistasFilter);
+                return mv;
+            }
+        }
+    }
+
+    @RequestMapping(value = "endos/getTags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Especialista especialista : especialistaManager.getEspecialistas()) {
+            data.add(new Tag(cont++, especialista.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, especialista.getPersona().getDni()));
+            //data.add(new Tag(cont++, especialista.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
     }
 
     @RequestMapping(value = "endo/adminEspecialista*", method = RequestMethod.POST)
@@ -190,12 +248,88 @@ public class AbmEspecialistaController extends BaseFormController {
                 personaManager.savePersona(persona);
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("user.endocrinologist.specialistUpdated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));
+            } else {
+                saveMessage(request, getText("user.endocrinologist.specialistUpdated", locale));
+            }
+        }
+        return success;
+    }
+
+    @RequestMapping(value = "admin/editEspecialista*", method = RequestMethod.POST)
+    public String onSubmitEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
+                               HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
+        if (validator != null) { // validator is null during testing
+            validator.validate(especialistaForm, errors);
+
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "/newEspecialista";
+            }
+        }
+
+        boolean isNew = (especialistaForm.getId() == null);
+        log.debug("entering 'onSubmitEdit' method...");
+
+        String success = "redirect:newEspecialista";
+        Locale locale = request.getLocale();
+
+        Persona persona = personaManager.getPersonaByDni(request.getParameter("dniposta"));
+
+        persona.setDni(request.getParameter("dniposta"));
+        persona.setFirstName(especialistaForm.getFirstName());
+        persona.setLastName(especialistaForm.getLastName());
+        persona.setEmail(especialistaForm.getEmail());
+        persona.setPhoneNumber(especialistaForm.getPhoneNumber());
+        persona.setSexo(especialistaForm.getSexo());
+        persona.setUsername(especialistaForm.getEmail());
+        persona.setAccountExpired(false);
+        persona.setAccountLocked(false);
+        persona.setEnabled(especialistaForm.isEnabled());
+        if (especialistaForm.getTipoEspecialista() == TipoEspecialista.NUTRICIONISTA){
+            persona.addRole(roleManager.getRole(Constants.NUTRI_ROLE));
+        } else {
+            persona.addRole(roleManager.getRole(Constants.PTRAI_ROLE));
+        }
+        persona.setFch_nac(getFechaNac(especialistaForm));
+        persona.setDomicilio(createDomicilio(especialistaForm));
+
+        Especialista especialista = especialistaManager.getEspecialista(especialistaForm.getId());;
+        especialista.setMatricula(especialistaForm.getMatricula());
+
+        if (request.getParameter("delete") != null) {
+            Especialista espe = especialistaManager.getEspecialistaByPersona(persona);
+            if (espe.getPacientes().isEmpty()){
+                especialistaManager.remove(espe);
+                if (espe.getTipo_esp() == TipoEspecialista.NUTRICIONISTA){
+                    persona.getRoles().remove(roleManager.getRole(Constants.NUTRI_ROLE));
+                } else {
+                    persona.getRoles().remove(roleManager.getRole(Constants.PTRAI_ROLE));
+                }
+                personaManager.savePersona(persona);
+                saveMessage(request, getText("user.endocrinologist.specialistDeleted", locale));
+            } else {
+                saveMessage(request, getText("user.endocrinologist.specialistNotDeleted", locale));
+            }
+
+        } else {
+            try{
+                personaManager.savePersona(persona);
+                especialistaManager.saveEspecialista(especialista);
+            } catch (EntityExistsException e) {
+                log.warn(e.getMessage());
+            }
+            if (isNew) {
+                saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));
+            } else {
+                saveMessage(request, getText("user.endocrinologist.specialistUpdated", locale));
             }
         }
         return success;
@@ -221,6 +355,7 @@ public class AbmEspecialistaController extends BaseFormController {
         try {
             return especialistaManager.getEspecialistaByPersona(persona).getMatricula();
         } catch (EntityNotFoundException e) {
+            log.warn(e.getMessage());
             return null;
         }
     }
@@ -229,24 +364,8 @@ public class AbmEspecialistaController extends BaseFormController {
         try {
             return especialistaManager.getEspecialistaByPersona(persona).getTipo_esp();
         } catch (EntityNotFoundException e) {
+            log.warn(e.getMessage());
             return null;
         }
     }
-
-    private String localidades (String provincia) {
-        List<Localidad> localidades = localidadManager.getLocalidades();
-        JSONArray ja = new JSONArray();
-        int i = 0;
-        for (Localidad localidad : localidades) {
-            JSONObject j = new JSONObject();
-            if (provincia.equals(localidad.getProvincia().getNombre())) {
-                j.put("optionValue", localidad.getNombre());
-                j.put("optionDisplay", localidad.getNombre());
-                ja.add(i, j);
-                i++;
-            }
-        }
-        return ja.toString();
-    }
-
 }
