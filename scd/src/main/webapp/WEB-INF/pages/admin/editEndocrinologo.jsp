@@ -25,13 +25,6 @@
     <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-	<script type="text/javascript">
-		function CancelFormButton(button) {
-			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/endo";
-	  	};
-	</script>
-
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
 		  $("select#provincia").change(function(){

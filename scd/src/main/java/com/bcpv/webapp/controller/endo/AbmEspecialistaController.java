@@ -93,9 +93,9 @@ public class AbmEspecialistaController extends BaseFormController {
                                  final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv;
         if (null == search && request.getAttribute("especialistaForm") == null){
-            mv = new ModelAndView("admin/newEspecialista");
+            mv = new ModelAndView("endos/newEspecialista");
         }else {
-            mv = new ModelAndView("admin/editEspecialista");
+            mv = new ModelAndView("endos/editEspecialista");
         }
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
@@ -111,10 +111,10 @@ public class AbmEspecialistaController extends BaseFormController {
         return mv;
     }
 
-    @RequestMapping(value = "admin/editEspecialista*", method = RequestMethod.GET)
+    @RequestMapping(value = "endos/editEspecialista*", method = RequestMethod.GET)
     public ModelAndView showFormEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                      final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("admin/editEspecialista");
+        ModelAndView mv = new ModelAndView("endos/editEspecialista");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
@@ -122,10 +122,10 @@ public class AbmEspecialistaController extends BaseFormController {
         return mv;
     }
     
-    @RequestMapping(value = "admin/especialistaList*", method = RequestMethod.GET)
+    @RequestMapping(value = "endos/especialistaList*", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                            final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("admin/especialistaList");
+        ModelAndView mv = new ModelAndView("endos/especialistaList");
         List<Especialista> especialistas = especialistaManager.getEspecialistas();
         List<Especialista> especialistasFilter = new ArrayList<Especialista>();
 
@@ -259,7 +259,7 @@ public class AbmEspecialistaController extends BaseFormController {
         return success;
     }
 
-    @RequestMapping(value = "admin/editEspecialista*", method = RequestMethod.POST)
+    @RequestMapping(value = "endos/editEspecialista*", method = RequestMethod.POST)
     public String onSubmitEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                HttpServletRequest request, HttpServletResponse response)
             throws Exception {

@@ -1,4 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
+<c:set var="lista" value="${especialistaList}"/>
 
 <head>
 <title><fmt:message key="home.title" /></title>
@@ -6,48 +7,122 @@
 <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#especialistas-input-search').autocomplete({
+            serviceUrl: 'http://localhost:8080/endos/getTags',
+            paramName: "tagName",
+            delimiter: "," ,
+            transformResult: function(response) {
+            return {
+            suggestions: $.map($.parseJSON(response), function(item) {
+                return {value: item.tagName, data: item.id };
+            })
+            };
+            }
+        });
+
+        $('#button-id').click(function(e) {
+           var search = $('input[name=especialista-input-search]').val();
+           window.location.href = "http://localhost:8080/endos/especialistaList?search=search&dni="+search;
+        });
+    });
+</script>
 </head>
-<body class="home">
-	<h2>
-		<fmt:message key="home.heading" />
-	</h2>
+
+<div class="col-sm-2">
+    <h3>Especialistas</h2>
+</div>
 
 <div class="col-sm-7">
+    <div class="well">
+        <div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+	                    <input type="text" id="especialista-input-search" name="especialista-input-search" class="form-control">
+                    </div>
+	                <div id="actions" class="btn-group">
+	                    <span>
+	                        <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
+	                    </span>
+	                </div>
+	                <div id="actions" class="btn-group">
+                        <a class="btn btn-primary" href="<c:url value='/endos/newEspecialista'/>">
+                        <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+                    </div>
+                </div>
+            </div>
+	    </div>
+        <br></br>
+        <c:if test="${not empty lista}">
+            <table class="table table-condensed table-striped table-hover">
+                <tr>
+                    <th style="width: 30%" class="sortable sorted order1">
+                        <fmt:message key="user.dni" />
+                    </th>
+                    <th style="width: 30%" class="sortable sorted order1">
+                        <fmt:message key="user.lastName" />
+                    </th>
+                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
+                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                </tr>
+            </table>
+        </c:if>
+        <c:forEach var="especialista" items="${especialistaList}" varStatus="index" >
+                <table class="table table-condensed table-striped table-hover">
+                    <tr>
+                        <td style="width: 28%">
+                            <c:out value="${especialista.persona.dni}" />
+                        </td>
+                        <td style="width: 28%">
+                            <c:out value="${especialista.persona.lastName}" />
+                        </td>
+                        <td style="width: 34%">
+                            <c:out value="${especialista.persona.firstName}" />
+                        </td>
+                        <td style="width: 28%">
+                            <c:choose>
+                                <c:when test="${especialista.persona.enabled == 'true'}">
+                                    <input type="checkbox" checked="true" disabled="true"/>
+                                </c:when>
+                                <c:when test="${especialista.persona.enabled == 'false'}">
+                                    <input type="checkbox" disabled="false"/>
+                                </c:when>
+                            </c:choose>
+                        </td>
+                        <td style="width: 34%">
+                            <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialista.persona.dni}">Editar</a>
+                        </td>
+                    </tr>
+                </table>
+            <%--</c:if>--%>
+        </c:forEach>
 
-	<div id="actions" class="btn-group">
-	    <a class="btn btn-primary" href="<c:url value='/endos/adminEspecialista'/>">
-	      <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-	    <a class="btn btn-default" href="<c:url value='/endos/endo'/>">
-	      <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
-	</div>		
-    	
+        <%--
 	 	<display:table  name="especialistaList" cellspacing="0" cellpadding="0" requestURI=""
 	                   defaultsort="1" id="especialistaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-	                   
-	        	<display:column property="nombre" escapeXml="true" sortable="true" titleKey="user.firstName" style="width: 34%">
-	            </display:column>
-	            <display:column property="apellido" escapeXml="true" sortable="true" titleKey="user.lastName"
+	        	<display:column property="persona.firstName" escapeXml="true" sortable="true" titleKey="user.firstName"
 	                        style="width: 34%">
 	            </display:column>
-	            
-	            <display:column property="tipo_esp" escapeXml="true" sortable="true" titleKey="user.tipo_esp"
-	                        style="width: 34%">
-	            </display:column>
-	            
-	            
-	            <%--
-	            <display:column property="domicilio" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
-	                        style="width: 34%">
-	            </display:column>
-	            --%>            
+	            <display:column property="persona.lastName" escapeXml="true" sortable="true" titleKey="user.lastName"
+                            style="width: 34%">
+                </display:column>
+                <display:column property="matricula" escapeXml="true" sortable="true" titleKey="user.endocrinologist.registration"
+                              style="width: 34%">
+                </display:column>
+
 	            <display:column titleKey="activeEndos.acciones" sortable="true">
-            		<a href="${pageContext.request.contextPath}/endos/especialistaForm?id=${especialistaList.id}">Editar</a>
-                </display:column> 
-	            
+            				<a href="${ctx}/especialista/sintomaForm?id=${especialistaList.id}">Editar</a>
+                </display:column>
+
 		</display:table>
+		--%>
+    </div>
 </div>
 </body>
 <c:set var="scripts" scope="request">
-<v:javascript formName="endoSearch" staticJavascript="false"/>
+<v:javascript formName="especialistaSearch" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 </c:set>

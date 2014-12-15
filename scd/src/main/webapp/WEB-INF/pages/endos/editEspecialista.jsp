@@ -25,13 +25,6 @@
     <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-	<script type="text/javascript">
-		function CancelFormButton(button) {
-			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/endo";
-	  	};
-	</script>
-
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
 		  $("select#provincia").change(function(){
@@ -59,7 +52,7 @@
 <!-- Ac� comienzan los formularios -->
 
 <div class="col-sm-7">
-	<spring:bind path="endocrinologoForm.*">
+	<spring:bind path="especialistaForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
           	<a href="#" data-dismiss="alert" class="close">&times;</a>
@@ -70,7 +63,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="endocrinologoForm" method="post" action="editEndocrinologo" id="formulario" autocomplete="off" name="miFormulario"
+	<form:form commandName="especialistaForm" method="post" action="editEspecialista" id="formulario" autocomplete="off" name="miFormulario"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
@@ -106,7 +99,7 @@
 
         <div class="form-group">
 	        <div>
-	          <spring:bind path="endocrinologoForm.firstName">
+	          <spring:bind path="especialistaForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	        	<input type="text" name="firstName" id="firstName" class="form-control"
 	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
@@ -116,7 +109,7 @@
 	          <form:errors path="firstName" cssClass="help-block"/>
 	        </div>
 	        <div>
-	          <spring:bind path="endocrinologoForm.lastName">
+	          <spring:bind path="especialistaForm.lastName">
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	        	<input type="text" name="lastName" id="lastName" class="form-control"
 	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
@@ -129,7 +122,7 @@
 
 		<div class="row">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-	          <spring:bind path="endocrinologoForm.dia">
+	          <spring:bind path="especialistaForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
 	                <span class="required">*</span>
 	        	<input type="text" name="dia" id="dia" class="form-control"
@@ -140,17 +133,17 @@
 		   	  <form:errors path="dia" cssClass="help-block"/>
 		   	</div>
 
-		    <spring:bind path="endocrinologoForm.sexo">
+		    <spring:bind path="especialistaForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 					  <span class="required">*</span>
 						<div class="form-control">
                         <c:choose>
-                            <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
+                            <c:when test="${especialistaForm.sexo == null || especialistaForm.sexo == 'M'}">
                                 <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
                                 <input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
                             </c:when>
-                            <c:when test="${endocrinologoForm.sexo != null && endocrinologoForm.sexo == 'F'}">
+                            <c:when test="${especialistaForm.sexo != null && especialistaForm.sexo == 'F'}">
                                 <input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
                                 <input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
                             </c:when>
@@ -164,7 +157,7 @@
 
 		<div class="row">
 		 <div>
-		  <spring:bind path="endocrinologoForm.phoneNumber">
+		  <spring:bind path="especialistaForm.phoneNumber">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
 		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
@@ -173,7 +166,7 @@
 		  </spring:bind>
 		 </div>
 		 <div>
-		  <spring:bind path="endocrinologoForm.email">
+		  <spring:bind path="especialistaForm.email">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
@@ -189,7 +182,7 @@
 			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
-					<spring:bind path="endocrinologoForm.provincia">
+					<spring:bind path="especialistaForm.provincia">
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
@@ -202,7 +195,7 @@
 					</spring:bind>
 				  </div>
 				  <div>
-					<spring:bind path="endocrinologoForm.localidad">
+					<spring:bind path="especialistaForm.localidad">
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
@@ -219,7 +212,7 @@
 
 			<div class="row">
 			  <div>
-				<spring:bind path="endocrinologoForm.calle">
+				<spring:bind path="especialistaForm.calle">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<span class="required">*</span>
@@ -233,7 +226,7 @@
 				</spring:bind>
 			  </div>
 			  <div>
-				<spring:bind path="endocrinologoForm.numero">
+				<spring:bind path="especialistaForm.numero">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<span class="required">*</span>
@@ -250,7 +243,7 @@
 
 			<div class="row">
 			  <div>
-				<spring:bind path="endocrinologoForm.dpto">
+				<spring:bind path="especialistaForm.dpto">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
@@ -262,7 +255,7 @@
 				</spring:bind>
 			 </div>
 			 <div>
-				<spring:bind path="endocrinologoForm.piso">
+				<spring:bind path="especialistaForm.piso">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
@@ -277,7 +270,7 @@
 
          <div class="row">
 		 <div>
-           <spring:bind path="endocrinologoForm.matricula">
+           <spring:bind path="especialistaForm.matricula">
          	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
          	  <span class="required">*</span>
@@ -288,15 +281,15 @@
            </spring:bind>
          </div>
          <div>
-         		  <spring:bind path="endocrinologoForm.enabled">
+         		  <spring:bind path="especialistaForm.enabled">
          			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          				<appfuse:label styleClass="control-label" key="user.enabled" />
          				<c:choose>
-                                                    <c:when test="${endocrinologoForm.enabled == 'true'}">
+                                                    <c:when test="${especialistaForm.enabled == 'true'}">
                                                         <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
                                                         value="${status.value}" tabindex="23"/>
                                                     </c:when>
-                                                    <c:when test="${endocrinologoForm.enabled == 'false'}">
+                                                    <c:when test="${especialistaForm.enabled == 'false'}">
                                                         <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
                                                         value="${status.value}" tabindex="23"/>
                                                     </c:when>
@@ -314,7 +307,7 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty endocrinologoForm.dni}">
+			<c:if test="${not empty especialistaForm.dni}">
 				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
@@ -340,7 +333,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/admin/endocrinologoList";
+				window.location.href = "http://localhost:8080/admin/especialistaList";
 			});
 	</script>
 	<script type="text/javascript">
@@ -355,7 +348,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
+    				window.location.href = "http://localhost:8080/admin/newEspecialista?search=search&dni="+dni;
     			});
     	</script>
 
@@ -409,5 +402,5 @@
 
 </c:set>
 
-<v:javascript formName="endocrinologoForm" staticJavascript="false" />
+<v:javascript formName="especialistaForm" staticJavascript="false" />
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
