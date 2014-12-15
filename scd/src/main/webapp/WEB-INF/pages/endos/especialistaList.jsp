@@ -97,28 +97,8 @@
                         </td>
                     </tr>
                 </table>
-            <%--</c:if>--%>
+                </table>
         </c:forEach>
-
-        <%--
-	 	<display:table  name="especialistaList" cellspacing="0" cellpadding="0" requestURI=""
-	                   defaultsort="1" id="especialistaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-	        	<display:column property="persona.firstName" escapeXml="true" sortable="true" titleKey="user.firstName"
-	                        style="width: 34%">
-	            </display:column>
-	            <display:column property="persona.lastName" escapeXml="true" sortable="true" titleKey="user.lastName"
-                            style="width: 34%">
-                </display:column>
-                <display:column property="matricula" escapeXml="true" sortable="true" titleKey="user.endocrinologist.registration"
-                              style="width: 34%">
-                </display:column>
-
-	            <display:column titleKey="activeEndos.acciones" sortable="true">
-            				<a href="${ctx}/especialista/sintomaForm?id=${especialistaList.id}">Editar</a>
-                </display:column>
-
-		</display:table>
-		--%>
     </div>
 </div>
 </body>

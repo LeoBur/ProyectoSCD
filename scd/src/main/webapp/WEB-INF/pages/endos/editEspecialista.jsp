@@ -333,7 +333,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/admin/especialistaList";
+				window.location.href = "http://localhost:8080/endos/especialistaList";
 			});
 	</script>
 	<script type="text/javascript">
@@ -348,7 +348,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/admin/newEspecialista?search=search&dni="+dni;
+    				window.location.href = "http://localhost:8080/endos/newEspecialista?search=search&dni="+dni;
     			});
     	</script>
 

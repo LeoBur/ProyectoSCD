@@ -88,7 +88,7 @@ public class AbmEspecialistaController extends BaseFormController {
         }
     }
 
-    @RequestMapping(value = "endos/adminEspecialista*", method = RequestMethod.GET)
+    @RequestMapping(value = "endos/newEspecialista*", method = RequestMethod.GET)
     public ModelAndView showForm(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                  final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv;
@@ -181,7 +181,7 @@ public class AbmEspecialistaController extends BaseFormController {
         return result;
     }
 
-    @RequestMapping(value = "endo/adminEspecialista*", method = RequestMethod.POST)
+    @RequestMapping(value = "endos/newEspecialista*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                            HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -193,14 +193,14 @@ public class AbmEspecialistaController extends BaseFormController {
             validator.validate(especialistaForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/adminEspecialista";
+                return "/newEspecialista";
             }
         }
 
         boolean isNew = (especialistaForm.getId() == null);
         log.debug("entering 'onSubmit' method...");
 
-        String success = "redirect:adminEspecialista";
+        String success = "redirect:newEspecialista";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni());
