@@ -81,20 +81,30 @@
 					<spring:bind path="dni">
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.dni"/>
+							<%-- si es nuevo, habilita la edicion. Si no es nuevo, la deshabilita --%>
+							<c:if test="${especialistaForm.nuevoEspecialista}">
 								<span class="required">*</span>
-							<input type="text" name="dni" id="dni" class="form-control"
-							placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+								<input type="text" name="dni" id="dni" class="form-control"
+								placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+							</c:if>
+							<c:if test="${especialistaForm.nuevoEspecialista}">
+								<input type="text" name="dni" id="dni" class="form-control" disabled
+								placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+                            </c:if>
 						</div>
 					</spring:bind>
 				</div>
 				<div class="col-sm-6 form-group">
 					<br>
 					<div>
-						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-							<i class="icon-upload icon-white"></i>
-							<fmt:message key="button.search" />
+						<%-- si es nuevo, habilita el boton--%>
+						<c:if test="${especialistaForm.nuevoEspecialista}">
+							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
+								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
+								<i class="icon-upload icon-white"></i>
+								<fmt:message key="button.search" />
 							</button>
+						</c:if>
 					</div>
 				</div>
 			</div>

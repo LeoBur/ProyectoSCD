@@ -263,7 +263,7 @@
         	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             	<spring:bind path="especialistaForm.tipoEspecialista">
                     <appfuse:label styleClass="control-label" key="user.tipo_esp"/>
-                    <input list="tiposEsp" name="especialistaForm.tipoEspecialista" id="especialistaForm.tipoEspecialista" class="form-control"
+                    <input list="tiposEsp" name="tipoEspecialista" id="tipoEspecialista" class="form-control"
                       value="${status.value}" tabindex="20">
 				</spring:bind>
 
