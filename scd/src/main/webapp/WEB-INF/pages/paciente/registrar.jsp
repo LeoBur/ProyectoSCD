@@ -61,23 +61,21 @@
         	  <div class="row">
 		        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                   <spring:bind path="fechaHora">
-                    <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
+                    <appfuse:label styleClass="control-label" key="user.paciente.fechaHora"/>
                 	<span class="required">*</span>
-                	<div class='input-group date' id='datetimepicker1'>
-	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control" readonly="readonly"
- 	                	placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
-	                    tabindex="1">
-	                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-	                    </span>
+                	</br>
+                	<div>
+	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control"
+ 	                	placeholder="<fmt:message key="user.paciente.fechaHora"/>" value="${status.value}" maxlength="50"
+	                    tabindex="1" data-date-format="DD/MM/YYYY hh:mm A">
                     </div>
                   </spring:bind>
                   <label for="fechaHora" generated="true" class="error"></label>
                   <form:errors path="fechaHora" cssClass="help-block"/>
                   <script type="text/javascript">
             		$(function () {
-                	$('#datetimepicker1').datetimepicker({
-                	    useStrict: true,
-                	    language: 'es-AR',
+                	$('#fechaHora').datetimepicker({
+                	    language: 'pt-BR',
                 	    showToday: true,
                 	});
             		});
@@ -98,6 +96,7 @@
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
 		        	<form:select cssClass="form-control" path="medicamento">
+		        	    <form:option value="NONE" label="--- Seleccione ---"/>
 		        		<form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
@@ -107,6 +106,7 @@
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
 		        	<form:select cssClass="form-control" path="sintoma">
+		        	    <form:option value="NONE" label="--- Seleccione ---"/>
 		        		<form:options items="${sintomaList}" itemValue="nombre" itemLabel="nombre"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
@@ -130,18 +130,23 @@
 				        
 				        <display:column titleKey="user.paciente.alimentoIng" sortable="false">
 				            <form:select path="alimento1" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento2" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento3" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento4" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento5" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				        </display:column>

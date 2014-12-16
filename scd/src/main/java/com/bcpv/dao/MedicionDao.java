@@ -31,6 +31,6 @@ public interface MedicionDao extends GenericDao<Medicion, Long> {
      */
     Medicion saveMedicion(Medicion medicion);
     
-    List<Medicion> getMedicionesByIdPaciente(Long idPaciente);
+    List<Medicion> getMedicionesByIdPaciente(String idPaciente);
 
 }
