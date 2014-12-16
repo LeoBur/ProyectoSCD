@@ -75,150 +75,145 @@
         	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
         </spring:bind>
 			
-			<div class="form-group">
-		  		<div class="row">
-					  <div>
-					  	<spring:bind path="dni">
-						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	    <span class="required">*</span>
-					        	<input type="text" name="dni" id="dni" class="form-control"
-					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
-					        </div>
-					    </spring:bind>
-					    	
-					  </div>
-					  
-					  <div class="col-sm-6 form-group">
-					  <br>
-					  	<div>
-							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-								<i class="icon-upload icon-white"></i>
-								<fmt:message key="button.search" />
-							</button>
+		<div class="form-group">
+			<div class="row">
+				<div>
+					<spring:bind path="dni">
+						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							<appfuse:label styleClass="control-label" key="user.dni"/>
+								<span class="required">*</span>
+							<input type="text" name="dni" id="dni" class="form-control"
+							placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 						</div>
+					</spring:bind>
+				</div>
+				<div class="col-sm-6 form-group">
+					<br>
+					<div>
+						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
+							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
+							<i class="icon-upload icon-white"></i>
+							<fmt:message key="button.search" />
+							</button>
 					</div>
-					  
-				</div>			
-			
+				</div>
 			</div>
+		</div>
         
         <div class="form-group">
 	        <div>
-	          <spring:bind path="especialistaForm.firstName">
-	            <appfuse:label styleClass="control-label" key="user.firstName"/>
-	        	<input type="text" name="firstName" id="firstName" class="form-control"
-	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="3">
-	          </spring:bind>
-	          		<label for="firstName" generated="true" class="error"></label>
-	          <form:errors path="firstName" cssClass="help-block"/>
+	        	<spring:bind path="especialistaForm.firstName">
+					<appfuse:label styleClass="control-label" key="user.firstName"/>
+					<input type="text" name="firstName" id="firstName" class="form-control"
+					placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
+					 tabindex="3">
+	        	</spring:bind>
+				<label for="firstName" generated="true" class="error"></label>
+				<form:errors path="firstName" cssClass="help-block"/>
 	        </div>
 	        <div>
-	          <spring:bind path="especialistaForm.lastName">
-	            <appfuse:label styleClass="control-label" key="user.lastName"/>
-	        	<input type="text" name="lastName" id="lastName" class="form-control"
-	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="4">
-	          </spring:bind>
-	          		<label for="lastName" generated="true" class="error"></label>
-		   	  <form:errors path="lastName" cssClass="help-block"/>
+	        	<spring:bind path="especialistaForm.lastName">
+	            	<appfuse:label styleClass="control-label" key="user.lastName"/>
+	        		<input type="text" name="lastName" id="lastName" class="form-control"
+	           		placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
+	           	 	tabindex="4">
+	        	</spring:bind>
+				<label for="lastName" generated="true" class="error"></label>
+		   		<form:errors path="lastName" cssClass="help-block"/>
 		   	</div>
         </div>
         
 		<div class="row">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-	          <spring:bind path="especialistaForm.dia">
-	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
-	                <span class="required">*</span>
-	        	<input type="text" name="dia" id="dia" class="form-control"
-	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="5">
-	          </spring:bind>
-	          		<label for="dia" generated="true" class="error"></label>
-		   	  <form:errors path="dia" cssClass="help-block"/>
+				<spring:bind path="especialistaForm.dia">
+						<appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
+						<span class="required">*</span>
+						<input type="text" name="dia" id="dia" class="form-control"
+						placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
+						tabindex="5">
+				</spring:bind>
+				<label for="dia" generated="true" class="error"></label>
+		   		<form:errors path="dia" cssClass="help-block"/>
 		   	</div>
 
 		    <spring:bind path="especialistaForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
-					  <span class="required">*</span>
-						<div class="form-control">
-                        <c:choose>
-                            <c:when test="${especialistaForm.sexo == null || especialistaForm.sexo == 'M'}">
-                                <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
-                            </c:when>
-                            <c:when test="${especialistaForm.sexo != null && especialistaForm.sexo == 'F'}">
-                                <input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
-                            </c:when>
-                        </c:choose>
-						</div>
-						<label for="sexo" generated="true" class="error"></label>
+					<span class="required">*</span>
+					<div class="form-control">
+						<c:choose>
+							<c:when test="${especialistaForm.sexo == null || especialistaForm.sexo == 'M'}">
+								<input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
+								<input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
+							</c:when>
+							<c:when test="${especialistaForm.sexo != null && especialistaForm.sexo == 'F'}">
+								<input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
+								<input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
+							</c:when>
+						</c:choose>
+					</div>
+					<label for="sexo" generated="true" class="error"></label>
 					<form:errors path="sexo" cssClass="help-block" />
 				</div>
 			</spring:bind>
 		</div>
 		
 		<div class="row">
-		 <div>
-		  <spring:bind path="especialistaForm.phoneNumber">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
-		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
-		  	</div>
-		  </spring:bind>
-		 </div>
-		 <div>
-		  <spring:bind path="especialistaForm.email">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				<appfuse:label styleClass="control-label" key="user.email" />
-				<input type="email" id="email" name="email" class="form-control"
-				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
-				<label for="email" generated="true" class="error"></label>
-				<form:errors path="email" cssClass="help-block" />
+			<div>
+		 		<spring:bind path="especialistaForm.phoneNumber">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.phoneNumber" />
+						<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
+						placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
+					</div>
+				</spring:bind>
 			</div>
-		  </spring:bind>
-		  		
-		 </div>
+			<div>
+				<spring:bind path="especialistaForm.email">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.email" />
+						<input type="email" id="email" name="email" class="form-control"
+						placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
+						<label for="email" generated="true" class="error"></label>
+						<form:errors path="email" cssClass="help-block" />
+					</div>
+				</spring:bind>
+			</div>
 		</div>
-		
-			<a><fmt:message key="user.address.address1" /></a>
-				<div class="row">
-				  <div>
-					<spring:bind path="especialistaForm.provincia">
-						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						  <appfuse:label styleClass="control-label" key="user.address.province" />
-						  <div cssClass="form-control">
-							<form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
-							  <form:options items="${provinciaList}"/>
-							</form:select>
-							<form:errors path="provincia" cssClass="help-block" />
-						  </div>
-						</div>
-					</spring:bind>
-				  </div>
-				  <div>
-					<spring:bind path="especialistaForm.localidad">
-						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-							<appfuse:label styleClass="control-label" key="user.address.localidad" />
-							<div cssClass="form-control">
-								<form:select id="localidad" name="localidad" class="form-control"
-								 path="localidad" tabindex="15" value="${status.value}">
-								 <form:options items="${localidadList}"/>
-								</form:select>
-								<form:errors path="localidad" cssClass="help-block" />
-							</div>
-						</div>
-					</spring:bind>
-				  </div>
-			</div>
 
-			<div class="row">
-			  <div>
+		<a><fmt:message key="user.address.address1" /></a>
+		<div class="row">
+			<div>
+				<spring:bind path="especialistaForm.provincia">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.address.province" />
+							<div cssClass="form-control">
+								<form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
+									<form:options items="${provinciaList}"/>
+								</form:select>
+								<form:errors path="provincia" cssClass="help-block" />
+							</div>
+							</div>
+				</spring:bind>
+			</div>
+			<div>
+				<spring:bind path="especialistaForm.localidad">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.address.localidad" />
+						<div cssClass="form-control">
+							<form:select id="localidad" name="localidad" class="form-control"
+								path="localidad" tabindex="15" value="${status.value}">
+								<form:options items="${localidadList}"/>
+							</form:select>
+							<form:errors path="localidad" cssClass="help-block" />
+						</div>
+					</div>
+				</spring:bind>
+			</div>
+		</div>
+
+		<div class="row">
+			<div>
 				<spring:bind path="especialistaForm.calle">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
@@ -231,8 +226,8 @@
 						</div>
 					</div>
 				</spring:bind>
-			  </div>
-			  <div>
+			</div>
+			<div>
 				<spring:bind path="especialistaForm.numero">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
@@ -245,11 +240,11 @@
 						</div>
 					</div>
 				</spring:bind>
-			  </div>
 			</div>
+		</div>
 
-			<div class="row">
-			  <div>
+		<div class="row">
+			<div>
 				<spring:bind path="especialistaForm.dpto">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
@@ -260,8 +255,8 @@
 						</div>
 					</div>	
 				</spring:bind>
-			 </div>
-			 <div>
+			</div>
+			<div>
 				<spring:bind path="especialistaForm.piso">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
@@ -272,41 +267,52 @@
 						</div>
 					</div>
 				</spring:bind>
-			 </div>
 			</div>
+		</div>
 			
-         <div class="row">
-		 <div>
-           <spring:bind path="especialistaForm.matricula">
-         	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-         	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
-         	  <span class="required">*</span>
-         	  <input type="text" id="matricula" name="matricula" class="form-control"
-              value="${status.value}" tabindex="22"/>
-              <label for="matricula" generated="true" class="error"></label>
+        <div class="row">
+        	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            	<spring:bind path="especialistaForm.tipoEspecialista">
+                    <appfuse:label styleClass="control-label" key="user.tipo_esp"/>
+                    <input list="tiposEsp" name="especialistaForm.tipoEspecialista" id="especialistaForm.tipoEspecialista" class="form-control"
+                      value="${status.value}" tabindex="20">
+				</spring:bind>
+
+				<datalist id="tiposEsp">
+            		  <option value="NUTRICIONISTA">
+            		  <option value="ENTRENADOR_PERSONAL">
+				</datalist>
+			</div>
+			<div>
+           		<spring:bind path="especialistaForm.matricula">
+         			<div class="col-sm-3 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
+						<span class="required">*</span>
+						<input type="text" id="matricula" name="matricula" class="form-control"
+						value="${status.value}" tabindex="22"/>
+						<label for="matricula" generated="true" class="error"></label>
+					</div>
+           		</spring:bind>
          	</div>
-           </spring:bind>
-         </div>
-         <div>
-         		  <spring:bind path="especialistaForm.enabled">
-         			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+         	<div>
+         		<spring:bind path="especialistaForm.enabled">
+         			<div class="col-sm-3 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          				<appfuse:label styleClass="control-label" key="user.enabled" />
          				<c:choose>
-                                                    <c:when test="${especialistaForm.enabled == 'true'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                    <c:when test="${especialistaForm.enabled == 'false'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                </c:choose>
-
+							<c:when test="${especialistaForm.enabled == 'true'}">
+								<input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
+									value="${status.value}" tabindex="23"/>
+							</c:when>
+							<c:when test="${especialistaForm.enabled == 'false'}">
+								<input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
+									value="${status.value}" tabindex="23"/>
+							</c:when>
+						</c:choose>
          				<label for="enabled" generated="true" class="error"></label>
          				<form:errors path="enabled" cssClass="help-block" />
          			</div>
-         		  </spring:bind>
-         		 </div>
+         		</spring:bind>
+         	</div>
 		</div>
 		
        	<div class="form-group">
@@ -321,7 +327,6 @@
 				</button>
 			</c:if>
 			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
-
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
 			</button>

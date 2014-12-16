@@ -186,7 +186,6 @@
 		 </div>
 		</div>
 		
-			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
 					<spring:bind path="endocrinologoForm.provincia">

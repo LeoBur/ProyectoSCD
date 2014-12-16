@@ -47,7 +47,7 @@
 
 <div class="col-sm-2">
     <h3>Administraci&oacuten</h2>
-    <h3>de Usuarios</h2>
+    <h3>de Endocrin&oacutelogos</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
