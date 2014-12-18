@@ -150,6 +150,7 @@ public class RegistrarController extends BaseFormController{
         	Medicion medicion = new Medicion();
         	medicion.setF_medicion(registroForm.fechaHora);
         	medicion.setValor(new Integer (registroForm.medicion));
+            medicion.setUnidad("MG/DL");
         	medicion.setPaciente(paciente);
 
         	medicionManager.saveMedicion(medicion);

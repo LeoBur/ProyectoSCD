@@ -49,5 +49,5 @@ public interface MedicionManager extends GenericManager<Medicion, Long>{
      */
     List<Medicion> search(String searchTerm);
     
-    List<Medicion> getMedicionesByIdPaciente(String idPaciente);
+    List<Medicion> getMedicionesByIdPaciente(Long idPaciente);
 }

@@ -44,4 +44,12 @@ public class PesoDaoHibernate extends GenericDaoHibernate<Peso, Long> implements
 		return peso;
 	}
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Peso> getPesosByIdPaciente(Long idPaciente) {
+        Query qry = getSession().createQuery("from Peso p where p.paciente.id = :idPaciente order by (p.fechaHora) DESC");
+        qry.setParameter("idPaciente", idPaciente);
+        return qry.list();
+    }
+
 }
