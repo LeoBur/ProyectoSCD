@@ -40,8 +40,8 @@
         </Menu>
         
         <Menu name="Historial" title="paciente.historial" description="Paciente Historial" roles="ROLE_USER" page="/admin/users">
-            <Item name="Medicion" title="user.paciente.mediciones" page="/paciente/medicion"/>
-            <Item name="Peso" title="user.paciente.peso" page="/paciente/peso"/>
+            <Item name="Medicion" title="user.paciente.mediciones" page="/paciente/histMediciones"/>
+            <Item name="Peso" title="user.paciente.peso" page="/paciente/histPesos"/>
         </Menu>
         
         <Menu name="Dato" title="paciente.menu.dato" description="Paciente Dato" roles="ROLE_USER" page="/paciente/dato"/>

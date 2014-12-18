@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.Constants;
 import com.bcpv.model.Comida;
 import com.bcpv.webapp.controller.forms.RegistroForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -148,6 +150,7 @@ public class RegistrarController extends BaseFormController{
         	Medicion medicion = new Medicion();
         	medicion.setF_medicion(registroForm.fechaHora);
         	medicion.setValor(new Integer (registroForm.medicion));
+            medicion.setUnidad("MG/DL");
         	medicion.setPaciente(paciente);
 
         	medicionManager.saveMedicion(medicion);
@@ -175,7 +178,7 @@ public class RegistrarController extends BaseFormController{
         	registroComidasManager.saveRegistroComidas(reg);
         }
 
-        if(!registroForm.medicamento.isEmpty()){
+        if(!Constants.NONE.equals(registroForm.medicamento)){
         	RegistroMedicamento regMed = new RegistroMedicamento();
         	regMed.setFch_reg_medicamento(registroForm.fechaHora);
         	regMed.setPaciente(paciente);
@@ -185,7 +188,7 @@ public class RegistrarController extends BaseFormController{
         	registroMedicamentoManager.saveRegistroMedicamento(regMed);
         }
 
-        if(!registroForm.sintoma.isEmpty()){
+        if(!Constants.NONE.equals(registroForm.sintoma)){
         	RegistroSintoma regSint = new RegistroSintoma();
         	regSint.setFch_reg_sintoma(registroForm.getFechaHora());
         	regSint.setPaciente(paciente);
@@ -214,19 +217,19 @@ public class RegistrarController extends BaseFormController{
 
     private Set<Comida> setComidas(RegistroForm registroForm) {
         Set<Comida> comidas = new HashSet<Comida>();
-        if (!registroForm.cantidad1.isEmpty()) {
+        if (!Constants.NONE.equals(registroForm.alimento1) && !registroForm.cantidad1.isEmpty()) {
             comidas.add(createComida(registroForm.alimento1, registroForm.cantidad1, registroForm.observacion1));
         }
-        if (!registroForm.cantidad2.isEmpty()) {
+        if (!Constants.NONE.equals(registroForm.alimento2) && !registroForm.cantidad2.isEmpty()) {
             comidas.add(createComida(registroForm.alimento2, registroForm.cantidad2, registroForm.observacion2));
         }
-        if (!registroForm.cantidad3.isEmpty()) {
+        if (!Constants.NONE.equals(registroForm.alimento3) && !registroForm.cantidad3.isEmpty()) {
             comidas.add(createComida(registroForm.alimento3, registroForm.cantidad3, registroForm.observacion3));
         }
-        if (!registroForm.cantidad4.isEmpty()) {
+        if (!Constants.NONE.equals(registroForm.alimento4) && !registroForm.cantidad4.isEmpty()) {
             comidas.add(createComida(registroForm.alimento4, registroForm.cantidad4, registroForm.observacion4));
         }
-        if (!registroForm.cantidad5.isEmpty()) {
+        if (!Constants.NONE.equals(registroForm.alimento5) && !registroForm.cantidad5.isEmpty()) {
             comidas.add(createComida(registroForm.alimento5, registroForm.cantidad5, registroForm.observacion5));
         }
         return comidas;
