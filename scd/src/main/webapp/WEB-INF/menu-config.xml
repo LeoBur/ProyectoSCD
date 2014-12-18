@@ -30,8 +30,9 @@
         	<Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
         </Menu>
 
-        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO,ROLE_USER"/>
-        
+        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
+        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_USER"/>
+
         <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
         
         <Menu name="Consulta" title="paciente.consulta" description="Paciente Consulta" roles="ROLE_USER" page="/admin/users">

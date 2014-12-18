@@ -1,40 +1,32 @@
 package com.bcpv.webapp.controller.endo;
 
-import com.bcpv.Constants;
 import com.bcpv.model.Domicilio;
 import com.bcpv.model.Endocrinologo;
 import com.bcpv.model.Localidad;
+import com.bcpv.model.Paciente;
 import com.bcpv.model.Persona;
 import com.bcpv.model.Provincia;
-import com.bcpv.model.Role;
-import com.bcpv.model.User;
 import com.bcpv.service.EndocrinologoManager;
 import com.bcpv.service.LocalidadManager;
+import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PersonaManager;
 import com.bcpv.service.ProvinciaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndocrinologoForm;
-import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import com.bcpv.webapp.controller.forms.PacienteForm;
+import com.bcpv.webapp.controller.forms.PersonaForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,6 +42,9 @@ public class EditProfileController extends BaseFormController{
     EndocrinologoManager endocrinologoManager;
 
     @Autowired
+    PacienteManager pacienteManager;
+
+    @Autowired
     ProvinciaManager provinciaManager;
 
     @Autowired
@@ -60,7 +55,7 @@ public class EditProfileController extends BaseFormController{
     }
 
     @RequestMapping(value = "endos/editProfile*", method = RequestMethod.GET)
-    public ModelAndView showForm(final HttpServletRequest request) {
+    public ModelAndView showEndoForm(final HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("endos/editProfile");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
@@ -68,12 +63,27 @@ public class EditProfileController extends BaseFormController{
         if (request.getRemoteUser() == null) {
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } else {
-            buscar(mv, request, provincias, localidades, locale);
+            buscarEndo(mv, request, provincias, localidades, locale);
         }
         return mv;
     }
 
-    private void buscar(ModelAndView mv, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
+    @RequestMapping(value = "paciente/editProfile*", method = RequestMethod.GET)
+    public ModelAndView showPacienteForm(final HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("endos/editProfile");
+        Locale locale = request.getLocale();
+        List<Provincia> provincias = provinciaManager.getProvincias();
+        List<Localidad> localidades = localidadManager.getLocalidades();
+        if (request.getRemoteUser() == null) {
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+        } else {
+            buscarPaciente(mv, request, provincias, localidades, locale);
+        }
+        return mv;
+    }
+
+    private void buscarEndo(ModelAndView mv, HttpServletRequest request, List<Provincia> provincias,
+                            List<Localidad> localidades, Locale locale) {
         try {
             if ((request.getRemoteUser() == null)){
                 throw new NullPointerException();
@@ -91,7 +101,7 @@ public class EditProfileController extends BaseFormController{
                 endocrinologoForm.setEmail(persona.getEmail());
                 endocrinologoForm.setUsername(persona.getUsername());
                 endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-                endocrinologoForm.setFechaNac(persona.getFch_nac());
+                endocrinologoForm.setDia(persona.getFch_nac());
                 endocrinologoForm.setSexo(persona.getSexo());
                 endocrinologoForm.setDomicilio(persona.getDomicilio());
                 endocrinologoForm.setMatricula(getMatricula(persona));
@@ -112,17 +122,70 @@ public class EditProfileController extends BaseFormController{
         }
     }
 
-    private Date getFechaNac(EndocrinologoForm endo) throws ParseException {
+    private void buscarPaciente(ModelAndView mv, HttpServletRequest request, List<Provincia> provincias,
+                            List<Localidad> localidades, Locale locale) {
+        try {
+            if ((request.getRemoteUser() == null)){
+                throw new NullPointerException();
+            }
+
+            Persona persona = personaManager.getPersonaByUsername(request.getRemoteUser());
+            PacienteForm pacienteForm = new PacienteForm();
+            mv.addObject("provinciaList", provincias);
+            if (persona.getId() != null) {
+                pacienteForm.setId(persona.getId());
+                pacienteForm.setDni(persona.getDni());
+                pacienteForm.setUsername(persona.getUsername());
+                pacienteForm.setFirstName(persona.getFirstName());
+                pacienteForm.setLastName(persona.getLastName());
+                pacienteForm.setEmail(persona.getEmail());
+                pacienteForm.setUsername(persona.getUsername());
+                pacienteForm.setPhoneNumber(persona.getPhoneNumber());
+                pacienteForm.setDia(persona.getFch_nac());
+                pacienteForm.setSexo(persona.getSexo());
+                pacienteForm.setDomicilio(persona.getDomicilio());
+                setPacienteInfo(persona, pacienteForm);
+                mv.addObject("endocrinologoForm", pacienteForm);
+                List<Localidad> filtradas = new ArrayList<>();
+                for (Localidad localidad : localidades) {
+                    if (localidad.getProvincia().getNombre().equals(pacienteForm.getProvincia())) {
+                        filtradas.add(localidad);
+                    }
+                }
+                mv.addObject("localidadList", filtradas);
+            } else throw new EntityNotFoundException();
+
+        } catch (NullPointerException npe){
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+        } catch (EntityNotFoundException enfe) {
+            saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+        }
+    }
+
+    /*private Date getFechaNac(PersonaForm endo) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = endo.getDia() + "/" + endo.getMes() + "/" + endo.getAnio();
         return formatter.parse(strDate);
-    }
+    }*/
 
     private Long getMatricula (Persona persona) {
         try {
             return endocrinologoManager.getEndocrinologoByPersona(persona).getMatricula();
         } catch (EntityNotFoundException e) {
             return null;
+        }
+    }
+
+    private void setPacienteInfo (Persona persona, PacienteForm pacienteForm) {
+        try {
+            Paciente paciente = pacienteManager.loadPacienteByDNI(persona);
+            pacienteForm.setLimiteInferior(paciente.getLimiteInf());
+            pacienteForm.setLimiteSuperior(paciente.getLimiteSup());
+            pacienteForm.setTipoDiabetes(paciente.getTipo().getTipoDiab());
+        } catch (EntityNotFoundException e) {
+            pacienteForm.setLimiteInferior(0);
+            pacienteForm.setLimiteSuperior(0);
+            pacienteForm.setTipoDiabetes(null);
         }
     }
 
@@ -163,7 +226,7 @@ public class EditProfileController extends BaseFormController{
         persona.setAccountLocked(false);
         persona.setEnabled(true);
 
-        persona.setFch_nac(getFechaNac(endocrinologoForm));
+        persona.setFch_nac(endocrinologoForm.getDia());
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
@@ -191,7 +254,7 @@ public class EditProfileController extends BaseFormController{
         return success;
     }
 
-    private Domicilio createDomicilio(EndocrinologoForm endo) {
+    private Domicilio createDomicilio(PersonaForm endo) {
         Domicilio domicilio = new Domicilio();
         domicilio.setLocalidad(localidadManager.getLocalidadByNombreYProvincia(endo.getLocalidad(), endo.getProvincia()).get(0));
         domicilio.setPiso(endo.getPiso());

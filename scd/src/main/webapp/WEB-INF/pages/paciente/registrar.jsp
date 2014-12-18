@@ -63,18 +63,19 @@
                   <spring:bind path="fechaHora">
                     <appfuse:label styleClass="control-label" key="user.paciente.fechaHora"/>
                 	<span class="required">*</span>
-                	</br>
-                	<div>
-	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control"
+                	<div class='input-group date' id='datetimepicker1'>
+	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control" readonly="readonly"
  	                	placeholder="<fmt:message key="user.paciente.fechaHora"/>" value="${status.value}" maxlength="50"
 	                    tabindex="1" data-date-format="DD/MM/YYYY hh:mm A">
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
                     </div>
                   </spring:bind>
                   <label for="fechaHora" generated="true" class="error"></label>
                   <form:errors path="fechaHora" cssClass="help-block"/>
                   <script type="text/javascript">
             		$(function () {
-                	$('#fechaHora').datetimepicker({
+                	$('#datetimepicker1').datetimepicker({
                 	    language: 'pt-BR',
                 	    showToday: true,
                 	});

@@ -2,28 +2,22 @@
 
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
-    <meta name="menu" content="UserMenu"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 
-    <script src="jquery-1.4.2.min.js"></script>
-    <script src="jquery-ui-1.8.6.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <script src="jquery.ui.datepicker-es.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
-	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
-	<script src="/scripts/validator.js" type="text/javascript"></script>
-    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+    <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+    <script src="/scripts/validator.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+    <link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script type="text/javascript">
 		function CancelFormButton(button) {
@@ -46,6 +40,9 @@
     })
     </script>
 </head>
+
+<div class="container">
+<meta name="menu" content="UserMenu"/>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
@@ -135,13 +132,26 @@
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="pacienteForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
-	                <span class="required">*</span>
-	        	<input type="text" name="dia" id="dia" class="form-control"
-	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="5">
+	            <span class="required">*</span>
+	            <div class='input-group date' id='datetimepicker1'>
+	        	  <input type="text" name="dia" id="dia" class="form-control" readonly="readonly"
+	           	    placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
+	           	    tabindex="5" data-date-format="DD/MM/YYYY">
+	           	  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+	           	</div>
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
+		   	  <script type="text/javascript">
+                $(function () {
+                  $('#datetimepicker1').datetimepicker({
+                    language: 'pt-BR',
+                    showToday: true,
+                    pickTime: false
+                  });
+                });
+              </script>
 		   	</div>
 
 		    <spring:bind path="pacienteForm.sexo">
@@ -359,6 +369,7 @@
 			</button>
 		</div>
 	</form:form>
+</div>
 </div>
 
 <c:set var="scripts" scope="request">
