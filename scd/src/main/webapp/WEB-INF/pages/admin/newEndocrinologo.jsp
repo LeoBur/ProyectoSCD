@@ -1,10 +1,18 @@
+<!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
+
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="content/pygments-manni.css">
+
 
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
@@ -16,8 +24,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
-    <link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
 
 	<script type="text/javascript">
 		function CancelFormButton(button) {
@@ -361,12 +368,6 @@
 				window.location.href = "http://localhost:8080/admin/endocrinologoList";
 			});
 	</script>
-	<script type="text/javascript">
-    $(document).ready(function (e) {
-	$(function() {
-	    $("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: -27010, maxDate:0, yearRange: '-100:+0'});
-        });
-    });
 	</script>
 	<script type="text/javascript">
     		 $('button[name="search"]').click(function(e){

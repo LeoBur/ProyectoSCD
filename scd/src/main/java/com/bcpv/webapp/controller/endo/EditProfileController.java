@@ -145,7 +145,7 @@ public class EditProfileController extends BaseFormController{
                 pacienteForm.setSexo(persona.getSexo());
                 pacienteForm.setDomicilio(persona.getDomicilio());
                 setPacienteInfo(persona, pacienteForm);
-                mv.addObject("endocrinologoForm", pacienteForm);
+                mv.addObject("pacienteForm", pacienteForm);
                 List<Localidad> filtradas = new ArrayList<>();
                 for (Localidad localidad : localidades) {
                     if (localidad.getProvincia().getNombre().equals(pacienteForm.getProvincia())) {
