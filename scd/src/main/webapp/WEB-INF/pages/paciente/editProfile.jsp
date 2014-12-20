@@ -1,34 +1,35 @@
+<!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
-    <meta name="menu" content="UserMenu"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="content/pygments-manni.css">
 
-    <script src="jquery-1.4.2.min.js"></script>
-    <script src="jquery-ui-1.8.6.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <script src="jquery.ui.datepicker-es.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
-	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
-	<script src="/scripts/validator.js" type="text/javascript"></script>
-    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+    <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+    <script src="/scripts/validator.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+    <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
+
 
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/endo";
+	  	window.location.href = "http://localhost:8080/paciente/editProfile";
 	  	};
 	</script>
 
@@ -46,6 +47,9 @@
     })
     </script>
 </head>
+
+<div class="container">
+<meta name="menu" content="UserMenu"/>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
@@ -85,7 +89,7 @@
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	<input type="text" name="dni" id="dni" class="form-control"
+					        	<input type="text" name="dni" id="dni" class="form-control" readonly="readonly"
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
 					    </spring:bind>
@@ -130,12 +134,26 @@
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="pacienteForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
-	        	<input type="text" name="dia" id="dia" class="form-control"
-	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="5">
+	            <span class="required">*</span>
+	            <div class='input-group date' id='datetimepicker1'>
+	        	  <input type="text" name="dia" id="dia" class="form-control" readonly="readonly"
+	           	    placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
+	           	    tabindex="5" data-date-format="DD/MM/YYYY">
+	           	  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+	           	</div>
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
+		   	  <script type="text/javascript">
+                $(function () {
+                  $('#datetimepicker1').datetimepicker({
+                    language: 'pt-BR',
+                    showToday: true,
+                    pickTime: false
+                  });
+                });
+              </script>
 		   	</div>
 
 		    <spring:bind path="pacienteForm.sexo">
@@ -243,6 +261,74 @@
 			  </div>
 			</div>
 
+			<div class="row">
+            	<div>
+            		<spring:bind path="pacienteForm.dpto">
+            		  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            		    <appfuse:label styleClass="control-label" key="user.address.dpto" />
+            			<div cssClass="form-control">
+            			  <input id="dpto" name="dpto" class="form-control"
+            			      placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
+            			  <form:errors path="dpto" cssClass="help-block" />
+            			</div>
+            		  </div>
+            		</spring:bind>
+            	</div>
+            	<div>
+            	    <spring:bind path="pacienteForm.piso">
+            		  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            		    <appfuse:label styleClass="control-label" key="user.address.piso" />
+            			<div cssClass="form-control">
+            			  <input id="piso" name="piso" class="form-control"
+            			      placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
+            			  <form:errors path="piso" cssClass="help-block" />
+            			</div>
+            	      </div>
+            		</spring:bind>
+            	</div>
+            </div>
+
+        <div class="row">
+           <div>
+				<spring:bind path="pacienteForm.limiteInferior">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.paciente.limit.inferior" />
+						<div cssClass="form-control">
+							<input id="limiteInferior" name="limiteInferior" class="form-control" readonly="readonly"
+							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="20"/>
+							<form:errors path="limiteInferior" cssClass="help-block" />
+						</div>
+					</div>
+				</spring:bind>
+			 </div>
+			 <div>
+				<spring:bind path="pacienteForm.limiteSuperior">
+					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						<appfuse:label styleClass="control-label" key="user.paciente.limit.superior" />
+						<div cssClass="form-control">
+							<input id="limiteSuperior" name="limiteSuperior" class="form-control" readonly="readonly"
+							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="21"/>
+							<form:errors path="limiteSuperior" cssClass="help-block" />
+						</div>
+					</div>
+				</spring:bind>
+			 </div>
+		 </div>
+
+         <div class="row">
+         <div>
+           <spring:bind path="pacienteForm.tipoDiabetes">
+             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+               <appfuse:label styleClass="control-label" key="user.paciente.tipoDiabetes" />
+               <div cssClass="form-control">
+                 <input id="tipoDiabetes" name="tipoDiabetes" class="form-control" readonly="readonly"
+                    value="${status.value}" tabindex="22"/>
+                 <form:errors path="tipoDiabetes" cssClass="help-block" />
+               </div>
+             </div>
+           </spring:bind>
+         </div>
+
        	<div class="form-group">
 			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="23">
 				<i class="icon-ok icon-white"></i>
@@ -256,6 +342,7 @@
 		</div>
 	</form:form>
 </div>
+</div>
 
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
@@ -268,7 +355,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/editProfile";
+				window.location.href = "http://localhost:8080/paciente/editProfile";
 			});
 	</script>
 	<script type="text/javascript">
@@ -276,7 +363,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/endos/editProfile?search=search&dni="+dni;
+    				window.location.href = "http://localhost:8080/paciente/editProfile?search=search&dni="+dni;
     			});
     	</script>
 

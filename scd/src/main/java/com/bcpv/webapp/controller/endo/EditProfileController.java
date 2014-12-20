@@ -70,7 +70,7 @@ public class EditProfileController extends BaseFormController{
 
     @RequestMapping(value = "paciente/editProfile*", method = RequestMethod.GET)
     public ModelAndView showPacienteForm(final HttpServletRequest request) {
-        ModelAndView mv = new ModelAndView("endos/editProfile");
+        ModelAndView mv = new ModelAndView("paciente/editProfile");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
@@ -262,5 +262,65 @@ public class EditProfileController extends BaseFormController{
         domicilio.setCalle(endo.getCalle());
         domicilio.setNumero(new Long (endo.getNumero()));
         return domicilio;
+    }
+
+    @RequestMapping(value = "paciente/editProfile*", method = RequestMethod.POST)
+    public String submitPaciente(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
+                           HttpServletRequest request)
+            throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
+        if (validator != null) { // validator is null during testing
+            validator.validate(pacienteForm, errors);
+
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "/editProfile";
+            }
+        }
+
+        boolean isNew = (pacienteForm.getId() == null);
+        log.debug("entering 'onSubmit' method...");
+
+        String success = "redirect:/paciente/registrar";
+        Locale locale = request.getLocale();
+
+        Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
+
+        persona.setDni(pacienteForm.getDni());
+        persona.setFirstName(pacienteForm.getFirstName());
+        persona.setLastName(pacienteForm.getLastName());
+        persona.setPassword(pacienteForm.getDni());
+        persona.setConfirmPassword(pacienteForm.getDni());
+        persona.setEmail(pacienteForm.getEmail());
+        persona.setPhoneNumber(pacienteForm.getPhoneNumber());
+        persona.setSexo(pacienteForm.getSexo());
+        persona.setUsername(pacienteForm.getEmail());
+        persona.setAccountExpired(false);
+        persona.setAccountLocked(false);
+        persona.setEnabled(true);
+
+        persona.setFch_nac(pacienteForm.getDia());
+        persona.setDomicilio(createDomicilio(pacienteForm));
+
+        //saveMessage(request, getText("user.savedData", locale));
+
+        if (request.getParameter("delete") != null) {
+            personaManager.savePersona(persona);
+            saveMessage(request, getText("admin.endocrinologist.deleted", locale));
+        } else {
+            try{
+                personaManager.savePersona(persona);
+            } catch (EntityExistsException e) {
+                if (!isNew) {
+                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
+                }
+            }
+            if (isNew) {
+                saveMessage(request, getText("admin.endocrinologist.added", locale));
+            }
+        }
+        return success;
     }
 }
