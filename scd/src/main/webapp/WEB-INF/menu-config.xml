@@ -30,8 +30,9 @@
         	<Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
         </Menu>
 
-        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO,ROLE_USER"/>
-        
+        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
+        <Menu name="EditProfile" title="user.editProfile" page="paciente/editProfile" roles="ROLE_USER"/>
+
         <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
         
         <Menu name="Consulta" title="paciente.consulta" description="Paciente Consulta" roles="ROLE_USER" page="/admin/users">
@@ -43,9 +44,7 @@
             <Item name="Medicion" title="user.paciente.mediciones" page="/paciente/histMediciones"/>
             <Item name="Peso" title="user.paciente.peso" page="/paciente/histPesos"/>
         </Menu>
-        
-        <Menu name="Dato" title="paciente.menu.dato" description="Paciente Dato" roles="ROLE_USER" page="/paciente/dato"/>
-        
+
         <!-- <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
         	<Item name="1" title="user.medicine.new" page="/admin/users"/>
         	<Item name="2" title="user.medicine.change" page="/admin/users"/>

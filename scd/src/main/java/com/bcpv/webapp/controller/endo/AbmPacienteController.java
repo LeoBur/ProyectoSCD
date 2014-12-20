@@ -85,7 +85,7 @@ public class AbmPacienteController extends BaseFormController {
                 pacienteForm.setEmail(persona.getEmail());
                 pacienteForm.setUsername(persona.getUsername());
                 pacienteForm.setPhoneNumber(persona.getPhoneNumber());
-                pacienteForm.setFechaNac(persona.getFch_nac());
+                pacienteForm.setDia(persona.getFch_nac());
                 pacienteForm.setSexo(persona.getSexo());
                 pacienteForm.setDomicilio(persona.getDomicilio());
                 pacienteForm.setEnabled(persona.isEnabled());
@@ -186,7 +186,7 @@ public class AbmPacienteController extends BaseFormController {
         }
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));*/
 
-        persona.setFch_nac(getFechaNac(pacienteForm));
+        persona.setFch_nac(pacienteForm.getDia());
         persona.setDomicilio(createDomicilio(pacienteForm));
         Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser()));
         TipoDiabetes tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
@@ -233,9 +233,9 @@ public class AbmPacienteController extends BaseFormController {
         return domicilio;
     }
 
-    private Date getFechaNac(PacienteForm pacienteForm) throws ParseException {
+    /*private Date getFechaNac(PacienteForm pacienteForm) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = pacienteForm.getDia() + "/" + pacienteForm.getMes() + "/" + pacienteForm.getAnio();
         return formatter.parse(strDate);
-    }
+    }*/
 }

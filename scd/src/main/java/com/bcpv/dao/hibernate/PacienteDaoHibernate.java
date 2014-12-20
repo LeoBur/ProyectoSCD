@@ -21,12 +21,14 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
     }
 	
 	public Paciente loadPacienteByDNI(Persona persona) throws EntityNotFoundException {
-		Paciente paciente = (Paciente) getSession().createCriteria(Paciente.class).add(Restrictions.eq("id_persona", persona.getId()));
-		if (paciente == null){
-			throw new EntityNotFoundException("Paciente con DNI :" + persona.getDni() + " no existe");
-		} else {
-			return paciente;
-		}
+        Query qry = getSession().createQuery("from Paciente p where  p.persona.id = :id_persona");
+        qry.setParameter("id_persona", persona.getId());
+        Paciente paciente = (Paciente) qry.uniqueResult();
+        if (paciente == null) {
+            throw new EntityNotFoundException("No existe paciente asociado a la persona");
+        } else {
+            return paciente;
+        }
 	}
 	
     @SuppressWarnings("unchecked")
