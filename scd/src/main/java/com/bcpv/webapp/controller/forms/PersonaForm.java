@@ -17,9 +17,7 @@ public class PersonaForm {
     String email;
     String phoneNumber;
     String dni;
-    String dia;
-    String mes;
-    String anio;
+    Date dia;
     Persona.Sexo sexo;
     String provincia;
     String localidad;
@@ -154,38 +152,22 @@ public class PersonaForm {
         this.setNumero(domicilio.getNumero().toString());
     }
 
-    public String getDia() {
+    public Date getDia() {
         return dia;
     }
 
-    public String getMes() {
-        return mes;
-    }
-
-    public String getAnio() {
-        return anio;
-    }
-
-    public void setDia(String dia) {
+    public void setDia(Date dia) {
         this.dia = dia;
     }
 
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public void setAnio(String anio) {
-        this.anio = anio;
-    }
-
-    public void setFechaNac(Date date) {
+    /*public void setFechaNac(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
         this.setDia(strDate);
         //this.setDia(strDate.substring(0, 2));
         //this.setMes(strDate.substring(3,5));
         //this.setAnio(strDate.substring(6,10));
-    }
+    }*/
 
     public com.bcpv.model.Persona.Sexo getSexo() {
         return sexo;

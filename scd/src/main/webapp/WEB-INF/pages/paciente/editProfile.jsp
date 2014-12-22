@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
+
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -27,7 +29,7 @@
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/newPaciente";
+	  	window.location.href = "http://localhost:8080/paciente/editProfile";
 	  	};
 	</script>
 
@@ -72,7 +74,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="pacienteForm" method="post" action="newPaciente" id="formulario" autocomplete="off" name="miFormulario"
+	<form:form commandName="pacienteForm" method="post" action="editProfile" id="formulario" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
@@ -80,36 +82,31 @@
   		<spring:bind path="username">
   			<input type="hidden" id="username" class="form-control" value="${status.value}"/>
   		</spring:bind>
-			
+
 			<div class="form-group">
 		  		<div class="row">
 					  <div>
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	    <span class="required">*</span>
-					        	<input type="text" name="dni" id="dni" class="form-control"
+					        	<input type="text" name="dni" id="dni" class="form-control" readonly="readonly"
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
 					    </spring:bind>
-					    	
+
 					  </div>
-					  
+
 					  <div class="col-sm-6 form-group">
 					  <br>
+					  <br>
 					  <div>
-						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-							<i class="icon-upload icon-white"></i>
-							<fmt:message key="button.search" />
-						</button>
-						</div>
+                        <a href="/updatePassword"><fmt:message key="user.changePassword"/></a>
+                      </div>
 					</div>
-					  
-				</div>			
-			
+				</div>
+
 			</div>
-        
+
         <div class="form-group">
 	        <div>
 	          <spring:bind path="pacienteForm.firstName">
@@ -132,7 +129,7 @@
 		   	  <form:errors path="lastName" cssClass="help-block"/>
 		   	</div>
         </div>
-        
+
 		<div class="row">
             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="pacienteForm.dia">
@@ -162,7 +159,6 @@
 		    <spring:bind path="pacienteForm.sexo">
 				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
-					  <span class="required">*</span>
 						<div class="form-control">
                         <c:choose>
                             <c:when test="${pacienteForm.sexo == null || pacienteForm.sexo == 'M'}">
@@ -180,7 +176,7 @@
 				</div>
 			</spring:bind>
 		</div>
-		
+
 		<div class="row">
 		 <div>
 		  <spring:bind path="pacienteForm.phoneNumber">
@@ -201,10 +197,10 @@
 				<form:errors path="email" cssClass="help-block" />
 			</div>
 		  </spring:bind>
-		  		
+
 		 </div>
 		</div>
-		
+
 			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
@@ -241,7 +237,6 @@
 				<spring:bind path="pacienteForm.calle">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
-						<span class="required">*</span>
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
 							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
@@ -255,7 +250,6 @@
 				<spring:bind path="pacienteForm.numero">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
-						<span class="required">*</span>
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
 							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
@@ -268,38 +262,39 @@
 			</div>
 
 			<div class="row">
-			  <div>
-				<spring:bind path="pacienteForm.dpto">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						<appfuse:label styleClass="control-label" key="user.address.dpto" />
-						<div cssClass="form-control">
-							<input id="dpto" name="dpto" class="form-control"
-							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
-							<form:errors path="dpto" cssClass="help-block" />
-						</div>
-					</div>	
-				</spring:bind>
-			 </div>
-			 <div>
-				<spring:bind path="pacienteForm.piso">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						<appfuse:label styleClass="control-label" key="user.address.piso" />
-						<div cssClass="form-control">
-							<input id="piso" name="piso" class="form-control"
-							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
-							<form:errors path="piso" cssClass="help-block" />
-						</div>
-					</div>
-				</spring:bind>
-			 </div>
-			</div>
-		 <div class="row">
+            	<div>
+            		<spring:bind path="pacienteForm.dpto">
+            		  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            		    <appfuse:label styleClass="control-label" key="user.address.dpto" />
+            			<div cssClass="form-control">
+            			  <input id="dpto" name="dpto" class="form-control"
+            			      placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
+            			  <form:errors path="dpto" cssClass="help-block" />
+            			</div>
+            		  </div>
+            		</spring:bind>
+            	</div>
+            	<div>
+            	    <spring:bind path="pacienteForm.piso">
+            		  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+            		    <appfuse:label styleClass="control-label" key="user.address.piso" />
+            			<div cssClass="form-control">
+            			  <input id="piso" name="piso" class="form-control"
+            			      placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
+            			  <form:errors path="piso" cssClass="help-block" />
+            			</div>
+            	      </div>
+            		</spring:bind>
+            	</div>
+            </div>
+
+        <div class="row">
            <div>
 				<spring:bind path="pacienteForm.limiteInferior">
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.paciente.limit.inferior" />
 						<div cssClass="form-control">
-							<input id="limiteInferior" name="limiteInferior" class="form-control"
+							<input id="limiteInferior" name="limiteInferior" class="form-control" readonly="readonly"
 							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="20"/>
 							<form:errors path="limiteInferior" cssClass="help-block" />
 						</div>
@@ -311,7 +306,7 @@
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.paciente.limit.superior" />
 						<div cssClass="form-control">
-							<input id="limiteSuperior" name="limiteSuperior" class="form-control"
+							<input id="limiteSuperior" name="limiteSuperior" class="form-control" readonly="readonly"
 							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="21"/>
 							<form:errors path="limiteSuperior" cssClass="help-block" />
 						</div>
@@ -326,48 +321,20 @@
              <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                <appfuse:label styleClass="control-label" key="user.paciente.tipoDiabetes" />
                <div cssClass="form-control">
-                 <form:select id="tipoDiabetes" name="tipoDiabetes" class="form-control" path="tipoDiabetes" value="${status.value}" tabindex="22">
-                   <form:options items="${tipoDiabetesList}"/>
-                 </form:select>
+                 <input id="tipoDiabetes" name="tipoDiabetes" class="form-control" readonly="readonly"
+                    value="${status.value}" tabindex="22"/>
                  <form:errors path="tipoDiabetes" cssClass="help-block" />
                </div>
              </div>
            </spring:bind>
          </div>
-         <div>
-         		  <spring:bind path="pacienteForm.enabled">
-         			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-         				<appfuse:label styleClass="control-label" key="user.enabled" />
-         				<c:choose>
-                                                    <c:when test="${pacienteForm.enabled == 'true'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                    <c:when test="${pacienteForm.enabled == 'false'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                </c:choose>
 
-         				<label for="enabled" generated="true" class="error"></label>
-         				<form:errors path="enabled" cssClass="help-block" />
-         			</div>
-         		  </spring:bind>
-         		 </div>
-		</div>
-		
        	<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
+			<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="23">
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty pacienteForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
-					<i class="icon-trash"></i>
-					<fmt:message key="button.delete" />
-				</button>
-			</c:if>
-			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
+			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="25">
 
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
@@ -380,7 +347,7 @@
 <c:set var="scripts" scope="request">
 	<script type="text/javascript">
 		// This is here so we can exclude the selectAll call when roles is hidden
-		
+
 		function onFormSubmit(theForm) {
 			return validateUser(theForm);
 		};
@@ -388,67 +355,19 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/newPaciente";
+				window.location.href = "http://localhost:8080/paciente/editProfile";
 			});
-	</script>
 	</script>
 	<script type="text/javascript">
     		 $('button[name="search"]').click(function(e){
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/endos/newPaciente?search=search&dni="+dni;
+    				window.location.href = "http://localhost:8080/paciente/editProfile?search=search&dni="+dni;
     			});
     	</script>
 
-    <script>
-        $(function() {
-            $('#dia').blur(function(){
-                var txtVal =  $('#dia').val();
-                if(isDate(txtVal)){
-                    ;
-                }
-                else{
-                    $(this).parent().find(".error").text("La fecha ingresada es incorrecta");
-                    document.miFormulario.dia.value = "";
-                    }
-            });
 
-        function isDate(txtDate)
-        {
-            var currVal = txtDate;
-            if(currVal == '')
-                return false;
-
-            var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/; //Declare Regex
-            var dtArray = currVal.match(rxDatePattern); // is format OK?
-
-            if (dtArray == null)
-                return false;
-
-            //Checks for mm/dd/yyyy format.
-            dtMonth = dtArray[3];
-            dtDay= dtArray[1];
-            dtYear = dtArray[5];
-
-            if (dtMonth < 1 || dtMonth > 12)
-                return false;
-            else if (dtDay < 1 || dtDay> 31)
-                return false;
-            else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
-                return false;
-            else if (dtMonth == 2)
-            {
-                var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-                if (dtDay> 29 || (dtDay ==29 && !isleap))
-                        return false;
-            }
-            return true;
-        }
-
-        });
-    </script>
-	
 </c:set>
 
 <v:javascript formName="pacienteForm" staticJavascript="false" />

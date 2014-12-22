@@ -32,7 +32,6 @@ public class DiaDietaDaoHibernate extends GenericDaoHibernate<DiaDieta, Long> im
 			log.debug("DiaDieta id: "+diaDieta.getIdDiaDieta());
 		}
 		getSession().saveOrUpdate(diaDieta);
-		getSession().flush();
 		return diaDieta;
 	}
 

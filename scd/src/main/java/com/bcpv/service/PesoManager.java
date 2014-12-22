@@ -22,4 +22,6 @@ public interface PesoManager extends GenericManager<Peso, Long>{
 	void removePeso(String idPeso);
 	
 	List<Peso> search(String searchTerm);
+
+    List<Peso> getPesosByIdPaciente(Long idPaciente);
 }

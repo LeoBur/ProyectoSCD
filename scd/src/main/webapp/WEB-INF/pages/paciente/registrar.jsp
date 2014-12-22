@@ -4,9 +4,14 @@
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
 
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
@@ -17,8 +22,8 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
-    <link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
+
 
 </head>
 
@@ -61,12 +66,12 @@
         	  <div class="row">
 		        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                   <spring:bind path="fechaHora">
-                    <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
+                    <appfuse:label styleClass="control-label" key="user.paciente.fechaHora"/>
                 	<span class="required">*</span>
                 	<div class='input-group date' id='datetimepicker1'>
 	                	<input type="text" name="fechaHora" id="fechaHora" class="form-control" readonly="readonly"
- 	                	placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
-	                    tabindex="1">
+ 	                	placeholder="<fmt:message key="user.paciente.fechaHora"/>" value="${status.value}" maxlength="50"
+	                    tabindex="1" data-date-format="DD/MM/YYYY hh:mm A">
 	                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 	                    </span>
                     </div>
@@ -76,8 +81,7 @@
                   <script type="text/javascript">
             		$(function () {
                 	$('#datetimepicker1').datetimepicker({
-                	    useStrict: true,
-                	    language: 'es-AR',
+                	    language: 'pt-BR',
                 	    showToday: true,
                 	});
             		});
@@ -98,6 +102,7 @@
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.medicine.title"/>
 		        	<form:select cssClass="form-control" path="medicamento">
+		        	    <form:option value="NONE" label="--- Seleccione ---"/>
 		        		<form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
@@ -107,6 +112,7 @@
 		        <div class="form-group">
 		        	<appfuse:label styleClass="control-label" key="user.symptom.title"/>
 		        	<form:select cssClass="form-control" path="sintoma">
+		        	    <form:option value="NONE" label="--- Seleccione ---"/>
 		        		<form:options items="${sintomaList}" itemValue="nombre" itemLabel="nombre"></form:options>
 		        	</form:select>
 		        	<appfuse:label styleClass="control-label" key="user.observation.title"></appfuse:label>
@@ -130,18 +136,23 @@
 				        
 				        <display:column titleKey="user.paciente.alimentoIng" sortable="false">
 				            <form:select path="alimento1" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento2" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento3" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento4" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				            <form:select path="alimento5" cssClass="form-control">
+				                <form:option value="NONE" label="--- Seleccione ---"/>
 				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
 				            </form:select>
 				        </display:column>

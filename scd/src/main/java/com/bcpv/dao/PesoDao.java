@@ -13,4 +13,6 @@ public interface PesoDao extends GenericDao<Peso, Long>{
 	List<Peso> getPesos();
 	
 	Peso savePeso(Peso peso);
+
+    List<Peso> getPesosByIdPaciente(Long idPaciente);
 }

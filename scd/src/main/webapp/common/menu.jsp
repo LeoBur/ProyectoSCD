@@ -26,7 +26,6 @@
     <menu:displayMenu name="PacienteMenu"/>
     <menu:displayMenu name="Consulta"/>
     <menu:displayMenu name="Historial"/>
-    <menu:displayMenu name="Dato"/>
     
     
         

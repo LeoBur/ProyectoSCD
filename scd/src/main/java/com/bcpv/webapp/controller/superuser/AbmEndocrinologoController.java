@@ -73,7 +73,7 @@ public class AbmEndocrinologoController extends BaseFormController {
                 endocrinologoForm.setEmail(persona.getEmail());
                 endocrinologoForm.setUsername(persona.getUsername());
                 endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-                endocrinologoForm.setFechaNac(persona.getFch_nac());
+                endocrinologoForm.setDia(persona.getFch_nac());
                 endocrinologoForm.setSexo(persona.getSexo());
                 endocrinologoForm.setDomicilio(persona.getDomicilio());
                 endocrinologoForm.setMatricula(getMatricula(persona));
@@ -229,7 +229,7 @@ public class AbmEndocrinologoController extends BaseFormController {
 
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
 
-        persona.setFch_nac(getFechaNac(endocrinologoForm));
+        persona.setFch_nac(endocrinologoForm.getDia());
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
@@ -298,7 +298,7 @@ public class AbmEndocrinologoController extends BaseFormController {
 
         persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));
 
-        persona.setFch_nac(getFechaNac(endocrinologoForm));
+        persona.setFch_nac(endocrinologoForm.getDia());
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
         Endocrinologo endocrinologo = endocrinologoManager.getEndocrinologo(endocrinologoForm.getId());;
@@ -341,11 +341,11 @@ public class AbmEndocrinologoController extends BaseFormController {
         return domicilio;
     }
 
-    private Date getFechaNac(EndocrinologoForm endo) throws ParseException {
+    /*private Date getFechaNac(EndocrinologoForm endo) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = endo.getDia() + "/" + endo.getMes() + "/" + endo.getAnio();
         return formatter.parse(strDate);
-    }
+    }*/
 
     private Long getMatricula (Persona persona) {
         try {

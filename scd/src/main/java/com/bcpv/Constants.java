@@ -107,4 +107,6 @@ public final class Constants {
     public static final String MEDICION_LIST = "medicionList";
     
     public static final String MEDICACION = "medicacion";
+
+    public static final String NONE = "NONE";
 }

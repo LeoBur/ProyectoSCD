@@ -79,4 +79,10 @@ public class PesoManagerImpl extends GenericManagerImpl<Peso, Long> implements P
 		
 	}
 
+    @Override
+    public List<Peso> getPesosByIdPaciente(Long idPaciente) {
+        log.debug("Search Pesos by paciente ID" + idPaciente);
+        return pesoDao.getPesosByIdPaciente(idPaciente);
+    }
+
 }
