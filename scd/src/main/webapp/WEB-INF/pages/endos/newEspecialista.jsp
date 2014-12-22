@@ -74,7 +74,7 @@
         <spring:bind path="dni">
         	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
         </spring:bind>
-        <spring:bind path="dni">
+        <spring:bind path="idEspecialista">
 			<input type="hidden" name="idEspecialista" id="idEspecialista" class="form-control" value="${status.value}"/>
 		</spring:bind>
 			

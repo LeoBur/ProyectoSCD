@@ -3,13 +3,13 @@
 
 <head>
 <title><fmt:message key="home.title" /></title>
-<meta name="menu" content="Endo" />
+<meta name="menu" content="Especialista" />
 <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 <script src="/scripts/jquery.1.10.2.min.js" type="text/javascript"></script>
 <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        $('#especialistas-input-search').autocomplete({
+        $('#especialista-input-search').autocomplete({
             serviceUrl: 'http://localhost:8080/endos/getTags',
             paramName: "tagName",
             delimiter: "," ,
@@ -107,6 +107,6 @@
 </div>
 </body>
 <c:set var="scripts" scope="request">
-<v:javascript formName="especialistaSearch" staticJavascript="false"/>
+<v:javascript formName="endoSearch" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 </c:set>

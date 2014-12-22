@@ -105,17 +105,6 @@ public class AbmEspecialistaController extends BaseFormController {
         }
         return mv;
     }
-
-    @RequestMapping(value = "endos/editEspecialista*", method = RequestMethod.GET)
-    public ModelAndView showFormEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
-                                     final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("endos/editEspecialista");
-        Locale locale = request.getLocale();
-        List<Provincia> provincias = provinciaManager.getProvincias();
-        List<Localidad> localidades = localidadManager.getLocalidades();
-        buscar(mv, especialistaForm, request, provincias, localidades, locale);
-        return mv;
-    }
     
     @RequestMapping(value = "endos/especialistaList*", method = RequestMethod.GET)
     public ModelAndView showEspecialistas(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
@@ -225,6 +214,7 @@ public class AbmEspecialistaController extends BaseFormController {
         } else {
             persona.addRole(roleManager.getRole(Constants.PTRAI_ROLE));
         }
+        especialista.setTipo_esp(especialistaForm.getTipoEspecialista());
 
         persona.setFch_nac(getFechaNac(especialistaForm));
         persona.setDomicilio(createDomicilio(especialistaForm));
@@ -261,83 +251,6 @@ public class AbmEspecialistaController extends BaseFormController {
                 log.warn(e.getMessage());
                 saveError(request,e.getMessage());
                 return "redirect:newEspecialista";
-            }
-            if (isNew) {
-                saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));
-            } else {
-                saveMessage(request, getText("user.endocrinologist.specialistUpdated", locale));
-            }
-        }
-        return success;
-    }
-
-    @RequestMapping(value = "endos/editEspecialista*", method = RequestMethod.POST)
-    public String onSubmitEdit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
-                               HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return getCancelView();
-        }
-
-        if (validator != null) { // validator is null during testing
-            validator.validate(especialistaForm, errors);
-
-            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/newEspecialista";
-            }
-        }
-
-        boolean isNew = (especialistaForm.getId() == null);
-        log.debug("entering 'onSubmitEdit' method...");
-
-        String success = "redirect:newEspecialista";
-        Locale locale = request.getLocale();
-
-        Persona persona = personaManager.getPersonaByDni(request.getParameter("dniposta"));
-
-        persona.setDni(request.getParameter("dniposta"));
-        persona.setFirstName(especialistaForm.getFirstName());
-        persona.setLastName(especialistaForm.getLastName());
-        persona.setEmail(especialistaForm.getEmail());
-        persona.setPhoneNumber(especialistaForm.getPhoneNumber());
-        persona.setSexo(especialistaForm.getSexo());
-        persona.setUsername(especialistaForm.getEmail());
-        persona.setAccountExpired(false);
-        persona.setAccountLocked(false);
-        persona.setEnabled(especialistaForm.isEnabled());
-        if (especialistaForm.getTipoEspecialista() == TipoEspecialista.NUTRICIONISTA){
-            persona.addRole(roleManager.getRole(Constants.NUTRI_ROLE));
-        } else {
-            persona.addRole(roleManager.getRole(Constants.PTRAI_ROLE));
-        }
-        persona.setFch_nac(getFechaNac(especialistaForm));
-        persona.setDomicilio(createDomicilio(especialistaForm));
-
-        Especialista especialista = especialistaManager.getEspecialista(especialistaForm.getId(), especialistaForm.getTipoEspecialista());;
-        especialista.setMatricula(especialistaForm.getMatricula());
-
-        if (request.getParameter("delete") != null) {
-            Especialista espe = especialistaManager.getEspecialistaByPersona(persona);
-            if (espe.getPacientes().isEmpty()){
-                especialistaManager.remove(espe);
-                if (espe.getTipo_esp() == TipoEspecialista.NUTRICIONISTA){
-                    persona.getRoles().remove(roleManager.getRole(Constants.NUTRI_ROLE));
-                } else {
-                    persona.getRoles().remove(roleManager.getRole(Constants.PTRAI_ROLE));
-                }
-                personaManager.savePersona(persona);
-                saveMessage(request, getText("user.endocrinologist.specialistDeleted", locale));
-            } else {
-                saveMessage(request, getText("user.endocrinologist.specialistNotDeleted", locale));
-            }
-
-        } else {
-            try{
-                personaManager.savePersona(persona);
-                especialistaManager.saveEspecialista(especialista);
-            } catch (EntityExistsException e) {
-                log.warn(e.getMessage());
-                saveError(request,e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));

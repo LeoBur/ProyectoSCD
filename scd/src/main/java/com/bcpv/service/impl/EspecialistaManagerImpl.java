@@ -40,7 +40,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 
 	@Override
 	public Especialista getEspecialista(Long id) {
-		return especialistaDao.get(id);
+		return especialistaDao.getEspecialista(id);
 	}
 
 	@Override
