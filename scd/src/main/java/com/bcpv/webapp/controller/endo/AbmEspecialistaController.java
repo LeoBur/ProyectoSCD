@@ -64,7 +64,7 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaForm.setEmail(persona.getEmail());
                 especialistaForm.setUsername(persona.getUsername());
                 especialistaForm.setPhoneNumber(persona.getPhoneNumber());
-                especialistaForm.setFechaNac(persona.getFch_nac());
+                especialistaForm.setDia(persona.getFch_nac());
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
                 especialistaForm.setIdEspecialista(getIdEspecialista(persona));
@@ -216,7 +216,7 @@ public class AbmEspecialistaController extends BaseFormController {
         }
         especialista.setTipo_esp(especialistaForm.getTipoEspecialista());
 
-        persona.setFch_nac(getFechaNac(especialistaForm));
+        persona.setFch_nac(especialistaForm.getDia());
         persona.setDomicilio(createDomicilio(especialistaForm));
 
 
@@ -269,12 +269,6 @@ public class AbmEspecialistaController extends BaseFormController {
         domicilio.setCalle(especialista.getCalle());
         domicilio.setNumero(new Long (especialista.getNumero()));
         return domicilio;
-    }
-
-    private Date getFechaNac(EspecialistaForm especialista) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate = especialista.getDia() + "/" + especialista.getMes() + "/" + especialista.getAnio();
-        return formatter.parse(strDate);
     }
 
     private Long getMatricula (Persona persona) {
