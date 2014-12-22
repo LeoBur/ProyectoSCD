@@ -10,7 +10,8 @@
 <p><fmt:message key="home.message"/></p>-->
 
 <ul class="glassList">
-    <c:redirect url="/admin/endocrinologoList"/>
+
+    <
     <%-- <li>
         <a href="<c:url value='/userform'/>"><fmt:message key="menu.user"/></a>
     </li>
