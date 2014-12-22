@@ -34,9 +34,9 @@ public class MomentoDiaDaoHibernate extends GenericDaoHibernate<MomentoDia, Long
 		if(log.isDebugEnabled()){
 			log.debug("MomentoDia id:"+momentoD.getIdMomentoD());
 		}
-        for (Comida comida : momentoD.getComidas()) {
+        /*for (Comida comida : momentoD.getComidas()) {
             comidaDao.saveComida(comida);
-        }
+        }*/
 		getSession().saveOrUpdate(momentoD);
 		return momentoD;
 	}

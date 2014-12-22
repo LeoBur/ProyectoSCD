@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Indexed;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 
 @Entity
 @Table(name="Alimento")
@@ -18,10 +20,10 @@ import org.hibernate.search.annotations.Indexed;
 public class Alimento implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3855173095772179711L;
-	
+
 	private Long idAlimento;
 	private String nombre;
 	private Long cantGlucosaX100;
@@ -29,9 +31,10 @@ public class Alimento implements Serializable {
 	private Long cantProteinasX100;
 	private Long cantCarbohidratosX100;
 	private Long cantCaloriasX100;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name="idAlimento", unique = true, nullable = false)
 	public Long getIdAlimento() {
 		return idAlimento;
 	}
