@@ -16,6 +16,7 @@ import com.bcpv.dao.EspecialistaDao;
 import com.bcpv.model.Especialista;
 import com.bcpv.service.EspecialistaManager;
 import com.bcpv.service.EspecialistaService;
+import com.bcpv.model.Especialista.TipoEspecialista;
 
 @Service("especialistaManager")
 @WebService(serviceName = "EspecialistaService", endpointInterface = "com.bcpv.service.EspecialistaService")
@@ -94,4 +95,8 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
         return especialistaDao.getEspecialistaByPersona(persona);
     }
 
+	@Override
+	public Especialista getEspecialista(Long matricula, TipoEspecialista tipoEspecialista) throws EntityNotFoundException {
+		return especialistaDao.getEspecialista(matricula,tipoEspecialista);
+	}
 }

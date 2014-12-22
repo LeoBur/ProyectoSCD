@@ -74,6 +74,9 @@
         <spring:bind path="dni">
         	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
         </spring:bind>
+        <spring:bind path="dni">
+			<input type="hidden" name="idEspecialista" id="idEspecialista" class="form-control" value="${status.value}"/>
+		</spring:bind>
 			
 		<div class="form-group">
 			<div class="row">
@@ -82,15 +85,17 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.dni"/>
 							<%-- si es nuevo, habilita la edicion. Si no es nuevo, la deshabilita --%>
-							<c:if test="${especialistaForm.nuevoEspecialista}">
-								<span class="required">*</span>
-								<input type="text" name="dni" id="dni" class="form-control"
-								placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
-							</c:if>
-							<c:if test="${especialistaForm.nuevoEspecialista}">
-								<input type="text" name="dni" id="dni" class="form-control" disabled
-								placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
-                            </c:if>
+							<c:choose>
+								<c:when test="${especialistaForm.nuevaPersona}">
+									<span class="required">*</span>
+									<input type="text" name="dni" id="dni" class="form-control"
+									placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="dni" id="dni" class="form-control" readonly
+									placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</spring:bind>
 				</div>
@@ -98,7 +103,7 @@
 					<br>
 					<div>
 						<%-- si es nuevo, habilita el boton--%>
-						<c:if test="${especialistaForm.nuevoEspecialista}">
+						<c:if test="${especialistaForm.nuevaPersona}">
 							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
 								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
 								<i class="icon-upload icon-white"></i>
@@ -284,7 +289,7 @@
         	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
             	<spring:bind path="especialistaForm.tipoEspecialista">
                     <appfuse:label styleClass="control-label" key="user.tipo_esp"/>
-                    <input list="tiposEsp" name="especialistaForm.tipoEspecialista" id="especialistaForm.tipoEspecialista" class="form-control"
+                    <input list="tiposEsp" name="tipoEspecialista" id="tipoEspecialista" class="form-control"
                       value="${status.value}" tabindex="20">
 				</spring:bind>
 

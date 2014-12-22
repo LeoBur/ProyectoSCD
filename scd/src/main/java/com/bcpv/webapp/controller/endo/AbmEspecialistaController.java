@@ -14,8 +14,6 @@ import com.bcpv.model.*;
 import com.bcpv.service.*;
 import com.bcpv.webapp.controller.forms.EspecialistaForm;
 import org.apache.commons.lang.StringUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -57,6 +55,7 @@ public class AbmEspecialistaController extends BaseFormController {
             Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni());
             mv.addObject("provinciaList", provincias);
             if (persona.getId() != null) {
+                especialistaForm.setNuevaPersona(false);
                 especialistaForm.setId(persona.getId());
                 especialistaForm.setDni(dni);
                 especialistaForm.setUsername(persona.getUsername());
@@ -68,6 +67,7 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaForm.setFechaNac(persona.getFch_nac());
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
+                especialistaForm.setIdEspecialista(getIdEspecialista(persona));
                 especialistaForm.setMatricula(getMatricula(persona));
                 especialistaForm.setEnabled(persona.isEnabled());
                 especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
@@ -91,12 +91,7 @@ public class AbmEspecialistaController extends BaseFormController {
     @RequestMapping(value = "endos/newEspecialista*", method = RequestMethod.GET)
     public ModelAndView showForm(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                                  final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv;
-        if (null == search && request.getAttribute("especialistaForm") == null){
-            mv = new ModelAndView("endos/newEspecialista");
-        }else {
-            mv = new ModelAndView("endos/editEspecialista");
-        }
+        ModelAndView mv = new ModelAndView("endos/newEspecialista");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
@@ -197,19 +192,27 @@ public class AbmEspecialistaController extends BaseFormController {
             }
         }
 
-        boolean isNew = (especialistaForm.getId() == null);
+        boolean isNew;
+        Especialista especialista = new Especialista();
+        try {
+            especialista = especialistaManager.getEspecialista(especialistaForm.getIdEspecialista());
+            isNew = false;
+        } catch (EntityNotFoundException e){
+            log.warn(e.getMessage());
+            isNew = true;
+        }
+
+
         log.debug("entering 'onSubmit' method...");
 
         String success = "redirect:newEspecialista";
         Locale locale = request.getLocale();
 
-        Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni());
+        Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni()); //recupera una persona o crea una nueva instancia
 
         persona.setDni(especialistaForm.getDni());
         persona.setFirstName(especialistaForm.getFirstName());
         persona.setLastName(especialistaForm.getLastName());
-        persona.setPassword(especialistaForm.getDni());
-        persona.setConfirmPassword(especialistaForm.getDni());
         persona.setEmail(especialistaForm.getEmail());
         persona.setPhoneNumber(especialistaForm.getPhoneNumber());
         persona.setSexo(especialistaForm.getSexo());
@@ -226,7 +229,14 @@ public class AbmEspecialistaController extends BaseFormController {
         persona.setFch_nac(getFechaNac(especialistaForm));
         persona.setDomicilio(createDomicilio(especialistaForm));
 
-        Especialista especialista = new Especialista(especialistaForm.getMatricula(), especialistaForm.getTipoEspecialista(), persona);
+
+        if(isNew){
+            persona.setPassword(especialistaForm.getDni());
+            persona.setConfirmPassword(especialistaForm.getDni());
+            especialista = new Especialista(especialistaForm.getMatricula(), especialistaForm.getTipoEspecialista(), persona);
+        } else {
+            especialista.setMatricula(especialistaForm.getMatricula());
+        }
 
         if (request.getParameter("delete") != null) {
             Especialista espe = especialistaManager.getEspecialistaByPersona(persona);
@@ -249,6 +259,8 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
+                saveError(request,e.getMessage());
+                return "redirect:newEspecialista";
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));
@@ -301,7 +313,7 @@ public class AbmEspecialistaController extends BaseFormController {
         persona.setFch_nac(getFechaNac(especialistaForm));
         persona.setDomicilio(createDomicilio(especialistaForm));
 
-        Especialista especialista = especialistaManager.getEspecialista(especialistaForm.getId());;
+        Especialista especialista = especialistaManager.getEspecialista(especialistaForm.getId(), especialistaForm.getTipoEspecialista());;
         especialista.setMatricula(especialistaForm.getMatricula());
 
         if (request.getParameter("delete") != null) {
@@ -325,6 +337,7 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
+                saveError(request,e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));
@@ -363,6 +376,16 @@ public class AbmEspecialistaController extends BaseFormController {
     private TipoEspecialista getTipoEspecialista(Persona persona){
         try {
             return especialistaManager.getEspecialistaByPersona(persona).getTipo_esp();
+        } catch (EntityNotFoundException e) {
+            log.warn(e.getMessage());
+            return null;
+        }
+    }
+
+    private Long getIdEspecialista(Persona persona) {
+        try {
+            Especialista especialista= especialistaManager.getEspecialistaByPersona(persona);
+            return especialista.getId();
         } catch (EntityNotFoundException e) {
             log.warn(e.getMessage());
             return null;

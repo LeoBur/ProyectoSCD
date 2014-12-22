@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bcpv.dao.EspecialistaDao;
 import com.bcpv.model.Especialista;
+import com.bcpv.model.Especialista.TipoEspecialista;
 
 @Repository("especialistaDao")
 public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, Long> implements EspecialistaDao{
@@ -59,6 +60,31 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
         Especialista especialista = (Especialista) qry.uniqueResult();
         if (especialista == null) {
             throw new EntityNotFoundException("No existe especialista asociado a la persona");
+        } else {
+            return especialista;
+        }
+    }
+
+    @Override
+    public Especialista getEspecialista(Long matricula, TipoEspecialista tipoEspecialista) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where es.matricula = :matricula AND es.tipo_esp = :tipoEspecialista");
+        qry.setParameter("matricula",matricula);
+        qry.setParameter("tipoEspecialista",tipoEspecialista);
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe especialista asociado a la persona");
+        } else {
+            return especialista;
+        }
+    }
+
+    @Override
+    public Especialista getEspecialista(Long idEspecialista) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where  es.id = :idEspecialista");
+        qry.setParameter("idEspecialista", idEspecialista);
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe el especialista");
         } else {
             return especialista;
         }

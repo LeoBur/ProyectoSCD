@@ -9,6 +9,15 @@ import com.bcpv.model.Especialista.TipoEspecialista;
 public class EspecialistaForm extends EndocrinologoForm {
 
     private TipoEspecialista tipoEspecialista;
+    private Long idEspecialista;
+
+    public Long getIdEspecialista() {
+        return idEspecialista;
+    }
+
+    public void setIdEspecialista(Long idEspecialista) {
+        this.idEspecialista = idEspecialista;
+    }
 
     public TipoEspecialista getTipoEspecialista() {
         return tipoEspecialista;

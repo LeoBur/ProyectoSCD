@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 
 import com.bcpv.model.Especialista;
 import com.bcpv.model.Persona;
+import com.bcpv.model.Especialista.TipoEspecialista;
 
 public interface EspecialistaDao extends GenericDao<Especialista, Long>{
 	
@@ -18,4 +19,8 @@ public interface EspecialistaDao extends GenericDao<Especialista, Long>{
 	List<Especialista> getEspecialistaByTipo (String tipo);
 
     Especialista getEspecialistaByPersona(Persona persona) throws EntityNotFoundException;
+
+    Especialista getEspecialista(Long matricula, TipoEspecialista tipoEspecialista);
+
+    Especialista getEspecialista(Long idEspecialista) throws EntityNotFoundException;
 }

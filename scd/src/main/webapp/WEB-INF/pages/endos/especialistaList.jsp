@@ -65,6 +65,7 @@
                         <fmt:message key="user.lastName" />
                     </th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
                 </tr>
@@ -81,6 +82,9 @@
                         </td>
                         <td style="width: 34%">
                             <c:out value="${especialista.persona.firstName}" />
+                        </td>
+                        <td style="width: 34%">
+                            <c:out value="${especialista.tipo_esp}" />
                         </td>
                         <td style="width: 28%">
                             <c:choose>
