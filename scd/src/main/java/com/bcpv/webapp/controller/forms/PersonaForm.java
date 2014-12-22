@@ -26,8 +26,14 @@ public class PersonaForm {
     String dpto;
     String piso;
     boolean enabled;
+    boolean nuevaPersona = true;
 
-
+    public boolean isNuevaPersona() {
+        return nuevaPersona;
+    }
+    public void setNuevaPersona(boolean nuevaPersona) {
+        this.nuevaPersona = nuevaPersona;
+    }
     public boolean isEnabled() {
         return enabled;
     }

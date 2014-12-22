@@ -71,7 +71,6 @@
             </table>
         </c:if>
         <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
-            <%--<c:if test="${endo.persona.firstName=='MARCELO'}">--%>
                 <table class="table table-condensed table-striped table-hover">
                     <tr>
                         <td style="width: 28%">
@@ -98,28 +97,7 @@
                         </td>
                     </tr>
                 </table>
-            <%--</c:if>--%>
         </c:forEach>
-
-        <%--
-	 	<display:table  name="endocrinologoList" cellspacing="0" cellpadding="0" requestURI=""
-	                   defaultsort="1" id="endocrinologoList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-	        	<display:column property="persona.firstName" escapeXml="true" sortable="true" titleKey="user.firstName"
-	                        style="width: 34%">
-	            </display:column>
-	            <display:column property="persona.lastName" escapeXml="true" sortable="true" titleKey="user.lastName"
-                            style="width: 34%">
-                </display:column>
-                <display:column property="matricula" escapeXml="true" sortable="true" titleKey="user.endocrinologist.registration"
-                              style="width: 34%">
-                </display:column>
-
-	            <display:column titleKey="activeEndos.acciones" sortable="true">
-            				<a href="${ctx}/endos/sintomaForm?id=${endocrinologoList.id}">Editar</a>
-                </display:column>
-
-		</display:table>
-		--%>
     </div>
 </div>
 </body>

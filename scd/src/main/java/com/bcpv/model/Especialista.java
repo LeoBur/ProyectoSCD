@@ -39,6 +39,12 @@ public class Especialista implements Serializable{
 	
 	public Especialista(){
 	}
+
+    public Especialista(Long matricula, TipoEspecialista tipoEspecialista, Persona persona){
+        this.setMatricula(matricula);
+        this.setTipo_esp(tipoEspecialista);
+        this.setPersona(persona);
+    }
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,13 +76,13 @@ public class Especialista implements Serializable{
 		this.matricula = matricula;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public Set<PacienteEnTratamiento> getPacientesEnTratamiento() {
+	public Set<PacienteEnTratamiento> getPacientes() {
 		return pacientesEnTratamiento;
 	}
 
-	public void setPacientesEnTratamiento(Set<PacienteEnTratamiento> pacientesEnTratamiento) {
+	public void setPacientes(Set<PacienteEnTratamiento> pacientesEnTratamiento) {
 		this.pacientesEnTratamiento = pacientesEnTratamiento;
 	}
 

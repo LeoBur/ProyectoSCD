@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import com.bcpv.dao.EspecialistaDao;
 import com.bcpv.model.Especialista;
 import com.bcpv.service.EspecialistaManager;
 import com.bcpv.service.EspecialistaService;
+import com.bcpv.model.Especialista.TipoEspecialista;
 
 @Service("especialistaManager")
 @WebService(serviceName = "EspecialistaService", endpointInterface = "com.bcpv.service.EspecialistaService")
@@ -37,7 +40,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 
 	@Override
 	public Especialista getEspecialista(Long id) {
-		return especialistaDao.get(id);
+		return especialistaDao.getEspecialista(id);
 	}
 
 	@Override
@@ -86,4 +89,14 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 		return new ArrayList<Especialista>();
 	}
 
+    @Override
+    public Especialista getEspecialistaByPersona(Persona persona) throws EntityNotFoundException {
+
+        return especialistaDao.getEspecialistaByPersona(persona);
+    }
+
+	@Override
+	public Especialista getEspecialista(Long matricula, TipoEspecialista tipoEspecialista) throws EntityNotFoundException {
+		return especialistaDao.getEspecialista(matricula,tipoEspecialista);
+	}
 }

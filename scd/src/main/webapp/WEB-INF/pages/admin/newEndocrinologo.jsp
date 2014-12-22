@@ -26,13 +26,6 @@
 
     <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
 
-	<script type="text/javascript">
-		function CancelFormButton(button) {
-			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/endo";
-	  	};
-	</script>
-
 	<script type="text/javascript" charset="utf-8">
     $(function(){
       $("select#provincia").change(function(){
@@ -58,7 +51,7 @@
 
 <div class="col-sm-2">
     <h3>Administraci&oacuten</h2>
-    <h3>de Usuarios</h2>
+    <h3>de Endocrin&oacutelogos</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
@@ -210,7 +203,6 @@
 		 </div>
 		</div>
 		
-			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
 					<spring:bind path="endocrinologoForm.provincia">

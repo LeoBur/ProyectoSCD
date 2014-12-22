@@ -278,7 +278,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         }
 
         boolean isNew = (endocrinologoForm.getId() == null);
-        log.debug("entering 'onSubmit' method...");
+        log.debug("entering 'onSubmitEdit' method...");
 
         String success = "redirect:newEndocrinologo";
         Locale locale = request.getLocale();
@@ -351,6 +351,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         try {
             return endocrinologoManager.getEndocrinologoByPersona(persona).getMatricula();
         } catch (EntityNotFoundException e) {
+            log.warn(e.getMessage());
             return null;
         }
     }

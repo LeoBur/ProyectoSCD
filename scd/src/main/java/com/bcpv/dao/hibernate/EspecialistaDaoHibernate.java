@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.bcpv.model.Persona;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.bcpv.dao.EspecialistaDao;
 import com.bcpv.model.Especialista;
+import com.bcpv.model.Especialista.TipoEspecialista;
 
 @Repository("especialistaDao")
 public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, Long> implements EspecialistaDao{
@@ -30,7 +32,7 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
 	
     @SuppressWarnings("unchecked")
     public List<Especialista> getEspecialistas() {
-		Query qry = getSession().createQuery("from Especialista e2 order by upper(e2.apellido)");
+		Query qry = getSession().createQuery("from Especialista e2 order by upper(e2.persona.lastName)");
         return qry.list();
 	}
 
@@ -50,5 +52,42 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
 		Query qry = getSession().createQuery("from Especialista e order by upper(e.tipo_esp)");
         return qry.list();
 	}
+
+    @Override
+    public Especialista getEspecialistaByPersona(Persona persona) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where  es.persona.id = :id_persona");
+        qry.setParameter("id_persona", persona.getId());
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe especialista asociado a la persona");
+        } else {
+            return especialista;
+        }
+    }
+
+    @Override
+    public Especialista getEspecialista(Long matricula, TipoEspecialista tipoEspecialista) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where es.matricula = :matricula AND es.tipo_esp = :tipoEspecialista");
+        qry.setParameter("matricula",matricula);
+        qry.setParameter("tipoEspecialista",tipoEspecialista);
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe especialista asociado a la persona");
+        } else {
+            return especialista;
+        }
+    }
+
+    @Override
+    public Especialista getEspecialista(Long idEspecialista) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Especialista es where  es.id = :idEspecialista");
+        qry.setParameter("idEspecialista", idEspecialista);
+        Especialista especialista = (Especialista) qry.uniqueResult();
+        if (especialista == null) {
+            throw new EntityNotFoundException("No existe el especialista");
+        } else {
+            return especialista;
+        }
+    }
 
 }
