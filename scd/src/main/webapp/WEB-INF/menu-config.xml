@@ -17,52 +17,52 @@
         <!-- <Menu name="HomeEndo" title="home.AbmEndocrinologo" page="/admin/newEndocrinologo" roles="ROLE_ADMIN"/> -->
         <Menu name="HomeEndoLista" title="home.Endo.Lista" page="/admin/endocrinologoList" roles="ROLE_ADMIN"/>
         <Menu name="Paciente" title="user.paciente" page="/endos/newPaciente" roles="ROLE_ENDO" description="Paciente Admin">
-        	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/pacienteForm"/>
+        	<Item name="newPaciente" title="user.paciente.nuevo" page="/endos/newPaciente"/>
         	<!-- <Item name="editPaciente" title="user.paciente.editar" page="/endos/editPaciente"/> -->
-        	<Item name="newTreatment" title="user.treatment.new" page="/admin/users"/>
-        	<Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/>
-        </Menu>
-        
-        <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">
-        	<Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>       	
-       	 	<Item name="AdminSymptom" title="user.symptom.admin" page="/endos/sintomaList"/>
-        	<Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
-        	<Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
-        </Menu>
+        	<Item name="newTreatment" title="user.treatment.new" page="/endos/tratamiento"/>
+        <!--  <Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/> -->
+    </Menu>
 
-        <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
-        <Menu name="EditProfile" title="user.editProfile" page="paciente/editProfile" roles="ROLE_USER"/>
+    <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">
+        <Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>
+            <Item name="AdminSymptom" title="user.symptom.admin" page="/endos/sintomaList"/>
+        <Item name="AdminUnidad" title="user.unidad.admin" page="/endos/adminUnidad"/>
+        <Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
+    </Menu>
 
-        <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
-        
-        <Menu name="Consulta" title="paciente.consulta" description="Paciente Consulta" roles="ROLE_USER" page="/admin/users">
-            <Item name="Medicacion" title="user.paciente.medicine" page="/paciente/medicacion"/>
-            <Item name="Dieta" title="user.paciente.diet" page="/paciente/dieta"/>
-        </Menu>
-        
-        <Menu name="Historial" title="paciente.historial" description="Paciente Historial" roles="ROLE_USER" page="/admin/users">
-            <Item name="Medicion" title="user.paciente.mediciones" page="/paciente/histMediciones"/>
-            <Item name="Peso" title="user.paciente.peso" page="/paciente/histPesos"/>
-        </Menu>
+    <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
+    <Menu name="EditProfile" title="user.editProfile" page="paciente/editProfile" roles="ROLE_USER"/>
 
-        <!-- <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
-        	<Item name="1" title="user.medicine.new" page="/admin/users"/>
-        	<Item name="2" title="user.medicine.change" page="/admin/users"/>
-        	<Item name="3" title="user.medicine.delete" page="/admin/users"/>
-        </Menu>
-        <Menu name="Food" title="user.food.title" page="/admin/users" roles="ROLE_ADMIN" description="Food Admin">
-        	<Item name="1" title="user.food.new" page="/admin/users"/>
-        	<Item name="2" title="user.food.change" page="/admin/users"/>
-        	<Item name="3" title="user.food.delete" page="/admin/users"/>
-        </Menu>
-        <Menu name="Activity" title="user.activity.title" page="/admin/users" roles="ROLE_ADMIN" description="Activity Admin">
-        	<Item name="1" title="user.activity.new" page="/admin/users"/>
-        </Menu>
-        <Menu name="Symptom" title="user.symptom.title" page="/admin/users" roles="ROLE_ADMIN" description="Symptom Admin">
-        	<Item name="1" title="user.symptom.new" page="/admin/users"/>
-        	<Item name="2" title="user.symptom.change" page="/admin/users"/>
-        	<Item name="3" title="user.symptom.delete" page="/admin/users"/>
-        </Menu> -->
+    <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
+
+    <Menu name="Consulta" title="paciente.consulta" description="Paciente Consulta" roles="ROLE_USER" page="/admin/users">
+        <Item name="Medicacion" title="user.paciente.medicine" page="/paciente/medicacion"/>
+        <Item name="Dieta" title="user.paciente.diet" page="/paciente/dieta"/>
+    </Menu>
+
+    <Menu name="Historial" title="paciente.historial" description="Paciente Historial" roles="ROLE_USER" page="/admin/users">
+        <Item name="Medicion" title="user.paciente.mediciones" page="/paciente/histMediciones"/>
+        <Item name="Peso" title="user.paciente.peso" page="/paciente/histPesos"/>
+    </Menu>
+
+    <!-- <Menu name="Medicine" title="user.medicine.title" page="/admin/users" roles="ROLE_ADMIN" description="Medicine Admin">
+        <Item name="1" title="user.medicine.new" page="/admin/users"/>
+        <Item name="2" title="user.medicine.change" page="/admin/users"/>
+        <Item name="3" title="user.medicine.delete" page="/admin/users"/>
+    </Menu>
+    <Menu name="Food" title="user.food.title" page="/admin/users" roles="ROLE_ADMIN" description="Food Admin">
+        <Item name="1" title="user.food.new" page="/admin/users"/>
+        <Item name="2" title="user.food.change" page="/admin/users"/>
+        <Item name="3" title="user.food.delete" page="/admin/users"/>
+    </Menu>
+    <Menu name="Activity" title="user.activity.title" page="/admin/users" roles="ROLE_ADMIN" description="Activity Admin">
+        <Item name="1" title="user.activity.new" page="/admin/users"/>
+    </Menu>
+    <Menu name="Symptom" title="user.symptom.title" page="/admin/users" roles="ROLE_ADMIN" description="Symptom Admin">
+        <Item name="1" title="user.symptom.new" page="/admin/users"/>
+        <Item name="2" title="user.symptom.change" page="/admin/users"/>
+        <Item name="3" title="user.symptom.delete" page="/admin/users"/>
+    </Menu> -->
         
         
         <!-- <Menu name="Endocrinologist" title="user.endocrinologist.title" page="/admin/users" roles="ROLE_ADMIN" description="Endocrinologist Admin">

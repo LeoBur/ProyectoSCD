@@ -69,10 +69,6 @@ public final class Constants {
      */
     public static final String ENDO_ROLE = "ROLE_ENDO";
 
-    public static final String NUTRI_ROLE = "NUTRI_ROLE";
-
-    public static final String PTRAI_ROLE = "PTRAI_ROLE";
-
     /**
      * The name of the Nutricionist role
      */
