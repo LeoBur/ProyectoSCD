@@ -2,7 +2,7 @@
 <%@ page import = "java.util.*"%>
 <% int a = 5; %>
 <head>
-    <title><fmt:message key="userPaciente.title"/></title>
+    <title><fmt:message key="menu.registrar"/></title>
 
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
