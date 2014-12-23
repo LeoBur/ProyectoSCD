@@ -192,7 +192,7 @@ public class AbmEspecialistaController extends BaseFormController {
         }
 
 
-        log.debug("entering 'onSubmit' method...");
+        log.debug("entering 'onSubmit' method from AbmEspecialistaController...");
 
         String success = "redirect:newEspecialista";
         Locale locale = request.getLocale();
@@ -249,7 +249,7 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
-                saveError(request,e.getMessage());
+                saveError(request,e.getMessage().toString());
                 return "redirect:newEspecialista";
             }
             if (isNew) {

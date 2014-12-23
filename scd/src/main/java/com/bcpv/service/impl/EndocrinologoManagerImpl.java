@@ -40,7 +40,7 @@ public class EndocrinologoManagerImpl extends GenericManagerImpl<Endocrinologo, 
 
 	@Override
 	public Endocrinologo getEndocrinologo(Long id) {
-		return endocrinologoDao.get(id);
+		return endocrinologoDao.getEndocrinologo(id);
 	}
 
 	@Override
