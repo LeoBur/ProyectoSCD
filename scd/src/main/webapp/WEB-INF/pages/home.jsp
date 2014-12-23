@@ -14,7 +14,7 @@
     <% } %>
 
     <% if (request.isUserInRole("ROLE_ENDO")) { %>
-        <c:redirect url="/endos/newPaciente"/>
+        <c:redirect url="/endos/pacienteList"/>
     <% } %>
 
     <%--
