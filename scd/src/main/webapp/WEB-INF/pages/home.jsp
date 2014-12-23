@@ -9,24 +9,15 @@
 <!--<h2><fmt:message key="home.heading"/></h2>
 <p><fmt:message key="home.message"/></p>-->
 
-<ul class="glassList">
+    <% if (request.isUserInRole("ROLE_ADMIN")) { %>
+        <c:redirect url="/admin/endocrinologoList"/>
+    <% } %>
 
-    <
-    <%-- <li>
-        <a href="<c:url value='/userform'/>"><fmt:message key="menu.user"/></a>
-    </li>
-    <li>
-        <a href="<c:url value='/fileupload'/>"><fmt:message key="menu.selectFile"/></a>
-    </li>
-    <li>
-    	<a href="${pageContext.request.contextPath}/userform">viendo</a>
-    </li>
-    <li>
-    	<a href="${pageContext.request.contextPath}/fileupload">viendo2</a>
-    </li>
-    <li>
-    	<a href="<c:url value='/paciente/registrar'/>">Empezar</a>
-    </li>
-     --%>
-</ul>
+    <% if (request.isUserInRole("ROLE_ENDO")) { %>
+        <c:redirect url="/endos/newPaciente"/>
+    <% } %>
+
+    <% if (request.isUserInRole("ROLE_USER")) { %>
+            <c:redirect url="/paciente/registrar"/>
+    <% } %>
 </body>
