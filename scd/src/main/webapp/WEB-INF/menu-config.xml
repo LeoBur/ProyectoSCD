@@ -21,10 +21,11 @@
         	<!-- <Item name="editPaciente" title="user.paciente.editar" page="/endos/editPaciente"/> -->
         	<Item name="newTreatment" title="user.treatment.new" page="/endos/tratamiento"/>
         <!--  <Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/> -->
-            <Menu name="HomeNutriPacienteList" title="home.Nutri.Paciente.Lista" page="/nutricionista/pacienteList" roles="ROLE_NUTRI"/>
-            <Menu name="HomeNutriCargarAlimento" title="home.Nutri.Cargar.Alimento" page="/nutricionista/cargarAlimento" roles="ROLE_NUTRI"/>
-            <Menu name="HomeNutriDietaRecomendada" title="home.Nutri.DietaRecomendada" page="/nutricionista/dieta" roles="ROLE_NUTRI"/>
+
     </Menu>
+        <Menu name="HomeNutriPacienteList" title="home.Nutri.Paciente.Lista" page="/nutricionista/pacienteList" roles="ROLE_NUTRI"/>
+        <Menu name="HomeNutriCargarAlimento" title="home.Nutri.Cargar.Alimento" page="/nutricionista/cargarAlimento" roles="ROLE_NUTRI"/>
+        <Menu name="HomeNutriDietaRecomendada" title="home.Nutri.DietaRecomendada" page="/nutricionista/dieta" roles="ROLE_NUTRI"/>
 
     <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">
         <Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>
@@ -92,7 +93,7 @@
         	<Item name="2" title="user.diet.change" page="/admin/users"/>
         	<Item name="3" title="user.diet.delete" page="/admin/users"/>
         </Menu> -->
-        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_ENDO,ROLE_USER"/>
+        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_ENDO,ROLE_USER,ROLE_NUTRI,ROLE_PTRAI"/>
         
     </Menus>
 </MenuConfig>
