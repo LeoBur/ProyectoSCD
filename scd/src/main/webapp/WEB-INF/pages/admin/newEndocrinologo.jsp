@@ -78,16 +78,28 @@
         <spring:bind path="dni">
         	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
         </spring:bind>
+        <spring:bind path="idEndo">
+				<input type="hidden" name="idEndo" id="idEndo" class="form-control" value="${status.value}"/>
+		</spring:bind>
 			
 			<div class="form-group">
 		  		<div class="row">
 					  <div>
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	    <span class="required">*</span>
-					        	<input type="text" name="dni" id="dni" class="form-control"
-					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+						  		<appfuse:label styleClass="control-label" key="user.dni"/>
+					        	<%-- si es nuevo, habilita la edicion. Si no es nuevo, la deshabilita --%>
+								<c:choose>
+									<c:when test="${endocrinologoForm.nuevaPersona}">
+										<span class="required">*</span>
+										<input type="text" name="dni" id="dni" class="form-control"
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="dni" id="dni" class="form-control" readonly
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									</c:otherwise>
+								</c:choose>
 					        </div>
 					    </spring:bind>
 					    	
@@ -96,11 +108,14 @@
 					  <div class="col-sm-6 form-group">
 					  <br>
 					  	<div>
-							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-								<i class="icon-upload icon-white"></i>
-								<fmt:message key="button.search" />
-							</button>
+							<%-- si es nuevo, habilita el boton--%>
+							<c:if test="${endocrinologoForm.nuevaPersona}">
+								<button type="submit" name="search" class="btn btn-primary" formmethod="get"
+									formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
+									<i class="icon-upload icon-white"></i>
+									<fmt:message key="button.search" />
+								</button>
+							</c:if>
 						</div>
 					</div>
 					  

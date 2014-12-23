@@ -21,4 +21,6 @@ public interface EndocrinologoDao extends GenericDao<Endocrinologo, Long>{
 
     Endocrinologo getEndocrinologoByPersona(Persona persona) throws EntityNotFoundException;
 
+    Endocrinologo getEndocrinologo(Long idEndo) throws EntityNotFoundException;
+
 }
