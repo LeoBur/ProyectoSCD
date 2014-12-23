@@ -40,7 +40,6 @@ public class PrescripcionDaoHibernate extends GenericDaoHibernate<Prescripcion, 
 			log.debug("prescripcion id: "+prescripcion.getIdPrescripcion());
 		}
 		getSession().saveOrUpdate(prescripcion);
-		getSession().flush();
 		return prescripcion;
 	}
 	

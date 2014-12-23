@@ -47,7 +47,7 @@ public class AbmMedicamentoController extends BaseFormController{
     }
 	
 	@RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.POST)
-	public ModelAndView nSubmit(@ModelAttribute("medicamento") final Medicamento medicamento, final BindingResult errors,
+	public ModelAndView onSubmit(@ModelAttribute("medicamento") final Medicamento medicamento, final BindingResult errors,
 			final HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("endos/medicamentoList");

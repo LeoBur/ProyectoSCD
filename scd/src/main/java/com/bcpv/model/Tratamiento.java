@@ -21,6 +21,8 @@ import org.hibernate.search.annotations.Indexed;
 
 import java.util.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name="tratamiento")
 @Indexed
@@ -39,8 +41,8 @@ public class Tratamiento implements Serializable{
 	private Set<Prescripcion> prescripciones = new HashSet<Prescripcion>();
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long getIdTratamiento() {
+    @GeneratedValue(strategy = IDENTITY)
+    public Long getIdTratamiento() {
 		return idTratamiento;
 	}
 	public void setIdTratamiento(Long idTratamiento) {
@@ -73,8 +75,8 @@ public class Tratamiento implements Serializable{
 		this.endocrinologo = endocrinologo;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@OneToMany(cascade = javax.persistence.CascadeType.ALL)
+    @JoinColumn(name = "idTratamiento")
 	public Set<Prescripcion> getPrescripciones() {
 		return prescripciones;
 	}

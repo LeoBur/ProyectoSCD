@@ -23,7 +23,7 @@ public class Medicamento implements Serializable{
 	 */
 	private static final long serialVersionUID = -582669174967971464L;
 
-	public enum GrupoMedicamento {INHIBIDOR_DE_ALFA_GLUCOSIDASA, SULFONILUREA, BIGUANIDA, GLINIDA, MEGLITINIDA, TZD, INSULINA, GLP_1,IAPP, DPP_4};
+	public enum GrupoMedicamento {INHIBIDOR_DE_ALFA_GLUCOSIDASA, SULFONILUREA, BIGUANIDA, GLINIDA, MEGLITINIDA, TZD, INSULINA, GLP_1,IAPP, DPP_4, OTRO};
 	
 	private Long idMedicamento;
 	private String nombreGenerico;
