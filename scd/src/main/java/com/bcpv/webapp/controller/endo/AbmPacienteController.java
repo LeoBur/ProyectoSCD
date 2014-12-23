@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bcpv.Constants;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.Tag;
 import com.bcpv.model.TipoDiabetes;
 import com.bcpv.service.EndocrinologoManager;
 import com.bcpv.service.PacienteManager;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.model.Domicilio;
@@ -133,11 +136,62 @@ public class AbmPacienteController extends BaseFormController {
     }
 
     @RequestMapping(value = "endos/pacienteList*", method = RequestMethod.GET)
-    public ModelAndView showPacientes() {
+    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") PacienteForm endocrinologoForm, BindingResult errors,
+                                           final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/pacienteList");
         List<Paciente> pacientes = pacienteManager.getPacientes();
-        mv.addObject("pacienteList", pacientes);
-        return mv;
+        List<Paciente> endocrinologosFilter = new ArrayList<Paciente>();
+
+        if (search == null) {
+            mv.addObject("endocrinologoList", pacientes);
+            return mv;
+        } else {
+            for (Paciente endocrinologofilter : pacientes) {
+                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni()) || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
+                    endocrinologosFilter.add(endocrinologofilter);
+                }
+            }
+            if (endocrinologosFilter.size() == 0) {
+                mv.addObject("endocrinologoList", pacientes);
+                saveInfo(request, "No existe el Endocrinologo");
+                return mv;
+            } else {
+                mv.addObject("endocrinologoList", endocrinologosFilter);
+                return mv;
+            }
+        }
+    }
+
+    @RequestMapping(value = "endos/pacienteList/getTags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Endocrinologo endocrinologo : endocrinologoManager.getEndocrinologos()) {
+            data.add(new Tag(cont++, endocrinologo.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
     }
 
     @RequestMapping(value = "endos/newPaciente*", method = RequestMethod.POST)
@@ -152,14 +206,14 @@ public class AbmPacienteController extends BaseFormController {
             validator.validate(pacienteForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/newPaciente";
+                return "/pacienteList";
             }
         }
 
         boolean isNew = (pacienteForm.getId() == null);
         log.debug("entering 'onSubmit' method...");
 
-        String success = "redirect:newPaciente";
+        String success = "redirect:pacienteList";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
