@@ -346,7 +346,7 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty tratamientoForm.paciente}">
+			<c:if test="${not empty endocrinologoForm.dni}">
 				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
 					<i class="icon-trash"></i>
 					<fmt:message key="button.delete" />
@@ -433,6 +433,13 @@
 
         });
     </script>
+	<script type="text/javascript">
+		$(document).ready(function (e) {
+		$(function() {
+			$("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: -27010, maxDate:0, yearRange: '-100:+0'});
+			});
+		});
+	</script>
 	
 </c:set>
 
