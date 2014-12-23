@@ -153,7 +153,8 @@
                   $('#datetimepicker1').datetimepicker({
                     language: 'pt-BR',
                     showToday: true,
-                    pickTime: false
+                    pickTime: false,
+                    maxDate: new Date()
                   });
                 });
               </script>
