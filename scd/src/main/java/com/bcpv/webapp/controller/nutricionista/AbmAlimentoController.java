@@ -86,4 +86,28 @@ public class AbmAlimentoController extends BaseFormController{
         return success;
     }
 
+    @RequestMapping(value = "/nutricionista/cargarAlimento*", method = RequestMethod.GET)
+     public ModelAndView cargarAlimento() {
+        ModelAndView mv = new ModelAndView("nutricionista/cargarAlimento");
+        Alimento alimento = new Alimento();
+        mv.addObject("alimentoForm", alimento);
+        return mv;
+    }
+
+    @RequestMapping(value = "/nutricionista/cargarAlimento*", method = RequestMethod.POST)
+    public String guardarAlimento(@ModelAttribute("Alimento") Alimento alimentoForm, BindingResult errors,
+                                        HttpServletRequest request, HttpServletResponse response)
+            throws Exception  {
+        String success = "redirect:pacienteList";
+        Alimento alimento = new Alimento();
+        alimento.setNombre(alimentoForm.getNombre());
+        alimento.setCantGlucosaX100(alimentoForm.getCantGlucosaX100());
+        alimento.setCantGrasasX100(alimentoForm.getCantGrasasX100());
+        alimento.setCantProteinasX100(alimentoForm.getCantProteinasX100());
+        alimento.setCantCarbohidratosX100(alimentoForm.getCantCarbohidratosX100());
+        alimento.setCantCaloriasX100(alimentoForm.getCantCaloriasX100());
+        alimentoManager.saveAlimento(alimento);
+        return success;
+    }
+
 }
