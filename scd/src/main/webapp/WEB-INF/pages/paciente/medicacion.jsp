@@ -13,11 +13,11 @@
     
 
      
-     <display:table name="userList" cellspacing="0" cellpadding="0" requestURI=""
-                   defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
-     	<display:column property="username" escapeXml="true" sortable="true" titleKey="active.medicacion" style="width: 25%"
+     <display:table name="prescripcionList" cellspacing="0" cellpadding="0" requestURI=""
+                   defaultsort="1" id="prescripcionList" pagesize="25" class="table table-condensed table-striped table-hover" export="true">
+     	<display:column property="medicamento.nombreComercial" escapeXml="true" sortable="true" titleKey="active.medicacion" style="width: 25%"
                         url="/userform?from=list" paramId="id" paramProperty="id"/>
-        <display:column property="fullName" escapeXml="true" sortable="true" titleKey="active.observacion"
+        <display:column property="descripcion" escapeXml="true" sortable="true" titleKey="active.observacion"
                         style="width: 34%"/>
      	
      </display:table>

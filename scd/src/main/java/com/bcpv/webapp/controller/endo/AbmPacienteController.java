@@ -170,7 +170,7 @@ public class AbmPacienteController extends BaseFormController {
         List<Tag> dataFilter = new ArrayList<Tag>();
         List<Tag> result = new ArrayList<Tag>();
 
-        for (Endocrinologo endocrinologo : endocrinologoManager.getEndocrinologos()) {
+        for (Paciente endocrinologo : pacienteManager.getPacientes()) {
             data.add(new Tag(cont++, endocrinologo.getPersona().getLastName()));
             dataFilter.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
             //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
