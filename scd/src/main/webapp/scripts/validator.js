@@ -58,7 +58,8 @@ $(document).ready(function(){
 					required:true
 				},
 				numero:{
-					required:true
+					required:true,
+					digits:true
 				},
 				dni:{
 					required:true,
@@ -93,6 +94,12 @@ $(document).ready(function(){
 					required:true
 				},
 				localidad:{
+				},
+				limiteInferior:{
+					digits:true
+				},
+				limiteSuperior:{
+					digits:true
 				}
 			},
 			success:function(etiqueta){

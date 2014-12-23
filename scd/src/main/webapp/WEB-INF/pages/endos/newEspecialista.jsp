@@ -375,13 +375,6 @@
 			});
 	</script>
 	<script type="text/javascript">
-    $(document).ready(function (e) {
-	$(function() {
-	    $("#dia").datepicker({dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: -27010, maxDate:0, yearRange: '-100:+0'});
-        });
-    });
-	</script>
-	<script type="text/javascript">
     		 $('button[name="search"]').click(function(e){
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
