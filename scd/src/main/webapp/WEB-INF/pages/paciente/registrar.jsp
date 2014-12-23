@@ -130,85 +130,104 @@
 		        		<form:option value="ANTES_DE_ACOSTARSE" label="ANTES DE ACOSTARSE"/>
 		        	</form:select>
 		        </div>
-		        
-		        <display:table name="<%= a %>" cellspacing="0" cellpadding="0" requestURI=""
-                   defaultsort="1" id="users" pagesize="25" class="table table-condensed table-striped table-hover" export="false">
-				        
-				        <display:column titleKey="user.paciente.alimentoIng" sortable="false">
-				            <form:select path="alimento1" cssClass="form-control">
-				                <form:option value="NONE" label="--- Seleccione ---"/>
-				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-				            </form:select>
-				            <form:select path="alimento2" cssClass="form-control">
-				                <form:option value="NONE" label="--- Seleccione ---"/>
-				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-				            </form:select>
-				            <form:select path="alimento3" cssClass="form-control">
-				                <form:option value="NONE" label="--- Seleccione ---"/>
-				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-				            </form:select>
-				            <form:select path="alimento4" cssClass="form-control">
-				                <form:option value="NONE" label="--- Seleccione ---"/>
-				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-				            </form:select>
-				            <form:select path="alimento5" cssClass="form-control">
-				                <form:option value="NONE" label="--- Seleccione ---"/>
-				            	<form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-				            </form:select>
-				        </display:column>
-				        
-				        <display:column titleKey="user.food.cant" sortable="false">
-				            <form:input path="cantidad1" cssClass="form-control"/>
-				            <form:input path="cantidad2" cssClass="form-control"/>
-				            <form:input path="cantidad3" cssClass="form-control"/>
-				            <form:input path="cantidad4" cssClass="form-control"/>
-				            <form:input path="cantidad5" cssClass="form-control"/>
-				        </display:column>
-				        <display:column titleKey="user.observation.title" sortable="false">
-				            <form:input path="observacion1" cssClass="form-control" value="${status.value}"/>
-				            <form:input path="observacion2" cssClass="form-control" value="${status.value}"/>
-				            <form:input path="observacion3" cssClass="form-control" value="${status.value}"/>
-				            <form:input path="observacion4" cssClass="form-control" value="${status.value}"/>
-				            <form:input path="observacion5" cssClass="form-control" value="${status.value}"/>
-				        </display:column>
-				       
-								        
-				    </display:table>    
-						        
-		        <%--
-		         <table>
-		        	<tr>
-		        		<th>Alimento</th>
-		        		<th>Cantidad</th>
-		        		<th>Observaciones</th>
-		        	</tr>
-		        	<tr>
-		        		<td><form:input path=""/></td>
-		        		<td><form:input path=""/></td>
-		        		<td><form:textarea path=""/></td>
-		        	</tr>
-		        	<tr>
-		        		<td><form:input path=""/></td>
-		        		<td><form:input path=""/></td>
-						<td><form:textarea path=""/></td>
-		        		
-		        	</tr>
-		        	<tr>
-		        		<td><form:input path=""/></td>
-		        		<td><form:input path=""/></td>
-		        		<td><form:textarea path=""/></td>
-		        	</tr>
-		        	<tr>
-		        		<td><form:input path=""/></td>
-		        		<td><form:input path=""/></td>
-		        		<td><form:textarea path=""/></td>
-		        	</tr>
-		        	<tr>
-		        		<td><form:input path=""/></td>
-		        		<td><form:input path=""/></td>
-		        		<td><form:textarea path=""/></td>
-		        	</tr>
-		        </table>	    --%>     
+
+		        <h3>Alimentos</h3>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.paciente.alimentoIng"/>
+                        <form:select path="alimento1" cssClass="form-control">
+                            <form:option value="NONE" label="--- Seleccione ---"/>
+                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                        </form:select>
+				    </div>
+				    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.food.cant"/>
+                        <form:input path="cantidad1" cssClass="form-control"/>
+                    </div>
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.observation.title"/>
+                        <form:input path="observacion1" cssClass="form-control" value="${status.value}"/>
+                    </div>
+				  </div>
+		        </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.paciente.alimentoIng"/>
+                        <form:select path="alimento2" cssClass="form-control">
+                            <form:option value="NONE" label="--- Seleccione ---"/>
+                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                        </form:select>
+				    </div>
+				    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.food.cant"/>
+                        <form:input path="cantidad2" cssClass="form-control"/>
+                    </div>
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.observation.title"/>
+                        <form:input path="observacion2" cssClass="form-control" value="${status.value}"/>
+                    </div>
+				  </div>
+		        </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.paciente.alimentoIng"/>
+                        <form:select path="alimento3" cssClass="form-control">
+                            <form:option value="NONE" label="--- Seleccione ---"/>
+                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                        </form:select>
+				    </div>
+				    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.food.cant"/>
+                        <form:input path="cantidad3" cssClass="form-control"/>
+                    </div>
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.observation.title"/>
+                        <form:input path="observacion3" cssClass="form-control" value="${status.value}"/>
+                    </div>
+				  </div>
+		        </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.paciente.alimentoIng"/>
+                        <form:select path="alimento4" cssClass="form-control">
+                            <form:option value="NONE" label="--- Seleccione ---"/>
+                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                        </form:select>
+				    </div>
+				    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.food.cant"/>
+                        <form:input path="cantidad4" cssClass="form-control"/>
+                    </div>
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.observation.title"/>
+                        <form:input path="observacion4" cssClass="form-control" value="${status.value}"/>
+                    </div>
+				  </div>
+		        </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.paciente.alimentoIng"/>
+                        <form:select path="alimento5" cssClass="form-control">
+                            <form:option value="NONE" label="--- Seleccione ---"/>
+                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                        </form:select>
+				    </div>
+				    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.food.cant"/>
+                        <form:input path="cantidad5" cssClass="form-control"/>
+                    </div>
+                    <div class="col-sm-4 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <appfuse:label styleClass="control-label" key="user.observation.title"/>
+                        <form:input path="observacion5" cssClass="form-control" value="${status.value}"/>
+                    </div>
+				  </div>
+		        </div>
 		
 		        <div class="form-group">
 		            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
