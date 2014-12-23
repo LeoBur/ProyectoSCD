@@ -17,7 +17,7 @@
         <c:redirect url="/endos/pacienteList"/>
     <% } %>
 
-    <%--
+
     <% if (request.isUserInRole("ROLE_NUTRI")) { %>
         <c:redirect url="/nutricionista/"/>
     <% } %>
@@ -25,7 +25,7 @@
     <% if (request.isUserInRole("ROLE_PTRAI")) { %>
         <c:redirect url="/endos/newPaciente"/>
     <% } %>
-    --%>
+
 
     <% if (request.isUserInRole("ROLE_USER")) { %>
             <c:redirect url="/paciente/registrar"/>

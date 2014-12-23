@@ -14,6 +14,7 @@
     	<intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
     	<intercept-url pattern="/app/endos/**" access="ROLE_ENDO, ROLE_ADMIN"/>
         <intercept-url pattern="/app/endo/endo/**" access="ROLE_ENDO,ROLE_ADMIN"/>
+        <intercept-url pattern="/app/nutricionista/**" access="ROLE_NUTRI"/>
         <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/app/requestRecoveryToken*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />
         <intercept-url pattern="/app/updatePassword*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_ENDO,ROLE_USER" />
