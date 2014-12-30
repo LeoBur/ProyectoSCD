@@ -71,7 +71,7 @@ public class AbmPacienteController extends BaseFormController {
 
     }
 
-    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request, List<Localidad> localidades, Locale locale) {
+    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request, List<Localidad> localidades, Locale locale, boolean b) {
         final String dni = pacienteForm.getDni();
         try {
             if (StringUtils.isEmpty(dni)){
@@ -79,6 +79,7 @@ public class AbmPacienteController extends BaseFormController {
             }
 
             Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
+            Paciente paciente = null;
             if (persona.getId() != null) {
                 pacienteForm.setId(persona.getId());
                 pacienteForm.setDni(dni);
@@ -92,7 +93,9 @@ public class AbmPacienteController extends BaseFormController {
                 pacienteForm.setSexo(persona.getSexo());
                 pacienteForm.setDomicilio(persona.getDomicilio());
                 pacienteForm.setEnabled(persona.isEnabled());
-                Paciente paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
+                if (b == false) {
+                    paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
+                }
                 if (paciente != null) {
                     pacienteForm.setLimiteInferior(paciente.getLimiteInf());
                     pacienteForm.setLimiteSuperior(paciente.getLimiteSup());
@@ -111,7 +114,11 @@ public class AbmPacienteController extends BaseFormController {
         } catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } catch (EntityNotFoundException enfe) {
-            saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            if (((EntityNotFoundException) enfe).getMessage().contains("Paciente con username") && personaManager.getPersonaByDni(pacienteForm.getDni()) != null ){
+                b = true;
+                buscar(mv, pacienteForm, request, localidades, locale, b);
+            }
+            saveInfo(request, getText("user.superUser.info.nuevoPaciente", locale));
         }
     }
 
@@ -128,7 +135,8 @@ public class AbmPacienteController extends BaseFormController {
             mv.addObject("localidadList", localidades);
             mv.addObject("pacienteForm", paciente);
         } else {
-            buscar(mv, pacienteForm, request, localidades, locale);
+            boolean b = false;
+            buscar(mv, pacienteForm, request, localidades, locale, b);
         }
         mv.addObject("provinciaList", provincias);
         mv.addObject("tipoDiabetesList", tipoDiabetesList);
