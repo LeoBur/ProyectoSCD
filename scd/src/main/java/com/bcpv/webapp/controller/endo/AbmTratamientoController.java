@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityExistsException;
@@ -55,7 +56,7 @@ public class AbmTratamientoController extends BaseFormController{
     }
 
     @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.GET)
-    public ModelAndView showForm(HttpServletRequest request) {
+    public ModelAndView showForm(HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/tratamiento");
         Locale locale = request.getLocale();
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
@@ -67,6 +68,7 @@ public class AbmTratamientoController extends BaseFormController{
         }*/
         List<Paciente> pacientes = pacienteManager.getPacientes();
         TratamientoForm tratamiento = new TratamientoForm();
+        tratamiento.setPaciente(search);
         mv.addObject("medicamentoList", medicamentos);
         mv.addObject("tratamientoForm", tratamiento);
         return mv;

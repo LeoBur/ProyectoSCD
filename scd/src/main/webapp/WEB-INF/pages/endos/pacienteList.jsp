@@ -67,7 +67,7 @@
                     <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
                     <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
                     <th style="width: 25%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
                 </tr>
             </table>
         </c:if>
@@ -95,6 +95,9 @@
                         </td>
                         <td style="width: 34%">
                             <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
+                        </td>
+                        <td style="width: 34%">
+                            <a href="${ctx}/endos/tratamiento?search=${endo.persona.dni}">Nuevo</a>
                         </td>
                     </tr>
                 </table>

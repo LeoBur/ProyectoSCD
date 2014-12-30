@@ -55,7 +55,7 @@
                             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                 <appfuse:label styleClass="control-label" key="user.dni"/>
                                     <span class="required">*</span>
-                                <input type="text" name="paciente" id="paciente" class="form-control"
+                                <input type="text" name="paciente" id="paciente" class="form-control" readonly
                                 placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
                             </div>
                         </spring:bind>
