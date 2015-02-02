@@ -31,8 +31,10 @@
                     </div>
         	    </div>
 
-		<display:table name="tratamientoList" id="parent">
-		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" href="prescripciones.jsp" paramId="idTratamiento" />
+		<display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1"
+		    class="table table-condensed table-striped table-hover">
+		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" href="prescripciones.jsp"
+		        paramId="id" paramProperty="idTratamiento" />
 		</display:table>
 
 	</div>

@@ -202,7 +202,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         }
         log.debug("entering 'onSubmit' method from AbmEndocrinologoController...");
 
-        String success = "redirect:newEndocrinologo";
+        String success = "redirect:endocrinologoList";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());  //recupera una persona o crea una nueva instancia

@@ -23,6 +23,7 @@ import com.bcpv.service.RoleManager;
 import com.bcpv.service.TipoDiabetesManager;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 import org.apache.commons.lang3.StringUtils;
+import org.displaytag.decorator.CheckboxTableDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

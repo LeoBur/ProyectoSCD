@@ -15,7 +15,8 @@
 <div class="col-sm-7">
 
 	<div class="well">
-	    <display:table name="prescripcionesList" id="table">
+	    <display:table name="prescripcionesList" id="table" defaultsort="0" pagesize="12"
+	        class="table table-condensed table-striped table-hover">
     		  <display:column property="medicamento.nombreComercial" title="Nombre Comercial" />
     		  <display:column property="medicamento.presentacion" title="Presentacion" />
     		  <display:column property="descripcion" title="Presentacion" />
@@ -23,9 +24,8 @@
         <div>
             <div class="form-group">
                 <div class="row">
-        	        <div id="actions" class="btn-group">
-        	        <button type="button" name="back" onclick="history.back()">back</button>
-                        <a class="btn btn-primary" href="<c:url value='/endos/tratamiento?search=${tratamientoList[0].paciente.persona.dni}'/>">
+                    <div id="actions" class="btn-group">
+                        <a class="btn btn-primary" href="<c:url value='/endos/tratamientoList?search=${idTratamiento}'/>">
                         <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
                     </div>
                 </div>

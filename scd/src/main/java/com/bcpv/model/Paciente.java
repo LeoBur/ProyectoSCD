@@ -111,8 +111,8 @@ public class Paciente implements Serializable{
 		this.registroComidas = registroComidas;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+    @OneToMany(mappedBy="paciente", fetch = FetchType.EAGER)
+	@Cascade(CascadeType.ALL)
 	public Set<Tratamiento> getTratamientos() {
 		return tratamientos;
 	}
