@@ -21,7 +21,6 @@
 
     <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
 
-
     <script type="text/javascript">
         function CancelFormButton(button) {
             onsubmit: false;

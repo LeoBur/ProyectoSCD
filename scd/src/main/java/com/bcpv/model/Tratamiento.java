@@ -56,9 +56,9 @@ public class Tratamiento implements Serializable{
 	public void setFechaTratamiento(Date fechaTratamiento) {
 		this.fechaTratamiento = fechaTratamiento;
 	}
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_paciente", nullable = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_paciente")
 	public Paciente getPaciente() {
 		return paciente;
 	}
@@ -75,7 +75,7 @@ public class Tratamiento implements Serializable{
 		this.endocrinologo = endocrinologo;
 	}
 	
-	@OneToMany(cascade = javax.persistence.CascadeType.ALL)
+	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idTratamiento")
 	public Set<Prescripcion> getPrescripciones() {
 		return prescripciones;

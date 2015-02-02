@@ -58,32 +58,32 @@
         <c:if test="${not empty lista}">
             <table class="table table-condensed table-striped table-hover">
                 <tr>
-                    <th style="width: 30%" class="sortable sorted order1">
+                    <th style="width: 20%" class="sortable sorted order1">
                         <fmt:message key="user.dni" />
                     </th>
-                    <th style="width: 30%" class="sortable sorted order1">
+                    <th style="width: 20%" class="sortable sorted order1">
                         <fmt:message key="user.lastName" />
                     </th>
-                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
-                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                    <th style="width: 25%" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
+                    <th style="width: 20%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                    <th style="width: 10%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
+                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
                 </tr>
             </table>
         </c:if>
         <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
                 <table class="table table-condensed table-striped table-hover">
                     <tr>
-                        <td style="width: 28%">
+                        <td style="width: 20%">
                             <c:out value="${endo.persona.dni}" />
                         </td>
-                        <td style="width: 28%">
+                        <td style="width: 20%">
                             <c:out value="${endo.persona.lastName}" />
                         </td>
-                        <td style="width: 34%">
+                        <td style="width: 20%">
                             <c:out value="${endo.persona.firstName}" />
                         </td>
-                        <td style="width: 28%">
+                        <td style="width: 10%">
                             <c:choose>
                                 <c:when test="${endo.persona.enabled == 'true'}">
                                     <input type="checkbox" checked="true" disabled="true"/>
@@ -93,11 +93,11 @@
                                 </c:when>
                             </c:choose>
                         </td>
-                        <td style="width: 34%">
+                        <td style="width: 15%">
                             <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
                         </td>
-                        <td style="width: 34%">
-                            <a href="${ctx}/endos/tratamiento?search=${endo.persona.dni}">Nuevo</a>
+                        <td style="width: 15%">
+                            <a href="${ctx}/endos/tratamientoList?search=${endo.id}">Ver Tratamientos</a>
                         </td>
                     </tr>
                 </table>

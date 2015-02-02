@@ -9,7 +9,9 @@ import org.hibernate.criterion.Restrictions;
 
 import com.bcpv.dao.PrescripcionDao;
 import com.bcpv.model.Prescripcion;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PrescripcionDaoHibernate extends GenericDaoHibernate<Prescripcion, Long> implements PrescripcionDao{
 
 	public PrescripcionDaoHibernate(){

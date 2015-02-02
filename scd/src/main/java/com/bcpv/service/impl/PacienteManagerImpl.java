@@ -58,7 +58,7 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 		} catch (final Exception e){
 			e.printStackTrace();
 			log.warn(e.getMessage());
-			throw new EntityExistsException("La paciente ya existe");
+			throw new EntityExistsException("El paciente ya existe");
 		}
 	}
 

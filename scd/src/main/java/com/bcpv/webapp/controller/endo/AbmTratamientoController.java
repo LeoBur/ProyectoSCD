@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.bcpv.webapp.controller.BaseFormController;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,6 +75,7 @@ public class AbmTratamientoController extends BaseFormController{
         return mv;
     }
 
+    @Transactional
     @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("tratamientoForm") TratamientoForm tratamientoForm, BindingResult errors,
                            final HttpServletRequest request) {
@@ -91,25 +93,61 @@ public class AbmTratamientoController extends BaseFormController{
 
         log.debug("entering 'onSubmit' method...");
 
-        String success = "redirect:/endos/tratamiento";
+        String success = "redirect:/endos/pacienteList";
         Locale locale = request.getLocale();
 
         Tratamiento tratamiento = new Tratamiento();
         tratamiento.setFechaTratamiento(tratamientoForm.getFecha());
-        tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
-                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername()));
+        /*tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
+                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername()));*/
         tratamiento.setEndocrinologo(endocrinologoManager.getEndocrinologoByPersona(
                 personaManager.getPersonaByUsername(request.getRemoteUser())));
         tratamiento.setPrescripciones(setPrescripciones(tratamientoForm, tratamiento));
+        Paciente paciente = pacienteManager.getPacienteByUsername(
+                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername());
+        //paciente.getTratamientos().add(tratamiento);
         //saveMessage(request, getText("user.savedData", locale));
         try{
+            tratamiento.setPaciente(paciente);
             tratamientoManager.saveTratamiento(tratamiento);
+            //pacienteManager.savePaciente(paciente);
         } catch (EntityExistsException e) {
             saveError(request, getText("user.endocrinologist.treatmentFail", locale));
+            return success;
         }
         saveMessage(request, getText("user.endocrinologist.savedTreatment", locale));
 
         return success;
+    }
+
+    @RequestMapping(value = "endos/tratamientoList*", method = RequestMethod.GET)
+    public ModelAndView showTratamientos(final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        Set<Tratamiento> tratamientos = pacienteManager.getPaciente(new Long (search)).getTratamientos();
+        if (tratamientos.isEmpty()) {
+            ModelAndView mv = new ModelAndView("endos/pacienteList");
+            saveInfo(request, "El paciente no tiene tratamientos");
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("endos/tratamientoList");
+            mv.addObject("tratamientoList", tratamientos);
+            mv.addObject("dni", pacienteManager.getPaciente(new Long(search)).getPersona().getDni());
+            return mv;
+        }
+    }
+
+    @RequestMapping(value = "endos/prescripciones*", method = RequestMethod.GET)
+    public ModelAndView showPrescripciones(final HttpServletRequest request, @RequestParam(required=true, value="id") String search) {
+        Set<Prescripcion> prescripciones = tratamientoManager.getTratamiento(new Long(search)).getPrescripciones();
+        if (prescripciones.isEmpty()) {
+            ModelAndView mv = new ModelAndView("endos/pacienteList");
+            saveInfo(request, "No existen prescripciones");
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("endos/prescripciones");
+            mv.addObject("prescripcionesList", prescripciones);
+            mv.addObject("idTratamiento", tratamientoManager.getTratamiento(new Long(search)).getPaciente().getId());
+            return mv;
+        }
     }
 
     private Set<Prescripcion> setPrescripciones(TratamientoForm tratamientoForm, Tratamiento tratamiento) {

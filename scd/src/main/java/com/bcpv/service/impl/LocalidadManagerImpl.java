@@ -27,7 +27,7 @@ public class LocalidadManagerImpl extends GenericManagerImpl<Localidad, Long> im
 	public void setLocalidadDao(LocalidadDao localidadDao) {
 		this.dao = localidadDao;
 		this.localidadDao = localidadDao;
-		
+
 	}
 	
 	@Override
