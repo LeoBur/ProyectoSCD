@@ -1,4 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
+<!DOCTYPE html>
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
