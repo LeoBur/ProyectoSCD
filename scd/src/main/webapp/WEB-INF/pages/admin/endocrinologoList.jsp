@@ -30,13 +30,15 @@
 </script>
 </head>
 
-<div class="col-sm-2">
-    <h3>Endocrinologos</h2>
+<div class="col-md-2">
+  <div class='text-center'>
+    <h3>Endocrinologos</h3>
+  </div>
 </div>
 
-<div class="col-sm-7">
+<div class="col-md-8">
     <div class="well">
-        <div>
+        <div class="col-md-12">
             <div class="form-group">
                 <div class="row">
                     <div class="col-sm-6 form-group">
@@ -55,49 +57,53 @@
             </div>
 	    </div>
         <br></br>
-        <c:if test="${not empty lista}">
-            <table class="table table-condensed table-striped table-hover">
-                <tr>
-                    <th style="width: 30%" class="sortable sorted order1">
-                        <fmt:message key="user.dni" />
-                    </th>
-                    <th style="width: 30%" class="sortable sorted order1">
-                        <fmt:message key="user.lastName" />
-                    </th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                </tr>
-            </table>
-        </c:if>
-        <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
-                <table class="table table-condensed table-striped table-hover">
-                    <tr>
-                        <td style="width: 28%">
-                            <c:out value="${endo.persona.dni}" />
-                        </td>
-                        <td style="width: 28%">
-                            <c:out value="${endo.persona.lastName}" />
-                        </td>
-                        <td style="width: 34%">
-                            <c:out value="${endo.persona.firstName}" />
-                        </td>
-                        <td style="width: 28%">
-                            <c:choose>
-                                <c:when test="${endo.persona.enabled == 'true'}">
-                                    <input type="checkbox" checked="true" disabled="true"/>
-                                </c:when>
-                                <c:when test="${endo.persona.enabled == 'false'}">
-                                    <input type="checkbox" disabled="false"/>
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td style="width: 34%">
-                            <a href="${ctx}/admin/newEndocrinologo?search=search&dni=${endo.persona.dni}">Editar</a>
-                        </td>
-                    </tr>
-                </table>
-        </c:forEach>
+        <div class="row">
+            <div class="col-md-12">
+                <c:if test="${not empty lista}">
+                    <table class="table table-condensed table-striped table-hover">
+                        <tr>
+                            <th style="width: 30%" class="sortable sorted order1">
+                                <fmt:message key="user.dni" />
+                            </th>
+                            <th style="width: 30%" class="sortable sorted order1">
+                                <fmt:message key="user.lastName" />
+                            </th>
+                            <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                            <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
+                            <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                        </tr>
+                    </table>
+                </c:if>
+                <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
+                        <table class="table table-condensed table-striped table-hover">
+                            <tr>
+                                <td style="width: 28%">
+                                    <c:out value="${endo.persona.dni}" />
+                                </td>
+                                <td style="width: 28%">
+                                    <c:out value="${endo.persona.lastName}" />
+                                </td>
+                                <td style="width: 34%">
+                                    <c:out value="${endo.persona.firstName}" />
+                                </td>
+                                <td style="width: 28%">
+                                    <c:choose>
+                                        <c:when test="${endo.persona.enabled == 'true'}">
+                                            <input type="checkbox" checked="true" disabled="true"/>
+                                        </c:when>
+                                        <c:when test="${endo.persona.enabled == 'false'}">
+                                            <input type="checkbox" disabled="false"/>
+                                        </c:when>
+                                    </c:choose>
+                                </td>
+                                <td style="width: 34%">
+                                    <a href="${ctx}/admin/newEndocrinologo?search=search&dni=${endo.persona.dni}">Editar</a>
+                                </td>
+                            </tr>
+                        </table>
+                </c:forEach>
+            </div>
+        </div>
     </div>
 </div>
 </body>

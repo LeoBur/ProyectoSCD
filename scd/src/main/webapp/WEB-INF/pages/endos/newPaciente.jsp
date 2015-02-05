@@ -1,4 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
+<!DOCTYPE html>
 
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
@@ -46,7 +47,7 @@
     </script>
 </head>
 
-<div class="container">
+<div class="container-fluid">
 <meta name="menu" content="UserMenu"/>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -54,13 +55,14 @@
 		"<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="col-sm-2">
-    <h3>Administraci&oacuten</h2>
-    <h3>de Usuarios</h2>
+<div class="col-md-2">
+  <div class='text-center'>
+    <h3>Administraci&oacuten de Usuarios</h3>
+  </div>
 </div>
 <!-- Ac� comienzan los formularios -->
 
-<div class="col-sm-7">
+<div class="col-md-8">
 	<spring:bind path="pacienteForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
@@ -111,7 +113,8 @@
 			</div>
         
         <div class="form-group">
-	        <div>
+        <div class="row">
+	        <div class="col-md-6">
 	          <spring:bind path="pacienteForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	        	<input type="text" name="firstName" id="firstName" class="form-control"
@@ -121,7 +124,7 @@
 	          		<label for="firstName" generated="true" class="error"></label>
 	          <form:errors path="firstName" cssClass="help-block"/>
 	        </div>
-	        <div>
+	        <div class="col-md-6">
 	          <spring:bind path="pacienteForm.lastName">
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	        	<input type="text" name="lastName" id="lastName" class="form-control"
@@ -131,6 +134,7 @@
 	          		<label for="lastName" generated="true" class="error"></label>
 		   	  <form:errors path="lastName" cssClass="help-block"/>
 		   	</div>
+		</div>
         </div>
         
 		<div class="row">
@@ -206,7 +210,6 @@
 		 </div>
 		</div>
 		
-			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
 					<spring:bind path="pacienteForm.provincia">
@@ -324,7 +327,7 @@
          <div class="row">
          <div>
            <spring:bind path="pacienteForm.tipoDiabetes">
-             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+             <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                <appfuse:label styleClass="control-label" key="user.paciente.tipoDiabetes" />
                <div cssClass="form-control">
                  <form:select id="tipoDiabetes" name="tipoDiabetes" class="form-control" path="tipoDiabetes" value="${status.value}" tabindex="22">
@@ -337,7 +340,7 @@
          </div>
          <div>
          		  <spring:bind path="pacienteForm.enabled">
-         			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+         			<div class="col-md-2 col-md-offset-2 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          				<appfuse:label styleClass="control-label" key="user.enabled" />
          				<c:choose>
                                                     <c:when test="${pacienteForm.enabled == 'true'}">
