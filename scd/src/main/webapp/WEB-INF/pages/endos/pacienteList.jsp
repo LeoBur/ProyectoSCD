@@ -1,4 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
+<!DOCTYPE html>
+
 <c:set var="lista" value="${endocrinologoList}"/>
 
 <head>
@@ -30,11 +32,14 @@
 </script>
 </head>
 
-<div class="col-sm-2">
-    <h3>Pacientes</h2>
+<div class="container-fluid">
+<div class="col-md-2">
+  <div class='text-center'>
+    <h3>Pacientes</h3>
+  </div>
 </div>
 
-<div class="col-sm-7">
+<div class="col-md-8">
     <div class="well">
         <div>
             <div class="form-group">
@@ -103,6 +108,7 @@
                 </table>
         </c:forEach>
     </div>
+</div>
 </div>
 </body>
 <c:set var="scripts" scope="request">
