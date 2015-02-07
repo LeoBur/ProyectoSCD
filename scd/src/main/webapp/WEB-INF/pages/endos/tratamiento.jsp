@@ -30,10 +30,10 @@
 </head>
 
 <div class="container">
-    <div class="col-sm-2">
-        <h3>Crear tratamiento</h2>
+    <div class="col-md-2">
+        <h3>Crear Tratamiento</h3>
     </div>
-    <div class="col-sm-7">
+    <div class="col-md-8">
         <spring:bind path="tratamientoForm.*">
             <c:if test="${not empty status.errorMessages}">
                 <div class="alert alert-danger alert-dismissable">

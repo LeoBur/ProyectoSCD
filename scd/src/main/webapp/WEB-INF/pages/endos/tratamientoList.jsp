@@ -10,11 +10,15 @@
 <body class="home">
 
 <div class="container-fluid">
+<div class="col-md-2">
+    <h3>Tratamientos de</h3>
+    <h3>${paciente}</h3>
+</div>
 <div class="col-md-6">
 
 	<div class="well">
         <div class="row">
-		<display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1"
+		<display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1" defaultorder="descending"
 		    class="table table-condensed table-striped table-hover">
 		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" />
 		  <display:column title="Acciones" href="prescripciones.jsp" paramId="id" paramProperty="idTratamiento">

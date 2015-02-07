@@ -122,7 +122,8 @@ public class AbmTratamientoController extends BaseFormController{
 
     @RequestMapping(value = "endos/tratamientoList*", method = RequestMethod.GET)
     public ModelAndView showTratamientos(final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        Set<Tratamiento> tratamientos = pacienteManager.getPaciente(new Long (search)).getTratamientos();
+        Paciente paciente = pacienteManager.getPaciente(new Long(search));
+        Set<Tratamiento> tratamientos = paciente.getTratamientos();
         if (tratamientos.isEmpty()) {
             ModelAndView mv = new ModelAndView("endos/pacienteList");
             saveInfo(request, "El paciente no tiene tratamientos");
@@ -130,7 +131,8 @@ public class AbmTratamientoController extends BaseFormController{
         } else {
             ModelAndView mv = new ModelAndView("endos/tratamientoList");
             mv.addObject("tratamientoList", tratamientos);
-            mv.addObject("dni", pacienteManager.getPaciente(new Long(search)).getPersona().getDni());
+            mv.addObject("dni", paciente.getPersona().getDni());
+            mv.addObject("paciente", paciente.getPersona().getFullName());
             return mv;
         }
     }

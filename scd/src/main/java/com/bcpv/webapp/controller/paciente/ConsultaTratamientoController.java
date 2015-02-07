@@ -5,6 +5,7 @@ import com.bcpv.model.Prescripcion;
 import com.bcpv.model.Tratamiento;
 import com.bcpv.service.PacienteManager;
 import com.bcpv.service.TratamientoManager;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,8 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 
 @Controller
 public class ConsultaTratamientoController extends BaseFormController{
@@ -35,13 +42,16 @@ public class ConsultaTratamientoController extends BaseFormController{
     @ResponseBody
     public ModelAndView getTratamiento(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/paciente/medicacion");
-        Paciente paciente = pacienteManager.getPacienteByUsername(request.getRemoteUser());
-        Set<Tratamiento> tratamientos = paciente.getTratamientos();
-        for (Tratamiento tratamiento : tratamientos) {
-            Set<Prescripcion> prescripcions = tratamiento.getPrescripciones();
-            mv.addObject("prescripcionList", prescripcions);
-            return mv;
+        Set<Tratamiento> tratamientos = pacienteManager.getPacienteByUsername(
+                request.getRemoteUser()).getTratamientos();
+        Tratamiento tratamiento = null;
+        for (Tratamiento tr : tratamientos) {
+            if (tratamiento == null ||  tratamiento.getIdTratamiento() < tr.getIdTratamiento()) {
+                tratamiento = tr;
+            }
         }
+        mv.addObject("prescripcionesList", tratamiento.getPrescripciones());
+        mv.addObject("fecha", new SimpleDateFormat("dd-MM-yyyy").format(tratamiento.getFechaTratamiento()));
         return mv;
     }
 

@@ -10,6 +10,9 @@
 <body class="home">
 
 <div class="container-fluid">
+<div class="col-md-2">
+    <h3>Prescripciones</h3>
+</div>
 <div class="col-md-6">
 
 	<div class="well">

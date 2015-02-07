@@ -66,7 +66,4 @@ public class Prescripcion implements Serializable{
 	public void setTratamiento(Tratamiento tratamiento) {
 		this.tratamiento = tratamiento;
 	}
-	
-	
-	
 }
