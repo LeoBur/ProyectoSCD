@@ -4,6 +4,7 @@ import com.bcpv.Constants;
 import com.bcpv.model.Endocrinologo;
 import com.bcpv.model.Medicamento;
 import com.bcpv.model.Paciente;
+import com.bcpv.model.PacienteEnTratamiento;
 import com.bcpv.model.Prescripcion;
 import com.bcpv.model.Tratamiento;
 import com.bcpv.service.EndocrinologoManager;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -138,7 +140,14 @@ public class AbmTratamientoController extends BaseFormController{
         Paciente paciente = pacienteManager.getPaciente(new Long(search));
         Set<Tratamiento> tratamientos = paciente.getTratamientos();
         if (tratamientos.isEmpty()) {
+            Set<PacienteEnTratamiento> pacientes = endocrinologoManager.getEndocrinologoByPersona(
+                    personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes();
+            List<Paciente> pacienteList = new ArrayList<>();
+            for (PacienteEnTratamiento pac : pacientes) {
+                pacienteList.add(pac.getPaciente());
+            }
             ModelAndView mv = new ModelAndView("endos/pacienteList");
+            mv.addObject("pacienteList", pacienteList);
             saveInfo(request, "El paciente no tiene tratamientos");
             return mv;
         } else {

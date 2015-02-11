@@ -152,7 +152,7 @@ public class AbmPacienteController extends BaseFormController {
         List<Paciente> endocrinologosFilter = new ArrayList<Paciente>();
 
         if (search == null) {
-            mv.addObject("endocrinologoList", pacientes);
+            mv.addObject("pacienteList", pacientes);
             return mv;
         } else {
             for (Paciente endocrinologofilter : pacientes) {
@@ -161,11 +161,11 @@ public class AbmPacienteController extends BaseFormController {
                 }
             }
             if (endocrinologosFilter.size() == 0) {
-                mv.addObject("endocrinologoList", pacientes);
+                mv.addObject("pacienteList", pacientes);
                 saveInfo(request, "No existe el Endocrinologo");
                 return mv;
             } else {
-                mv.addObject("endocrinologoList", endocrinologosFilter);
+                mv.addObject("pacienteList", endocrinologosFilter);
                 return mv;
             }
         }
