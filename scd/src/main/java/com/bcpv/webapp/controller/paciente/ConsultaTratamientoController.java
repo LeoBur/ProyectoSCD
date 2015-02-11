@@ -46,7 +46,7 @@ public class ConsultaTratamientoController extends BaseFormController{
                 request.getRemoteUser()).getTratamientos();
         Tratamiento tratamiento = null;
         for (Tratamiento tr : tratamientos) {
-            if (tratamiento == null ||  tratamiento.getIdTratamiento() < tr.getIdTratamiento()) {
+            if (null == tratamiento ||  tratamiento.getIdTratamiento() < tr.getIdTratamiento()) {
                 tratamiento = tr;
             }
         }

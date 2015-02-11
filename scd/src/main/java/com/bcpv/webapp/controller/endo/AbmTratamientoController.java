@@ -75,6 +75,19 @@ public class AbmTratamientoController extends BaseFormController{
         return mv;
     }
 
+    @RequestMapping(value = "endos/editTratamiento*", method = RequestMethod.GET)
+    public ModelAndView editForm(HttpServletRequest request,
+                                 @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("endos/tratamiento");
+        Locale locale = request.getLocale();
+        List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
+        Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(search));
+        List<Paciente> pacientes = pacienteManager.getPacientes();
+        mv.addObject("medicamentoList", medicamentos);
+        mv.addObject("tratamientoForm", tratamiento);
+        return mv;
+    }
+
     @Transactional
     @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("tratamientoForm") TratamientoForm tratamientoForm, BindingResult errors,
