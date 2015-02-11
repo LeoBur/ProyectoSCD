@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 
-<c:set var="lista" value="${endocrinologoList}"/>
+<c:set var="lista" value="${pacienteList}"/>
 
 <head>
 <title><fmt:message key="home.title" /></title>
@@ -76,7 +76,7 @@
                 </tr>
             </table>
         </c:if>
-        <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
+        <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
                 <table class="table table-condensed table-striped table-hover">
                     <tr>
                         <td style="width: 20%">

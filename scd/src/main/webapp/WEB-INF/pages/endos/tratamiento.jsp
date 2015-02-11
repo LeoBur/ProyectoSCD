@@ -1,5 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
-
+<!DOCTYPE html>
 <head>
     <title><fmt:message key="userProfile.title"/></title>
     <link rel="stylesheet" href="/styles/style.css">
@@ -29,7 +29,7 @@
     </script>
 </head>
 
-<div class="container">
+<div class="container-fluid">
     <div class="col-md-2">
         <h3>Crear Tratamiento</h3>
     </div>
