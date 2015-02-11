@@ -162,7 +162,7 @@ public class AbmPacienteController extends BaseFormController {
             }
             if (endocrinologosFilter.size() == 0) {
                 mv.addObject("endocrinologoList", pacientes);
-                saveInfo(request, "No existe el Endocrinologo");
+                saveInfo(request, "No existe el paciente");
                 return mv;
             } else {
                 mv.addObject("endocrinologoList", endocrinologosFilter);
