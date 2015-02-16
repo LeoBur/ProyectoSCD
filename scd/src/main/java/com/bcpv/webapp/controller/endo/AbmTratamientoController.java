@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.bcpv.webapp.controller.BaseFormController;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -80,7 +83,7 @@ public class AbmTratamientoController extends BaseFormController{
     @RequestMapping(value = "endos/editTratamiento*", method = RequestMethod.GET)
     public ModelAndView editForm(HttpServletRequest request,
                                  @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("endos/tratamiento");
+        ModelAndView mv = new ModelAndView("endos/editTratamiento");
         Locale locale = request.getLocale();
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
         Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(search));
@@ -89,6 +92,87 @@ public class AbmTratamientoController extends BaseFormController{
         mv.addObject("tratamientoForm", tratamiento);
         return mv;
     }
+
+    //@RequestParam MultiValueMap<String, String> params
+    //@RequestParam(value="myParam[]") String[] myParams
+
+    @Transactional
+    @RequestMapping(value = "endos/editTratamiento*", method = RequestMethod.POST)
+    public String editTratamiento(@RequestParam MultiValueMap<String, String> params,
+                           final HttpServletRequest request) {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
+        /*if (validator != null) { // validator is null during testing
+            validator.validate(params, errors);
+
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "/endos/tratamiento";
+            }
+        }*/
+
+        log.debug("entering 'editTratamiento' method...");
+
+        String success = "redirect:/endos/tratamientoList?search=1";
+        Locale locale = request.getLocale();
+
+        Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(params.get("idTratamiento").get(0)));
+
+        List<Prescripcion> prescripcions = new ArrayList<>();
+        prescripcions.addAll(tratamiento.getPrescripciones());
+        int i = prescripcions.size();
+        for (int index=0; index<i; index++){
+            prescripcions.get(index).setDescripcion(params.get("prescripciones["+index+"].descripcion").get(0));
+            prescripcions.get(index).setMedicamento(medicamentoManager.getByNombreComercial(
+                    params.get("prescripciones["+index+"].medicamento.nombreComercial").get(0)));
+        }
+
+        if (params.containsKey("prescripciones[].medicamento.nombreComercial")) {
+            List<String> nombres = params.get("prescripciones[].medicamento.nombreComercial");
+            List<String> descs = params.get("prescripciones[].descripcion");
+            i = nombres.size();
+            for(int index=0; index<i; index++) {
+                Prescripcion presc = new Prescripcion();
+                presc.setMedicamento(medicamentoManager.getByNombreComercial(nombres.get(index)));
+                presc.setDescripcion(descs.get(index));
+                tratamiento.getPrescripciones().add(presc);
+            }
+        }
+
+        try {
+            tratamientoManager.saveTratamiento(tratamiento);
+        } catch (Exception e) {
+            saveError(request, getText("user.endocrinologist.treatmentFail", locale));
+            return success;
+        }
+        /*Tratamiento tratamiento = new Tratamiento();
+        tratamiento.setFechaTratamiento(tratamientoForm.getFecha());
+        *//*tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
+                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername()));*//*
+        tratamiento.setEndocrinologo(endocrinologoManager.getEndocrinologoByPersona(
+                personaManager.getPersonaByUsername(request.getRemoteUser())));
+        tratamiento.setPrescripciones(setPrescripciones(tratamientoForm, tratamiento));
+        Paciente paciente = pacienteManager.getPacienteByUsername(
+                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername());*/
+
+
+        //paciente.getTratamientos().add(tratamiento);
+        //saveMessage(request, getText("user.savedData", locale));
+
+        /*try{
+            tratamiento.setPaciente(paciente);
+            tratamientoManager.saveTratamiento(tratamiento);
+            //pacienteManager.savePaciente(paciente);
+        } catch (EntityExistsException e) {
+            saveError(request, getText("user.endocrinologist.treatmentFail", locale));
+            return success;
+        }*/
+        saveMessage(request, getText("user.endocrinologist.savedTreatment", locale));
+
+        return success;
+    }
+
 
     @Transactional
     @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.POST)

@@ -20,6 +20,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
     <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/scripts/dynamicFields.js"></script>
 
     <script type="text/javascript">
         function CancelFormButton(button) {
@@ -27,6 +28,7 @@
         window.location.href = "http://localhost:8080/endos/tratamiento";
         };
     </script>
+
 </head>
 
 <div class="container">
@@ -44,10 +46,15 @@
                 </div>
             </c:if>
         </spring:bind>
-        <form:form commandName="tratamientoForm" method="post" action="tratamiento" autocomplete="off" id="formulario" modelAttribute="tratamientoForm"
+        <form:form commandName="tratamientoForm" method="post" action="editTratamiento" autocomplete="off" id="formulario" modelAttribute="tratamientoForm"
                cssClass="well" onsubmit="return validateUser(this)">
 
             <div class="form-group">
+                    <div>
+                        <spring:bind path="idTratamiento">
+                            <input type="hidden" id="idTratamiento" name="idTratamiento" value="${status.value}">
+                        </spring:bind>
+                    </div>
                 <div class="row">
                       <div>
                         <spring:bind path="paciente.persona.dni">
@@ -71,7 +78,7 @@
                                 </span>
                             </div>
                         </spring:bind>
-                        <label for="fecha" generated="true" class="error"></label>
+                        <label for="fechaTratamiento" generated="true" class="error"></label>
                         <form:errors path="fechaTratamiento" cssClass="help-block"/>
                         <script type="text/javascript">
                             $(function () {
@@ -85,85 +92,60 @@
                       </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div>
-                        <spring:bind path="medicamento1">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="user.medicine.title" />
-                            <div cssClass="form-control">
-                              <form:select id="medicamento1" name="medicamento1" class="form-control"
-                                path="medicamento1" value="${status.value}" tabindex="14">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
-                              </form:select>
-                              <form:errors path="medicamento1" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
+            <div class="controls" id="profs">
+                <form class="input-append">
+                    <div id="fields1">
+                        <div class="form-group">
+                            <c:forEach items="${tratamientoForm.prescripciones}" varStatus="gridRow">
+                                        <div class="row">
+                                            <div>
+                                                <spring:bind path="prescripciones[${gridRow.index}].medicamento.nombreComercial">
+                                                  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                    <appfuse:label styleClass="control-label" key="user.medicine.title" />
+                                                    <div cssClass="form-control">
+                                                      <form:select id="prescripciones[${gridRow.index}].medicamento.nombreComercial"
+                                                        name="prescripciones[${gridRow.index}].medicamento.nombreComercial" class="form-control"
+                                                        path="prescripciones[${gridRow.index}].medicamento.nombreComercial" value="${status.value}" tabindex="14">
+                                                        <form:option value="NONE" label="--- Seleccione ---"/>
+                                                        <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
+                                                      </form:select>
+                                                      <form:errors path="prescripciones[${gridRow.index}].medicamento.nombreComercial" cssClass="help-block" />
+                                                    </div>
+                                                  </div>
+                                                </spring:bind>
+                                            </div>
+                                            <div>
+                                                <spring:bind path="prescripciones[${gridRow.index}].descripcion">
+                                                  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                    <appfuse:label styleClass="control-label" key="active.observacion"/>
+                                                    <span class="required">*</span>
+                                                    <div cssClass="form-control">
+                                                      <input type="text" id="prescripciones[${gridRow.index}].descripcion"
+                                                        name="prescripciones[${gridRow.index}].descripcion" class="form-control"
+                                                        value="${status.value}" tabindex="15"/>
+                                                      <label for="prescripciones[${gridRow.index}].descripcion"
+                                                        generated="true" class="error"></label>
+                                                      <form:errors path="prescripciones[${gridRow.index}].descripcion" cssClass="help-block" />
+                                                    </div>
+                                                  </div>
+                                                </spring:bind>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </c:forEach>
                     </div>
-
-                    <div>
-                        <spring:bind path="tratamientoForm.obsPrescripcion1">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="active.observacion"/>
-                            <span class="required">*</span>
-                            <div cssClass="form-control">
-                              <input type="text" id="obsPrescripcion1" name="obsPrescripcion1" class="form-control"
-                                value="${status.value}" tabindex="15"/>
-                              <label for="obsPrescripcion1" generated="true" class="error"></label>
-                              <form:errors path="obsPrescripcion1" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
+                    <button id="b1" class="btn add-more" type="button">+</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
+                            <i class="icon-ok icon-white"></i>
+                            <fmt:message key="button.save" />
+                        </button>
+                        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
+                            <i class="icon-remove"></i>
+                            <fmt:message key="button.cancel" />
+                        </button>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div>
-                        <spring:bind path="medicamento2">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="user.medicine.title" />
-                            <div cssClass="form-control">
-                              <form:select id="medicamento2" name="medicamento2" class="form-control"
-                                path="medicamento2" value="${status.value}" tabindex="16">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
-                              </form:select>
-                              <form:errors path="medicamento2" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-
-                    <div>
-                        <spring:bind path="tratamientoForm.obsPrescripcion2">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="active.observacion"/>
-                            <span class="required">*</span>
-                            <div cssClass="form-control">
-                              <input type="text" id="obsPrescripcion2" name="obsPrescripcion2" class="form-control"
-                                value="${status.value}" tabindex="17"/>
-                              <label for="obsPrescripcion2" generated="true" class="error"></label>
-                              <form:errors path="obsPrescripcion2" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
-                    <i class="icon-ok icon-white"></i>
-                    <fmt:message key="button.save" />
-                </button>
-                <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
-                    <i class="icon-remove"></i>
-                    <fmt:message key="button.cancel" />
-                </button>
+                </form>
             </div>
 
         </form:form>
