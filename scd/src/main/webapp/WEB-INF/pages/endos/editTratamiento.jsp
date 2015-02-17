@@ -20,13 +20,41 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 
     <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript" src="/scripts/dynamicFields.js"></script>
 
     <script type="text/javascript">
         function CancelFormButton(button) {
             onsubmit: false;
         window.location.href = "http://localhost:8080/endos/tratamiento";
         };
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+                    var next = 1;
+                    $(".add-more").click(function(e){
+                        e.preventDefault();
+                        var options = $("#options").val();
+                        var addto = "#fields" + next;
+                        var addRemove = "#fields" + (next);
+                        next = next + 1;
+                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div></div>';
+                        var newInput = $(newIn);
+                        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fields'+ (next-1) +'">';
+                        var removeButton = $(removeBtn);
+                        $(addto).after(newInput);
+                        $(addRemove).after(removeButton);
+                        $("#fields" + next).attr('data-source',$(addto).attr('data-source'));
+                        $("#count").val(next);
+
+                            $('.remove-me').click(function(e){
+                                e.preventDefault();
+                                var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                var fieldID = "#fields" + fieldNum;
+                                $(this).remove();
+                                $(fieldID).remove();
+                            });
+                    });
+        });
     </script>
 
 </head>
@@ -49,6 +77,7 @@
         <form:form commandName="tratamientoForm" method="post" action="editTratamiento" autocomplete="off" id="formulario" modelAttribute="tratamientoForm"
                cssClass="well" onsubmit="return validateUser(this)">
 
+            <input type="hidden" name="options" id="options" value="${options}"/>
             <div class="form-group">
                     <div>
                         <spring:bind path="idTratamiento">

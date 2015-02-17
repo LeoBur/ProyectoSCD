@@ -14,12 +14,14 @@ import com.bcpv.service.PersonaManager;
 import com.bcpv.service.PrescripcionManager;
 import com.bcpv.service.TratamientoManager;
 import com.bcpv.webapp.controller.forms.TratamientoForm;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.bcpv.webapp.controller.BaseFormController;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -62,7 +67,8 @@ public class AbmTratamientoController extends BaseFormController{
     }
 
     @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.GET)
-    public ModelAndView showForm(HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+    public ModelAndView showForm(HttpServletRequest request,
+                                 @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/tratamiento");
         Locale locale = request.getLocale();
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
@@ -73,11 +79,97 @@ public class AbmTratamientoController extends BaseFormController{
             pacientes.add(pacienteEnTratamiento.getPaciente());
         }*/
         List<Paciente> pacientes = pacienteManager.getPacientes();
-        TratamientoForm tratamiento = new TratamientoForm();
-        tratamiento.setPaciente(search);
+        Tratamiento tratamiento = new Tratamiento();
+        tratamiento.setPaciente(pacienteManager.loadPacienteByDNI(
+                personaManager.getPersonaByDni(search)));
+        tratamiento.setEndocrinologo(endocrinologo);
+        String options = "";
+        for (Medicamento med : medicamentos) {
+            options = options + "<option value=\""+med.getNombreComercial()+"\">"+med.getNombreComercial()+"</option>";
+        }
+
+        /*List<String> nombres = new ArrayList<>();
+        for (Medicamento med : medicamentos) {
+            nombres.add(med.getNombreComercial());
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(nombres);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mv.addObject("jsonMeds", json);*/
+        tratamiento.getPrescripciones().add(new Prescripcion());
+        mv.addObject("options", options);
         mv.addObject("medicamentoList", medicamentos);
         mv.addObject("tratamientoForm", tratamiento);
         return mv;
+    }
+
+    @Transactional
+    @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.POST)
+    public String onSubmit(@RequestParam MultiValueMap<String, String> params,
+                           final HttpServletRequest request) {
+        if (request.getParameter("cancel") != null) {
+            return "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
+                    personaManager.getPersonaByDni(params.get("paciente.persona.dni").get(0))).getId();
+        }
+
+        BindingResult errors = new BeanPropertyBindingResult(params, "params");
+        if (validator != null) { // validator is null during testing
+            validator.validate(params, errors);
+
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "/endos/tratamiento";
+            }
+        }
+
+        log.debug("entering 'onSubmit' method...");
+
+        String success = "redirect:/endos/pacienteList";
+        Locale locale = request.getLocale();
+        Tratamiento tratamiento = new Tratamiento();
+        DateFormat format = new SimpleDateFormat("DD/MM/yyyy", locale);
+        try {
+            tratamiento.setFechaTratamiento(format.parse( params.get("fechaTratamiento").get(0)));
+        } catch (ParseException e) {
+            saveError(request, "Error en la fecha");
+            return success;
+        }
+        tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
+                personaManager.getPersonaByDni(params.get("paciente.persona.dni").get(0)).getUsername()));
+        tratamiento.setEndocrinologo(endocrinologoManager.getEndocrinologoByPersona(
+                personaManager.getPersonaByUsername(request.getRemoteUser())));
+
+        //Para agregar la primer prescripcion
+        if (params.containsKey("prescripciones[0].medicamento.nombreComercial")) {
+            Prescripcion prescripcion = new Prescripcion();
+            prescripcion.setMedicamento(medicamentoManager.getByNombreComercial(params.get("prescripciones[0].medicamento.nombreComercial").get(0)));
+            prescripcion.setDescripcion(params.get("prescripciones[0].descripcion").get(0));
+            tratamiento.getPrescripciones().add(prescripcion);
+        }
+
+        if (params.containsKey("prescripciones[].medicamento.nombreComercial")) {
+            List<String> nombres = params.get("prescripciones[].medicamento.nombreComercial");
+            List<String> descs = params.get("prescripciones[].descripcion");
+            int i = nombres.size();
+            for (int index = 0; index < i; index++) {
+                Prescripcion presc = new Prescripcion();
+                presc.setMedicamento(medicamentoManager.getByNombreComercial(nombres.get(index)));
+                presc.setDescripcion(descs.get(index));
+                tratamiento.getPrescripciones().add(presc);
+            }
+        }
+        try{
+            tratamientoManager.saveTratamiento(tratamiento);
+        } catch (EntityExistsException e) {
+            saveError(request, getText("user.endocrinologist.treatmentFail", locale));
+            return success;
+        }
+        saveMessage(request, getText("user.endocrinologist.savedTreatment", locale));
+
+        return success;
     }
 
     @RequestMapping(value = "endos/editTratamiento*", method = RequestMethod.GET)
@@ -88,33 +180,29 @@ public class AbmTratamientoController extends BaseFormController{
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
         Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(search));
         List<Paciente> pacientes = pacienteManager.getPacientes();
+        String options = "";
+        for (Medicamento med : medicamentos) {
+            options = options + "<option value=\""+med.getNombreComercial()+"\">"+med.getNombreComercial()+"</option>";
+        }
         mv.addObject("medicamentoList", medicamentos);
         mv.addObject("tratamientoForm", tratamiento);
+        mv.addObject("options", options);
         return mv;
     }
-
-    //@RequestParam MultiValueMap<String, String> params
-    //@RequestParam(value="myParam[]") String[] myParams
 
     @Transactional
     @RequestMapping(value = "endos/editTratamiento*", method = RequestMethod.POST)
     public String editTratamiento(@RequestParam MultiValueMap<String, String> params,
-                           final HttpServletRequest request) {
+                                  final HttpServletRequest request) {
         if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
+                    personaManager.getPersonaByDni(params.get("dni").get(0))).getId();
         }
-
-        /*if (validator != null) { // validator is null during testing
-            validator.validate(params, errors);
-
-            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/endos/tratamiento";
-            }
-        }*/
 
         log.debug("entering 'editTratamiento' method...");
 
-        String success = "redirect:/endos/tratamientoList?search=1";
+        String success = "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
+                            personaManager.getPersonaByDni(params.get("dni").get(0))).getId();
         Locale locale = request.getLocale();
 
         Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(params.get("idTratamiento").get(0)));
@@ -127,7 +215,6 @@ public class AbmTratamientoController extends BaseFormController{
             prescripcions.get(index).setMedicamento(medicamentoManager.getByNombreComercial(
                     params.get("prescripciones["+index+"].medicamento.nombreComercial").get(0)));
         }
-
         if (params.containsKey("prescripciones[].medicamento.nombreComercial")) {
             List<String> nombres = params.get("prescripciones[].medicamento.nombreComercial");
             List<String> descs = params.get("prescripciones[].descripcion");
@@ -139,82 +226,13 @@ public class AbmTratamientoController extends BaseFormController{
                 tratamiento.getPrescripciones().add(presc);
             }
         }
-
         try {
             tratamientoManager.saveTratamiento(tratamiento);
         } catch (Exception e) {
             saveError(request, getText("user.endocrinologist.treatmentFail", locale));
             return success;
         }
-        /*Tratamiento tratamiento = new Tratamiento();
-        tratamiento.setFechaTratamiento(tratamientoForm.getFecha());
-        *//*tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
-                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername()));*//*
-        tratamiento.setEndocrinologo(endocrinologoManager.getEndocrinologoByPersona(
-                personaManager.getPersonaByUsername(request.getRemoteUser())));
-        tratamiento.setPrescripciones(setPrescripciones(tratamientoForm, tratamiento));
-        Paciente paciente = pacienteManager.getPacienteByUsername(
-                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername());*/
-
-
-        //paciente.getTratamientos().add(tratamiento);
-        //saveMessage(request, getText("user.savedData", locale));
-
-        /*try{
-            tratamiento.setPaciente(paciente);
-            tratamientoManager.saveTratamiento(tratamiento);
-            //pacienteManager.savePaciente(paciente);
-        } catch (EntityExistsException e) {
-            saveError(request, getText("user.endocrinologist.treatmentFail", locale));
-            return success;
-        }*/
-        saveMessage(request, getText("user.endocrinologist.savedTreatment", locale));
-
-        return success;
-    }
-
-
-    @Transactional
-    @RequestMapping(value = "endos/tratamiento*", method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("tratamientoForm") TratamientoForm tratamientoForm, BindingResult errors,
-                           final HttpServletRequest request) {
-        if (request.getParameter("cancel") != null) {
-            return getCancelView();
-        }
-
-        if (validator != null) { // validator is null during testing
-            validator.validate(tratamientoForm, errors);
-
-            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/endos/tratamiento";
-            }
-        }
-
-        log.debug("entering 'onSubmit' method...");
-
-        String success = "redirect:/endos/pacienteList";
-        Locale locale = request.getLocale();
-
-        Tratamiento tratamiento = new Tratamiento();
-        tratamiento.setFechaTratamiento(tratamientoForm.getFecha());
-        /*tratamiento.setPaciente(pacienteManager.getPacienteByUsername(
-                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername()));*/
-        tratamiento.setEndocrinologo(endocrinologoManager.getEndocrinologoByPersona(
-                personaManager.getPersonaByUsername(request.getRemoteUser())));
-        tratamiento.setPrescripciones(setPrescripciones(tratamientoForm, tratamiento));
-        Paciente paciente = pacienteManager.getPacienteByUsername(
-                personaManager.getPersonaByDni(tratamientoForm.getPaciente()).getUsername());
-        //paciente.getTratamientos().add(tratamiento);
-        //saveMessage(request, getText("user.savedData", locale));
-        try{
-            tratamiento.setPaciente(paciente);
-            tratamientoManager.saveTratamiento(tratamiento);
-            //pacienteManager.savePaciente(paciente);
-        } catch (EntityExistsException e) {
-            saveError(request, getText("user.endocrinologist.treatmentFail", locale));
-            return success;
-        }
-        saveMessage(request, getText("user.endocrinologist.savedTreatment", locale));
+        saveMessage(request, getText("user.endocrinologist.updatedTreatment", locale));
 
         return success;
     }

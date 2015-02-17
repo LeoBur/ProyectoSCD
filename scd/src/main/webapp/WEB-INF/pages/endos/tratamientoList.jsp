@@ -21,9 +21,12 @@
 		<display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1" defaultorder="descending"
 		    class="table table-condensed table-striped table-hover">
 		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" />
-		  <display:column title="Acciones" href="prescripciones.jsp" paramId="id" paramProperty="idTratamiento">
+		  <display:column href="prescripciones.jsp" paramId="id" paramProperty="idTratamiento">
 		    Ver Prescripcion
 		  </display:column>
+		  <display:column href="editTratamiento.jsp" paramId="search" paramProperty="idTratamiento">
+          	Editar Tratamiento
+          </display:column>
 		</display:table>
 		</div>
         <br>
