@@ -99,7 +99,7 @@
         <input list="drogas" name="grupoMedicamento" id="grupoMedicamento" class="form-control"
           value="${status.value}" tabindex="4">
 		</spring:bind>
-		
+
 		<datalist id="drogas">
 		  <option value="INHIBIDOR DE ALFA GLUCOSIDASA">
 		  <option value="SULFONILUREA">
@@ -112,6 +112,7 @@
 		  <option value="IAPP">
 		  <option value="DPP_4">
 		</datalist>
+		<label for="grupoMedicamento" generated="true" class="error"></label>
         </div>
         <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> <form:options/>  --%>
         <br>               

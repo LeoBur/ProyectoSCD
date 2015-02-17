@@ -51,6 +51,7 @@ public class AbmMedicamentoController extends BaseFormController{
 			final HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("endos/medicamentoList");
+		List<Medicamento> medicamentosFilter = new ArrayList<Medicamento>();
 
 		/*if (validator != null) { // validator is null during testing
 			validator.validate(medicamento, errors);
@@ -61,9 +62,22 @@ public class AbmMedicamentoController extends BaseFormController{
 		}*/
 		try{
 			if (/*endoSearch.getApellidoPaciente() != null || */medicamento.getNombreComercial() != " "){
-				
+
 				List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
-		        mv.addObject("medicamentoList", medicamentos);
+
+				for (Medicamento medicamentofilter : medicamentos) {
+					if (medicamentofilter.getNombreComercial().startsWith(medicamento.getNombreComercial()) || (medicamentofilter.getNombreComercial().startsWith(medicamento.getNombreComercial().toUpperCase()))) {
+						medicamentosFilter.add(medicamentofilter);
+					}
+				}
+
+				if (medicamentosFilter.size() == 0) {
+					mv.addObject("medicamentoList", medicamentos);
+					saveInfo(request, "No existe el Medicamento");
+					return mv;
+				} else {
+					mv.addObject("medicamentoList", medicamentosFilter);
+				}
 				
 			} else {
 				List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();

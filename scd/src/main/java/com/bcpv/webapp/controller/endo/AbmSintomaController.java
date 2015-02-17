@@ -1,18 +1,19 @@
 package com.bcpv.webapp.controller.endo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.model.Tag;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bcpv.model.Sintoma;
@@ -28,14 +29,63 @@ public class AbmSintomaController extends BaseFormController {
 	public AbmSintomaController(){
 		
 	}
-	
-	 @RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.GET)
-	    public ModelAndView showSintomas(){
-	        ModelAndView mav = new ModelAndView("endos/sintomaList");
-	        List<Sintoma> sintomas = sintomaManager.getSintomas();
-	        mav.addObject("sintomaList", sintomas);
-	        return mav;
+
+		@ModelAttribute
+	 	@RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.GET)
+	    public Sintoma showSintomas(){
+	        Sintoma sintoma = new Sintoma();
+			return sintoma;
 	    }
+
+	@RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.POST)
+	public ModelAndView onSubmit(@ModelAttribute("sintoma") final Sintoma sintoma, final BindingResult errors,
+								 final HttpServletRequest request) throws Exception {
+
+		ModelAndView mv = new ModelAndView("endos/sintomaList");
+		List<Sintoma> sintomasFilter = new ArrayList<Sintoma>();
+
+		/*if (validator != null) { // validator is null during testing
+			validator.validate(medicamento, errors);
+
+			if (errors.hasErrors()) {
+				return mv;
+			}
+		}*/
+		try{
+			if (/*endoSearch.getApellidoPaciente() != null || */sintoma.getNombre() != " "){
+
+				List<Sintoma> sintomas = sintomaManager.getSintomas();
+
+				for (Sintoma sintomafilter : sintomas) {
+					if (sintomafilter.getNombre().startsWith(sintoma.getNombre()) || (sintomafilter.getNombre().startsWith(sintoma.getNombre().toUpperCase()))) {
+						sintomasFilter.add(sintomafilter);
+					}
+				}
+
+				if (sintomasFilter.size() == 0) {
+					mv.addObject("sintomaList", sintomas);
+					saveInfo(request, "No existe el Sintoma");
+					return mv;
+				} else {
+					mv.addObject("sintomaList", sintomasFilter);
+				}
+
+			} else {
+				List<Sintoma> sintomas = sintomaManager.getSintomas();
+				mv.addObject("sintomaList", sintomas);
+			}
+		} catch (EntityNotFoundException enfe){
+			//COMPLETAR EL TRATAMIENTO DEL ERROR
+			/*enfe.getMessage();
+			errors.rejectValue(endoSearch.getApellidoPaciente(), "No existe");*/
+			//para probar sin tratatmiento de error
+			System.out.println(enfe.getMessage());
+			//
+			return mv;
+		}
+
+		return mv;
+	}
 
 	    @ModelAttribute
 	    @RequestMapping(value = "/endos/sintomaForm*", method = RequestMethod.GET)
@@ -84,5 +134,23 @@ public class AbmSintomaController extends BaseFormController {
 	 
 	        return success;
 	    }
+	@RequestMapping(value = "/getSintoma", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Tag> getTags(@RequestParam String tagName) {
+		int cont = 0;
+		List<Tag> data = new ArrayList<Tag>();
+		List<Tag> result = new ArrayList<Tag>();
+
+		for (Sintoma sintoma : sintomaManager.getSintomas() ) {
+			data.add(new Tag(cont++, sintoma.getNombre()));
+		}
+
+		for (Tag tag : data) {
+			if (tag.getTagName().toLowerCase().startsWith(tagName.toLowerCase())) {
+				result.add(tag);
+			}
+		}
+		return result;
+	}
 }
 	        

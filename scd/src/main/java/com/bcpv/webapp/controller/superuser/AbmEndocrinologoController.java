@@ -59,6 +59,8 @@ public class AbmEndocrinologoController extends BaseFormController {
         final String dni = endocrinologoForm.getDni();
         try {
             if (StringUtils.isEmpty(dni)){
+                mv.addObject("provinciaList", provincias);
+                mv.addObject("localidadList", localidades);
                 throw new NullPointerException();
             }
 
@@ -88,7 +90,9 @@ public class AbmEndocrinologoController extends BaseFormController {
                     }
                 }
                 mv.addObject("localidadList", filtradas);
-            } else throw new EntityNotFoundException();
+            } else
+                mv.addObject("localidadList", localidades);
+                throw new EntityNotFoundException();
 
         } catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));

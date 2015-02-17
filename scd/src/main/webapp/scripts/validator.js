@@ -20,6 +20,9 @@ $(document).ready(function(){
 				presentacion:{
 					required:true
 				},
+				grupoMedicamento:{
+                	required:true
+				},
 				sitio:{
 					required:true,
 					url:true
