@@ -27,6 +27,36 @@
         window.location.href = "http://localhost:8080/endos/tratamiento";
         };
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+                    var next = 1;
+                    $(".add-more").click(function(e){
+                        e.preventDefault();
+                        var options = $("#options").val();
+                        var addto = "#fields" + next;
+                        var addRemove = "#fields" + (next);
+                        next = next + 1;
+                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div></div>';
+                        var newInput = $(newIn);
+                        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fields'+ (next-1) +'">';
+                        var removeButton = $(removeBtn);
+                        $(addto).after(newInput);
+                        $(addRemove).after(removeButton);
+                        $("#fields" + next).attr('data-source',$(addto).attr('data-source'));
+                        $("#count").val(next);
+
+                            $('.remove-me').click(function(e){
+                                e.preventDefault();
+                                var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                var fieldID = "#fields" + fieldNum;
+                                $(this).remove();
+                                $(fieldID).remove();
+                            });
+                    });
+        });
+    </script>
+
 </head>
 
 <div class="container-fluid">
@@ -47,32 +77,33 @@
         <form:form commandName="tratamientoForm" method="post" action="tratamiento" autocomplete="off" id="formulario" modelAttribute="tratamientoForm"
                cssClass="well" onsubmit="return validateUser(this)">
 
+            <input type="hidden" name="options" id="options" value="${options}"/>
             <div class="form-group">
                 <div class="row">
                       <div>
-                        <spring:bind path="paciente">
+                        <spring:bind path="paciente.persona.dni">
                             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                 <appfuse:label styleClass="control-label" key="user.dni"/>
                                     <span class="required">*</span>
-                                <input type="text" name="paciente" id="paciente" class="form-control" readonly
+                                <input type="text" name="paciente.persona.dni" id="paciente.persona.dni" class="form-control" readonly
                                 placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
                             </div>
                         </spring:bind>
                       </div>
                       <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                        <spring:bind path="fecha">
+                        <spring:bind path="fechaTratamiento">
                             <appfuse:label styleClass="control-label" key="user.paciente.fecha"/>
                             <span class="required">*</span>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input type="text" name="fecha" id="fecha" class="form-control" readonly="readonly"
+                                <input type="text" name="fechaTratamiento" id="fechaTratamiento" class="form-control" readonly="readonly"
                                     placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
                                     tabindex="5" data-date-format="DD/MM/YYYY">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
                         </spring:bind>
-                        <label for="fecha" generated="true" class="error"></label>
-                        <form:errors path="fecha" cssClass="help-block"/>
+                        <label for="fechaTratamiento" generated="true" class="error"></label>
+                        <form:errors path="fechaTratamiento" cssClass="help-block"/>
                         <script type="text/javascript">
                             $(function () {
                               $('#datetimepicker1').datetimepicker({
@@ -86,74 +117,45 @@
                 </div>          
             </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <div>
-                        <spring:bind path="medicamento1">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="user.medicine.title" />
-                            <div cssClass="form-control">
-                              <form:select id="medicamento1" name="medicamento1" class="form-control"
-                                path="medicamento1" value="${status.value}" tabindex="14">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
-                              </form:select>
-                              <form:errors path="medicamento1" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-
-                    <div>
-                        <spring:bind path="tratamientoForm.obsPrescripcion1">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="active.observacion"/>
-                            <span class="required">*</span>
-                            <div cssClass="form-control">
-                              <input type="text" id="obsPrescripcion1" name="obsPrescripcion1" class="form-control"
-                                value="${status.value}" tabindex="15"/>
-                              <label for="obsPrescripcion1" generated="true" class="error"></label>
-                              <form:errors path="obsPrescripcion1" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-                </div>
+            <div id="fields1">
+                        <div class="form-group">
+                                        <div class="row">
+                                            <div>
+                                                <spring:bind path="prescripciones[0].medicamento.nombreComercial">
+                                                  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                    <appfuse:label styleClass="control-label" key="user.medicine.title" />
+                                                    <div cssClass="form-control">
+                                                      <form:select id="prescripciones[0].medicamento.nombreComercial"
+                                                        name="prescripciones[0].medicamento.nombreComercial" class="form-control"
+                                                        path="prescripciones[0].medicamento.nombreComercial" value="${status.value}" tabindex="14">
+                                                        <form:option value="NONE" label="--- Seleccione ---"/>
+                                                        <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
+                                                      </form:select>
+                                                      <form:errors path="prescripciones[0].medicamento.nombreComercial" cssClass="help-block" />
+                                                    </div>
+                                                  </div>
+                                                </spring:bind>
+                                            </div>
+                                            <div>
+                                                <spring:bind path="prescripciones[0].descripcion">
+                                                  <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                    <appfuse:label styleClass="control-label" key="active.observacion"/>
+                                                    <span class="required">*</span>
+                                                    <div cssClass="form-control">
+                                                      <input type="text" id="prescripciones[0].descripcion"
+                                                        name="prescripciones[0].descripcion" class="form-control"
+                                                        value="${status.value}" tabindex="15"/>
+                                                      <label for="prescripciones[0].descripcion"
+                                                        generated="true" class="error"></label>
+                                                      <form:errors path="prescripciones[0].descripcion" cssClass="help-block" />
+                                                    </div>
+                                                  </div>
+                                                </spring:bind>
+                                            </div>
+                                        </div>
+                                    </div>
             </div>
-            <div class="form-group">
-                <div class="row">
-                    <div>
-                        <spring:bind path="medicamento2">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="user.medicine.title" />
-                            <div cssClass="form-control">
-                              <form:select id="medicamento2" name="medicamento2" class="form-control"
-                                path="medicamento2" value="${status.value}" tabindex="16">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${medicamentoList}" itemValue="nombreComercial" itemLabel="nombreComercial"></form:options>
-                              </form:select>
-                              <form:errors path="medicamento2" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-
-                    <div>
-                        <spring:bind path="tratamientoForm.obsPrescripcion2">
-                          <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="active.observacion"/>
-                            <span class="required">*</span>
-                            <div cssClass="form-control">
-                              <input type="text" id="obsPrescripcion2" name="obsPrescripcion2" class="form-control"
-                                value="${status.value}" tabindex="17"/>
-                              <label for="obsPrescripcion2" generated="true" class="error"></label>
-                              <form:errors path="obsPrescripcion2" cssClass="help-block" />
-                            </div>
-                          </div>
-                        </spring:bind>
-                    </div>
-                </div>
-            </div>
+            <button id="b1" class="btn add-more" type="button">+</button>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
