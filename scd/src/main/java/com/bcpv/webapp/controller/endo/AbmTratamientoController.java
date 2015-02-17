@@ -14,7 +14,6 @@ import com.bcpv.service.PersonaManager;
 import com.bcpv.service.PrescripcionManager;
 import com.bcpv.service.TratamientoManager;
 import com.bcpv.webapp.controller.forms.TratamientoForm;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -35,7 +34,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
