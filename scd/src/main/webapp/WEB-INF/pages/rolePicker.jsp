@@ -7,7 +7,7 @@
 		</div>
 		<div class="col-md-8">
 			<div class="form-group">
-				<form:form commandName="tratamientoForm" method="post" action="tratamiento" autocomplete="off" id="formulario" modelAttribute="tratamientoForm"
+				<form:form commandName="homeForm" method="post" action="rolePicker" autocomplete="off" id="formulario" modelAttribute="homeForm"
 				cssClass="well" onsubmit="return validateUser(this)">
 				<div class="row">
 					<div>
