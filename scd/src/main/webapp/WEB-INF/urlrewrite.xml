@@ -70,10 +70,6 @@
         <from>/logout*</from>
         <to>/logout.jsp</to>
     </rule>
-    <rule>
-        <from>/</from>
-        <to>/rolePicker.jsp</to>
-    </rule>
 
     <!-- Spring MVC -->
     <rule>
