@@ -89,11 +89,12 @@ public class AbmEndocrinologoController extends BaseFormController {
                         filtradas.add(localidad);
                     }
                 }
+                saveInfo(request, getText("user.superUser.info.nuevoEndo", locale));
                 mv.addObject("localidadList", filtradas);
-            } else
+            } else {
                 mv.addObject("localidadList", localidades);
                 throw new EntityNotFoundException();
-
+            }
         } catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } catch (EntityNotFoundException enfe) {

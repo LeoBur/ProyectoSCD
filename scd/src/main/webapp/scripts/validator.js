@@ -76,6 +76,9 @@ $(document).ready(function(){
 				fch_nac:{
 					required:true
 				},
+				fechaTratamiento:{
+				    required:true
+				},
                 dia:{
                     required:true
                 },
