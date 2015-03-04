@@ -240,7 +240,7 @@ public class AbmTratamientoController extends BaseFormController{
         Paciente paciente = pacienteManager.getPaciente(new Long(search));
         Set<Tratamiento> tratamientos = paciente.getTratamientos();
         if (tratamientos.isEmpty()) {
-            Set<PacienteEnTratamiento> pacientes = endocrinologoManager.getEndocrinologoByPersona(
+            List<PacienteEnTratamiento> pacientes = endocrinologoManager.getEndocrinologoByPersona(
                     personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes();
             List<Paciente> pacienteList = new ArrayList<>();
             for (PacienteEnTratamiento pac : pacientes) {

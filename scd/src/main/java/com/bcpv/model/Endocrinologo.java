@@ -1,7 +1,9 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,7 +30,7 @@ public class Endocrinologo implements Serializable{
 	
 	private Long id;
 	private Long matricula;
-	private Set<PacienteEnTratamiento> pacientesEnTratamiento = new HashSet<PacienteEnTratamiento>();
+	private List<PacienteEnTratamiento> pacientesEnTratamiento = new ArrayList<PacienteEnTratamiento>();
 	private Persona persona;
     
 	public Endocrinologo() {
@@ -61,12 +63,16 @@ public class Endocrinologo implements Serializable{
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public Set<PacienteEnTratamiento> getPacientes() {
+	public List<PacienteEnTratamiento> getPacientes() {
 		return pacientesEnTratamiento;
 	}
 
-	public void setPacientes(Set<PacienteEnTratamiento> pacientesEnTratamiento) {
+	public void setPacientes(List<PacienteEnTratamiento> pacientesEnTratamiento) {
 		this.pacientesEnTratamiento = pacientesEnTratamiento;
+	}
+
+	public void addPacienteEnTratamiento(PacienteEnTratamiento pacienteEnTratamiento){
+		this.pacientesEnTratamiento.add(pacienteEnTratamiento);
 	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)

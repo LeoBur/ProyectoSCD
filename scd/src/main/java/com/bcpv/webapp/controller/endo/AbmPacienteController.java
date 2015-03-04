@@ -14,13 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bcpv.Constants;
-import com.bcpv.model.Paciente;
-import com.bcpv.model.Tag;
-import com.bcpv.model.TipoDiabetes;
-import com.bcpv.service.EndocrinologoManager;
-import com.bcpv.service.PacienteManager;
-import com.bcpv.service.RoleManager;
-import com.bcpv.service.TipoDiabetesManager;
+import com.bcpv.model.*;
+import com.bcpv.service.*;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.CheckboxTableDecorator;
@@ -34,14 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bcpv.model.Domicilio;
-import com.bcpv.model.Endocrinologo;
-import com.bcpv.model.Localidad;
-import com.bcpv.model.Persona;
-import com.bcpv.model.Provincia;
-import com.bcpv.service.LocalidadManager;
-import com.bcpv.service.PersonaManager;
-import com.bcpv.service.ProvinciaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 
 @Controller
@@ -67,6 +54,9 @@ public class AbmPacienteController extends BaseFormController {
 
     @Autowired
     RoleManager roleManager;
+
+    @Autowired
+    PacienteEnTratamientoManager pacienteEnTratamientoManager;
 
     public AbmPacienteController(){
 
@@ -240,22 +230,12 @@ public class AbmPacienteController extends BaseFormController {
         persona.setAccountLocked(false);
         persona.setEnabled(pacienteForm.isEnabled());
         persona.addRole(roleManager.getRole(Constants.USER_ROLE));
-        /*Role role = roleManager.getRole(Constants.ENDO_ROLE);
-        if (role == null) {
-            role = new Role();
-            role.setDescription("Endocrinologist role (can edit users)");
-            role.setName(Constants.ENDO_ROLE);
-            roleManager.saveRole(role);
-        }
-        persona.addRole(roleManager.getRole(Constants.ENDO_ROLE));*/
 
         persona.setFch_nac(pacienteForm.getDia());
         persona.setDomicilio(createDomicilio(pacienteForm));
         Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser()));
         TipoDiabetes tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
-        Paciente paciente = new Paciente(tipoDiabetes, endo, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
-
-        //saveMessage(request, getText("user.savedData", locale));
+        Paciente paciente = new Paciente(tipoDiabetes, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
 
         if (request.getParameter("delete") != null) {
             paciente = pacienteManager.loadPacienteByDNI(persona);
@@ -273,14 +253,18 @@ public class AbmPacienteController extends BaseFormController {
         } else {
             try{
                 personaManager.savePersona(persona);
-                pacienteManager.savePaciente(paciente);
+                paciente = pacienteManager.savePaciente(paciente);
+                PacienteEnTratamiento pacienteEnTratamiento = new PacienteEnTratamiento(paciente,endo);
+                pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
+                endo.addPacienteEnTratamiento(pacienteEnTratamiento);
+                endocrinologoManager.saveEndocrinologo(endo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("user.endocrinologist.pacientUpdated", locale));
-                }
+                log.warn(e.getMessage());
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.pacientSaved", locale));
+            } else {
+                saveMessage(request, getText("user.endocrinologist.pacientUpdated", locale));
             }
         }
         return success;
@@ -296,9 +280,4 @@ public class AbmPacienteController extends BaseFormController {
         return domicilio;
     }
 
-    /*private Date getFechaNac(PacienteForm pacienteForm) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate = pacienteForm.getDia() + "/" + pacienteForm.getMes() + "/" + pacienteForm.getAnio();
-        return formatter.parse(strDate);
-    }*/
 }

@@ -42,7 +42,7 @@ public class Paciente implements Serializable{
 	public Paciente(){
 	}
 	
-	public Paciente(TipoDiabetes tipo, Endocrinologo endo,int limiteInf,int limiteSup, Persona pers){
+	public Paciente(TipoDiabetes tipo,int limiteInf,int limiteSup, Persona pers){
 		this.tipo = tipo;
         this.limiteInf = limiteInf;
         this.limiteSup = limiteSup;

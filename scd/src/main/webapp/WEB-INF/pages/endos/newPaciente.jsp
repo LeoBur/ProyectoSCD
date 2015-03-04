@@ -57,7 +57,7 @@
 
 <div class="col-md-2">
   <div class='text-center'>
-    <h3>Administraci&oacuten de Usuarios</h3>
+    <h3>Administraci&oacuten de Pacientes</h3>
   </div>
 </div>
 <!-- Ac� comienzan los formularios -->

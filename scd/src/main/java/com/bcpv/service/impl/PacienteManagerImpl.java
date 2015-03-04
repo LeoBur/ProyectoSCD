@@ -38,8 +38,8 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	}
 
 	@Override
-	public Paciente getPaciente(Long id) {
-		return pacienteDao.get(id);
+	public Paciente getPaciente(Long dni) {
+		return pacienteDao.getPaciente(dni);
 	}
 
 	@Override

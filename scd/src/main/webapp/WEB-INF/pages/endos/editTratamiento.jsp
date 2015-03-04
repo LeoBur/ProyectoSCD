@@ -169,7 +169,7 @@
                             <i class="icon-ok icon-white"></i>
                             <fmt:message key="button.save" />
                         </button>
-                        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
+                        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" href="<c:url value='/endos/tratamiento?search=${dni}'/>" tabindex="26">
                             <i class="icon-remove"></i>
                             <fmt:message key="button.cancel" />
                         </button>

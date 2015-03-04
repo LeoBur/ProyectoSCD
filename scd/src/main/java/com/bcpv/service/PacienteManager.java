@@ -13,7 +13,7 @@ public interface PacienteManager extends GenericManager<Paciente, Long>{
 
 	void setPacientesDao(PacienteDao pacienteDao);
 	   
-    Paciente getPaciente(Long id);
+    Paciente getPaciente(Long dni);
 
     List<Paciente> getPacientes();
 

@@ -85,4 +85,16 @@ public class PacienteDaoHibernate extends GenericDaoHibernate<Paciente, Long> im
 			return paciente;
 		}
 	}
+
+    @Override
+    public Paciente getPaciente(Long dni) throws EntityNotFoundException {
+        Query qry = getSession().createQuery("from Paciente pa where  pa.persona.dni = :dni");
+        qry.setParameter("dni", dni.toString());
+        Paciente paciente = (Paciente) qry.uniqueResult();
+        if (paciente == null) {
+            throw new EntityNotFoundException("No existe el paciente");
+        } else {
+            return paciente;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,10 +30,26 @@ public class PacienteEnTratamiento implements Serializable{
 	
 	private Long idPacienteEnTratamiento;
 	private Paciente paciente;
-	private Date fch_alta;
+	private Calendar fch_alta;
 	private boolean estado; //"activo"/"baja lógica"
 	private Endocrinologo endocrinologo;
 	private Especialista especialista;
+
+	public PacienteEnTratamiento(){}
+
+	public PacienteEnTratamiento(Paciente paciente, Endocrinologo endocrinologo){
+		this.paciente = paciente;
+		this.endocrinologo = endocrinologo;
+		this.fch_alta = Calendar.getInstance();
+		this.estado = true;
+	}
+
+	public PacienteEnTratamiento(Paciente paciente, Especialista especialista){
+		this.paciente = paciente;
+		this.especialista = especialista;
+		this.fch_alta = Calendar.getInstance();
+		this.estado = true;
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,10 +71,10 @@ public class PacienteEnTratamiento implements Serializable{
 	}
 	
 	@Column(name="fecha_alta")
-	public Date getFch_alta() {
+	public Calendar getFch_alta() {
 		return fch_alta;
 	}
-	public void setFch_alta(Date fch_alta) {
+	public void setFch_alta(Calendar fch_alta) {
 		this.fch_alta = fch_alta;
 	}
 	
@@ -69,7 +86,7 @@ public class PacienteEnTratamiento implements Serializable{
 		this.estado = estado;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_endocrinologo",nullable=true)
 	public Endocrinologo getEndocrinologo() {
 		return endocrinologo;
@@ -78,7 +95,7 @@ public class PacienteEnTratamiento implements Serializable{
 		this.endocrinologo = endocrinologo;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_especialista",nullable=true)
 	public Especialista getEspecialista() {
 		return especialista;

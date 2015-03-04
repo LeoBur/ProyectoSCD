@@ -41,7 +41,7 @@ public class PacienteEnTratamientoManagerImpl extends GenericManagerImpl<Pacient
 	@Override
 	public PacienteEnTratamiento savePacienteEnTratamiento(PacienteEnTratamiento pacienteEnTratamiento) {
 		try{
-			return pacienteEnTratamientoDao.save(pacienteEnTratamiento);
+			return pacienteEnTratamientoDao.savePacienteEnTratamiento(pacienteEnTratamiento);
 		}
 		catch (final Exception e){
 			e.printStackTrace();

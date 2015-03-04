@@ -21,5 +21,7 @@ public interface PacienteDao extends GenericDao<Paciente, Long>{
     List<Paciente> loadPacientesByApellido (List<Persona> persList);
     
     Paciente getPacienteByUsername(String username);
+
+    Paciente getPaciente(Long dni) throws EntityNotFoundException;
 	
 }

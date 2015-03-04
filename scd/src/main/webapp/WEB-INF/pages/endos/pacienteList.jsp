@@ -102,7 +102,7 @@
                             <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
                         </td>
                         <td style="width: 15%">
-                            <a href="${ctx}/endos/tratamientoList?search=${endo.id}">Ver Tratamientos</a>
+                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver Tratamientos</a>
                         </td>
                     </tr>
                 </table>
