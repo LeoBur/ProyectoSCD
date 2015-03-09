@@ -3,6 +3,7 @@ package com.bcpv.service.impl;
 import javax.jws.WebService;
 import javax.persistence.EntityExistsException;
 
+import com.bcpv.model.Alimento;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,9 @@ import com.bcpv.dao.DietaDao;
 import com.bcpv.model.Dieta;
 import com.bcpv.service.DietaManager;
 import com.bcpv.service.DietaService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("dietaManager")
 @WebService(serviceName = "DietaService", endpointInterface = "com.bcpv.service.DietaService")
@@ -33,6 +37,14 @@ public class DietaManagerImpl extends GenericManagerImpl<Dieta, Long> implements
 	@Override
 	public Dieta getDieta(Long idDieta) {
 		return dietaDao.get(idDieta);
+	}
+
+	@Override
+	public List<Dieta> getDietas() {
+		if (dietaDao!=null){
+			return dietaDao.getAllDistinct();
+		}
+		return new ArrayList<Dieta>();
 	}
 
 	@Override

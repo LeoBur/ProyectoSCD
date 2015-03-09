@@ -5,6 +5,7 @@ import com.bcpv.model.Paciente;
 import com.bcpv.model.PacienteEnTratamiento;
 import com.bcpv.model.Tag;
 import com.bcpv.service.EspecialistaManager;
+import com.bcpv.service.PacienteManager;
 import com.bcpv.service.PersonaManager;
 import com.bcpv.webapp.controller.BaseFormController;
 import com.bcpv.webapp.controller.forms.EndocrinologoForm;
@@ -37,6 +38,9 @@ public class PacienteList extends BaseFormController{
     @Autowired
     PersonaManager personaManager;
 
+    @Autowired
+    PacienteManager pacienteManager;
+
     @RequestMapping(value = "nutricionista/pacienteList*", method = RequestMethod.GET)
     public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") PacienteForm pacienteForm, BindingResult errors,
                                            final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
@@ -59,7 +63,7 @@ public class PacienteList extends BaseFormController{
             }
             if (endocrinologosFilter.size() == 0) {
                 mv.addObject("endocrinologoList", pacientes);
-                saveInfo(request, "No existe el Endocrinologo");
+                saveInfo(request, "No existe el Paciente");
                 return mv;
             } else {
                 mv.addObject("endocrinologoList", endocrinologosFilter);

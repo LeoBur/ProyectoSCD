@@ -31,7 +31,7 @@
 </head>
 
 <div class="col-sm-2">
-    <h3>Endocrinologos</h2>
+    <h3>Pacientes</h2>
 </div>
 
 <div class="col-sm-7">

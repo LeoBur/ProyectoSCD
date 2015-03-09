@@ -72,7 +72,7 @@ public class MomentoDia implements Serializable{
 		this.comidas = comidas;
 	}
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "momentosDia")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "momentosDia")
     public Set<DiaDieta> getDiaDietas() {
         return diaDietas;
     }

@@ -9,6 +9,7 @@ import java.util.Date;
  * Created by Usuario on 21/12/2014.
  */
 public class DietaRecomendadaForm {
+    public String name;
     public String dni;
     public String nombreAlimentoLunes1;
     public String cantidadLunes1;
@@ -75,6 +76,32 @@ public class DietaRecomendadaForm {
     public MomentoDia.MomentosDia momentoViernes5;
     public MomentoDia.MomentosDia momentoViernes6;
     public String diaDietaViernes;
+    private Date fechaAlta;
+    private Date fechaHasta;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaHasta() {
+        return fechaHasta;
+    }
+
+    public void setFechaHasta(Date fechaHasta) {
+        this.fechaHasta = fechaHasta;
+    }
 
     public String getNombreAlimentoLunes2() {
         return nombreAlimentoLunes2;

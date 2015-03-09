@@ -30,6 +30,187 @@
         	$( "#tabs" ).tabs();
       	});
     </script>
+
+    <script type="text/javascript">
+            $(document).ready(function(){
+                        var next = 1;
+                        $(".add-more").click(function(e){
+                            e.preventDefault();
+                            var options = $("#options").val();
+                            var optionsMomento = $("#optionsMomentos").val();
+                            var addto = "#fieldsLunes" + next;
+                            var addRemove = "#fieldsLunes" + (next);
+                            next = next + 1;
+                            var newIn = '<div id="fieldsLunes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoLunes[]" name="nombreAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoLunes[]" name="momentoAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoLunes2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoLunes'+ next +'" name="cantidadAlimentoLunes'+ next +'" class="form-control"><label for="cantidadAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoLunes'+ next +'" name="observacionAlimentoLunes'+ next +'" class="form-control"><label for="observacionAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                            var newInput = $(newIn);
+                            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsLunes'+ (next-1) +'">';
+                            var removeButton = $(removeBtn);
+                            $(addto).after(newInput);
+                            $(addRemove).after(removeButton);
+                            $("#fieldsLunes" + next).attr('data-source',$(addto).attr('data-source'));
+                            $("#count").val(next);
+
+                                $('.remove-me').click(function(e){
+                                    e.preventDefault();
+                                    var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                    var fieldID = "#fieldsLunes" + fieldNum;
+                                    $(this).remove();
+                                    $(fieldID).remove();
+                                });
+                        });
+            });
+    </script>
+
+    <script type="text/javascript">
+                $(document).ready(function(){
+                            var next = 10;
+                            $(".add-more2").click(function(e){
+                                e.preventDefault();
+                                var options = $("#options").val();
+                                var optionsMomento = $("#optionsMomentos").val();
+                                var addto = "#fieldsMartes" + next;
+                                var addRemove = "#fieldsMartes" + (next);
+                                next = next + 1;
+                                var newIn = '<div id="fieldsMartes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMartes[]" name="nombreAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMartes[]" name="momentoAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMartes2" generated="true" class="error"></label></div></div></div>  <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMartes'+ next +'" name="cantidadAlimentoMartes'+ next +'" class="form-control"><label for="cantidadAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMartes'+ next +'" name="observacionAlimentoMartes'+ next +'" class="form-control"><label for="observacionAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                var newInput = $(newIn);
+                                var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next-1) +'">';
+                                var removeButton = $(removeBtn);
+                                $(addto).after(newInput);
+                                $(addRemove).after(removeButton);
+                                $("#fieldsMartes" + next).attr('data-source',$(addto).attr('data-source'));
+                                $("#count").val(next);
+
+                                    $('.remove-me').click(function(e){
+                                        e.preventDefault();
+                                        var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                        var fieldID = "#fieldsMartes" + fieldNum;
+                                        $(this).remove();
+                                        $(fieldID).remove();
+                                    });
+                            });
+                });
+    </script>
+
+    <script type="text/javascript">
+                    $(document).ready(function(){
+                                var next = 20;
+                                $(".add-more3").click(function(e){
+                                    e.preventDefault();
+                                    var options = $("#options").val();
+                                    var optionsMomento = $("#optionsMomentos").val();
+                                    var addto = "#fieldsMiercoles" + next;
+                                    var addRemove = "#fieldsMiercoles" + (next);
+                                    next = next + 1;
+                                    var newIn = '<div id="fieldsMiercoles'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMiercoles[]" name="nombreAlimentoMiercoles[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMiercoles[]" name="momentoAlimentoMiercoles[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMiercoles2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMiercoles'+ next +'" name="cantidadAlimentoMiercoles'+ next +'" class="form-control"><label for="cantidadAlimentoMiercoles'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMiercoles'+ next +'" name="observacionAlimentoMiercoles'+ next +'" class="form-control"><label for="observacionAlimentoMiercoles'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                    var newInput = $(newIn);
+                                    var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMiercoles'+ (next-1) +'">';
+                                    var removeButton = $(removeBtn);
+                                    $(addto).after(newInput);
+                                    $(addRemove).after(removeButton);
+                                    $("#fieldsMiercoles" + next).attr('data-source',$(addto).attr('data-source'));
+                                    $("#count").val(next);
+
+                                        $('.remove-me').click(function(e){
+                                            e.preventDefault();
+                                            var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                            var fieldID = "#fieldsMiercoles" + fieldNum;
+                                            $(this).remove();
+                                            $(fieldID).remove();
+                                        });
+                                });
+                    });
+        </script>
+
+    <script type="text/javascript">
+                    $(document).ready(function(){
+                                var next = 30;
+                                $(".add-more4").click(function(e){
+                                    e.preventDefault();
+                                    var options = $("#options").val();
+                                    var optionsMomento = $("#optionsMomentos").val();
+                                    var addto = "#fieldsJueves" + next;
+                                    var addRemove = "#fieldsJueves" + (next);
+                                    next = next + 1;
+                                    var newIn = '<div id="fieldsJueves'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoJueves[]" name="nombreAlimentoJueves[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoJueves[]" name="momentoAlimentoJueves[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoJueves2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoJueves'+ next +'" name="cantidadAlimentoJueves'+ next +'" class="form-control"><label for="cantidadAlimentoJueves'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoJueves'+ next +'" name="observacionAlimentoJueves'+ next +'" class="form-control"><label for="observacionAlimentoJueves'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                    var newInput = $(newIn);
+                                    var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsJueves'+ (next-1) +'">';
+                                    var removeButton = $(removeBtn);
+                                    $(addto).after(newInput);
+                                    $(addRemove).after(removeButton);
+                                    $("#fieldsMartes" + next).attr('data-source',$(addto).attr('data-source'));
+                                    $("#count").val(next);
+
+                                        $('.remove-me').click(function(e){
+                                            e.preventDefault();
+                                            var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                            var fieldID = "#fieldsJueves" + fieldNum;
+                                            $(this).remove();
+                                            $(fieldID).remove();
+                                        });
+                                });
+                    });
+        </script>
+
+    <script type="text/javascript">
+                    $(document).ready(function(){
+                                var next = 40;
+                                $(".add-more5").click(function(e){
+                                    e.preventDefault();
+                                    var options = $("#options").val();
+                                    var optionsMomento = $("#optionsMomentos").val();
+                                    var addto = "#fieldsViernes" + next;
+                                    var addRemove = "#fieldsViernes" + (next);
+                                    next = next + 1;
+                                    var newIn = '<div id="fieldsViernes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoViernes[]" name="nombreAlimentoViernes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoViernes[]" name="momentoAlimentoViernes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoViernes2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoViernes'+ next +'" name="cantidadAlimentoViernes'+ next +'" class="form-control"><label for="cantidadAlimentoViernes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoViernes'+ next +'" name="observacionAlimentoViernes'+ next +'" class="form-control"><label for="observacionAlimentoViernes'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                    var newInput = $(newIn);
+                                    var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsViernes'+ (next-1) +'">';
+                                    var removeButton = $(removeBtn);
+                                    $(addto).after(newInput);
+                                    $(addRemove).after(removeButton);
+                                    $("#fieldsViernes" + next).attr('data-source',$(addto).attr('data-source'));
+                                    $("#count").val(next);
+
+                                        $('.remove-me').click(function(e){
+                                            e.preventDefault();
+                                            var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                            var fieldID = "#fieldsViernes" + fieldNum;
+                                            $(this).remove();
+                                            $(fieldID).remove();
+                                        });
+                                });
+                    });
+        </script>
+
+    <script type="text/javascript">
+                $(document).ready(function(){
+                            var next = 50;
+                            $(".add-more6").click(function(e){
+                                e.preventDefault();
+                                var options = $("#options").val();
+                                var optionsMomento = $("#optionsMomentos").val();
+                                var addto = "#fieldsSabado" + next;
+                                var addRemove = "#fieldsSabado" + (next);
+                                next = next + 1;
+                                var newIn = '<div id="fieldsSabado'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoSabado[]" name="nombreAlimentoSabado[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoSabado[]" name="momentoAlimentoSabado[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoSabado2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoSabado'+ next +'" name="cantidadAlimentoSabado'+ next +'" class="form-control"><label for="cantidadAlimentoSabado'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoSabado'+ next +'" name="observacionAlimentoSabado'+ next +'" class="form-control"><label for="observacionAlimentoSabado'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                var newInput = $(newIn);
+                                var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsSabado'+ (next-1) +'">';
+                                var removeButton = $(removeBtn);
+                                $(addto).after(newInput);
+                                $(addRemove).after(removeButton);
+                                $("#fieldsSabado" + next).attr('data-source',$(addto).attr('data-source'));
+                                $("#count").val(next);
+
+                                    $('.remove-me').click(function(e){
+                                        e.preventDefault();
+                                        var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                        var fieldID = "#fieldsSabado" + fieldNum;
+                                        $(this).remove();
+                                        $(fieldID).remove();
+                                    });
+                            });
+                });
+    </script>
+
 </head>
 
 <div class="container">
@@ -63,6 +244,65 @@
         <spring:bind path="dni">
         	<input type="hidden" name="dni" id="dni" class="form-control" value="${status.value}"/>
         </spring:bind>
+        <spring:bind path="name">
+            <input type="hidden" name="name" id="name" class="form-control" value="${status.value}"/>
+        </spring:bind>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                    <spring:bind path="fechaAlta">
+                    <appfuse:label styleClass="control-label" key="paciente.fecha.desde"/>
+                    <span class="required">*</span>
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type="text" name="fechaAlta" id="fechaAlta" class="form-control" readonly="readonly"
+                            placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
+                            tabindex="5" data-date-format="DD/MM/YYYY">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </spring:bind>
+                    <label for="fechaAlta" generated="true" class="error"></label>
+                    <form:errors path="fechaAlta" cssClass="help-block"/>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker({
+                            language: 'pt-BR',
+                            showToday: true,
+                            pickTime: false,
+                            maxDate: new Date()
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                    <spring:bind path="fechaHasta">
+                    <appfuse:label styleClass="control-label" key="paciente.fecha.hasta"/>
+                    <span class="required">*</span>
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type="text" name="fechaHasta" id="fechaHasta" class="form-control" readonly="readonly"
+                            placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
+                            tabindex="5" data-date-format="DD/MM/YYYY">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </spring:bind>
+                    <label for="fechaHasta" generated="true" class="error"></label>
+                    <form:errors path="fechaHasta" cssClass="help-block"/>
+                <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker2').datetimepicker({
+                        language: 'pt-BR',
+                        showToday: true,
+                        pickTime: false,
+                        maxDate: new Date()
+                        });
+                    });
+                </script>
+                </div>
+            </div>
+        </div>
     <div id="tabs">
       		<ul>
         		<li><a href="#tabs-1">Lunes</a></li>
@@ -73,95 +313,69 @@
     		    <li><a href="#tabs-6">Sabado</a></li>
     		</ul>
         <div id="tabs-1">
-            <spring:bind path="momentoLunes1">
-                <input type="hidden" name="momentoLunes1" id="momentoLunes1" class="form-control" value="DESAYUNO"/>
-            </spring:bind>
             <spring:bind path="diaDietaLunes">
                 <input type="hidden" name="diaDietaLunes" id="diaDietaLunes" class="form-control" value="LUNES"/>
             </spring:bind>
-            <div class="form-group">
-                <div>
-                    <spring:bind path="dietaRecomendadaForm.nombreAlimentoLunes1">
-                        <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                        <form:select path="nombreAlimentoLunes1" cssClass="form-control">
-                        	<form:option value="NONE" label="--- Seleccione ---"/>
-                            <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                        </form:select>
-                    </spring:bind>
-                    <label for="nombreAlimentoLunes1" generated="true" class="error"></label>
-                    <form:errors path="nombreAlimentoLunes1" cssClass="help-block"/>
+            <input type="hidden" name="options" id="options" value="${options}"/>
+            <input type="hidden" name="optionsMomentos" id="optionsMomentos" value="${optionsMomentos}"/>
+            <div id="fieldsLunes1">
+                <div class="row">
+                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <spring:bind path="dietaRecomendadaForm.nombreAlimentoLunes1">
+                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                            <form:select path="nombreAlimentoLunes1" cssClass="form-control">
+                                <form:option value="NONE" label="--- Seleccione ---"/>
+                                <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
+                            </form:select>
+                        </spring:bind>
+                        <label for="nombreAlimentoLunes1" generated="true" class="error"></label>
+                        <form:errors path="nombreAlimentoLunes1" cssClass="help-block"/>
+                    </div>
+                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <spring:bind path="dietaRecomendadaForm.momentoLunes1">
+                            <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                            <form:select path="momentoLunes1" cssClass="form-control">
+                                <form:option value="NONE" label="--- Seleccione ---"/>
+                                <form:options items="${momentoDias}"/>
+                            </form:select>
+                        </spring:bind>
+                        <label for="momentoLunes1" generated="true" class="error"></label>
+                        <form:errors path="momentoLunes1" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                        <spring:bind path="dietaRecomendadaForm.cantidadLunes1">
+                            <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                            <input type="text" name="cantidadLunes1" id="cantidadLunes1" class="form-control"
+                            placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
+                            tabindex="4">
+                        </spring:bind>
+                    <label for="cantidadLunes1" generated="true" class="error"></label>
+                    <form:errors path="cantidadLunes1" cssClass="help-block"/>
+                    </div>
+                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                          <spring:bind path="dietaRecomendadaForm.observacionesLunes1">
+                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                <input type="text" name="observacionesLunes1" id="observacionesLunes1" class="form-control"
+                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
+                          </spring:bind>
+                     <label for="observacionesLunes1" generated="true" class="error"></label>
+                     <form:errors path="observacionesLunes1" cssClass="help-block"/>
+                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                    <spring:bind path="dietaRecomendadaForm.cantidadLunes1">
-                        <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                        <input type="text" name="cantidadLunes1" id="cantidadLunes1" class="form-control"
-                        placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                        tabindex="4">
-                    </spring:bind>
-                <label for="cantidadLunes1" generated="true" class="error"></label>
-                <form:errors path="cantidadLunes1" cssClass="help-block"/>
-                </div>
-                 <div>
-                      <spring:bind path="dietaRecomendadaForm.observacionesLunes1">
-                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                            <input type="text" name="observacionesLunes1" id="observacionesLunes1" class="form-control"
-                            placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                        </div>
-                      </spring:bind>
-                 </div>
-            </div>
 
-            <%-- Segundo Alimento--%>
-
-            <div class="form-group">
-                            <div>
-                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoLunes2">
-                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                    <form:select path="nombreAlimentoLunes2" cssClass="form-control">
-                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                    </form:select>
-                                </spring:bind>
-                                <label for="nombreAlimentoLunes2" generated="true" class="error"></label>
-                                <form:errors path="nombreAlimentoLunes2" cssClass="help-block"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                <spring:bind path="dietaRecomendadaForm.cantidadLunes2">
-                                    <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                    <input type="text" name="cantidadLunes2" id="cantidadLunes2" class="form-control"
-                                    placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                    tabindex="4">
-                                </spring:bind>
-                            <label for="cantidadLunes2" generated="true" class="error"></label>
-                            <form:errors path="cantidadLunes2" cssClass="help-block"/>
-                            </div>
-                             <div>
-                                  <spring:bind path="dietaRecomendadaForm.observacionesLunes2">
-                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                        <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                        <input type="text" name="observacionesLunes2" id="observacionesLunes2" class="form-control"
-                                        placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                    </div>
-                                  </spring:bind>
-                             </div>
-                        </div>
+            <button id="b1" class="btn add-more" type="button">+</button>
         </div>
-        <%-- Fin del tabs1 --%>
 
         <div id="tabs-2">
-                    <spring:bind path="momentoMartes1">
-                        <input type="hidden" name="momentoMartes1" id="momentoMartes1" class="form-control" value="DESAYUNO"/>
-                    </spring:bind>
+            <div id="fieldsMartes10">
                     <spring:bind path="diaDietaMartes">
                         <input type="hidden" name="diaDietaMartes" id="diaDietaMartes" class="form-control" value="MARTES"/>
                     </spring:bind>
-                    <div class="form-group">
-                        <div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                             <spring:bind path="dietaRecomendadaForm.nombreAlimentoMartes1">
                                 <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
                                 <form:select path="nombreAlimentoMartes1" cssClass="form-control">
@@ -172,6 +386,17 @@
                             <label for="nombreAlimentoMartes1" generated="true" class="error"></label>
                             <form:errors path="nombreAlimentoMartes1" cssClass="help-block"/>
                         </div>
+                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                            <spring:bind path="dietaRecomendadaForm.momentoMartes1">
+                                <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                                <form:select path="momentoMartes1" cssClass="form-control">
+                                    <form:option value="NONE" label="--- Seleccione ---"/>
+                                    <form:options items="${momentoDias}"/>
+                                </form:select>
+                            </spring:bind>
+                            <label for="momentoMartes1" generated="true" class="error"></label>
+                            <form:errors path="momentoMartes1" cssClass="help-block"/>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -179,68 +404,33 @@
                                 <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
                                 <input type="text" name="cantidadMartes1" id="cantidadMartes1" class="form-control"
                                 placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                tabindex="4">
+                                tabindex="10">
                             </spring:bind>
                         <label for="cantidadMartes1" generated="true" class="error"></label>
                         <form:errors path="cantidadMartes1" cssClass="help-block"/>
                         </div>
-                         <div>
+                         <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                               <spring:bind path="dietaRecomendadaForm.observacionesMartes1">
-                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
                                     <input type="text" name="observacionesMartes1" id="observacionesMartes1" class="form-control"
                                     placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                </div>
                               </spring:bind>
+                              <label for="observacionesMartes1" generated="true" class="error"></label>
+                              <form:errors path="observacionesMartes1" cssClass="help-block"/>
                          </div>
                     </div>
-                    <%-- Segundo Alimento--%>
-                    <div class="form-group">
-                                            <div>
-                                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoMartes2">
-                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                                    <form:select path="nombreAlimentoMartes2" cssClass="form-control">
-                                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                                    </form:select>
-                                                </spring:bind>
-                                                <label for="nombreAlimentoMartes2" generated="true" class="error"></label>
-                                                <form:errors path="nombreAlimentoMartes2" cssClass="help-block"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                <spring:bind path="dietaRecomendadaForm.cantidadMartes2">
-                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                                    <input type="text" name="cantidadMartes2" id="cantidadMartes2" class="form-control"
-                                                    placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                                    tabindex="4">
-                                                </spring:bind>
-                                            <label for="cantidadMartes2" generated="true" class="error"></label>
-                                            <form:errors path="cantidadMartes2" cssClass="help-block"/>
-                                            </div>
-                                             <div>
-                                                  <spring:bind path="dietaRecomendadaForm.observacionesMartes2">
-                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                        <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                                        <input type="text" name="observacionesMartes2" id="observacionesMartes2" class="form-control"
-                                                        placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                                    </div>
-                                                  </spring:bind>
-                                             </div>
-                                        </div>
+            </div>
+            <button id="b2" class="btn add-more2" type="button">+</button>
         </div>
         <%-- Fin del tabs2 --%>
 
         <div id="tabs-3">
-                            <spring:bind path="momentoMiercoles1">
-                                <input type="hidden" name="momentoMiercoles1" id="momentoMiercoles1" class="form-control" value="DESAYUNO"/>
-                            </spring:bind>
+            <div id="fieldsMiercoles20">
                             <spring:bind path="diaDietaMiercoles">
                                 <input type="hidden" name="diaDietaMiercoles" id="diaDietaMiercoles" class="form-control" value="MIERCOLES"/>
                             </spring:bind>
-                            <div class="form-group">
-                                <div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     <spring:bind path="dietaRecomendadaForm.nombreAlimentoMiercoles1">
                                         <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
                                         <form:select path="nombreAlimentoMiercoles1" cssClass="form-control">
@@ -250,6 +440,17 @@
                                     </spring:bind>
                                     <label for="nombreAlimentoMiercoles1" generated="true" class="error"></label>
                                     <form:errors path="nombreAlimentoMiercoles1" cssClass="help-block"/>
+                                </div>
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                    <spring:bind path="dietaRecomendadaForm.momentoMiercoles1">
+                                        <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                                        <form:select path="momentoMiercoles1" cssClass="form-control">
+                                            <form:option value="NONE" label="--- Seleccione ---"/>
+                                            <form:options items="${momentoDias}"/>
+                                        </form:select>
+                                    </spring:bind>
+                                    <label for="momentoMiercoles1" generated="true" class="error"></label>
+                                    <form:errors path="momentoMiercoles1" cssClass="help-block"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -263,63 +464,28 @@
                                 <label for="cantidadMiercoles1" generated="true" class="error"></label>
                                 <form:errors path="cantidadMiercoles1" cssClass="help-block"/>
                                 </div>
-                                 <div>
+                                 <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                       <spring:bind path="dietaRecomendadaForm.observacionesMiercoles1">
-                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                             <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
                                             <input type="text" name="observacionesMiercoles1" id="observacionesMiercoles1" class="form-control"
                                             placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                        </div>
                                       </spring:bind>
+                                      <label for="observacionesMiercoles1" generated="true" class="error"></label>
+                                      <form:errors path="observacionesMiercoles1" cssClass="help-block"/>
                                  </div>
                             </div>
-                            <%-- Segundo Alimento--%>
-                            <div class="form-group">
-                                                            <div>
-                                                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoMiercoles2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                                                    <form:select path="nombreAlimentoMiercoles2" cssClass="form-control">
-                                                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                                                    </form:select>
-                                                                </spring:bind>
-                                                                <label for="nombreAlimentoMiercoles2" generated="true" class="error"></label>
-                                                                <form:errors path="nombreAlimentoMiercoles2" cssClass="help-block"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                <spring:bind path="dietaRecomendadaForm.cantidadMiercoles2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                                                    <input type="text" name="cantidadMiercoles2" id="cantidadMiercoles2" class="form-control"
-                                                                    placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                                                    tabindex="4">
-                                                                </spring:bind>
-                                                            <label for="cantidadMiercoles2" generated="true" class="error"></label>
-                                                            <form:errors path="cantidadMiercoles2" cssClass="help-block"/>
-                                                            </div>
-                                                             <div>
-                                                                  <spring:bind path="dietaRecomendadaForm.observacionesMiercoles2">
-                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                        <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                                                        <input type="text" name="observacionesMiercoles2" id="observacionesMiercoles2" class="form-control"
-                                                                        placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                                                    </div>
-                                                                  </spring:bind>
-                                                             </div>
-                                                        </div>
-                </div>
+            </div>
+            <button id="b3" class="btn add-more3" type="button">+</button>
+        </div>
                 <%-- Fin del tabs3 --%>
 
         <div id="tabs-4">
-                            <spring:bind path="momentoJueves1">
-                                <input type="hidden" name="momentoJueves1" id="momentoJueves1" class="form-control" value="DESAYUNO"/>
-                            </spring:bind>
+            <div id="fieldsJueves30">
                             <spring:bind path="diaDietaJueves">
                                 <input type="hidden" name="diaDietaJueves" id="diaDietaJueves" class="form-control" value="JUEVES"/>
                             </spring:bind>
-                            <div class="form-group">
-                                <div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     <spring:bind path="dietaRecomendadaForm.nombreAlimentoJueves1">
                                         <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
                                         <form:select path="nombreAlimentoJueves1" cssClass="form-control">
@@ -330,75 +496,51 @@
                                     <label for="nombreAlimentoJueves1" generated="true" class="error"></label>
                                     <form:errors path="nombreAlimentoJueves1" cssClass="help-block"/>
                                 </div>
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                    <spring:bind path="dietaRecomendadaForm.momentoJueves1">
+                                        <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                                        <form:select path="momentoJueves1" cssClass="form-control">
+                                            <form:option value="NONE" label="--- Seleccione ---"/>
+                                            <form:options items="${momentoDias}"/>
+                                        </form:select>
+                                    </spring:bind>
+                                    <label for="momentoJueves1" generated="true" class="error"></label>
+                                    <form:errors path="momentoJueves1" cssClass="help-block"/>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                    <spring:bind path="dietaRecomendadaForm.cantidadJueves1">
-                                        <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                        <input type="text" name="cantidadJueves1" id="cantidadJueves1" class="form-control"
-                                        placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                        tabindex="4">
-                                    </spring:bind>
-                                <label for="cantidadJueves1" generated="true" class="error"></label>
-                                <form:errors path="cantidadJueves1" cssClass="help-block"/>
-                                </div>
-                                 <div>
-                                      <spring:bind path="dietaRecomendadaForm.observacionesJueves1">
-                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                            <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                            <input type="text" name="observacionesJueves1" id="observacionesJueves1" class="form-control"
-                                            placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                        </div>
-                                      </spring:bind>
-                                 </div>
-                            </div>
-                            <%-- Segundo Alimento--%>
-                            <div class="form-group">
-                                                            <div>
-                                                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoJueves2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                                                    <form:select path="nombreAlimentoJueves2" cssClass="form-control">
-                                                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                                                    </form:select>
-                                                                </spring:bind>
-                                                                <label for="nombreAlimentoJueves2" generated="true" class="error"></label>
-                                                                <form:errors path="nombreAlimentoJueves2" cssClass="help-block"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                <spring:bind path="dietaRecomendadaForm.cantidadJueves2">
+                                                                <spring:bind path="dietaRecomendadaForm.cantidadJueves1">
                                                                     <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                                                    <input type="text" name="cantidadJueves2" id="cantidadJueves2" class="form-control"
+                                                                    <input type="text" name="cantidadJueves1" id="cantidadJueves1" class="form-control"
                                                                     placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
                                                                     tabindex="4">
                                                                 </spring:bind>
-                                                            <label for="cantidadJueves2" generated="true" class="error"></label>
-                                                            <form:errors path="cantidadJueves2" cssClass="help-block"/>
+                                                            <label for="cantidadJueves1" generated="true" class="error"></label>
+                                                            <form:errors path="cantidadJueves1" cssClass="help-block"/>
                                                             </div>
-                                                             <div>
-                                                                  <spring:bind path="dietaRecomendadaForm.observacionesJueves2">
-                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                  <spring:bind path="dietaRecomendadaForm.observacionesJueves1">
                                                                         <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                                                        <input type="text" name="observacionesJueves2" id="observacionesJueves2" class="form-control"
+                                                                        <input type="text" name="observacionesJueves1" id="observacionesJueves1" class="form-control"
                                                                         placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                                                    </div>
                                                                   </spring:bind>
+                                                                  <label for="observacionesJueves1" generated="true" class="error"></label>
+                                                                  <form:errors path="observacionesJueves1" cssClass="help-block"/>
                                                              </div>
-                                                        </div>
-                </div>
+                            </div>
+            </div>
+            <button id="b4" class="btn add-more4" type="button">+</button>
+        </div>
                 <%-- Fin del tabs4 --%>
 
         <div id="tabs-5">
-                            <spring:bind path="momentoViernes1">
-                                <input type="hidden" name="momentoViernes1" id="momentoViernes1" class="form-control" value="DESAYUNO"/>
-                            </spring:bind>
+            <div id="fieldsViernes40">
                             <spring:bind path="diaDietaViernes">
                                 <input type="hidden" name="diaDietaViernes" id="diaDietaViernes" class="form-control" value="VIERNES"/>
                             </spring:bind>
-                            <div class="form-group">
-                                <div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     <spring:bind path="dietaRecomendadaForm.nombreAlimentoViernes1">
                                         <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
                                         <form:select path="nombreAlimentoViernes1" cssClass="form-control">
@@ -408,6 +550,17 @@
                                     </spring:bind>
                                     <label for="nombreAlimentoViernes1" generated="true" class="error"></label>
                                     <form:errors path="nombreAlimentoViernes1" cssClass="help-block"/>
+                                </div>
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                    <spring:bind path="dietaRecomendadaForm.momentoViernes1">
+                                        <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                                        <form:select path="momentoViernes1" cssClass="form-control">
+                                            <form:option value="NONE" label="--- Seleccione ---"/>
+                                            <form:options items="${momentoDias}"/>
+                                        </form:select>
+                                    </spring:bind>
+                                    <label for="momentoViernes1" generated="true" class="error"></label>
+                                    <form:errors path="momentoViernes1" cssClass="help-block"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -421,63 +574,28 @@
                                 <label for="cantidadViernes1" generated="true" class="error"></label>
                                 <form:errors path="cantidadViernes1" cssClass="help-block"/>
                                 </div>
-                                 <div>
+                                 <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                       <spring:bind path="dietaRecomendadaForm.observacionesViernes1">
-                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                             <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
                                             <input type="text" name="observacionesViernes1" id="observacionesViernes1" class="form-control"
                                             placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                        </div>
                                       </spring:bind>
+                                      <label for="observacionesViernes1" generated="true" class="error"></label>
+                                      <form:errors path="observacionesViernes1" cssClass="help-block"/>
                                  </div>
                             </div>
-                            <%-- Segundo Alimento--%>
-                            <div class="form-group">
-                                                            <div>
-                                                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoViernes2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                                                    <form:select path="nombreAlimentoViernes2" cssClass="form-control">
-                                                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                                                    </form:select>
-                                                                </spring:bind>
-                                                                <label for="nombreAlimentoViernes2" generated="true" class="error"></label>
-                                                                <form:errors path="nombreAlimentoViernes2" cssClass="help-block"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                <spring:bind path="dietaRecomendadaForm.cantidadViernes2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                                                    <input type="text" name="cantidadViernes2" id="cantidadViernes2" class="form-control"
-                                                                    placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                                                    tabindex="4">
-                                                                </spring:bind>
-                                                            <label for="cantidadViernes2" generated="true" class="error"></label>
-                                                            <form:errors path="cantidadViernes2" cssClass="help-block"/>
-                                                            </div>
-                                                             <div>
-                                                                  <spring:bind path="dietaRecomendadaForm.observacionesViernes2">
-                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                        <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                                                        <input type="text" name="observacionesViernes2" id="observacionesViernes2" class="form-control"
-                                                                        placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                                                    </div>
-                                                                  </spring:bind>
-                                                             </div>
-                                                        </div>
-                </div>
+            </div>
+            <button id="b5" class="btn add-more5" type="button">+</button>
+        </div>
                 <%-- Fin del tabs5 --%>
 
         <div id="tabs-6">
-                            <spring:bind path="momentoSabado1">
-                                <input type="hidden" name="momentoSabado1" id="momentoSabado1" class="form-control" value="DESAYUNO"/>
-                            </spring:bind>
+            <div id="fieldsSabado50">
                             <spring:bind path="diaDietaSabado">
                                 <input type="hidden" name="diaDietaSabado" id="diaDietaSabado" class="form-control" value="SABADO"/>
                             </spring:bind>
-                            <div class="form-group">
-                                <div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                     <spring:bind path="dietaRecomendadaForm.nombreAlimentoSabado1">
                                         <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
                                         <form:select path="nombreAlimentoSabado1" cssClass="form-control">
@@ -487,6 +605,17 @@
                                     </spring:bind>
                                     <label for="nombreAlimentoSabado1" generated="true" class="error"></label>
                                     <form:errors path="nombreAlimentoSabado1" cssClass="help-block"/>
+                                </div>
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                    <spring:bind path="dietaRecomendadaForm.momentoSabado1">
+                                        <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
+                                        <form:select path="momentoSabado1" cssClass="form-control">
+                                            <form:option value="NONE" label="--- Seleccione ---"/>
+                                            <form:options items="${momentoDias}"/>
+                                        </form:select>
+                                    </spring:bind>
+                                    <label for="momentoSabado1" generated="true" class="error"></label>
+                                    <form:errors path="momentoSabado1" cssClass="help-block"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -500,52 +629,19 @@
                                 <label for="cantidadSabado1" generated="true" class="error"></label>
                                 <form:errors path="cantidadSabado1" cssClass="help-block"/>
                                 </div>
-                                 <div>
+                                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                       <spring:bind path="dietaRecomendadaForm.observacionesSabado1">
-                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                             <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
                                             <input type="text" name="observacionesSabado1" id="observacionesSabado1" class="form-control"
                                             placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                        </div>
                                       </spring:bind>
+                                 <label for="observacionesSabado1" generated="true" class="error"></label>
+                                 <form:errors path="observacionesSabado1" cssClass="help-block"/>
                                  </div>
                             </div>
-                            <%-- Segundo Alimento--%>
-                            <div class="form-group">
-                                                            <div>
-                                                                <spring:bind path="dietaRecomendadaForm.nombreAlimentoSabado2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                                                                    <form:select path="nombreAlimentoSabado2" cssClass="form-control">
-                                                                    	<form:option value="NONE" label="--- Seleccione ---"/>
-                                                                        <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                                                                    </form:select>
-                                                                </spring:bind>
-                                                                <label for="nombreAlimentoSabado2" generated="true" class="error"></label>
-                                                                <form:errors path="nombreAlimentoSabado2" cssClass="help-block"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                <spring:bind path="dietaRecomendadaForm.cantidadSabado2">
-                                                                    <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                                                    <input type="text" name="cantidadSabado2" id="cantidadSabado2" class="form-control"
-                                                                    placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                                                    tabindex="4">
-                                                                </spring:bind>
-                                                            <label for="cantidadSabado2" generated="true" class="error"></label>
-                                                            <form:errors path="cantidadSabado2" cssClass="help-block"/>
-                                                            </div>
-                                                             <div>
-                                                                  <spring:bind path="dietaRecomendadaForm.observacionesSabado2">
-                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                        <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                                                        <input type="text" name="observacionesSabado2" id="observacionesSabado2" class="form-control"
-                                                                        placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                                                                    </div>
-                                                                  </spring:bind>
-                                                             </div>
-                                                        </div>
-                </div>
+            </div>
+            <button id="b6" class="btn add-more6" type="button">+</button>
+        </div>
                 <%-- Fin del tabs6 --%>
         <%-- Fin del div tabs --%>
     </div>

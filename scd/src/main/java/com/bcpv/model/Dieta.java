@@ -39,6 +39,7 @@ public class Dieta implements Serializable{
 	private Long idDieta;
 	private Paciente Paciente;
 	private Date fechaAlta;
+	private Date fechaHasta;
 	private Set<DiaDieta> diasDieta = new HashSet<DiaDieta>();
 	private String descripcion;
 
@@ -52,7 +53,7 @@ public class Dieta implements Serializable{
 		this.idDieta = idDieta;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_paciente",nullable=true)
 	public Paciente getPaciente() {
 		return Paciente;
@@ -67,6 +68,14 @@ public class Dieta implements Serializable{
 	}
 	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
+	}
+
+	@Column(name="fecha_Hasta")
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
     @ManyToMany(fetch = FetchType.EAGER)
