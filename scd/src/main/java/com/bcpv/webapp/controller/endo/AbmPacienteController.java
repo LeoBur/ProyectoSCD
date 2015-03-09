@@ -72,6 +72,7 @@ public class AbmPacienteController extends BaseFormController {
             Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
             Paciente paciente = null;
             if (persona.getId() != null) {
+                pacienteForm.setNuevaPersona(false);
                 pacienteForm.setId(persona.getId());
                 pacienteForm.setDni(dni);
                 pacienteForm.setUsername(persona.getUsername());

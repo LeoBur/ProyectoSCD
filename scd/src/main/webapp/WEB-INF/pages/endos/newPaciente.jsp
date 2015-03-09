@@ -89,9 +89,17 @@
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	    <span class="required">*</span>
-					        	<input type="text" name="dni" id="dni" class="form-control"
-					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+					        	<c:choose>
+                                	<c:when test="${pacienteForm.nuevaPersona}">
+					        	    	<span class="required">*</span>
+										<input type="text" name="dni" id="dni" class="form-control"
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="dni" id="dni" class="form-control" readonly
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									</c:otherwise>
+                                </c:choose>
 					        </div>
 					    </spring:bind>
 					    	
@@ -100,11 +108,13 @@
 					  <div class="col-sm-6 form-group">
 					  <br>
 					  <div>
+					  <c:if test="${pacienteForm.nuevaPersona}">
 						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
 							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
 							<i class="icon-upload icon-white"></i>
 							<fmt:message key="button.search" />
 						</button>
+					  </c:if>
 						</div>
 					</div>
 					  
