@@ -50,8 +50,12 @@ public class ConsultaTratamientoController extends BaseFormController{
                 tratamiento = tr;
             }
         }
-        mv.addObject("prescripcionesList", tratamiento.getPrescripciones());
-        mv.addObject("fecha", new SimpleDateFormat("dd-MM-yyyy").format(tratamiento.getFechaTratamiento()));
+        if (tratamiento != null) {
+            mv.addObject("prescripcionesList", tratamiento.getPrescripciones());
+            mv.addObject("fecha", new SimpleDateFormat("dd-MM-yyyy").format(tratamiento.getFechaTratamiento()));
+        }else {
+            saveInfo(request, "No existe prescripciones cargada para este mes. Comuniquese con su nutricionista para que le recete una...");
+        }
         return mv;
     }
 

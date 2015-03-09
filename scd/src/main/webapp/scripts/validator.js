@@ -11,6 +11,9 @@ $(document).ready(function(){
 				lastName:{
 					required:true
 				},
+				nombreSintoma:{
+				    required:true
+				},
 				nombreGenerico:{
 					required:true
 				},

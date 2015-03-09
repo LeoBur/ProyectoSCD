@@ -50,8 +50,8 @@
 			<div id="actions" class="btn-group">
 				<a class="btn btn-primary" href="<c:url value='/endos/sintomaForm'/>">
 					<i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-				<a class="btn btn-default" href="<c:url value='/endos/endo'/>">
-					<i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+				<!--<a class="btn btn-default" href="<c:url value='/endos/endo'/>">
+					<i class="icon-ok"></i> <fmt:message key="button.done"/></a>-->
 			</div>
 
 

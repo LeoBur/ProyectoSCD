@@ -88,7 +88,7 @@ public class AbmEspecialistaController extends BaseFormController {
         } catch (NullPointerException npe){
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } catch (EntityNotFoundException enfe) {
-            saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            //saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
         }
     }
 

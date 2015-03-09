@@ -1,10 +1,16 @@
 <%@ include file="/common/taglibs.jsp"%>
+<!DOCTYPE html>
 <head>
     <title><fmt:message key="userPaciente.title"/></title>
     <meta name="menu" content="UserMenu"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+  <script src="/scripts/validator.js" type="text/javascript"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
@@ -20,7 +26,7 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="col-sm-4">
+<div class="col-md-2">
     <h2><fmt:message key="user.symptom.title"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
@@ -33,7 +39,7 @@
 </div>
 
 
-<div class="col-sm-7">
+<div class="col-md-4">
     <spring:bind path="sintoma.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-danger alert-dismissable">
@@ -45,18 +51,19 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="sintoma" method="post" action="sintomaForm" id="sintomaForm" autocomplete="off"
+    <form:form commandName="sintoma" method="post" action="sintomaForm" id="formulario" autocomplete="off"
                cssClass="well" onsubmit="return validateUser(this)">
         <form:hidden path="idSintoma"/>
         
         <%-- <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/> --%>
 
         
+
         <div class="form-group">
-                <appfuse:label styleClass="control-label" key="user.adminSintoma.nombre"/>
-                <form:input cssClass="form-control" path="nombre" id="nombre"/>
+                        <appfuse:label styleClass="control-label" key="user.adminSintoma.nombre"/>
+                        <form:input cssClass="form-control" path="nombre" id="nombreSintoma" name="nombreSintoma" />
+                        <label for="nombreSintoma" generated="true" class="error"></label>
         </div>
-               
         <div class="form-group">
             <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
@@ -74,6 +81,18 @@
         </div>
     </form:form>
 </div>
+
+<c:set var="scripts" scope="request">
+	<script type="text/javascript">
+		// This is here so we can exclude the selectAll call when roles is hidden
+		 $('button[name="cancel"]').click(function(e){
+			e.preventDefault();
+			window.location.href = "http://localhost:8080/endos/sintomaList";
+
+		});
+
+	</script>
+</c:set>
 
 </body>
 </html>
