@@ -19,12 +19,12 @@
                     <div>
                         <spring:bind path="roles">
                             <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                <appfuse:label styleClass="control-label" key="user.medicine.title" />
+                                <appfuse:label styleClass="control-label" key="user.roles" />
                                 <div cssClass="form-control">
                                     <form:select id="roles" name="roles" class="form-control"
                                       path="roles" value="${status.value}" tabindex="1">
                                       <form:option value="NONE" label="--- Seleccione Rol ---"/>
-                                      <form:options items="${roleList}" itemValue="name" itemLabel="name"></form:options>
+                                      <form:options items="${roleList}" itemValue="name" itemLabel="description"></form:options>
                                     </form:select>
                                     <form:errors path="roles" cssClass="help-block" />
                                 </div>

@@ -70,27 +70,27 @@
         <row>
             <value description="id">1</value>
             <value description="name">ROLE_ADMIN</value>
-            <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
+            <value description="description"><![CDATA[Administrador]]></value>
         </row>
         <row>
             <value description="id">2</value>
             <value description="name">ROLE_USER</value>
-            <value description="description"><![CDATA[Default role for all Users]]></value>
+            <value description="description"><![CDATA[Usuario]]></value>
         </row>
         <row>
             <value description="id">3</value>
             <value description="name">ROLE_ENDO</value>
-            <value description="description"><![CDATA[Endocrinologist role (can edit users)]]></value>
+            <value description="description"><![CDATA[Endocrinologo]]></value>
         </row>
         <row>
             <value description="id">4</value>
             <value description="name">NUTRI_ROLE</value>
-            <value description="description"><![CDATA[Nutritionist role (can edit diets)]]></value>
+            <value description="description"><![CDATA[Nutricionista]]></value>
         </row>
         <row>
             <value description="id">5</value>
             <value description="name">PTRAI_ROLE</value>
-            <value description="description"><![CDATA[Personal Training role (can edit trainings)]]></value>
+            <value description="description"><![CDATA[Personal Trainer]]></value>
         </row>
     </table>
     <table name="user_role">

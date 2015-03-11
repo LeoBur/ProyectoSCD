@@ -295,8 +295,7 @@
                     $('#datetimepicker2').datetimepicker({
                         language: 'pt-BR',
                         showToday: true,
-                        pickTime: false,
-                        maxDate: new Date()
+                        pickTime: false
                         });
                     });
                 </script>
