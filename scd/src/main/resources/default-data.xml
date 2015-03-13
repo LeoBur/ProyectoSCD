@@ -84,7 +84,7 @@
         </row>
         <row>
             <value description="id">4</value>
-            <value description="name">ROLE_NUTRI</value>
+            <value description="name">NUTRI_ROLE</value>
             <value description="description"><![CDATA[Nutricionista]]></value>
         </row>
         <row>

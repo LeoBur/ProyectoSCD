@@ -56,8 +56,10 @@
 
 
 			<display:table  name="sintomaList" cellspacing="0" cellpadding="0" requestURI=""
-						   defaultsort="1" id="sintomaList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-
+						   defaultsort="1" id="sintomaList" pagesize="25"
+						   class="table table-condensed table-striped table-hover" export="false">
+                    <display:caption><h3>Sintomas</h3></display:caption>
+                    <display:caption media="pdf">Sintomas</display:caption>
 					<display:column property="nombre" escapeXml="true" sortable="true" titleKey="sintoma.descripcion"
 								style="width: 34%">
 					</display:column>
@@ -65,7 +67,10 @@
 					<display:column titleKey="activeEndos.acciones" sortable="true">
 								<a href="${ctx}/endos/sintomaForm?id=${sintomaList.idSintoma}">Editar</a>
 					</display:column>
-
+                    <display:setProperty name="export.pdf" value="true" />
+                    <display:setProperty name="export.excel" value="false" />
+                    <display:setProperty name="export.xml" value="false" />
+                    <display:setProperty name="export.csv" value="false" />
 			</display:table>
 		</form:form>
 	</div>

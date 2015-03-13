@@ -9,16 +9,17 @@
 <div class="container-fluid">
     <div class="col-md-10">
       <div class="row">
-        <div class="col-md-2">
-            <h2>Medicacion recetada</h2>
-            <h3>${fecha}</h3>
+        <div class="col-md-10">
+            <h3>Medicamentos recetados ${fecha}</h3>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-10">
              <display:table name="prescripcionesList" cellspacing="0" cellpadding="0" requestURI=""
-                           defaultsort="1" id="prescripcion" pagesize="25"
+                           defaultsort="1" id="prescripcion" pagesize="20"
                            class="table table-condensed table-striped table-hover" export="true">
+                <display:caption media="html"><h3>Medicamentos recetados</h3></display:caption>
+                <display:caption media="pdf">Medicamentos recetados</display:caption>
                 <display:column property="medicamento.nombreComercial" escapeXml="true" sortable="true" titleKey="Nombre Comercial"
                                 style="width: 25%"/>
                 <display:column property="medicamento.nombreGenerico" escapeXml="true" sortable="true" titleKey="Nombre Generico"

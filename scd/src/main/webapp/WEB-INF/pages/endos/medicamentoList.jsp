@@ -63,8 +63,12 @@
 			</div>
 
 			<display:table  name="medicamentoList" cellspacing="0" cellpadding="0" requestURI=""
-						   defaultsort="1" id="medicamentoList" pagesize="25" class="table table-condensed table-striped table-hover" export="false"><!-- export en false te desabilita la exportacion -->
-					<display:column property="nombreGenerico" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico" style="width: 25%"/>
+						   defaultsort="1" id="medicamentoList" pagesize="25"
+						   class="table table-condensed table-striped table-hover" export="false">
+				    <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
+					<display:caption><h3>Medicamentos</h3></display:caption>
+					<display:caption media="pdf">Medicamentos</display:caption>
+					<display:column property="nombreGenerico" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico" style="width: 25%" />
 					<display:column property="nombreComercial" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
 								style="width: 34%">
 					</display:column>
@@ -82,7 +86,10 @@
 
 								<a href="deletMedicamento.jsp">Eliminar</a> --%>
 					</display:column>
-
+                    <display:setProperty name="export.pdf" value="true" />
+                    <display:setProperty name="export.excel" value="false" />
+                    <display:setProperty name="export.xml" value="false" />
+                    <display:setProperty name="export.csv" value="false" />
 			</display:table>
 
 		</form:form>

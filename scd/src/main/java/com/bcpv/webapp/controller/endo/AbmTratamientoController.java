@@ -193,8 +193,7 @@ public class AbmTratamientoController extends BaseFormController{
     public String editTratamiento(@RequestParam MultiValueMap<String, String> params,
                                   final HttpServletRequest request) {
         if (request.getParameter("cancel") != null) {
-            return "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
-                    personaManager.getPersonaByDni(params.get("dni").get(0))).getId();
+            return "redirect:/endos/tratamientoList?search="+params.get("dni").get(0);
         }
 
         log.debug("entering 'editTratamiento' method...");
@@ -240,23 +239,13 @@ public class AbmTratamientoController extends BaseFormController{
         Paciente paciente = pacienteManager.getPaciente(new Long(search));
         Set<Tratamiento> tratamientos = paciente.getTratamientos();
         if (tratamientos.isEmpty()) {
-            List<PacienteEnTratamiento> pacientes = endocrinologoManager.getEndocrinologoByPersona(
-                    personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes();
-            List<Paciente> pacienteList = new ArrayList<>();
-            for (PacienteEnTratamiento pac : pacientes) {
-                pacienteList.add(pac.getPaciente());
-            }
-            ModelAndView mv = new ModelAndView("endos/pacienteList");
-            mv.addObject("pacienteList", pacienteList);
-            saveInfo(request, "El paciente no tiene tratamientos");
-            return mv;
-        } else {
-            ModelAndView mv = new ModelAndView("endos/tratamientoList");
-            mv.addObject("tratamientoList", tratamientos);
-            mv.addObject("dni", paciente.getPersona().getDni());
-            mv.addObject("paciente", paciente.getPersona().getFullName());
-            return mv;
+            saveMessage(request, "El paciente no tiene tratamientos, ingrese uno nuevo");
         }
+        ModelAndView mv = new ModelAndView("endos/tratamientoList");
+        mv.addObject("tratamientoList", tratamientos);
+        mv.addObject("dni", paciente.getPersona().getDni());
+        mv.addObject("paciente", paciente.getPersona().getFullName());
+        return mv;
     }
 
     @RequestMapping(value = "endos/prescripciones*", method = RequestMethod.GET)
@@ -268,8 +257,11 @@ public class AbmTratamientoController extends BaseFormController{
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("endos/prescripciones");
+            Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(search));
             mv.addObject("prescripcionesList", prescripciones);
-            mv.addObject("idTratamiento", tratamientoManager.getTratamiento(new Long(search)).getPaciente().getId());
+            mv.addObject("idTratamiento", tratamiento.getPaciente().getPersona().getDni());
+            mv.addObject("fechaTratamiento", tratamiento.getFechaTratamiento());
+            mv.addObject("paciente", tratamiento.getPaciente().getPersona().getFullName());
             return mv;
         }
     }

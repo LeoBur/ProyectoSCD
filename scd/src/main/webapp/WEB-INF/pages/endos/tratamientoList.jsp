@@ -9,6 +9,10 @@
 </head>
 <body class="home">
 
+<c:if test="${empty tratamientoList}">
+  <c:redirect url="/endos/tratamiento?search=${dni}"/>
+</c:if>
+
 <div class="container-fluid">
 <div class="col-md-2">
     <h3>Tratamientos de</h3>
@@ -19,8 +23,10 @@
 	<div class="well">
         <div class="row">
 		<display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1" defaultorder="descending"
-		    class="table table-condensed table-striped table-hover">
-		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" />
+		    class="table table-condensed table-striped table-hover" export="false">
+		  <display:caption><h3>${paciente}</h3></display:caption>
+		  <display:caption media="pdf">${paciente}</display:caption>
+		  <display:column property="fechaTratamiento" title="Fecha del Tratamiento"/>
 		  <display:column href="prescripciones.jsp" paramId="id" paramProperty="idTratamiento">
 		    Ver Prescripcion
 		  </display:column>

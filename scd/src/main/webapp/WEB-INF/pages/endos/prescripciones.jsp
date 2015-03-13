@@ -18,10 +18,18 @@
 	<div class="well">
 	  <div class="row">
 	    <display:table name="prescripcionesList" id="table" defaultsort="0" pagesize="12"
-	        class="table table-condensed table-striped table-hover">
-    		  <display:column property="medicamento.nombreComercial" title="Nombre Comercial" />
-    		  <display:column property="medicamento.presentacion" title="Presentacion" />
-    		  <display:column property="descripcion" title="Presentacion" />
+	        class="table table-condensed table-striped table-hover" export="false">
+
+	          <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
+	          <display:caption><h3>Tratamiento ${paciente}</h3></display:caption>
+	          <display:caption media="pdf">Tratamiento ${paciente} ${fechaTratamiento}</display:caption>
+    		  <display:column property="medicamento.nombreComercial" title="Nombre Comercial"/>
+    		  <display:column property="medicamento.presentacion" title="Presentacion"/>
+    		  <display:column property="descripcion" title="Presentacion"/>
+              <display:setProperty name="export.pdf" value="true" />
+              <display:setProperty name="export.excel" value="false" />
+              <display:setProperty name="export.xml" value="false" />
+              <display:setProperty name="export.csv" value="false" />
     	</display:table>
       </div>
       <div class="row">
