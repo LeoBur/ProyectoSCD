@@ -85,17 +85,17 @@ public class ConsultaDietaController extends BaseFormController{
 
 						if (username.equals(request.getRemoteUser())) {
 							if (e.getNombreDiaDieta().name().equals("LUNES_1")) {
-								lunes.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								lunes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							} else if (e.getNombreDiaDieta().name().equals("MARTES_1")) {
-								martes.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								martes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							} else if (e.getNombreDiaDieta().name().equals("MIERCOLES_1")) {
-								miercoles.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								miercoles.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							} else if (e.getNombreDiaDieta().name().equals("JUEVES_1")) {
-								jueves.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								jueves.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							} else if (e.getNombreDiaDieta().name().equals("VIERNES_1")) {
-								viernes.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								viernes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							} else {
-								sabado.add(new DietaParaMostrar(dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getNombre().name(), dietas.get(i).getDiasDieta().iterator().next().getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+								sabado.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
 							}
 						}
 					}
@@ -103,7 +103,7 @@ public class ConsultaDietaController extends BaseFormController{
 			}
 		}
 		if (lunes.isEmpty() && martes.isEmpty() && miercoles.isEmpty() && jueves.isEmpty() && viernes.isEmpty() && sabado.isEmpty()) {
-			saveInfo(request, "No existe dieta cargada para este mes. Comuniquese con su nutricionista para que le recete una...");
+			saveInfo(request, "No existe dieta cargada para este mes. Comuniquese con su nutricionista para que le recete una");
 		}
 		mv.addObject("lunesList", lunes);
 		mv.addObject("martesList", martes);

@@ -92,6 +92,34 @@ public class AbmDietaController extends BaseFormController{
             }
         }
 
+        List<Dieta> dietas = new ArrayList<>();
+        dietas = dietaManager.getDietas();
+        int k;
+        Date fechaInicio = null;
+        Calendar calendario = Calendar.getInstance();
+        String formatin="MM";
+        String anio="YYYY";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatin);
+        SimpleDateFormat anioFormat = new SimpleDateFormat(anio);
+        int añoActual = Integer.parseInt(anioFormat.format(dietaRecomendadaForm.getFechaAlta().getTime()));
+        int mesActual = Integer.parseInt(dateFormat.format(calendario.getTime()));
+        boolean flag = false;
+
+        for (k = 0; k < dietas.size(); k++){
+            fechaInicio = dietas.get(k).getFechaAlta();
+            calendario.setTime(fechaInicio);
+            int añoDB = Integer.parseInt(anioFormat.format(dietas.get(k).getFechaAlta()));
+            int mesDB = Integer.parseInt(dateFormat.format(dietas.get(k).getFechaAlta()));
+            if (añoActual == añoDB && mesActual == mesDB && dietas.get(k).getPaciente().getPersona().getUsername().equals(dietaRecomendadaForm.getName())){
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag){
+            saveInfo(request, "Existe dieta cargada para este mes. Comuniquese con su nutricionista...");
+            return success;
+        }
         //Lunes
         Alimento alimentoLunes1 = alimentoManager.getByNombre(dietaRecomendadaForm.getNombreAlimentoLunes1());
         Comida comidaLunes1 = new Comida();
@@ -116,6 +144,9 @@ public class AbmDietaController extends BaseFormController{
         }
         if (dietaRecomendadaForm.getMomentoLunes1().name().equals("CENA")){
             momentoDiaLunes1.setNombre(MomentoDia.MomentosDia.CENA);
+        }
+        if (dietaRecomendadaForm.getMomentoLunes1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaLunes1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
         }
         Set<MomentoDia> momentoDiasLunes = new HashSet<>(0);
         momentoDiasLunes.add(momentoDiaLunes1);
@@ -178,6 +209,9 @@ public class AbmDietaController extends BaseFormController{
         }
         if (dietaRecomendadaForm.getMomentoMartes1().name().equals("CENA")){
             momentoDiaMartes1.setNombre(MomentoDia.MomentosDia.CENA);
+        }
+        if (dietaRecomendadaForm.getMomentoMartes1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaMartes1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
         }
 
         Set<MomentoDia> momentoDiasMartes = new HashSet<>(0);
@@ -242,6 +276,9 @@ public class AbmDietaController extends BaseFormController{
         if (dietaRecomendadaForm.getMomentoMiercoles1().name().equals("CENA")){
             momentoDiaMiercoles1.setNombre(MomentoDia.MomentosDia.CENA);
         }
+        if (dietaRecomendadaForm.getMomentoMiercoles1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaMiercoles1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
+        }
 
         Set<MomentoDia> momentoDiasMiercoles = new HashSet<>(0);
         momentoDiasMiercoles.add(momentoDiaMiercoles1);
@@ -304,6 +341,9 @@ public class AbmDietaController extends BaseFormController{
         }
         if (dietaRecomendadaForm.getMomentoJueves1().name().equals("CENA")){
             momentoDiaJueves1.setNombre(MomentoDia.MomentosDia.CENA);
+        }
+        if (dietaRecomendadaForm.getMomentoJueves1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaJueves1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
         }
 
         Set<MomentoDia> momentoDiasJueves = new HashSet<>(0);
@@ -368,6 +408,9 @@ public class AbmDietaController extends BaseFormController{
         }
         if (dietaRecomendadaForm.getMomentoViernes1().name().equals("CENA")){
             momentoDiaViernes1.setNombre(MomentoDia.MomentosDia.CENA);
+        }
+        if (dietaRecomendadaForm.getMomentoViernes1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaViernes1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
         }
 
         Set<MomentoDia> momentoDiasViernes = new HashSet<>(0);
@@ -434,6 +477,9 @@ public class AbmDietaController extends BaseFormController{
         if (dietaRecomendadaForm.getMomentoSabado1().name().equals("CENA")){
             momentoDiaSabados1.setNombre(MomentoDia.MomentosDia.CENA);
         }
+        if (dietaRecomendadaForm.getMomentoSabado1().name().equals("ANTES_DE_ACOSTARSE")){
+            momentoDiaSabados1.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
+        }
 
         Set<MomentoDia> momentoDiasSabados = new HashSet<>(0);
         momentoDiasSabados.add(momentoDiaSabados1);
@@ -477,7 +523,7 @@ public class AbmDietaController extends BaseFormController{
         dieta.setPaciente(pacienteManager.getPacienteByUsername(dietaRecomendadaForm.getName()));
         dieta.setDescripcion("");
         dieta.setFechaAlta(dietaRecomendadaForm.getFechaAlta());
-        dieta.setFechaHasta(dietaRecomendadaForm.getFechaHasta());
+        //dieta.setFechaHasta(dietaRecomendadaForm.getFechaHasta());
 
         dietaManager.saveDieta(dieta);
 
@@ -515,6 +561,9 @@ public class AbmDietaController extends BaseFormController{
         }
         if (momento.equals("CENA")){
             momentoDia.setNombre(MomentoDia.MomentosDia.CENA);
+        }
+        if (momento.equals("ANTES_DE_ACOSTARSE")){
+            momentoDia.setNombre(MomentoDia.MomentosDia.ANTES_DE_ACOSTARSE);
         }
         return momentoDia;
     }

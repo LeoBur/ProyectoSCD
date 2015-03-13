@@ -271,35 +271,14 @@
                             language: 'pt-BR',
                             showToday: true,
                             pickTime: false,
+                            viewMode: 'years',
+                            format: 'MM/YYYY',
                             maxDate: new Date()
                             });
                         });
                     </script>
                 </div>
-                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                    <spring:bind path="fechaHasta">
-                    <appfuse:label styleClass="control-label" key="paciente.fecha.hasta"/>
-                    <span class="required">*</span>
-                        <div class='input-group date' id='datetimepicker2'>
-                            <input type="text" name="fechaHasta" id="fechaHasta" class="form-control" readonly="readonly"
-                            placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
-                            tabindex="5" data-date-format="DD/MM/YYYY">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </spring:bind>
-                    <label for="fechaHasta" generated="true" class="error"></label>
-                    <form:errors path="fechaHasta" cssClass="help-block"/>
-                <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker2').datetimepicker({
-                        language: 'pt-BR',
-                        showToday: true,
-                        pickTime: false
-                        });
-                    });
-                </script>
-                </div>
+
             </div>
         </div>
     <div id="tabs">
