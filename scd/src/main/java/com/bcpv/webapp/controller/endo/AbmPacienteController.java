@@ -62,61 +62,10 @@ public class AbmPacienteController extends BaseFormController {
 
     }
 
-    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request, List<Localidad> localidades, Locale locale, boolean b) {
-        final String dni = pacienteForm.getDni();
-        try {
-            if (StringUtils.isEmpty(dni)){
-                throw new NullPointerException();
-            }
-
-            Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
-            Paciente paciente = null;
-            if (persona.getId() != null) {
-                pacienteForm.setNuevaPersona(false);
-                pacienteForm.setId(persona.getId());
-                pacienteForm.setDni(dni);
-                pacienteForm.setUsername(persona.getUsername());
-                pacienteForm.setFirstName(persona.getFirstName());
-                pacienteForm.setLastName(persona.getLastName());
-                pacienteForm.setEmail(persona.getEmail());
-                pacienteForm.setUsername(persona.getUsername());
-                pacienteForm.setPhoneNumber(persona.getPhoneNumber());
-                pacienteForm.setDia(persona.getFch_nac());
-                pacienteForm.setSexo(persona.getSexo());
-                pacienteForm.setDomicilio(persona.getDomicilio());
-                pacienteForm.setEnabled(persona.isEnabled());
-                if (b == false) {
-                    paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
-                }
-                if (paciente != null) {
-                    pacienteForm.setLimiteInferior(paciente.getLimiteInf());
-                    pacienteForm.setLimiteSuperior(paciente.getLimiteSup());
-                    pacienteForm.setTipoDiabetes(paciente.getTipo().getTipoDiab());
-                }
-                mv.addObject("pacienteForm", pacienteForm);
-                List<Localidad> filtradas = new ArrayList<>();
-                for (Localidad localidad : localidades) {
-                    if (localidad.getProvincia().getNombre().equals(pacienteForm.getProvincia())) {
-                        filtradas.add(localidad);
-                    }
-                }
-                mv.addObject("localidadList", filtradas);
-            } else throw new EntityNotFoundException();
-
-        } catch (NullPointerException npe){
-            saveInfo(request, getText("user.superUser.info.dni", locale));
-        } catch (EntityNotFoundException enfe) {
-            if (((EntityNotFoundException) enfe).getMessage().contains("Paciente con username") && personaManager.getPersonaByDni(pacienteForm.getDni()) != null ){
-                b = true;
-                buscar(mv, pacienteForm, request, localidades, locale, b);
-            }
-            saveInfo(request, getText("user.superUser.info.nuevoPaciente", locale));
-        }
-    }
-
     @RequestMapping(value = "endos/newPaciente*", method = RequestMethod.GET)
     public ModelAndView showForm(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
-                                 final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+                                 final HttpServletRequest request,
+                                 @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/newPaciente");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
@@ -124,13 +73,13 @@ public class AbmPacienteController extends BaseFormController {
         List<String> tipoDiabetesList = tipoDiabetesManager.getTipoDiabetes();
         if (null == search && request.getAttribute("pacienteForm") == null) {
             PacienteForm paciente = new PacienteForm();
-            mv.addObject("localidadList", localidades);
             mv.addObject("pacienteForm", paciente);
         } else {
             boolean b = false;
             buscar(mv, pacienteForm, request, localidades, locale, b);
         }
         mv.addObject("provinciaList", provincias);
+        mv.addObject("localidadList", localidades);
         mv.addObject("tipoDiabetesList", tipoDiabetesList);
         return mv;
     }
@@ -269,6 +218,60 @@ public class AbmPacienteController extends BaseFormController {
             }
         }
         return success;
+    }
+
+    private void buscar(ModelAndView mv, PacienteForm pacienteForm, HttpServletRequest request,
+                        List<Localidad> localidades, Locale locale, boolean b) {
+        final String dni = pacienteForm.getDni();
+        try {
+            if (StringUtils.isEmpty(dni)){
+                throw new NullPointerException();
+            }
+
+            Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
+            Paciente paciente = null;
+            if (persona.getId() != null) {
+                pacienteForm.setNuevaPersona(false);
+                pacienteForm.setId(persona.getId());
+                pacienteForm.setDni(dni);
+                pacienteForm.setUsername(persona.getUsername());
+                pacienteForm.setFirstName(persona.getFirstName());
+                pacienteForm.setLastName(persona.getLastName());
+                pacienteForm.setEmail(persona.getEmail());
+                pacienteForm.setUsername(persona.getUsername());
+                pacienteForm.setPhoneNumber(persona.getPhoneNumber());
+                pacienteForm.setDia(persona.getFch_nac());
+                pacienteForm.setSexo(persona.getSexo());
+                pacienteForm.setDomicilio(persona.getDomicilio());
+                pacienteForm.setEnabled(persona.isEnabled());
+                if (b == false) {
+                    paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
+                }
+                if (paciente != null) {
+                    pacienteForm.setLimiteInferior(paciente.getLimiteInf());
+                    pacienteForm.setLimiteSuperior(paciente.getLimiteSup());
+                    pacienteForm.setTipoDiabetes(paciente.getTipo().getTipoDiab());
+                } else {
+                    throw new EntityNotFoundException("Paciente no existe");
+                }
+                mv.addObject("pacienteForm", pacienteForm);
+                List<Localidad> filtradas = new ArrayList<>();
+                for (Localidad localidad : localidades) {
+                    if (localidad.getProvincia().getNombre().equals(pacienteForm.getProvincia())) {
+                        filtradas.add(localidad);
+                    }
+                }
+                mv.addObject("localidadList", filtradas);
+            } else throw new EntityNotFoundException("La persona no existe");
+
+        } catch (NullPointerException npe){
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+        } catch (EntityNotFoundException enfe) {
+            if (enfe.getMessage().equals("La persona no existe")) {
+                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            } else if (enfe.getMessage().equals("Paciente no existe"))
+            saveInfo(request, getText("user.superUser.info.nuevoPaciente", locale));
+        }
     }
 
     private Domicilio createDomicilio(PacienteForm pacienteForm) {
