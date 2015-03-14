@@ -185,7 +185,15 @@ public class AbmPacienteController extends BaseFormController {
         persona.setDomicilio(createDomicilio(pacienteForm));
         Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser()));
         TipoDiabetes tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
-        Paciente paciente = new Paciente(tipoDiabetes, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
+        Paciente paciente;
+        if (isNew) {
+            paciente = new Paciente(tipoDiabetes, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
+        } else {
+            paciente = pacienteManager.loadPacienteByDNI(persona);
+            paciente.setLimiteInf(pacienteForm.getLimiteInferior());
+            paciente.setLimiteSup(pacienteForm.getLimiteSuperior());
+            paciente.setTipo(tipoDiabetes);
+        }
 
         if (request.getParameter("delete") != null) {
             paciente = pacienteManager.loadPacienteByDNI(persona);
@@ -204,14 +212,15 @@ public class AbmPacienteController extends BaseFormController {
             try{
                 personaManager.savePersona(persona);
                 paciente = pacienteManager.savePaciente(paciente);
-                PacienteEnTratamiento pacienteEnTratamiento = new PacienteEnTratamiento(paciente,endo);
-                pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
-                endo.addPacienteEnTratamiento(pacienteEnTratamiento);
-                endocrinologoManager.saveEndocrinologo(endo);
+
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
             }
             if (isNew) {
+                PacienteEnTratamiento pacienteEnTratamiento = new PacienteEnTratamiento(paciente,endo);
+                pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
+                endo.addPacienteEnTratamiento(pacienteEnTratamiento);
+                endocrinologoManager.saveEndocrinologo(endo);
                 saveMessage(request, getText("user.endocrinologist.pacientSaved", locale));
             } else {
                 saveMessage(request, getText("user.endocrinologist.pacientUpdated", locale));

@@ -39,12 +39,12 @@
   </div>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="well">
         <div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-8 form-group">
+                    <div class="col-md-6 form-group">
 	                    <input type="text" id="endo-input-search" name="endo-input-search" class="form-control" placeholder="Busque por DNI o apellido">
                     </div>
 	                <div id="actions" class="btn-group">
@@ -63,33 +63,20 @@
         <c:if test="${not empty lista}">
             <table class="table table-condensed table-striped table-hover" style="width: 100%">
                 <tr>
-                    <th style="width: 15%" align="left" class="sortable sorted order1">
-                        <fmt:message key="user.dni" />
-                    </th>
-                    <th style="width: 20%" align="left" class="sortable sorted order1">
-                        <fmt:message key="user.lastName" />
-                    </th>
-                    <th style="width: 20%" align="left" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 8%" align="center" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
-                    <th style="width: 12%" align="center" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                    <th style="width: 15%" align="center" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
-                    <th style="width: 10%" align="center" class="sortable sorted order1">Especialistas</th>
+                    <th align="left" class="sortable sorted order1"><fmt:message key="user.dni" /></th>
+                    <th class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
+                    <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                    <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
+                    <th class="sortable sorted order1" align="center"><fmt:message key="activeEndos.acciones" /></th>
+                    <th class="sortable sorted order1" align="center"><fmt:message key="user.treatment.title" /></th>
+                    <th class="sortable sorted order1" align="center">Especialistas</th>
                 </tr>
-            </table>
-        </c:if>
-        <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
-                <table class="table table-condensed table-striped table-hover">
+                <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
                     <tr>
-                        <td style="width: 15%">
-                            <c:out value="${endo.persona.dni}" />
-                        </td>
-                        <td style="width: 20%">
-                            <c:out value="${endo.persona.lastName}" />
-                        </td>
-                        <td style="width: 20%">
-                            <c:out value="${endo.persona.firstName}" />
-                        </td>
-                        <td style="width: 8%">
+                        <td><c:out value="${endo.persona.dni}" /></td>
+                        <td><c:out value="${endo.persona.lastName}" /></td>
+                        <td><c:out value="${endo.persona.firstName}" /></td>
+                        <td align="center">
                             <c:choose>
                                 <c:when test="${endo.persona.enabled == 'true'}">
                                     <input type="checkbox" checked="true" disabled="true"/>
@@ -99,18 +86,13 @@
                                 </c:when>
                             </c:choose>
                         </td>
-                        <td style="width: 12%">
-                            <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
-                        </td>
-                        <td style="width: 15%">
-                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a>
-                        </td>
-                        <td style="width: 10%">
-                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a>
-                        </td>
+                        <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a></td>
+                        <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td>
+                        <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td> <%-- Cambiar por la url que corresponda --%>
                     </tr>
-                </table>
-        </c:forEach>
+                </c:forEach>
+            </table>
+        </c:if>
     </div>
 </div>
 </div>
