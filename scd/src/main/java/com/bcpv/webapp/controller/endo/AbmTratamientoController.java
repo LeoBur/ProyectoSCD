@@ -199,7 +199,7 @@ public class AbmTratamientoController extends BaseFormController{
         log.debug("entering 'editTratamiento' method...");
 
         String success = "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
-                            personaManager.getPersonaByDni(params.get("dni").get(0))).getId();
+                            personaManager.getPersonaByDni(params.get("dni").get(0))).getPersona().getDni();
         Locale locale = request.getLocale();
 
         Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(params.get("idTratamiento").get(0)));
