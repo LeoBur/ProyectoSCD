@@ -71,7 +71,7 @@ public class Paciente implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Medicion> getMediciones() {
 		return this.mediciones;
@@ -81,7 +81,7 @@ public class Paciente implements Serializable{
 		this.mediciones = mediciones;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Peso> getPesos() {
 		return pesos;
@@ -91,7 +91,7 @@ public class Paciente implements Serializable{
 		this.pesos = pesos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<Dieta> getDietas() {
 		return dietas;
@@ -101,7 +101,7 @@ public class Paciente implements Serializable{
 		this.dietas = dietas;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<RegistroComidas> getRegistroComidas() {
 		return registroComidas;

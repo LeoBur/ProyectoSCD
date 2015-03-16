@@ -114,7 +114,8 @@ $(document).ready(function(){
 					digits:true
 				},
 				limiteSuperior:{
-					digits:true
+					digits:true,
+					min: "#limiteInferior"
 				},
                 cantidadLunes1:{
                 	required:true

@@ -6134,14 +6134,14 @@ INSERT INTO `scd`.`domicilio` (`id`, `calle`, `dpto`, `nro`, `piso`, `id_localid
 ('1', 'Avenida Siempre viva', 'A', '456', 'PB', '1279');
 
 INSERT INTO `scd`.`medicamento` (`idMedicamento`, `Grupo_Medicamento`, `Nom_Comercial`, `Nom_Generico`, `Presentacion`) VALUES 
-(NULL, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibupirac', 'Ibuprofeno', 'Capsula Blanda'), 
-(NULL, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibu evanol', 'Ibuprofeno', 'Comprimidos');
+(1, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibupirac', 'Ibuprofeno', 'Capsula Blanda'),
+(2, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibu evanol', 'Ibuprofeno', 'Comprimidos');
 
 INSERT INTO `scd`.`tiposdiabetes` (`id_tipo`, `caracteristica`, `tipo_diabetes`) VALUES ('1', 'Algun', 'TIPO1'), ('2', 'Otro', 'TIPO2');
 
 INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES 
-(NULL, 'Dolor de cabeza'), 
-(NULL, 'Fiebre');
+(1, 'Dolor de cabeza'),
+(2, 'Fiebre');
 
 INSERT INTO `scd`.`alimento` (`idAlimento`, `cantCaloriasX100`, `cantCarbohidratosX100`, `cantGlucosaX100`, `cantGrasasX100`, `cantProteinasX100`, `Nombre_Alimento`) VALUES
 ('1', '100', '10', '5', '10', '4', 'PAN'),
