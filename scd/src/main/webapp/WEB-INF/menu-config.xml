@@ -21,7 +21,9 @@
 
     </Menu>
         <Menu name="HomeNutriPacienteList" title="home.Nutri.Paciente.Lista" page="/nutricionista/pacienteList" roles="ROLE_NUTRI"/>
-        <Menu name="HomeNutriCargarAlimento" title="home.Nutri.Cargar.Alimento" page="/nutricionista/cargarAlimento" roles="ROLE_NUTRI"/>
+        <Menu name="HomeNutriCargarAlimento" title="home.Nutri.ListaAlimentos" page="/nutricionista/alimentoList" roles="ROLE_NUTRI">
+
+        </Menu>
         <Menu name="HomeNutriDietaRecomendada" title="home.Nutri.DietaRecomendada" page="/nutricionista/dieta" roles="ROLE_NUTRI"/>
 
     <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">

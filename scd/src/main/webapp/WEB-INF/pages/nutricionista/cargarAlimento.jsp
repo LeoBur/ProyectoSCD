@@ -43,7 +43,7 @@
 <!-- Ac� comienzan los formularios -->
 
 <div class="col-sm-7">
-	<spring:bind path="alimentoForm.*">
+	<spring:bind path="alimento.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
           	<a href="#" data-dismiss="alert" class="close">&times;</a>
@@ -54,14 +54,14 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="alimentoForm" method="post" action="cargarAlimento" id="formulario" autocomplete="off" name="miFormulario"
+	<form:form commandName="alimento" method="post" action="cargarAlimento" id="formulario" autocomplete="off" name="miFormulario"
            cssClass="well" onsubmit="return validateUser(this)">
         <spring:bind path="idAlimento">
         	<input type="hidden" name="idAlimento" id="idAlimento" class="form-control" value="${status.value}"/>
         </spring:bind>
         <div class="row">
             <div>
-                <spring:bind path="alimentoForm.nombre">
+                <spring:bind path="alimento.nombre">
                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                         <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento" />
                             <input type="text" name="nombre" id="nombre" class="form-control"
@@ -72,7 +72,7 @@
             </div>
             <div>
                 <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                    <spring:bind path="alimentoForm.cantGlucosaX100">
+                    <spring:bind path="alimento.cantGlucosaX100">
                         <appfuse:label styleClass="control-label" key="user.food.cantGlucosaX100"/>
                         <input type="text" name="cantGlucosaX100" id="cantGlucosaX100" class="form-control"
                         placeholder="<fmt:message key="user.food.cantGlucosaX100"/>" value="${status.value}" maxlength="50"
@@ -86,7 +86,7 @@
 
 		<div class="row">
              <div>
-                  <spring:bind path="alimentoForm.cantGrasasX100">
+                  <spring:bind path="alimento.cantGrasasX100">
                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                         <appfuse:label styleClass="control-label" key="user.food.cantGrasasX100" />
                         <input type="text" name="cantGrasasX100" id="cantGrasasX100" class="form-control"
@@ -95,7 +95,7 @@
                   </spring:bind>
              </div>
              <div>
-                <spring:bind path="alimentoForm.cantProteinasX100">
+                <spring:bind path="alimento.cantProteinasX100">
                 <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                     <appfuse:label styleClass="control-label" key="user.food.cantProteinasX100" />
                     <span class="required">*</span>
@@ -111,7 +111,7 @@
 		</div>
 		<div class="row">
                      <div>
-                          <spring:bind path="alimentoForm.cantCarbohidratosX100">
+                          <spring:bind path="alimento.cantCarbohidratosX100">
                             <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                 <appfuse:label styleClass="control-label" key="user.food.cantCarbohidratosX100" />
                                 <input type="text" name="cantCarbohidratosX100" id="cantCarbohidratosX100" class="form-control"
@@ -120,7 +120,7 @@
                           </spring:bind>
                      </div>
                      <div>
-                        <spring:bind path="alimentoForm.cantCaloriasX100">
+                        <spring:bind path="alimento.cantCaloriasX100">
                         <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                             <appfuse:label styleClass="control-label" key="user.food.cantCaloriasX100" />
                             <span class="required">*</span>
@@ -142,6 +142,13 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
+
+            <c:if test="${not empty alimento.idAlimento}">
+                <button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+                    <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+                </button>
+            </c:if>
+
 			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
 
 				<i class="icon-remove"></i>
@@ -163,7 +170,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/nutricionista/pacienteList";
+				window.location.href = "http://localhost:8080/nutricionista/alimentoList";
 			});
 	</script>
 

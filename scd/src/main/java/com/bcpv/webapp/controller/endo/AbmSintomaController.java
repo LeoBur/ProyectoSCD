@@ -32,9 +32,20 @@ public class AbmSintomaController extends BaseFormController {
 
 		@ModelAttribute
 	 	@RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.GET)
-	    public Sintoma showSintomas(){
-	        Sintoma sintoma = new Sintoma();
-			return sintoma;
+	    public ModelAndView showSintomas(@ModelAttribute("sintoma") final Sintoma sintoma, final HttpServletRequest request){
+	        //Sintoma sintoma = new Sintoma();
+			//return sintoma;
+			ModelAndView mv = new ModelAndView("endos/sintomaList");
+			List<Sintoma> sintomas;
+			sintomas = sintomaManager.getSintomas();
+			if (sintomas.size() == 0) {
+				mv.addObject("sintomaList", sintomas);
+				saveInfo(request, "No existe ningun Sintoma cargado");
+				return mv;
+			} else {
+				mv.addObject("sintomaList", sintomas);
+			}
+			return mv;
 	    }
 
 	@RequestMapping(value = "/endos/sintomaList*", method = RequestMethod.POST)

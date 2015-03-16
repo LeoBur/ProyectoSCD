@@ -41,9 +41,18 @@ public class AbmMedicamentoController extends BaseFormController{
 	
 	@ModelAttribute
 	@RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.GET)
-    public Medicamento showMedicamentos(){
-		Medicamento medicamento = new Medicamento();
-        return medicamento;
+    public ModelAndView showMedicamentos(@ModelAttribute("medicamento") final Medicamento medicamento, final HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("endos/medicamentoList");
+		List<Medicamento> medicamentos;
+		medicamentos = medicamentoManager.getMedicamentos();
+		if (medicamentos.size() == 0) {
+			mv.addObject("medicamentoList", medicamentos);
+			saveInfo(request, "No existe ningun Medicamento cargado");
+			return mv;
+		} else {
+			mv.addObject("medicamentoList", medicamentos);
+		}
+		return mv;
     }
 	
 	@RequestMapping(value = "/endos/medicamentoList*", method = RequestMethod.POST)
