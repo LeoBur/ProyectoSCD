@@ -30,16 +30,16 @@
 </script>
 </head>
 
-<div class="col-sm-2">
+<div class="col-md-2">
     <h3>Especialistas</h2>
 </div>
 
-<div class="col-sm-7">
+<div class="col-md-9">
     <div class="well">
         <div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-md-6 form-group">
 	                    <input type="text" id="especialista-input-search" name="especialista-input-search" class="form-control">
                     </div>
 	                <div id="actions" class="btn-group">
