@@ -1,9 +1,6 @@
 package com.bcpv.webapp.controller.endo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +15,6 @@ import com.bcpv.model.*;
 import com.bcpv.service.*;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 import org.apache.commons.lang3.StringUtils;
-import org.displaytag.decorator.CheckboxTableDecorator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

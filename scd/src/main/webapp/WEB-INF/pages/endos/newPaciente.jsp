@@ -45,6 +45,29 @@
       })
     })
     </script>
+    <script type="text/javascript" charset="utf-8">
+        function onLoadBody()
+           {
+            if (! (document.getElementById('enabled').value)) {
+               document.getElementById('firstName').readOnly = true;
+               document.getElementById('lastName').readOnly = true;
+               document.getElementById('dia').readOnly = true;
+               document.getElementById('sexo').readOnly = true;
+               document.getElementById('phoneNumber').readOnly = true;
+               document.getElementById('email').readOnly = true;
+               document.getElementById('provincia').readOnly = true;
+               document.getElementById('localidad').readOnly = true;
+               document.getElementById('calle').readOnly = true;
+               document.getElementById('numero').readOnly = true;
+               document.getElementById('dpto').readOnly = true;
+               document.getElementById('piso').readOnly = true;
+               document.getElementById('limiteInferior').readOnly = true;
+               document.getElementById('limiteSuperior').readOnly = true;
+               document.getElementById('tipoDiabetes').readOnly = true;
+
+            }
+           }
+    </script>
 </head>
 
 <div class="container-fluid">
