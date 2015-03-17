@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 
-<c:set var="lista" value="${pacienteList}"/>
+<c:set var="lista" value="${especialistasList}"/>
 
 <head>
 <title><fmt:message key="home.title" /></title>
@@ -12,7 +12,7 @@
 <script>
     $(document).ready(function() {
         $('#endo-input-search').autocomplete({
-            serviceUrl: 'http://localhost:8080/endos/pacienteList/getTags',
+            serviceUrl: 'http://localhost:8080/endos/asignarEspecialista/getTags',
             paramName: "tagName",
             delimiter: "," ,
             transformResult: function(response) {
@@ -35,17 +35,17 @@
 <div class="container-fluid">
 <div class="col-md-2">
   <div class='text-center'>
-    <h3>Pacientes</h3>
+    <h3>Asignar Especialista</h3>
   </div>
 </div>
 
-<div class="col-md-9">
+<div class="col-md-8">
     <div class="well">
         <div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-6 form-group">
-	                    <input type="text" id="endo-input-search" name="endo-input-search" class="form-control" placeholder="Busque por DNI o apellido">
+                    <div class="col-sm-6 form-group">
+	                    <input type="text" id="endo-input-search" name="endo-input-search" class="form-control">
                     </div>
 	                <div id="actions" class="btn-group">
 	                    <span>
@@ -61,22 +61,34 @@
 	    </div>
         <br></br>
         <c:if test="${not empty lista}">
-            <table class="table table-condensed table-striped table-hover" style="width: 100%">
+            <table class="table table-condensed table-striped table-hover">
                 <tr>
-                    <th align="left" class="sortable sorted order1"><fmt:message key="user.dni" /></th>
-                    <th class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
-                    <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
-                    <th class="sortable sorted order1" align="center"><fmt:message key="activeEndos.acciones" /></th>
-                    <th class="sortable sorted order1" align="center"><fmt:message key="user.treatment.title" /></th>
-                    <th class="sortable sorted order1" align="center">Especialistas</th>
+                    <th style="width: 20%" class="sortable sorted order1">
+                        <fmt:message key="user.dni" />
+                    </th>
+                    <th style="width: 20%" class="sortable sorted order1">
+                        <fmt:message key="user.lastName" />
+                    </th>
+                    <th style="width: 20%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                    <th style="width: 10%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
+                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
                 </tr>
-                <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
+            </table>
+        </c:if>
+        <c:forEach var="endo" items="${especialistasList}" varStatus="index" >
+                <table class="table table-condensed table-striped table-hover">
                     <tr>
-                        <td><c:out value="${endo.persona.dni}" /></td>
-                        <td><c:out value="${endo.persona.lastName}" /></td>
-                        <td><c:out value="${endo.persona.firstName}" /></td>
-                        <td align="center">
+                        <td style="width: 20%">
+                            <c:out value="${endo.persona.dni}" />
+                        </td>
+                        <td style="width: 20%">
+                            <c:out value="${endo.persona.lastName}" />
+                        </td>
+                        <td style="width: 20%">
+                            <c:out value="${endo.persona.firstName}" />
+                        </td>
+                        <td style="width: 10%">
                             <c:choose>
                                 <c:when test="${endo.persona.enabled == 'true'}">
                                     <input type="checkbox" checked="true" disabled="true"/>
@@ -86,13 +98,18 @@
                                 </c:when>
                             </c:choose>
                         </td>
-                        <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a></td>
-                        <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td>
-                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.persona.dni}">Ver</a></td> <%-- Cambiar por la url que corresponda --%>
+                        <td style="width: 15%">
+                            <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
+                        </td>
+                        <td style="width: 15%">
+                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver Tratamientos</a>
+                        </td>
+                         <td style="width: 15%">
+                            <a href="${ctx}/endos/asignarEspecialista?search=${endo.persona.dni}">Asignar Especialista</a>
+                         </td>
                     </tr>
-                </c:forEach>
-            </table>
-        </c:if>
+                </table>
+        </c:forEach>
     </div>
 </div>
 </div>

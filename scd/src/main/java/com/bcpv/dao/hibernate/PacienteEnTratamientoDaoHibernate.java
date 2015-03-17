@@ -35,4 +35,17 @@ public class PacienteEnTratamientoDaoHibernate extends GenericDaoHibernate<Pacie
 		getSession().flush();
 		return pacienteEnTratamiento;
 	}
+
+	@Override
+	public PacienteEnTratamiento getPacienteEnTratamientoByDni(String dni)
+			throws EntityNotFoundException {
+		Query qry = getSession().createQuery("from PacienteEnTratamiento pte where  pte.paciente.persona.dni = :dni");
+		qry.setParameter("dni", dni);
+		PacienteEnTratamiento pacienteEnTratamiento = (PacienteEnTratamiento) qry.uniqueResult();
+		if (pacienteEnTratamiento == null) {
+			throw new EntityNotFoundException("No existe el paciente en tratamiento");
+		} else {
+			return pacienteEnTratamiento;
+		}
+	}
 }

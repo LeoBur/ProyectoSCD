@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bcpv.Constants;
 import com.bcpv.model.*;
 import com.bcpv.service.*;
+import com.bcpv.service.impl.EspecialistaManagerImpl;
 import com.bcpv.webapp.controller.forms.PacienteForm;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.CheckboxTableDecorator;
@@ -57,6 +58,9 @@ public class AbmPacienteController extends BaseFormController {
 
     @Autowired
     PacienteEnTratamientoManager pacienteEnTratamientoManager;
+
+    @Autowired
+    EspecialistaManager especialistaManager;
 
     public AbmPacienteController(){
 
@@ -325,4 +329,44 @@ public class AbmPacienteController extends BaseFormController {
         return domicilio;
     }
 
+    @RequestMapping(value = "endos/especialistaListPaciente*", method = RequestMethod.GET)
+    public ModelAndView showEspecialistasDePaciente(BindingResult errors,
+                                                    final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("endos/especialistaListPaciente");
+        Locale locale = request.getLocale();
+        PacienteEnTratamiento pacienteEnTratamiento;
+        try{
+            pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(search);
+        }
+        catch (EntityNotFoundException enfe) {
+            saveInfo(request, getText("user.endocrinologist.pacienteEnTratamientoNotFound", locale));
+            return mv;
+        }
+
+        if (pacienteEnTratamiento.getEspecialista() == null){
+            saveInfo(request, getText("user.endocrinologist.specialistsNotAssociated", locale));
+        } else {
+            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialista());
+        }
+        mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
+        mv.addObject("pacienteFullName",pacienteEnTratamiento.getPaciente().getPersona().getFullName());
+        return mv;
+    }
+
+   /* @RequestMapping(value = "endos/asignarEspecialista*", method = RequestMethod.POST) //POST y GET??
+    public String asignarEspecialista(@ModelAttribute("pacienteEnTratamiento") PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
+                           HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new ModelAndView("endos/asignarEspecialista");
+        List<Especialista> especialistas = especialistaManager.getEspecialistasActivos();
+        mv.addObject(especialistas);
+        String success = "redirect:especialistaListPaciente";
+        return success ;
+    }*/
+
+   /* @RequestMapping(value = "endos/desvincularEspecialista*", method = RequestMethod.POST)
+    public String desvincularEspecialista(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
+                                      HttpServletRequest request, HttpServletResponse response){
+
+    }
+*/
 }
