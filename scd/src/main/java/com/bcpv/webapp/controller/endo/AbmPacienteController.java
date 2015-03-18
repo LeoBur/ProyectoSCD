@@ -299,11 +299,10 @@ public class AbmPacienteController extends BaseFormController {
     }
 
     @RequestMapping(value = "endos/especialistaListPaciente*", method = RequestMethod.GET)
-    public ModelAndView showEspecialistasDePaciente(BindingResult errors,
+    public ModelAndView showEspecialistasDePaciente(@ModelAttribute PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
                                                     final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/especialistaListPaciente");
         Locale locale = request.getLocale();
-        PacienteEnTratamiento pacienteEnTratamiento;
         try{
             pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(search);
         }
