@@ -245,6 +245,7 @@ public class AbmTratamientoController extends BaseFormController{
         mv.addObject("tratamientoList", tratamientos);
         mv.addObject("dni", paciente.getPersona().getDni());
         mv.addObject("paciente", paciente.getPersona().getFullName());
+        mv.addObject("enabled", paciente.getPersona().isEnabled());
         return mv;
     }
 
