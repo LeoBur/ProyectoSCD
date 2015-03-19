@@ -73,6 +73,7 @@ public class AbmPacienteController extends BaseFormController {
         List<String> tipoDiabetesList = tipoDiabetesManager.getTipoDiabetes();
         if (null == search && request.getAttribute("pacienteForm") == null) {
             PacienteForm paciente = new PacienteForm();
+            paciente.setEnabled(true);
             mv.addObject("pacienteForm", paciente);
         } else {
             boolean b = false;
