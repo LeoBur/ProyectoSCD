@@ -14,4 +14,6 @@ public interface PacienteEnTratamientoDao extends GenericDao<PacienteEnTratamien
 
 	PacienteEnTratamiento getPacienteEnTratamientoByDni(String dni) throws EntityNotFoundException;
 
+	PacienteEnTratamiento getPacienteEnTratamientoById (Long idPacienteEnTratamiento) throws EntityNotFoundException;
+
 }

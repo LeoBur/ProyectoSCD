@@ -18,7 +18,7 @@ public interface EspecialistaManager extends GenericManager<Especialista, Long>{
 
     List<Especialista> getEspecialistas();
 
-    //List<Especialista> getEspecialistasActivos();
+    List<Especialista> getEspecialistasActivos();
 
     Especialista saveEspecialista(Especialista especialista) throws EntityExistsException;
     

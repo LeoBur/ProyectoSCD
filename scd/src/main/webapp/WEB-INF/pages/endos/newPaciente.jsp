@@ -135,7 +135,7 @@
 	          <spring:bind path="pacienteForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	            <c:choose>
-                    <c:when test="${pacienteForm.enabled=='true'}">
+                    <c:when test="${pacienteForm.enabled=='true'} && ${pacienteForm.dni != null}">
                         <input type="text" name="firstName" id="firstName" class="form-control"
                            placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
                            tabindex="3">

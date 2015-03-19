@@ -97,4 +97,7 @@ public class Especialista implements Serializable{
 		this.persona = persona;
 	}
 
+	public void addPacienteEnTratamiento(PacienteEnTratamiento pacienteEnTratamiento){
+		this.pacientesEnTratamiento.add(pacienteEnTratamiento);
+	}
 }

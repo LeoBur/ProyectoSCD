@@ -49,7 +49,7 @@
 	                    </span>
 	                </div>
 	                <div id="actions" class="btn-group">
-                        <a class="btn btn-primary" href="<c:url value='/endos/newEspecialista'/>">
+                        <a class="btn btn-primary" href="<c:url value='/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}'/>">
                         <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 </tr>
             </table>
         </c:if>
-        <c:forEach var="especialista" items="${especialistaList}" varStatus="index" >
+        <c:forEach var="especialista" items="${especialistasListPaciente}" varStatus="index" >
                 <table class="table table-condensed table-striped table-hover">
                     <tr>
                         <td style="width: 28%">

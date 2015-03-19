@@ -90,30 +90,28 @@ public class AbmPacienteController extends BaseFormController {
     }
 
     @RequestMapping(value = "endos/pacienteList*", method = RequestMethod.GET)
-    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") PacienteForm endocrinologoForm, BindingResult errors,
+    public ModelAndView showPacientes(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
                                            final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/pacienteList");
         List<Paciente> pacientes = pacienteManager.getPacientes();
-        List<Paciente> endocrinologosFilter = new ArrayList<Paciente>();
+        List<Paciente> pacientesFilter = new ArrayList<Paciente>();
 
         if (search == null) {
             mv.addObject("pacienteList", pacientes);
-            return mv;
         } else {
-            for (Paciente endocrinologofilter : pacientes) {
-                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni()) || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
-                    endocrinologosFilter.add(endocrinologofilter);
+            for (Paciente pacientefilter : pacientes) {
+                if (pacientefilter.getPersona().getDni().startsWith(pacienteForm.getDni()) || (pacientefilter.getPersona().getLastName().startsWith(pacienteForm.getDni().toUpperCase()))) {
+                    pacientesFilter.add(pacientefilter);
                 }
             }
-            if (endocrinologosFilter.size() == 0) {
+            if (pacientesFilter.size() == 0) {
                 mv.addObject("pacienteList", pacientes);
-                saveInfo(request, "No existe el paciente");
-                return mv;
+                saveInfo(request, "No tiene pacientes");
             } else {
-                mv.addObject("pacienteList", endocrinologosFilter);
-                return mv;
+                mv.addObject("pacienteList", pacientesFilter);
             }
         }
+        return mv;
     }
 
     @RequestMapping(value = "endos/pacienteList/getTags", method = RequestMethod.GET)
@@ -311,25 +309,50 @@ public class AbmPacienteController extends BaseFormController {
             return mv;
         }
 
-        if (pacienteEnTratamiento.getEspecialista() == null){
+        if (pacienteEnTratamiento.getEspecialistas() == null){
             saveInfo(request, getText("user.endocrinologist.specialistsNotAssociated", locale));
         } else {
-            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialista());
+            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialistas());
         }
         mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
         mv.addObject("pacienteFullName",pacienteEnTratamiento.getPaciente().getPersona().getFullName());
+        mv.addObject("idPacienteTratamiento", pacienteEnTratamiento.getIdPacienteEnTratamiento());
         return mv;
     }
 
-   /* @RequestMapping(value = "endos/asignarEspecialista*", method = RequestMethod.POST) //POST y GET??
-    public String asignarEspecialista(@ModelAttribute("pacienteEnTratamiento") PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
-                           HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "endos/asignarEspecialista*", method = RequestMethod.GET)
+    public ModelAndView asignarEspecialista(@ModelAttribute PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
+                           HttpServletRequest request, HttpServletResponse response,@RequestParam(required=false, value="idPacienteTratamiento") String idPacienteTratamiento ){
         ModelAndView mv = new ModelAndView("endos/asignarEspecialista");
+        pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(new Long(idPacienteTratamiento));
         List<Especialista> especialistas = especialistaManager.getEspecialistasActivos();
-        mv.addObject(especialistas);
-        String success = "redirect:especialistaListPaciente";
-        return success ;
-    }*/
+        mv.addObject("especialistasActivos", especialistas);
+        mv.addObject("idPacienteTratamiento", pacienteEnTratamiento.getIdPacienteEnTratamiento());
+        mv.addObject("pacienteEnTratamiento", pacienteEnTratamiento);
+        //String success = "redirect:especialistaListPaciente";
+        //return success ;
+        return mv;
+    }
+
+    @RequestMapping(value = "endos/asignarUnEspecialistaAPaciente*",method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView asignarUnEspecialista(@ModelAttribute PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
+                                            HttpServletRequest request, HttpServletResponse response,
+                                            @RequestParam(required=false, value="idPacienteTratamiento") String idPacienteTratamiento,
+                                            @RequestParam(required=false, value="idEspecialista") String idEspecialista){
+        ModelAndView mv = new ModelAndView("endos/especialistaListPaciente");
+        Locale locale = request.getLocale();
+        pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(new Long(idPacienteTratamiento));
+        Especialista especialista = especialistaManager.getEspecialista(new Long(idEspecialista));
+        pacienteEnTratamiento.setEspecialista(especialista);
+        especialista.addPacienteEnTratamiento(pacienteEnTratamiento);
+        especialistaManager.saveEspecialista(especialista);
+        pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
+        saveInfo(request, getText("user.endocrinologist.specialistAssigned", locale));
+        mv.addObject("especialistasListPaciente", pacienteEnTratamiento.getEspecialista());
+        mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
+        mv.addObject("idPacienteTratamiento", pacienteEnTratamiento.getIdPacienteEnTratamiento());
+        return mv;
+    }
 
    /* @RequestMapping(value = "endos/desvincularEspecialista*", method = RequestMethod.POST)
     public String desvincularEspecialista(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
