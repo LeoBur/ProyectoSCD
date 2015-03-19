@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 
-<c:set var="lista" value="${especialistasList}"/>
+<c:set var="lista" value="${especialistasActivos}"/>
 
 <head>
 <title><fmt:message key="home.title" /></title>
@@ -52,10 +52,6 @@
 	                        <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
 	                    </span>
 	                </div>
-	                <div id="actions" class="btn-group">
-                        <a class="btn btn-primary" href="<c:url value='/endos/newPaciente'/>">
-                        <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-                    </div>
                 </div>
             </div>
 	    </div>
@@ -64,49 +60,30 @@
             <table class="table table-condensed table-striped table-hover">
                 <tr>
                     <th style="width: 20%" class="sortable sorted order1">
-                        <fmt:message key="user.dni" />
-                    </th>
-                    <th style="width: 20%" class="sortable sorted order1">
                         <fmt:message key="user.lastName" />
                     </th>
                     <th style="width: 20%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 10%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
-                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="user.treatment.title" /></th>
+                    <th style="width: 10%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
+                    <th style="width: 15%" class="sortable sorted order1"><fmt:message key="activeEndos.asignar" /></th>
                 </tr>
             </table>
         </c:if>
-        <c:forEach var="endo" items="${especialistasList}" varStatus="index" >
+        <c:forEach var="especialista" items="${especialistasActivos}" varStatus="index" >
                 <table class="table table-condensed table-striped table-hover">
                     <tr>
                         <td style="width: 20%">
-                            <c:out value="${endo.persona.dni}" />
+                            <c:out value="${especialista.persona.lastName}" />
                         </td>
                         <td style="width: 20%">
-                            <c:out value="${endo.persona.lastName}" />
+                            <c:out value="${especialista.persona.firstName}" />
                         </td>
                         <td style="width: 20%">
-                            <c:out value="${endo.persona.firstName}" />
+                            <c:out value="${especialista.tipo_esp}" />
                         </td>
-                        <td style="width: 10%">
-                            <c:choose>
-                                <c:when test="${endo.persona.enabled == 'true'}">
-                                    <input type="checkbox" checked="true" disabled="true"/>
-                                </c:when>
-                                <c:when test="${endo.persona.enabled == 'false'}">
-                                    <input type="checkbox" disabled="false"/>
-                                </c:when>
-                            </c:choose>
                         </td>
                         <td style="width: 15%">
-                            <a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a>
+                            <a href="${ctx}/endos/asignarUnEspecialistaAPaciente?idPacienteTratamiento=${idPacienteTratamiento}&idEspecialista=${especialista.id}">Asignar</a>
                         </td>
-                        <td style="width: 15%">
-                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver Tratamientos</a>
-                        </td>
-                         <td style="width: 15%">
-                            <a href="${ctx}/endos/asignarEspecialista?search=${endo.persona.dni}">Asignar Especialista</a>
-                         </td>
                     </tr>
                 </table>
         </c:forEach>

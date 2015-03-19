@@ -11,7 +11,7 @@ public interface PacienteEnTratamientoManager extends GenericManager<PacienteEnT
 	
 	void setPacienteEnTratamientoDao(PacienteEnTratamientoDao pacienteEnTratamientoDao);
 	
-	PacienteEnTratamiento getPacienteEnTratamiento(Long idPacienteEnTratamiento);
+	PacienteEnTratamiento getPacienteEnTratamiento (Long idPacienteEnTratamiento);
 
 	PacienteEnTratamiento getPacienteEnTratamiento(String dni)throws EntityNotFoundException;
 	
