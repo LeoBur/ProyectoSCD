@@ -15,8 +15,8 @@
             class="table table-condensed table-striped table-hover" export="false">
 
             <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
-            <display:caption><h3>Mis mediciones</h3></display:caption>
-            <display:caption media="pdf">Mis mediciones</display:caption>
+            <display:caption><h3>Mediciones de ${namePaciente}</h3></display:caption>
+            <display:caption media="pdf">Mediciones de ${namePaciente}</display:caption>
             <display:column property="f_medicion" escapeXml="true" sortable="true" titleKey="active.fecha_Medicion"
                             style="width: 40%"/>
             <display:column property="valor" escapeXml="true" sortable="true" titleKey="active.valorMedicion"

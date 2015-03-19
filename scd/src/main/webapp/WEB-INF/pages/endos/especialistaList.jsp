@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
 <c:set var="lista" value="${especialistaList}"/>
 
@@ -29,80 +30,78 @@
     });
 </script>
 </head>
+<div class="container-fluid">
+    <div class="col-md-2">
+        <h3>Especialistas</h2>
+    </div>
 
-<div class="col-md-2">
-    <h3>Especialistas</h2>
-</div>
-
-<div class="col-md-9">
-    <div class="well">
-        <div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6 form-group">
-	                    <input type="text" id="especialista-input-search" name="especialista-input-search" class="form-control">
-                    </div>
-	                <div id="actions" class="btn-group">
-	                    <span>
-	                        <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
-	                    </span>
-	                </div>
-	                <div id="actions" class="btn-group">
-                        <a class="btn btn-primary" href="<c:url value='/endos/newEspecialista'/>">
-                        <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+    <div class="col-md-9">
+        <div class="well">
+            <div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" id="especialista-input-search" name="especialista-input-search" class="form-control">
+                        </div>
+                        <div id="actions" class="btn-group">
+                            <span>
+                                <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
+                            </span>
+                        </div>
+                        <div id="actions" class="btn-group">
+                            <a class="btn btn-primary" href="<c:url value='/endos/newEspecialista'/>">
+                            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+                        </div>
                     </div>
                 </div>
             </div>
-	    </div>
-        <br></br>
-        <c:if test="${not empty lista}">
-            <table class="table table-condensed table-striped table-hover">
-                <tr>
-                    <th style="width: 30%" class="sortable sorted order1">
-                        <fmt:message key="user.dni" />
-                    </th>
-                    <th style="width: 30%" class="sortable sorted order1">
-                        <fmt:message key="user.lastName" />
-                    </th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
-                </tr>
-            </table>
-        </c:if>
-        <c:forEach var="especialista" items="${especialistaList}" varStatus="index" >
-                <table class="table table-condensed table-striped table-hover">
+            <br></br>
+            <c:if test="${not empty lista}">
+                <table class="table table-condensed table-striped table-hover" style="width: 100%">
                     <tr>
-                        <td style="width: 28%">
-                            <c:out value="${especialista.persona.dni}" />
-                        </td>
-                        <td style="width: 28%">
-                            <c:out value="${especialista.persona.lastName}" />
-                        </td>
-                        <td style="width: 34%">
-                            <c:out value="${especialista.persona.firstName}" />
-                        </td>
-                        <td style="width: 34%">
-                            <c:out value="${especialista.tipo_esp}" />
-                        </td>
-                        <td style="width: 28%">
-                            <c:choose>
-                                <c:when test="${especialista.persona.enabled == 'true'}">
-                                    <input type="checkbox" checked="true" disabled="true"/>
-                                </c:when>
-                                <c:when test="${especialista.persona.enabled == 'false'}">
-                                    <input type="checkbox" disabled="false"/>
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td style="width: 34%">
-                            <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialista.persona.dni}">Editar</a>
-                        </td>
+                        <th class="sortable sorted order1">
+                            <fmt:message key="user.dni" />
+                        </th>
+                        <th class="sortable sorted order1">
+                            <fmt:message key="user.lastName" />
+                        </th>
+                        <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                        <th class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
+                        <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
+                        <th class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
                     </tr>
+                    <c:forEach var="especialista" items="${especialistaList}" varStatus="index" >
+                                <tr>
+                                    <td>
+                                        <c:out value="${especialista.persona.dni}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${especialista.persona.lastName}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${especialista.persona.firstName}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${especialista.tipo_esp}" />
+                                    </td>
+                                    <td align="center">
+                                        <c:choose>
+                                            <c:when test="${especialista.persona.enabled == 'true'}">
+                                                <input type="checkbox" checked="true" disabled="true"/>
+                                            </c:when>
+                                            <c:when test="${especialista.persona.enabled == 'false'}">
+                                                <input type="checkbox" disabled="false"/>
+                                            </c:when>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialista.persona.dni}">Editar</a>
+                                    </td>
+                                </tr>
+                    </c:forEach>
                 </table>
-                </table>
-        </c:forEach>
+            </c:if>
+        </div>
     </div>
 </div>
 </body>

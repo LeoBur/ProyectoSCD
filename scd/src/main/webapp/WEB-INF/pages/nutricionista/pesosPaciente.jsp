@@ -13,8 +13,8 @@
 
         <display:table name="pesosList" defaultsort="0" id="pesos" pagesize="12"
             class="table table-condensed table-striped table-hover" export="false">
-            <display:caption><h3>Mis pesos</h3></display:caption>
-            <display:caption media="pdf">Mis pesos</display:caption>
+            <display:caption><h3>Pesos de ${namePaciente}</h3></display:caption>
+            <display:caption media="pdf">Mediciones de ${namePaciente}</display:caption>
             <display:column property="fechaHora" escapeXml="true" sortable="true" titleKey="active.peso.fecha"
                             style="width: 50%"/>
             <display:column property="peso" escapeXml="true" sortable="true" titleKey="active.peso"
