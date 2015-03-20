@@ -92,7 +92,11 @@ public class PacienteManagerImpl extends GenericManagerImpl<Paciente, Long> impl
 	
 	@Override
 	public Paciente getPacienteByUsername(String username) {
-		return pacienteDao.getPacienteByUsername(username);
+		try {
+            return pacienteDao.getPacienteByUsername(username);
+        } catch (EntityNotFoundException e) {
+            return null;
+        }
 	}
 	
 	@Override

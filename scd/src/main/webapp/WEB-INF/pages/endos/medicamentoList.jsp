@@ -36,16 +36,16 @@
 <body class="home">
 <div class="container-fluid">
 <div class="col-md-2">
-    <h3></h3>
+    <h3>Medicamentos</h3>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="well">
 		<form:form commandName="medicamento" method="post" action="medicamentoList" enctype="multipart/form-data" id="mainSearchBox">
 			<appfuse:label key="medicamento.nombreToSearch" styleClass="control-label" />
 			<div class="form-group">
 				<div class="row">
-					<div class="col-sm-6 form-group">
+					<div class="col-md-6 form-group">
 					<form:input cssClass="form-control" path="nombreComercial" id="medicamentoBusqueda"/>
 					</div>
 					<div id="actions" class="btn-group">
@@ -53,21 +53,18 @@
 					<button id="button-id" type="submit" onclick="bCancel=false" class="btn btn-primary"><fmt:message key="button.search" /></button>
 					</span>
 					</div>
+                    <div id="actions" class="btn-group">
+                        <a class="btn btn-primary" href="<c:url value='/endos/medicamentoForm'/>">
+                            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
+                        </a>
+                    </div>
 				</div>
-			</div>
-			<div id="actions" class="btn-group">
-				<a class="btn btn-primary" href="<c:url value='/endos/medicamentoForm'/>">
-					<i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-				<!--<a class="btn btn-default" href="<c:url value='/endos/endo'/>">
-					<i class="icon-ok"></i> <fmt:message key="button.done"/></a>-->
 			</div>
 
 			<display:table  name="medicamentoList" cellspacing="0" cellpadding="0" requestURI=""
 						   defaultsort="1" id="medicamentoList" pagesize="25"
 						   class="table table-condensed table-striped table-hover" export="false">
 				    <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
-					<display:caption><h3>Medicamentos</h3></display:caption>
-					<display:caption media="pdf">Medicamentos</display:caption>
 					<display:column property="nombreGenerico" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico" style="width: 25%" />
 					<display:column property="nombreComercial" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial"
 								style="width: 34%">

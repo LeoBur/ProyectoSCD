@@ -193,7 +193,7 @@ public class AbmPacienteController extends BaseFormController {
             }
         }
 
-        boolean isNew = (pacienteForm.getId() == null);
+        boolean isNew = (pacienteManager.getPacienteByUsername(pacienteForm.getUsername()) == null);
         log.debug("entering 'onSubmit' method...");
 
         String success = "redirect:pacienteList";

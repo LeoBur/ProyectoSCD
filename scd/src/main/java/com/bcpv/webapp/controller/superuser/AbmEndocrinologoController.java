@@ -91,7 +91,7 @@ public class AbmEndocrinologoController extends BaseFormController {
         }
 
         boolean isNew;
-        Endocrinologo endocrinologo = new Endocrinologo();
+        Endocrinologo endocrinologo = null;
         try {
             endocrinologo = endocrinologoManager.getEndocrinologo(endocrinologoForm.getIdEndo());
             isNew = false;
@@ -162,8 +162,9 @@ public class AbmEndocrinologoController extends BaseFormController {
     }
 
     @RequestMapping(value = "admin/endocrinologoList*", method = RequestMethod.GET)
-    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
-                                           final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm,
+                                           BindingResult errors, final HttpServletRequest request,
+                                           @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("admin/endocrinologoList");
         List<Endocrinologo> endocrinologos = endocrinologoManager.getEndocrinologos();
         List<Endocrinologo> endocrinologosFilter = new ArrayList<Endocrinologo>();
@@ -173,7 +174,8 @@ public class AbmEndocrinologoController extends BaseFormController {
             return mv;
         } else {
             for (Endocrinologo endocrinologofilter : endocrinologos) {
-                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni()) || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
+                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni())
+                        || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
                     endocrinologosFilter.add(endocrinologofilter);
                 }
             }

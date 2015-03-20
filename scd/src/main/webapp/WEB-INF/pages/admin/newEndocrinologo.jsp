@@ -131,15 +131,23 @@
 				</div>			
 			
 			</div>
-        
         <div class="form-group">
           <div class="row">
 	        <div class="col-md-6">
 	          <spring:bind path="endocrinologoForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
-	        	<input type="text" name="firstName" id="firstName" class="form-control"
-	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="3">
+	            <c:choose>
+                    <c:when test="${endocrinologoForm.enabled=='true'}">
+                        <input type="text" name="firstName" id="firstName" class="form-control"
+                            placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
+                            tabindex="3">
+                    </c:when>
+                    <c:otherwise>
+                        <input type="text" name="firstName" id="firstName" class="form-control" readonly
+                            placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
+                            tabindex="3">
+                    </c:otherwise>
+                </c:choose>
 	          </spring:bind>
 	          		<label for="firstName" generated="true" class="error"></label>
 	          <form:errors path="firstName" cssClass="help-block"/>
@@ -147,9 +155,18 @@
 	        <div class="col-md-6">
 	          <spring:bind path="endocrinologoForm.lastName">
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
-	        	<input type="text" name="lastName" id="lastName" class="form-control"
-	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="4">
+	            <c:choose>
+                    <c:when test="${endocrinologoForm.enabled=='true'}">
+                        <input type="text" name="lastName" id="lastName" class="form-control"
+                        placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
+                         tabindex="4">
+                    </c:when>
+                    <c:otherwise>
+                        <input type="text" name="lastName" id="lastName" class="form-control" readonly
+                        placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
+                         tabindex="4">
+                    </c:otherwise>
+                </c:choose>
 	          </spring:bind>
 	          		<label for="lastName" generated="true" class="error"></label>
 		   	  <form:errors path="lastName" cssClass="help-block"/>
@@ -172,16 +189,22 @@
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
-		   	  <script type="text/javascript">
-                $(function () {
-                  $('#datetimepicker1').datetimepicker({
-                    language: 'pt-BR',
-                    showToday: true,
-                    pickTime: false,
-                    maxDate: new Date()
-                  });
-                });
-              </script>
+		   	  <c:choose>
+                  <c:when test="${endocrinologoForm.enabled=='true'}">
+                      <script type="text/javascript">
+                        $(function () {
+                          $('#datetimepicker1').datetimepicker({
+                            language: 'pt-BR',
+                            showToday: true,
+                            pickTime: false,
+                            maxDate: new Date()
+                          });
+                        });
+                      </script>
+                  </c:when>
+                  <c:otherwise>
+                  </c:otherwise>
+              </c:choose>
 		   	</div>
 
 		    <spring:bind path="endocrinologoForm.sexo">
@@ -189,15 +212,31 @@
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 					  <span class="required">*</span>
 						<div class="form-control">
-                        <c:choose>
-                            <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
-                                <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
+						<c:choose>
+                            <c:when test="${endocrinologoForm.enabled=='true'}">
+                                <c:choose>
+                                    <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
+                                        <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
+                                    </c:when>
+                                    <c:when test="${endocrinologoForm.sexo != null && endocrinologoForm.sexo == 'F'}">
+                                        <input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
+                                    </c:when>
+                                </c:choose>
                             </c:when>
-                            <c:when test="${endocrinologoForm.sexo != null && endocrinologoForm.sexo == 'F'}">
-                                <input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
-                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
+                                        <input type="radio" name="sexo" value="M" checked="checked" tabindex="8" disabled/>Masculino  &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="sexo" value="F" tabindex="9" disabled/>Femenino
+                                    </c:when>
+                                    <c:when test="${endocrinologoForm.sexo != null && endocrinologoForm.sexo == 'F'}">
+                                        <input type="radio" name="sexo" value="M" tabindex="10" disabled/>Masculino &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="sexo" value="F" checked="checked" tabindex="11" disabled/>Femenino
+                                    </c:when>
+                                </c:choose>
+                            </c:otherwise>
                         </c:choose>
 						</div>
 						<label for="sexo" generated="true" class="error"></label>
@@ -211,8 +250,16 @@
 		  <spring:bind path="endocrinologoForm.phoneNumber">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
-		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
+		  		<c:choose>
+                    <c:when test="${endocrinologoForm.enabled=='true'}">
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
+                        placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" readonly
+                        placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
+                    </c:otherwise>
+                </c:choose>
 		  	</div>
 		  </spring:bind>
 		 </div>
@@ -220,8 +267,16 @@
 		  <spring:bind path="endocrinologoForm.email">
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
-				<input type="email" id="email" name="email" class="form-control"
-				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
+				<c:choose>
+                    <c:when test="${endocrinologoForm.enabled=='true'}">
+                        <input type="email" id="email" name="email" class="form-control"
+                        placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="email" id="email" name="email" class="form-control" readonly
+                        placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
+                    </c:otherwise>
+                </c:choose>
 				<label for="email" generated="true" class="error"></label>
 				<form:errors path="email" cssClass="help-block" />
 			</div>
@@ -236,9 +291,18 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
-							<form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
-							  <form:options items="${provinciaList}"/>
-							</form:select>
+                          <c:choose>
+                            <c:when test="${endocrinologoForm.enabled=='true'}">
+                                <form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
+                                    <form:options items="${provinciaList}"/>
+                                </form:select>
+                            </c:when>
+                            <c:otherwise>
+                                <form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14" readonly="readonly">
+                                    <form:option value="${endocrinologoForm.provincia}" label="${endocrinologoForm.provincia}"/>
+                                </form:select>
+                            </c:otherwise>
+                          </c:choose>
 							<form:errors path="provincia" cssClass="help-block" />
 						  </div>
 						</div>
@@ -249,10 +313,20 @@
 						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
-								<form:select id="localidad" name="localidad" class="form-control"
-								 path="localidad" tabindex="15" value="${status.value}">
-								 <form:options items="${localidadList}"/>
-								</form:select>
+                                <c:choose>
+                                    <c:when test="${endocrinologoForm.enabled=='true'}">
+                                        <form:select id="localidad" name="localidad" class="form-control"
+                                                path="localidad" tabindex="15" value="${status.value}">
+                                            <form:options items="${localidadList}"/>
+                                        </form:select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form:select id="localidad" name="localidad" class="form-control" readonly="readonly"
+                                                path="localidad" tabindex="15" value="${status.value}">
+                                          <form:option value="${endocrinologoForm.localidad}" label="${endocrinologoForm.localidad}"/>
+                                        </form:select>
+                                    </c:otherwise>
+                                </c:choose>
 								<form:errors path="localidad" cssClass="help-block" />
 							</div>
 						</div>
@@ -267,8 +341,16 @@
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<span class="required">*</span>
 						<div cssClass="form-control">
-							<input type="text" id="calle" name="calle" class="form-control"
-							placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
+                            <c:choose>
+                                <c:when test="${endocrinologoForm.enabled=='true'}">
+                                    <input type="text" id="calle" name="calle" class="form-control"
+                                	    placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" id="calle" name="calle" class="form-control" readonly
+                                        placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
+                                </c:otherwise>
+                            </c:choose>
 							<label for="calle" generated="true" class="error"></label>
 							<form:errors path="calle" cssClass="help-block" />
 						</div>
@@ -281,8 +363,16 @@
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<span class="required">*</span>
 						<div cssClass="form-control">
-							<input id="numero" name="numero" class="form-control"
-							placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
+                            <c:choose>
+                                <c:when test="${endocrinologoForm.enabled=='true'}">
+                                    <input id="numero" name="numero" class="form-control"
+                                        placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
+                                </c:when>
+                                <c:otherwise>
+                                <input id="numero" name="numero" class="form-control" readonly
+                                    placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
+                                </c:otherwise>
+                            </c:choose>
 							<label for="numero" generated="true" class="error"></label>
 							<form:errors path="numero" cssClass="help-block" />
 						</div>
@@ -297,8 +387,16 @@
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
-							<input id="dpto" name="dpto" class="form-control"
-							placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
+                            <c:choose>
+                                <c:when test="${endocrinologoForm.enabled=='true'}">
+                                <input id="dpto" name="dpto" class="form-control"
+                                    placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="dpto" name="dpto" class="form-control" readonly
+                                        placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
+                                </c:otherwise>
+                            </c:choose>
 							<form:errors path="dpto" cssClass="help-block" />
 						</div>
 					</div>	
@@ -309,8 +407,16 @@
 					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
-							<input id="piso" name="piso" class="form-control"
-							placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
+                            <c:choose>
+                                <c:when test="${endocrinologoForm.enabled=='true'}">
+                                    <input id="piso" name="piso" class="form-control"
+                                        placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="piso" name="piso" class="form-control" readonly
+                                        placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
+                                </c:otherwise>
+                            </c:choose>
 							<form:errors path="piso" cssClass="help-block" />
 						</div>
 					</div>
@@ -324,8 +430,16 @@
          	<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
          	  <span class="required">*</span>
-         	  <input type="text" id="matricula" name="matricula" class="form-control"
-              value="${status.value}" tabindex="22"/>
+         	  <c:choose>
+                  <c:when test="${endocrinologoForm.enabled=='true'}">
+                      <input type="text" id="matricula" name="matricula" class="form-control"
+                      value="${status.value}" tabindex="22"/>
+                  </c:when>
+                  <c:otherwise>
+                      <input type="text" id="matricula" name="matricula" class="form-control"
+                      readonly value="${status.value}" tabindex="22"/>
+                  </c:otherwise>
+              </c:choose>
               <label for="matricula" generated="true" class="error"></label>
          	</div>
            </spring:bind>
