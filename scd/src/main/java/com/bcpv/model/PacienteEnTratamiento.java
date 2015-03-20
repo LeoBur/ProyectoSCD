@@ -1,10 +1,8 @@
 package com.bcpv.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.search.annotations.Indexed;
 
 @Entity
@@ -37,7 +33,7 @@ public class PacienteEnTratamiento implements Serializable{
 	private Calendar fch_alta;
 	private boolean estado; //"activo"/"baja lógica"
 	private Endocrinologo endocrinologo;
-	private List<Especialista> especialistas = new ArrayList<Especialista>();
+	private Especialista especialista;
 
 	public PacienteEnTratamiento(){}
 
@@ -48,9 +44,9 @@ public class PacienteEnTratamiento implements Serializable{
 		this.estado = true;
 	}
 
-	public PacienteEnTratamiento(Paciente paciente, List<Especialista> especialistas){
+	public PacienteEnTratamiento(Paciente paciente, Especialista especialista){
 		this.paciente = paciente;
-		this.especialistas = especialistas;
+		this.especialista = especialista;
 		this.fch_alta = Calendar.getInstance();
 		this.estado = true;
 	}
@@ -101,12 +97,11 @@ public class PacienteEnTratamiento implements Serializable{
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_especialista",nullable=true)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public List<Especialista> getEspecialistas() {
-		return especialistas;
+	public Especialista getEspecialista() {
+		return especialista;
 	}
-	public void setEspecialistas(List<Especialista> especialistas) {
-		this.especialistas = especialistas;
+	public void setEspecialista(Especialista especialista) {
+		this.especialista = especialista;
 	}
 
 }

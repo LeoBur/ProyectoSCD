@@ -340,10 +340,10 @@ public class AbmPacienteController extends BaseFormController {
             return mv;
         }
 
-        if (pacienteEnTratamiento.getEspecialistas() == null){
+        if (pacienteEnTratamiento.getEspecialista() == null){
             saveInfo(request, getText("user.endocrinologist.specialistsNotAssociated", locale));
         } else {
-            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialistas());
+            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialista());
         }
         mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
         mv.addObject("pacienteFullName",pacienteEnTratamiento.getPaciente().getPersona().getFullName());
