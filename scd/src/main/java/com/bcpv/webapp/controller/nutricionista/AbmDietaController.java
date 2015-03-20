@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping("/nutricionista/dieta*")
 public class AbmDietaController extends BaseFormController{
 
     @Autowired
@@ -41,7 +40,134 @@ public class AbmDietaController extends BaseFormController{
 	public AbmDietaController(){
 	}
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "nutricionista/dietaList*", method = RequestMethod.GET)
+    public ModelAndView showTratamientos(final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        Paciente paciente = pacienteManager.getPaciente(new Long(search));
+        Set<Dieta> dietas = paciente.getDietas();
+        if (dietas.isEmpty()) {
+            saveMessage(request, "El paciente no tiene dietas, ingrese uno nuevo");
+        }
+        ModelAndView mv = new ModelAndView("nutricionista/dietaRecomendadaList");
+        mv.addObject("dietaList", dietas);
+        mv.addObject("username", paciente.getPersona().getUsername());
+        mv.addObject("paciente", paciente.getPersona().getFullName());
+        return mv;
+    }
+
+    @RequestMapping(value = "nutricionista/dietas*", method = RequestMethod.GET)
+    public ModelAndView showDietas(final HttpServletRequest request, @RequestParam(required=true, value="id") String search) {
+        Set<Dieta> dietas = dietaManager.getDieta(new Long(search)).getDietas();
+        if (dietas.isEmpty()) {
+            ModelAndView mv = new ModelAndView("nutricionista/pacienteList");
+            saveInfo(request, "No existen dietas");
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("nutricionista/dietas");
+            Dieta dieta= dietaManager.getDieta(new Long(search));
+            Set<DietaParaMostrar> lunes = new HashSet<>();
+            Set<DietaParaMostrar> martes = new HashSet<>();
+            Set<DietaParaMostrar> miercoles = new HashSet<>();
+            Set<DietaParaMostrar> jueves = new HashSet<>();
+            Set<DietaParaMostrar> viernes = new HashSet<>();
+            Set<DietaParaMostrar> sabado = new HashSet<>();
+            int i = 0;
+                for (i = 0; i < dietas.size(); i++) {
+                    Iterator<DiaDieta> dias = dieta.getDiasDieta().iterator();
+                    while (dias.hasNext()) {
+                            DiaDieta e = dias.next();
+
+                            if (e.getNombreDiaDieta().name().equals("LUNES_1")) {
+                                    lunes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                } else if (e.getNombreDiaDieta().name().equals("MARTES_1")) {
+                                    martes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                } else if (e.getNombreDiaDieta().name().equals("MIERCOLES_1")) {
+                                    miercoles.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                } else if (e.getNombreDiaDieta().name().equals("JUEVES_1")) {
+                                    jueves.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                } else if (e.getNombreDiaDieta().name().equals("VIERNES_1")) {
+                                    viernes.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                } else {
+                                    sabado.add(new DietaParaMostrar(e.getMomentosDia().iterator().next().getNombre().name(), e.getMomentosDia().iterator().next().getComidas().iterator().next().getAlimento().getNombre()));
+                                }
+                    }
+                }
+            mv.addObject("lunesList", lunes);
+            mv.addObject("martesList", martes);
+            mv.addObject("miercolesList", miercoles);
+            mv.addObject("juevesList", jueves);
+            mv.addObject("viernesList", viernes);
+            mv.addObject("sabadoList", sabado);
+
+            mv.addObject("idDieta", dieta.getPaciente().getPersona().getDni());
+            mv.addObject("fechaAlta", dieta.getFechaAlta());
+            mv.addObject("paciente", dieta.getPaciente().getPersona().getFullName());
+            return mv;
+        }
+    }
+
+    @RequestMapping(value = "/nutricionista/editDieta*", method = RequestMethod.GET)
+    public ModelAndView editDieta(final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("nutricionista/editDieta");
+        Dieta dieta = dietaManager.getDieta(new Long(search));
+        DietaRecomendadaForm dietaRecomendadaForm = new DietaRecomendadaForm();
+        Iterator<DiaDieta> diaDieta = dieta.getDiasDieta().iterator();
+        List<DiaDieta> lunesDiaDieta = new ArrayList<>();
+        List<DiaDieta> martesDiaDieta = new ArrayList<>();
+        List<DiaDieta> miercolesDiaDieta = new ArrayList<>();
+        List<DiaDieta> juevesDiaDieta = new ArrayList<>();
+        List<DiaDieta> viernesDiaDieta = new ArrayList<>();
+        List<DiaDieta> sabadoDiaDieta = new ArrayList<>();
+
+        while (diaDieta.hasNext()){
+            DiaDieta e = diaDieta.next();
+            if (e.getNombreDiaDieta().name().equals("LUNES_1")){
+                lunesDiaDieta.add(e);
+            } else if (e.getNombreDiaDieta().name().equals("MARTES_1")){
+                martesDiaDieta.add(e);
+            } else if (e.getNombreDiaDieta().name().equals("MIERCOLES_1")){
+                miercolesDiaDieta.add(e);
+            } else if (e.getNombreDiaDieta().name().equals("JUEVES_1")){
+                juevesDiaDieta.add(e);
+            } else if (e.getNombreDiaDieta().name().equals("VIERNES_1")){
+                viernesDiaDieta.add(e);
+            } else {
+                sabadoDiaDieta.add(e);
+            }
+        }
+
+        dietaRecomendadaForm.setName(dieta.getPaciente().getPersona().getUsername());
+        List<Alimento> alimentos = alimentoManager.getAlimentos();
+        String options = "";
+        for (Alimento ali : alimentos) {
+            options = options + "<option value=\""+ali.getNombre()+"\">"+ali.getNombre()+"</option>";
+        }
+        List<String> momentoDias = new ArrayList<>();
+        momentoDias.add("DESAYUNO");
+        momentoDias.add("MEDIA_MANIANA");
+        momentoDias.add("ALMUERZO");
+        momentoDias.add("MEDIA_TARDE");
+        momentoDias.add("CENA");
+        momentoDias.add("ANTES_DE_ACOSTARSE");
+        String optionsMomentos = "";
+        for (String momentosDias: momentoDias) {
+            optionsMomentos = optionsMomentos + "<option value=\""+momentosDias.toString()+"\">"+momentosDias.toString()+"</option>";
+        }
+
+        mv.addObject("dietaRecomendadaForm", dieta);
+        mv.addObject("lunes", lunesDiaDieta);
+        mv.addObject("martes", martesDiaDieta);
+        mv.addObject("miercoles", miercolesDiaDieta);
+        mv.addObject("jueves", juevesDiaDieta);
+        mv.addObject("viernes", viernesDiaDieta);
+        mv.addObject("sabado", sabadoDiaDieta);
+        mv.addObject("options", options);
+        mv.addObject("optionsMomentos", optionsMomentos);
+        mv.addObject("alimentoList", alimentos);
+        mv.addObject("momentoDias", momentoDias);
+        return mv;
+    }
+
+    @RequestMapping(value = "/nutricionista/dieta*", method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(required=false, value="username") String username) {
         ModelAndView mv = new ModelAndView("nutricionista/dietaRecomendada");
         DietaRecomendadaForm dietaRecomendadaForm = new DietaRecomendadaForm();
@@ -71,7 +197,7 @@ public class AbmDietaController extends BaseFormController{
         return mv;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/nutricionista/dieta*", method = RequestMethod.POST)
     public  String onSubmit(@ModelAttribute("DietaRecomendadForm") DietaRecomendadaForm dietaRecomendadaForm, @RequestParam MultiValueMap<String, String> params, BindingResult errors,
                                   HttpServletRequest request, HttpServletResponse response)
             throws Exception  {

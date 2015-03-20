@@ -5,17 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -42,6 +32,7 @@ public class Dieta implements Serializable{
 	private Date fechaHasta;
 	private Set<DiaDieta> diasDieta = new HashSet<DiaDieta>();
 	private String descripcion;
+	private Set<Dieta> dietas = new HashSet<Dieta>();
 
 	@Id
     @GeneratedValue(strategy = IDENTITY)
@@ -111,4 +102,13 @@ public class Dieta implements Serializable{
 		this.descripcion = descripcion.toUpperCase();
 	}
 
+	@OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_dieta")
+	public Set<Dieta> getDietas() {
+		return dietas;
+	}
+
+	public void setDietas(Set<Dieta> dietas) {
+		this.dietas = dietas;
+	}
 }

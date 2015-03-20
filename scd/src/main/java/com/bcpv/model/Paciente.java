@@ -91,8 +91,8 @@ public class Paciente implements Serializable{
 		this.pesos = pesos;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@OneToMany(mappedBy="paciente", fetch = FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE, CascadeType.ALL})
 	public Set<Dieta> getDietas() {
 		return dietas;
 	}
