@@ -69,10 +69,17 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaForm.setDia(persona.getFch_nac());
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
-                especialistaForm.setIdEspecialista(getIdEspecialista(persona));
-                especialistaForm.setMatricula(getMatricula(persona));
-                especialistaForm.setEnabled(persona.isEnabled());
-                especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
+
+                Long matricula = getMatricula(persona);
+                if (matricula != null) {
+                    especialistaForm.setIdEspecialista(getIdEspecialista(persona));
+                    especialistaForm.setMatricula(getMatricula(persona));
+                    especialistaForm.setEnabled(persona.isEnabled());
+                    especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
+                } else {
+                    saveInfo(request, getText("user.superUser.info.nuevoEsp", locale));
+                }
+
                 mv.addObject("especialistaForm", especialistaForm);
                 List<Localidad> filtradas = new ArrayList<>();
                 for (Localidad localidad : localidades) {
@@ -81,14 +88,13 @@ public class AbmEspecialistaController extends BaseFormController {
                     }
                 }
                 mv.addObject("localidadList", filtradas);
-            } else
+            } else {
                 mv.addObject("localidadList", localidades);
-                throw new EntityNotFoundException();
+                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            }
 
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             saveInfo(request, getText("user.superUser.info.dni", locale));
-        } catch (EntityNotFoundException enfe) {
-            //saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
         }
     }
 

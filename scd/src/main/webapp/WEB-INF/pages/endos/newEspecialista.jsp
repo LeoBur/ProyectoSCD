@@ -65,13 +65,13 @@
 		"<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="col-sm-2">
+<div class="col-md-2">
     <h3>Administraci&oacuten</h2>
     <h3>de Especialistas</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
-<div class="col-sm-7">
+<div class="col-md-9">
 	<spring:bind path="especialistaForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">

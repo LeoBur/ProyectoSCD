@@ -76,7 +76,7 @@
   </div>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
 	<spring:bind path="endocrinologoForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">

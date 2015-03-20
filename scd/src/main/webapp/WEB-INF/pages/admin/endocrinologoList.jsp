@@ -36,12 +36,12 @@
   </div>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="well">
         <div class="col-md-12">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-md-6 form-group">
 	                    <input type="text" id="endo-input-search" name="endo-input-search" class="form-control">
                     </div>
 	                <div id="actions" class="btn-group">

@@ -29,15 +29,15 @@
 <body class="home">
 <div class="container-fluid">
 <div class="col-md-2">
-    <h3></h3>
+    <h3>Alimentos</h3>
 </div>
-<div class="col-md-8">
+<div class="col-md-9">
 	<div class="well">
 		<form:form commandName="alimento" method="post" action="alimentoList" enctype="multipart/form-data" id="mainSearchBox">
                 			<appfuse:label key="user.food.nombreToSearch" styleClass="control-label" />
                     <div class="form-group">
                     	<div class="row">
-                            <div class="col-sm-6 form-group">
+                            <div class="col-md-6 form-group">
                             	<form:input cssClass="form-control" path="nombre" id="alimentoBusqueda"/>
                             </div>
                             <div id="actions" class="btn-group">
@@ -45,21 +45,18 @@
                                 	<button id="button-id" type="submit" onclick="bCancel=false" class="btn btn-primary"><fmt:message key="button.search" /></button>
                                 </span>
                             </div>
+                            <div id="actions" class="btn-group">
+                                <a class="btn btn-primary" href="<c:url value='/nutricionista/cargarAlimento'/>">
+                                    <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+                                <!--<a class="btn btn-default" href="<c:url value='/endos/endo'/>">
+                                    <i class="icon-ok"></i> <fmt:message key="button.done"/></a>-->
+                            </div>
                     	</div>
                     </div>
-        			<div id="actions" class="btn-group">
-        				<a class="btn btn-primary" href="<c:url value='/nutricionista/cargarAlimento'/>">
-        					<i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-        				<!--<a class="btn btn-default" href="<c:url value='/endos/endo'/>">
-        					<i class="icon-ok"></i> <fmt:message key="button.done"/></a>-->
-        			</div>
-
 
         			<display:table  name="alimentoList" cellspacing="0" cellpadding="0" requestURI=""
         						   defaultsort="1" id="alimentoList" pagesize="25"
         						   class="table table-condensed table-striped table-hover" export="false">
-                            <display:caption><h3>Alimentos</h3></display:caption>
-                            <display:caption media="pdf">Alimentos</display:caption>
         					<display:column property="nombre" escapeXml="true" sortable="true" titleKey="food.descripcion"
         								style="width: 34%">
         					</display:column>

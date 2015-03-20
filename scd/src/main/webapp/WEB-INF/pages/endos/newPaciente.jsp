@@ -83,7 +83,7 @@
 </div>
 <!-- Ac� comienzan los formularios -->
 
-<div class="col-md-8">
+<div class="col-md-9">
 	<spring:bind path="pacienteForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
