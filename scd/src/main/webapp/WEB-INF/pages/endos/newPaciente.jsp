@@ -530,12 +530,7 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty pacienteForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
-					<i class="icon-trash"></i>
-					<fmt:message key="button.delete" />
-				</button>
-			</c:if>
+			
 			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
 
 				<i class="icon-remove"></i>
