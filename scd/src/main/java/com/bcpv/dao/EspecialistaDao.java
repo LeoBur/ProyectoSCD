@@ -13,6 +13,8 @@ public interface EspecialistaDao extends GenericDao<Especialista, Long>{
 	Especialista loadEspecialistaByDNI(Long dni) throws EntityNotFoundException;
 
     List<Especialista> getEspecialistas();
+
+    List<Especialista> getEspecialistasActivos();
     
     Especialista saveEspecialista(Especialista especialista);
 	

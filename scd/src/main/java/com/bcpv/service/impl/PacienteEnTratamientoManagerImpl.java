@@ -22,8 +22,8 @@ public class PacienteEnTratamientoManagerImpl extends GenericManagerImpl<Pacient
 	private PacienteEnTratamientoDao pacienteEnTratamientoDao;
 
 	@Override
-	public PacienteEnTratamiento getPacienteEnTratamiento(String idPacienteEnTratamiento) {
-		return pacienteEnTratamientoDao.get(new Long(idPacienteEnTratamiento));
+	public PacienteEnTratamiento getPacienteEnTratamiento(String dni) {
+		return pacienteEnTratamientoDao.getPacienteEnTratamientoByDni(dni);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class PacienteEnTratamientoManagerImpl extends GenericManagerImpl<Pacient
 
 	@Override
 	public PacienteEnTratamiento getPacienteEnTratamiento(Long idPacienteEnTratamiento) {
-		return pacienteEnTratamientoDao.get(idPacienteEnTratamiento);
+		return pacienteEnTratamientoDao.getPacienteEnTratamientoById (idPacienteEnTratamiento);
 	}
 
 	@Override

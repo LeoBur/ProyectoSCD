@@ -4,18 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -75,7 +64,7 @@ public class Especialista implements Serializable{
 	public void setMatricula(Long matricula) {
 		this.matricula = matricula;
 	}
-	
+
 	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public Set<PacienteEnTratamiento> getPacientes() {
@@ -97,4 +86,7 @@ public class Especialista implements Serializable{
 		this.persona = persona;
 	}
 
+	public void addPacienteEnTratamiento(PacienteEnTratamiento pacienteEnTratamiento){
+		this.pacientesEnTratamiento.add(pacienteEnTratamiento);
+	}
 }

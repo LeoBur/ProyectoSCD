@@ -52,6 +52,14 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 	}
 
 	@Override
+	public List<Especialista> getEspecialistasActivos() {
+		if (especialistaDao!=null){
+			return especialistaDao.getEspecialistasActivos();
+		}
+		return new ArrayList<Especialista>();
+	}
+
+	@Override
 	public Especialista saveEspecialista(final Especialista especialista)
 			throws EntityExistsException {
 		try {

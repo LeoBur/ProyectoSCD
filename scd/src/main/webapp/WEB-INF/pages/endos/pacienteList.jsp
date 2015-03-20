@@ -88,7 +88,7 @@
                         </td>
                         <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a></td>
                         <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td>
-                        <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td> <%-- Cambiar por la url que corresponda --%>
+                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.persona.dni}">Ver</a></td> <%-- Cambiar por la url que corresponda --%>
                     </tr>
                 </c:forEach>
             </table>

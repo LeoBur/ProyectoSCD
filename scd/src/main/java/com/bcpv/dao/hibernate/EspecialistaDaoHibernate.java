@@ -37,6 +37,12 @@ public class EspecialistaDaoHibernate extends GenericDaoHibernate<Especialista, 
 	}
 
     @Override
+    public List<Especialista> getEspecialistasActivos() {
+        Query qry = getSession().createQuery("from Especialista e where e.persona.enabled is true");
+        return qry.list();
+    }
+
+    @Override
     public Especialista saveEspecialista(Especialista especialista) {
     	if (log.isDebugEnabled()) {
             log.debug("especialista id: " + especialista.getId());
