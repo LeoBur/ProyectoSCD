@@ -54,7 +54,7 @@ public class ConsultaTratamientoController extends BaseFormController{
             mv.addObject("prescripcionesList", tratamiento.getPrescripciones());
             mv.addObject("fecha", new SimpleDateFormat("dd-MM-yyyy").format(tratamiento.getFechaTratamiento()));
         }else {
-            saveInfo(request, "No existe prescripciones cargada para este mes. Comuniquese con su nutricionista para que le recete una...");
+            saveInfo(request, "No existe prescripciones cargada para este mes. Comuniquese con su medico para que le recete una...");
         }
         return mv;
     }

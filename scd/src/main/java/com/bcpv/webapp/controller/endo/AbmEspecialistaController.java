@@ -69,10 +69,17 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaForm.setDia(persona.getFch_nac());
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
-                especialistaForm.setIdEspecialista(getIdEspecialista(persona));
-                especialistaForm.setMatricula(getMatricula(persona));
-                especialistaForm.setEnabled(persona.isEnabled());
-                especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
+
+                Long matricula = getMatricula(persona);
+                if (matricula != null) {
+                    especialistaForm.setIdEspecialista(getIdEspecialista(persona));
+                    especialistaForm.setMatricula(getMatricula(persona));
+                    especialistaForm.setEnabled(persona.isEnabled());
+                    especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
+                } else {
+                    saveInfo(request, getText("user.superUser.info.nuevoEsp", locale));
+                }
+
                 mv.addObject("especialistaForm", especialistaForm);
                 List<Localidad> filtradas = new ArrayList<>();
                 for (Localidad localidad : localidades) {
@@ -81,14 +88,13 @@ public class AbmEspecialistaController extends BaseFormController {
                     }
                 }
                 mv.addObject("localidadList", filtradas);
-            } else
+            } else {
                 mv.addObject("localidadList", localidades);
-                throw new EntityNotFoundException();
+                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            }
 
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             saveInfo(request, getText("user.superUser.info.dni", locale));
-        } catch (EntityNotFoundException enfe) {
-            //saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
         }
     }
 
@@ -140,6 +146,38 @@ public class AbmEspecialistaController extends BaseFormController {
     @RequestMapping(value = "endos/getTags", method = RequestMethod.GET)
     @ResponseBody
     public List<Tag> getTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Especialista especialista : especialistaManager.getEspecialistas()) {
+            data.add(new Tag(cont++, especialista.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, especialista.getPersona().getDni()));
+            //data.add(new Tag(cont++, especialista.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "endos/especialista/getDNITags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getDNITags(@RequestParam String tagName) {
         int cont = 0;
         List<Tag> data = new ArrayList<Tag>();
         List<Tag> dataFilter = new ArrayList<Tag>();

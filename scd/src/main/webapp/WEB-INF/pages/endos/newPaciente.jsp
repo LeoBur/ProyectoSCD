@@ -45,6 +45,27 @@
       })
     })
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dni').autocomplete({
+                serviceUrl: 'http://localhost:8080/endos/getDNITags',
+                paramName: "tagName",
+                delimiter: "," ,
+                transformResult: function(response) {
+                return {
+                suggestions: $.map($.parseJSON(response), function(item) {
+                    return {value: item.tagName, data: item.id };
+                })
+                };
+                }
+            });
+            $('#dni').blur(function(e) {
+                var search = $('input[name=dni]').val();
+                window.location.href = "http://localhost:8080/endos/newPaciente?search=search&dni="+search;
+            });
+        });
+    </script>
 </head>
 
 <div class="container-fluid">
@@ -62,7 +83,7 @@
 </div>
 <!-- Ac� comienzan los formularios -->
 
-<div class="col-md-8">
+<div class="col-md-9">
 	<spring:bind path="pacienteForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
@@ -93,30 +114,18 @@
                                 	<c:when test="${pacienteForm.nuevaPersona}">
 					        	    	<span class="required">*</span>
 										<input type="text" name="dni" id="dni" class="form-control"
-										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}"
+										tabindex="1" maxlength="8" minlength="7">
 									</c:when>
 									<c:otherwise>
 										<input type="text" name="dni" id="dni" class="form-control" readonly
-										placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+										placeholder="<fmt:message key="user.dni"/>" value="${status.value}"
+										tabindex="1" maxlength="8" minlength="7">
 									</c:otherwise>
                                 </c:choose>
 					        </div>
 					    </spring:bind>
-					    	
 					  </div>
-					  
-					  <div class="col-sm-6 form-group">
-					  <br>
-					  <div>
-					  <c:if test="${pacienteForm.nuevaPersona}">
-						<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-							formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-							<i class="icon-upload icon-white"></i>
-							<fmt:message key="button.search" />
-						</button>
-					  </c:if>
-						</div>
-					</div>
 					  
 				</div>			
 			
@@ -521,12 +530,7 @@
 				<i class="icon-ok icon-white"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty pacienteForm.dni}">
-				<button type="submit" class="btn btn-default" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="25">
-					<i class="icon-trash"></i>
-					<fmt:message key="button.delete" />
-				</button>
-			</c:if>
+			
 			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
 
 				<i class="icon-remove"></i>

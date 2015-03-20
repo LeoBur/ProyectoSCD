@@ -6127,12 +6127,6 @@ INSERT INTO `localidades` (`id`, `id_departamento`, `id_provincia`, `nombre`) VA
 -- Volcado de datos de prueba
 --
 
-INSERT INTO `scd`.`domicilio` (`id`, `calle`, `dpto`, `nro`, `piso`, `id_localidad`) VALUES 
-('0', 'Moreno', 'A', '185', 'PB', '1279');
-
-INSERT INTO `scd`.`domicilio` (`id`, `calle`, `dpto`, `nro`, `piso`, `id_localidad`) VALUES 
-('1', 'Avenida Siempre viva', 'A', '456', 'PB', '1279');
-
 INSERT INTO `scd`.`medicamento` (`idMedicamento`, `Grupo_Medicamento`, `Nom_Comercial`, `Nom_Generico`, `Presentacion`) VALUES 
 (1, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibupirac', 'Ibuprofeno', 'Capsula Blanda'),
 (2, 'INHIBIDOR_DE_ALFA_GLUCOSIDASA', 'Ibu evanol', 'Ibuprofeno', 'Comprimidos');
@@ -6146,21 +6140,6 @@ INSERT INTO `scd`.`sintoma` (`idSintoma`, `Nombre_Sintoma`) VALUES
 INSERT INTO `scd`.`alimento` (`idAlimento`, `cantCaloriasX100`, `cantCarbohidratosX100`, `cantGlucosaX100`, `cantGrasasX100`, `cantProteinasX100`, `Nombre_Alimento`) VALUES
 ('1', '100', '10', '5', '10', '4', 'PAN'),
 ('2', '500', '400', '20', '250', '300', 'MILANESA');
-
-/*INSERT INTO `scd`.`persona` (`dni`, `fch_nac`, `sexo`, `id`) VALUES
-('12345678', '1975-05-10 00:00:00', 1, 1);
-
-INSERT INTO `scd`.`app_user` (`id`, `account_expired`, `account_locked`, `credentials_expired`, `email`, `account_enabled`, `first_name`, `last_name`, `password`, `password_hint`, `phone_number`, `username`, `version`, `website`, `id_domicilio`)
-VALUES (1, b'0', b'0', b'0', 'juan@mail.com', b'1', 'Juan', 'Perez', '123456', NULL, '444444', 'juan@mail.com', 0, NULL, 1);
-
-INSERT INTO `scd`.`endocrinologo` (`id_endocrinologo`, `matricula_endo`, `id_persona`) VALUES
-(1, 7777, 1);
-
-INSERT INTO `scd`.`role` (`id`, `description`, `name`) VALUES
-(1, 'Endocrinologist role (can edit users)', 'ROLE_ENDO');
-
-INSERT INTO `scd`.`user_role` (`user_id`, `role_id`) VALUES
-(1,1);*/
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
