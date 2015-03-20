@@ -46,9 +46,8 @@ public class PacienteList extends BaseFormController{
                                            final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("nutricionista/pacienteList");
         Set<Paciente> pacientes = new HashSet<>(0);
-        for (PacienteEnTratamiento pacienteEnTratamiento : especialistaManager.getEspecialistaByPersona(
-                personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes()) {
-            pacientes.add(pacienteEnTratamiento.getPaciente());
+        for (Paciente pacienteEnTratamiento : pacienteManager.getPacientes()) {
+            pacientes.add(pacienteEnTratamiento);
         }
         List<Paciente> endocrinologosFilter = new ArrayList<Paciente>();
 
@@ -80,9 +79,8 @@ public class PacienteList extends BaseFormController{
         List<Tag> dataFilter = new ArrayList<Tag>();
         List<Tag> result = new ArrayList<Tag>();
         Set<Paciente> pacientes = new HashSet<>(0);
-        for (PacienteEnTratamiento pacienteEnTratamiento : especialistaManager.getEspecialistaByPersona(
-                personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes()) {
-            pacientes.add(pacienteEnTratamiento.getPaciente());
+        for (Paciente pacienteEnTratamiento : pacienteManager.getPacientes()) {
+            pacientes.add(pacienteEnTratamiento);
         }
 
         for (Paciente paciente : pacientes) {

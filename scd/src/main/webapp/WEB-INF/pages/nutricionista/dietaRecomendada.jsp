@@ -650,7 +650,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/admin/endocrinologoList";
+				window.location.href = "http://localhost:8080/nutricionista/pacienteList";
 			});
 	</script>
 	</script>

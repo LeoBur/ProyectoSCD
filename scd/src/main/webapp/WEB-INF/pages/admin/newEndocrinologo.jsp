@@ -42,7 +42,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#dni').autocomplete({
+            $('#cualca').autocomplete({
                 serviceUrl: 'http://localhost:8080/admin/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,

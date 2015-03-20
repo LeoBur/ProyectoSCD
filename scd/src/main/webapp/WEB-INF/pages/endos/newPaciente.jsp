@@ -48,7 +48,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#dni').autocomplete({
+            $('#cualca').autocomplete({
                 serviceUrl: 'http://localhost:8080/endos/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,
