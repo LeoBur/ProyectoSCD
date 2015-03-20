@@ -38,6 +38,26 @@
       })
     })
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#dni').autocomplete({
+                serviceUrl: 'http://localhost:8080/endos/especialista/getDNITags',
+                paramName: "tagName",
+                delimiter: "," ,
+                transformResult: function(response) {
+                return {
+                suggestions: $.map($.parseJSON(response), function(item) {
+                    return {value: item.tagName, data: item.id };
+                })
+                };
+                }
+            });
+            $('#dni').blur(function(e) {
+                var search = $('input[name=dni]').val();
+                window.location.href = "http://localhost:8080/endos/newEspecialista?search=search&dni="+search;
+            });
+        });
+    </script>
 </head>
 
 <c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
@@ -86,28 +106,17 @@
 								<c:when test="${especialistaForm.nuevaPersona}">
 									<span class="required">*</span>
 									<input type="text" name="dni" id="dni" class="form-control"
-									placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									placeholder="<fmt:message key="user.dni"/>" value="${status.value}"
+									tabindex="1" maxlength="8" minlength="7">
 								</c:when>
 								<c:otherwise>
 									<input type="text" name="dni" id="dni" class="form-control" readonly
-									placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
+									placeholder="<fmt:message key="user.dni"/>" value="${status.value}"
+									tabindex="1" maxlength="8" minlength="7">
 								</c:otherwise>
 							</c:choose>
 						</div>
 					</spring:bind>
-				</div>
-				<div class="col-sm-6 form-group">
-					<br>
-					<div>
-						<%-- si es nuevo, habilita el boton--%>
-						<c:if test="${especialistaForm.nuevaPersona}">
-							<button type="submit" name="search" class="btn btn-primary" formmethod="get"
-								formnovalidate="formnovalidate" onclick="bCancel=false" tabindex="2" value="search">
-								<i class="icon-upload icon-white"></i>
-								<fmt:message key="button.search" />
-							</button>
-						</c:if>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -371,7 +380,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/especialistaList";
+				window.location.href = "http://localhost:8080/endos/newEspecialista";
 			});
 	</script>
 	<script type="text/javascript">

@@ -55,53 +55,6 @@ public class AbmEndocrinologoController extends BaseFormController {
 	
 	}
 
-	private void buscar(ModelAndView mv, EndocrinologoForm endocrinologoForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
-        final String dni = endocrinologoForm.getDni();
-        try {
-            if (StringUtils.isEmpty(dni)){
-                mv.addObject("provinciaList", provincias);
-                mv.addObject("localidadList", localidades);
-                throw new NullPointerException();
-            }
-
-            Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
-            mv.addObject("provinciaList", provincias);
-            if (persona.getId() != null) {
-                endocrinologoForm.setNuevaPersona(false);
-                endocrinologoForm.setId(persona.getId());
-                endocrinologoForm.setDni(dni);
-                endocrinologoForm.setUsername(persona.getUsername());
-                endocrinologoForm.setFirstName(persona.getFirstName());
-                endocrinologoForm.setLastName(persona.getLastName());
-                endocrinologoForm.setEmail(persona.getEmail());
-                endocrinologoForm.setUsername(persona.getUsername());
-                endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
-                endocrinologoForm.setDia(persona.getFch_nac());
-                endocrinologoForm.setSexo(persona.getSexo());
-                endocrinologoForm.setDomicilio(persona.getDomicilio());
-                endocrinologoForm.setMatricula(getMatricula(persona));
-                endocrinologoForm.setIdEndo(getIdEndocrinologo(persona));
-                endocrinologoForm.setEnabled(persona.isEnabled());
-                mv.addObject("endocrinologoForm", endocrinologoForm);
-                List<Localidad> filtradas = new ArrayList<>();
-                for (Localidad localidad : localidades) {
-                    if (localidad.getProvincia().getNombre().equals(endocrinologoForm.getProvincia())) {
-                        filtradas.add(localidad);
-                    }
-                }
-                saveInfo(request, getText("user.superUser.info.nuevoEndo", locale));
-                mv.addObject("localidadList", filtradas);
-            } else {
-                mv.addObject("localidadList", localidades);
-                throw new EntityNotFoundException();
-            }
-        } catch (NullPointerException npe){
-            saveInfo(request, getText("user.superUser.info.dni", locale));
-        } catch (EntityNotFoundException enfe) {
-            saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
-        }
-    }
-
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.GET)
 	public ModelAndView showForm(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
                                  final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
@@ -120,65 +73,6 @@ public class AbmEndocrinologoController extends BaseFormController {
             return mv;
         }
 	}
-
-    @RequestMapping(value = "admin/endocrinologoList*", method = RequestMethod.GET)
-    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
-                                           final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
-        ModelAndView mv = new ModelAndView("admin/endocrinologoList");
-        List<Endocrinologo> endocrinologos = endocrinologoManager.getEndocrinologos();
-        List<Endocrinologo> endocrinologosFilter = new ArrayList<Endocrinologo>();
-
-        if (search == null) {
-            mv.addObject("endocrinologoList", endocrinologos);
-            return mv;
-        } else {
-            for (Endocrinologo endocrinologofilter : endocrinologos) {
-                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni()) || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
-                    endocrinologosFilter.add(endocrinologofilter);
-                }
-            }
-            if (endocrinologosFilter.size() == 0) {
-                mv.addObject("endocrinologoList", endocrinologos);
-                saveInfo(request, "No existe el Endocrinologo");
-                return mv;
-            } else {
-            mv.addObject("endocrinologoList", endocrinologosFilter);
-            return mv;
-            }
-        }
-    }
-
-    @RequestMapping(value = "admin/getTags", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Tag> getTags(@RequestParam String tagName) {
-        int cont = 0;
-        List<Tag> data = new ArrayList<Tag>();
-        List<Tag> dataFilter = new ArrayList<Tag>();
-        List<Tag> result = new ArrayList<Tag>();
-
-        for (Endocrinologo endocrinologo : endocrinologoManager.getEndocrinologos()) {
-            data.add(new Tag(cont++, endocrinologo.getPersona().getLastName()));
-            dataFilter.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
-            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
-        }
-
-        HashSet set = new HashSet<Tag>();
-        for (Tag filter : data) {
-            if (set.add(filter.getTagName())) {
-                //set.add(filter.getTagName());
-                dataFilter.add(new Tag(cont++, filter.getTagName()));
-            }
-        }
-
-        // iterate a list and filter by tagName
-        for (Tag tag : dataFilter) {
-            if (tag.getTagName().toLowerCase()
-                    .startsWith(tagName.toLowerCase())) {
-                result.add(tag);
-            }
-        }
-        return result;
-    }
 
 	@RequestMapping(value = "admin/newEndocrinologo*", method = RequestMethod.POST)
     public String onSubmit(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors, 
@@ -267,6 +161,146 @@ public class AbmEndocrinologoController extends BaseFormController {
         return success;
     }
 
+    @RequestMapping(value = "admin/endocrinologoList*", method = RequestMethod.GET)
+    public ModelAndView showEndocrinologos(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
+                                           final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+        ModelAndView mv = new ModelAndView("admin/endocrinologoList");
+        List<Endocrinologo> endocrinologos = endocrinologoManager.getEndocrinologos();
+        List<Endocrinologo> endocrinologosFilter = new ArrayList<Endocrinologo>();
+
+        if (search == null) {
+            mv.addObject("endocrinologoList", endocrinologos);
+            return mv;
+        } else {
+            for (Endocrinologo endocrinologofilter : endocrinologos) {
+                if (endocrinologofilter.getPersona().getDni().startsWith(endocrinologoForm.getDni()) || (endocrinologofilter.getPersona().getLastName().startsWith(endocrinologoForm.getDni().toUpperCase()))) {
+                    endocrinologosFilter.add(endocrinologofilter);
+                }
+            }
+            if (endocrinologosFilter.size() == 0) {
+                mv.addObject("endocrinologoList", endocrinologos);
+                saveInfo(request, "No existe el Endocrinologo");
+                return mv;
+            } else {
+                mv.addObject("endocrinologoList", endocrinologosFilter);
+                return mv;
+            }
+        }
+    }
+
+    @RequestMapping(value = "admin/getTags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Endocrinologo endocrinologo : endocrinologoManager.getEndocrinologos()) {
+            data.add(new Tag(cont++, endocrinologo.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "admin/getDNITags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getDNITags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Endocrinologo endocrinologo : endocrinologoManager.getEndocrinologos()) {
+            data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
+
+    private void buscar(ModelAndView mv, EndocrinologoForm endocrinologoForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
+        final String dni = endocrinologoForm.getDni();
+        try {
+            if (StringUtils.isEmpty(dni)){
+                mv.addObject("provinciaList", provincias);
+                mv.addObject("localidadList", localidades);
+                throw new NullPointerException();
+            }
+
+            Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
+            mv.addObject("provinciaList", provincias);
+
+            if (persona.getId() != null) {
+                endocrinologoForm.setNuevaPersona(false);
+                endocrinologoForm.setId(persona.getId());
+                endocrinologoForm.setDni(dni);
+                endocrinologoForm.setUsername(persona.getUsername());
+                endocrinologoForm.setFirstName(persona.getFirstName());
+                endocrinologoForm.setLastName(persona.getLastName());
+                endocrinologoForm.setEmail(persona.getEmail());
+                endocrinologoForm.setUsername(persona.getUsername());
+                endocrinologoForm.setPhoneNumber(persona.getPhoneNumber());
+                endocrinologoForm.setDia(persona.getFch_nac());
+                endocrinologoForm.setSexo(persona.getSexo());
+                endocrinologoForm.setDomicilio(persona.getDomicilio());
+                endocrinologoForm.setEnabled(persona.isEnabled());
+
+                Long matricula = getMatricula(persona);
+                if (matricula != null) {
+                    endocrinologoForm.setMatricula(getMatricula(persona));
+                    endocrinologoForm.setIdEndo(getIdEndocrinologo(persona));
+                } else {
+                    saveInfo(request, getText("user.superUser.info.nuevoEndo", locale));
+                }
+                List<Localidad> filtradas = new ArrayList<>();
+                for (Localidad localidad : localidades) {
+                    if (localidad.getProvincia().getNombre().equals(endocrinologoForm.getProvincia())) {
+                        filtradas.add(localidad);
+                    }
+                }
+                mv.addObject("endocrinologoForm", endocrinologoForm);
+                mv.addObject("localidadList", filtradas);
+            } else {
+                mv.addObject("localidadList", localidades);
+                saveInfo(request, getText("user.superUser.info.nuevaPersona", locale));
+            }
+        } catch (NullPointerException npe) {
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+        }
+    }
 
     private Domicilio createDomicilio(EndocrinologoForm endo) {
         Domicilio domicilio = new Domicilio();

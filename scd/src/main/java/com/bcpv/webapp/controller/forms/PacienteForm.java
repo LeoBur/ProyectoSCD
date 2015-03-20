@@ -2,6 +2,10 @@ package com.bcpv.webapp.controller.forms;
 
 public class PacienteForm extends PersonaForm {
 
+    public PacienteForm(){
+        enabled = true;
+    }
+
     private int limiteInferior;
     private int limiteSuperior;
     private String tipoDiabetes;

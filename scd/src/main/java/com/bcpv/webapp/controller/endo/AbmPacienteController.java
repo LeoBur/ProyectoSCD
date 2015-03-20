@@ -120,9 +120,40 @@ public class AbmPacienteController extends BaseFormController {
         List<Tag> dataFilter = new ArrayList<Tag>();
         List<Tag> result = new ArrayList<Tag>();
 
-        for (Paciente endocrinologo : pacienteManager.getPacientes()) {
-            data.add(new Tag(cont++, endocrinologo.getPersona().getLastName()));
-            dataFilter.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        for (Paciente paciente : pacienteManager.getPacientes()) {
+            data.add(new Tag(cont++, paciente.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, paciente.getPersona().getDni()));
+            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "endos/getDNITags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getDNITags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Paciente paciente : pacienteManager.getPacientes()) {
+            data.add(new Tag(cont++, paciente.getPersona().getDni()));
             //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
         }
 
