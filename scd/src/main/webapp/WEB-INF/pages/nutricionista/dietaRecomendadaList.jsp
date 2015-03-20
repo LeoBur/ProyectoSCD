@@ -30,9 +30,9 @@
 		  <display:column href="dietas.jsp" paramId="id" paramProperty="idDieta">
 		    Ver Dieta
 		  </display:column>
-		  <display:column href="editDietajsp" paramId="search" paramProperty="idDieta">
+		  <!--<display:column href="editDietajsp" paramId="search" paramProperty="idDieta">
           	Editar Dieta
-          </display:column>
+          </display:column>-->
 		</display:table>
 		</div>
         <br>
