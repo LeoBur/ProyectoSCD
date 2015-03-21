@@ -162,17 +162,17 @@
                                         </div>
                                     </div>
                             </c:forEach>
-                    </div>
-                    <button id="b1" class="btn add-more" type="button">+</button>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
-                            <i class="icon-ok icon-white"></i>
-                            <fmt:message key="button.save" />
-                        </button>
-                        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" href="<c:url value='/endos/tratamiento?search=${dni}'/>" tabindex="26">
-                            <i class="icon-remove"></i>
-                            <fmt:message key="button.cancel" />
-                        </button>
+                        <button id="b1" class="btn add-more" type="button">+</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
+                                <i class="icon-ok icon-white"></i>
+                                <fmt:message key="button.save" />
+                            </button>
+                            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" href="<c:url value='/endos/tratamiento?search=${dni}'/>" tabindex="26">
+                                <i class="icon-remove"></i>
+                                <fmt:message key="button.cancel" />
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

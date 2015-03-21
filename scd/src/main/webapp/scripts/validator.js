@@ -56,6 +56,21 @@ $(document).ready(function(){
 				phoneNumber:{
 					digits:true
 				},
+				cantGlucosaX100:{
+                    digits:true
+                },
+                cantGrasasX100:{
+                    digits:true
+                },
+                cantProteinasX100:{
+                    digits:true
+                },
+                cantCarbohidratosX100:{
+                    digits:true
+                },
+                cantCaloriasX100:{
+                    digits:true
+                },
 				matricula:{
 					required:true,
 					digits:true

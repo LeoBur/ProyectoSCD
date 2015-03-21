@@ -79,8 +79,7 @@
                         tabindex="4">
                     </spring:bind>
                 </div>
-                <label for="cantGlucosaX100" generated="true" class="error"></label>
-                <form:errors path="cantGlucosaX100" cssClass="help-block"/>
+
             </div>
 		</div>
 
@@ -102,8 +101,7 @@
                     <div cssClass="form-control">
                         <input type="text" id="cantProteinasX100" name="cantProteinasX100" class="form-control"
                         placeholder="<fmt:message key="user.food.cantProteinasX100"/>" value="${status.value}" tabindex="17"/>
-                        <label for="cantProteinasX100" generated="true" class="error"></label>
-                        <form:errors path="cantProteinasX100" cssClass="help-block" />
+
                     </div>
                 </div>
                 </spring:bind>
@@ -127,8 +125,7 @@
                             <div cssClass="form-control">
                                 <input type="text" id="cantCaloriasX100" name="cantCaloriasX100" class="form-control"
                                 placeholder="<fmt:message key="user.food.cantCaloriasX100"/>" value="${status.value}" tabindex="17"/>
-                                <label for="cantCaloriasX100" generated="true" class="error"></label>
-                                <form:errors path="cantCaloriasX100" cssClass="help-block" />
+
                             </div>
                         </div>
                         </spring:bind>
@@ -149,7 +146,7 @@
                 </button>
             </c:if>
 
-			<button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
+			<button type="submist" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="26">
 
 				<i class="icon-remove"></i>
 				<fmt:message key="button.cancel" />
