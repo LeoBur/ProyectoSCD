@@ -31,7 +31,7 @@
 <div class="container">
 <meta name="menu" content="UserMenu"/>
 
-<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<c:set var="delObject" scope="request">Alimento</c:set>
 <script type="text/javascript">var msgDelConfirm =
 		"<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>

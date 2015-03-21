@@ -79,5 +79,12 @@
             <field property="medicion" depends="integer"/>
             <field property="peso" depends="float"/>
         </form>
+        <form name="alimento">
+            <field property="cantGlucosaX100" depends="long"/>
+            <field property="cantGrasasX100" depends="long"/>
+            <field property="cantProteinasX100" depends="long"/>
+            <field property="cantCarbohidratosX100" depends="long"/>
+            <field property="cantCaloriasX100" depends="long"/>
+        </form>
     </formset>
 </form-validation>

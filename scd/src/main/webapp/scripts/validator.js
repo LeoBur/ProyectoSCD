@@ -117,6 +117,21 @@ $(document).ready(function(){
 					digits:true,
 					min: function () { return $('#limiteInferior').val(); }
 				},
+				cantGlucosaX100:{
+				    digits:true
+				},
+				cantGrasasX100:{
+				    digits:true
+				},
+                cantProteinasX100:{
+                    digits:true
+                },
+                cantCarbohidratosX100:{
+                    digits:true
+                },
+                cantCaloriasX100:{
+                    digits:true
+                },
                 cantidadLunes1:{
                 	required:true
                 },
