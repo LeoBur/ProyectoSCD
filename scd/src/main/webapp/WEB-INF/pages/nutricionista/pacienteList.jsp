@@ -61,7 +61,9 @@
                         <fmt:message key="user.lastName" />
                     </th>
                     <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th class="sortable sorted order1"><fmt:message key="user.enabled" /></th>
+                    <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
+                    <th align="center">Mediciones</th>
+                    <th align="center">Pesos</th>
                     <th class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
                 </tr>
                 <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
@@ -75,7 +77,7 @@
                             <td>
                                 <c:out value="${endo.persona.firstName}" />
                             </td>
-                            <td>
+                            <td align="center">
                                 <c:choose>
                                     <c:when test="${endo.persona.enabled == 'true'}">
                                         <input type="checkbox" checked="true" disabled="true"/>
@@ -85,11 +87,25 @@
                                     </c:when>
                                 </c:choose>
                             </td>
-                            <td>
-                                <a href="${ctx}/nutricionista/dieta?username=${endo.persona.username}">Agregar dieta</a>
-                            </td>
+                            <c:choose>
+                                <c:when test="${endo.persona.enabled == 'true'}">
+                                    <td align="center">
+                                        <a href="${ctx}/nutricionista/pesosPaciente?idPaciente=${endo.id}">Ver</a>
+                                    </td>
+                                    <td align="center">
+                                        <a href="${ctx}/nutricionista/medicionesPaciente?idPaciente=${endo.id}">Ver</a>
+                                    </td>
+                                    <td>
+                                        <a href="${ctx}/nutricionista/dieta?username=${endo.persona.username}">Agregar dieta</a>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td align="center">Ver</td>
+                                    <td align="center">Ver</td>
+                                    <td>Agregar dieta</td>
+                                </c:otherwise>
+                            </c:choose>
                         </tr>
-                    </table>
                 </c:forEach>
             </table>
         </c:if>
