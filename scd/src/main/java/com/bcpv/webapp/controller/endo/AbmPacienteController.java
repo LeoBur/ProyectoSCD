@@ -366,11 +366,11 @@ public class AbmPacienteController extends BaseFormController {
     }
 
     @RequestMapping(value = "endos/asignarUnEspecialistaAPaciente*",method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView asignarUnEspecialista(@ModelAttribute PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
+    public String asignarUnEspecialista(@ModelAttribute PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
                                             HttpServletRequest request, HttpServletResponse response,
                                             @RequestParam(required=false, value="idPacienteTratamiento") String idPacienteTratamiento,
                                             @RequestParam(required=false, value="idEspecialista") String idEspecialista){
-        ModelAndView mv = new ModelAndView("endos/especialistaListPaciente");
+        ModelAndView mv = new ModelAndView("endos/pacienteList");
         Locale locale = request.getLocale();
         pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(new Long(idPacienteTratamiento));
         Especialista especialista = especialistaManager.getEspecialista(new Long(idEspecialista));
@@ -382,7 +382,7 @@ public class AbmPacienteController extends BaseFormController {
         mv.addObject("especialistasListPaciente", pacienteEnTratamiento.getEspecialista());
         mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
         mv.addObject("idPacienteTratamiento", pacienteEnTratamiento.getIdPacienteEnTratamiento());
-        return mv;
+        return "redirect:pacienteList";
     }
 
    /* @RequestMapping(value = "endos/desvincularEspecialista*", method = RequestMethod.POST)

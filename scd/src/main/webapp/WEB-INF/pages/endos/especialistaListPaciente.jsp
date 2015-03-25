@@ -1,5 +1,4 @@
 <%@ include file="/common/taglibs.jsp"%>
-<c:set var="lista" value="${especialistasListPaciente}"/>
 
 <head>
 <title><fmt:message key="home.title" /></title>
@@ -56,37 +55,32 @@
             </div>
 	    </div>
         <br></br>
-        <c:if test="${not empty lista}">
+        <c:if test="${not empty especialistasListPaciente}">
             <table class="table table-condensed table-striped table-hover">
                 <tr>
-                    <th style="width: 30%" class="sortable sorted order1">
-                        <fmt:message key="user.lastName" />
-                    </th>
+                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.eliminar" /></th>
                 </tr>
-            </table>
-        </c:if>
-        <c:forEach var="especialista" items="${especialistasListPaciente}" varStatus="index" >
-                <table class="table table-condensed table-striped table-hover">
+
                     <tr>
-                        <td style="width: 28%">
-                            <c:out value="${especialista.persona.lastName}" />
+                        <td style="width: 30%">
+                            <c:out value="${especialistasListPaciente.persona.lastName}" />
                         </td>
-                        <td style="width: 34%">
-                            <c:out value="${especialista.persona.firstName}" />
+                        <td style="width: 30%">
+                            <c:out value="${especialistasListPaciente.persona.firstName}" />
                         </td>
-                        <td style="width: 34%">
-                            <c:out value="${especialista.tipo_esp}" />
+                        <td style="width: 30%">
+                            <c:out value="${especialistasListPaciente.tipo_esp}" />
                         </td>
-                        <td style="width: 34%">
-                            <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialista.persona.dni}">Desvincular</a>
+                        <td style="width: 30%">
+                            <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialistasListPaciente.persona.dni}">Desvincular</a>
                         </td>
                     </tr>
-                </table>
-                </table>
-        </c:forEach>
+
+            </table>
+        </c:if>
     </div>
 </div>
 </body>

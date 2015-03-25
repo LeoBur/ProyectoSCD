@@ -236,7 +236,7 @@ public class AbmEspecialistaController extends BaseFormController {
 
         log.debug("entering 'onSubmit' method from AbmEspecialistaController...");
 
-        String success = "redirect:newEspecialista";
+        String success = "redirect:especialistaList";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni()); //recupera una persona o crea una nueva instancia
