@@ -35,8 +35,8 @@ public class TipoDiabetesManagerImpl extends GenericManagerImpl<TipoDiabetes, Lo
 	}
 	
 	@Override
-	public TipoDiabetes getTipoDiabetes (Long id_tipo){
-		return tipoDiabetesDao.get(id_tipo);
+	public TipoDiabetes getTipoDiabetes (int id_tipo){
+		return tipoDiabetesDao.loadTipoDiabetesById(id_tipo);
 	}
 
     @Override

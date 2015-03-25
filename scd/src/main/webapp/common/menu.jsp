@@ -10,6 +10,11 @@
             <a href="<c:url value="/login"/>"><fmt:message key="login.title"/></a>
         </li>
     </c:if>
+
+    <c:if test="${pageContext.request.isUserInRole('ROLE_NUTRI')} && ${pageContext.request.isUserInRole('ROLE_USER')}">
+        <menu:displayMenu name="Logout"/>
+    </c:if>
+
     <%--<menu:displayMenu name="Home"/> --%>
     <%--<menu:displayMenu name="UserMenu"/> --%>
     <%--<menu:displayMenu name="AdminMenu"/> --%>

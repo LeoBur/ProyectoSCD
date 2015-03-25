@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="/styles/style.css">
+    <link href="<c:url value="/scripts/main.css" />" rel="stylesheet">
 	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
 	  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+      <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
 	  <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
 	  <script src="/scripts/validator.js" type="text/javascript"></script>
 	  <script type="text/javascript">
@@ -27,9 +29,33 @@
 			}));
 		}); */
 	  </script>
-  
 
+	  <script type="text/javascript">
+      	$(document).ready(function() {
+      		$('#grupoMedicamentoBusqueda').autocomplete({
+      			serviceUrl : '/getGrupos',
+      			paramName : "tagName",
+      			delimiter : ",",
+      			transformResult : function(response) {
+      				return {
+      					suggestions : $.map($.parseJSON(response), function(item) {
+      						return {
+      							value : item.tagName,
+      							data : item.id
+      						};
+      					})
+      				};
+      			}
+      		});
+      	});
+          /* function deleteBook(bookId){
 
+          	  if(window.confirm('Esta seguro de querer eliminar este Medicamento ?')){
+                    var url = 'delete/'+bookId;
+                    window.location.href = url;
+              }
+          } */
+      </script>
 </head>
 <body>
 
@@ -94,24 +120,9 @@
         	<label for="presentacion" generated="true" class="error"></label>
         </div>
         <div>
-        <spring:bind path="grupoMedicamento">
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.grupoMedicamento"/>
-        <input list="drogas" name="grupoMedicamento" id="grupoMedicamento" class="form-control"
-          value="${status.value}" tabindex="4">
-		</spring:bind>
+        <form:input cssClass="form-control" path="grupoMedicamento" id="grupoMedicamentoBusqueda"/>
 
-		<datalist id="drogas">
-		  <option value="INHIBIDOR DE ALFA GLUCOSIDASA">
-		  <option value="SULFONILUREA">
-		  <option value="BIGUANIDA">
-		  <option value="GLINIDA">
-		  <option value="MEGLITINIDA">
-		  <option value="TZD">
-		  <option value="INSULINA">
-		  <option value="GLP_1">
-		  <option value="IAPP">
-		  <option value="DPP_4">
-		</datalist>
 		<label for="grupoMedicamento" generated="true" class="error"></label>
         </div>
         <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> <form:options/>  --%>

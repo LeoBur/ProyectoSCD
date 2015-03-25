@@ -21,6 +21,7 @@
         <class>com.bcpv.model.Sintoma</class>
         <class>com.bcpv.model.TipoDiabetes</class>
         <class>com.bcpv.model.Tratamiento</class>
+        <class>com.bcpv.model.GrupoMedicamento</class>
     </persistence-unit>
 
     <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The

@@ -14,7 +14,7 @@ public interface TipoDiabetesDao extends GenericDao<TipoDiabetes, Long>{
      * @return medicion
      * @throws MedicionNotFoundException thrown when medicion not found in database
      */
-    TipoDiabetes loadTipoDiabetesById(Long id) throws EntityNotFoundException;
+    TipoDiabetes loadTipoDiabetesById(int id) throws EntityNotFoundException;
 
     TipoDiabetes loadTipoDiabetesByTipo(String tipo) throws EntityNotFoundException;
 

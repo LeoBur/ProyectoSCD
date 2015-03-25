@@ -1,6 +1,7 @@
 package com.bcpv.webapp.controller.endo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bcpv.model.GrupoMedicamento;
+import com.bcpv.service.GrupoMedicamentoManager;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class AbmMedicamentoController extends BaseFormController{
 	
 	@Autowired
 	MedicamentoManager medicamentoManager;
+
+    @Autowired
+    GrupoMedicamentoManager grupoMedicamentoManager;
 	
 	public AbmMedicamentoController(){
 		
@@ -154,7 +160,14 @@ public class AbmMedicamentoController extends BaseFormController{
  
             if (!isNew) {
             	success = "redirect:medicamentoList";
-//                success = "redirect:medicamentoForm?id=" + medicamento.getIdMedicamento();
+            }
+
+            GrupoMedicamento grupo = null;
+            try {
+                 grupo = grupoMedicamentoManager.getByNombre(medicamento.getGrupoMedicamento());
+            } catch (EntityNotFoundException e) {
+                grupo = new GrupoMedicamento(medicamento.getGrupoMedicamento());
+                grupoMedicamentoManager.saveGrupoMedicamento(grupo);
             }
         }
  
@@ -181,4 +194,24 @@ public class AbmMedicamentoController extends BaseFormController{
     	return result;
     }
 
+    @RequestMapping(value = "/getGrupos", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getGruposTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (GrupoMedicamento grupoMedicamento : grupoMedicamentoManager.getGrupoMedicamentos()) {
+            data.add(new Tag(cont++, grupoMedicamento.getNombre()));
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : data) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
 }
