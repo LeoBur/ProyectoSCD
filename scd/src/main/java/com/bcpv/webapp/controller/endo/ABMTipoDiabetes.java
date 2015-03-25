@@ -33,7 +33,7 @@ public class ABMTipoDiabetes extends BaseFormController{
 
     @ModelAttribute
     @RequestMapping(value = "/endos/tipoDiabetesList*", method = RequestMethod.GET)
-    public ModelAndView showTipoDiabetess(@ModelAttribute("tipo") final TipoDiabetes tipoDiabetes,
+    public ModelAndView showTipoDiabetess(@ModelAttribute("tipoDiabetes") final TipoDiabetes tipoDiabetes,
                                          final HttpServletRequest request){
         ModelAndView mv = new ModelAndView("endos/tipoDiabetesList");
         List<TipoDiabetes> tipoDiabetesList;
@@ -102,7 +102,7 @@ public class ABMTipoDiabetes extends BaseFormController{
     public TipoDiabetes editTipo(final HttpServletRequest request) {
         final String id = request.getParameter("id");
         if (!StringUtils.isBlank(id)) {
-            return tipoDiabetesManager.getTipoDiabetes(new Long(id));
+            return tipoDiabetesManager.getTipoDiabetes(Integer.parseInt(id));
         }
         return new TipoDiabetes();
     }
@@ -123,8 +123,15 @@ public class ABMTipoDiabetes extends BaseFormController{
         }
 
         log.debug("entering 'onSubmit' method...");
-        TipoDiabetes tipo = tipoDiabetesManager.getTipoDiabetesByName(tipoDiabetes.getTipoDiab());
-        boolean isNew = (tipo == null);
+        TipoDiabetes tipo = null;
+        boolean isNew = false;
+        try {
+            tipo = tipoDiabetesManager.getTipoDiabetesByName(tipoDiabetes.getTipoDiab());
+            tipoDiabetes.setId_tipo(tipo.getId_tipo());
+        } catch (EntityNotFoundException e) {
+            isNew = true;
+        }
+
         String success = "redirect:tipoDiabetesList";
         Locale locale = request.getLocale();
 

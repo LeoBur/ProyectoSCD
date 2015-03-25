@@ -26,7 +26,7 @@ public class TipoDiabetes implements Serializable{
 	
 	private int id_tipo;
 	private String tipoDiab;
-	private String Caract;
+	private String caract;
 	private Set<Paciente> pacientes = new HashSet<Paciente>();
 	
 	@Id
@@ -51,10 +51,10 @@ public class TipoDiabetes implements Serializable{
 	
 	@Column(name = "caracteristica")
 	public String getCaract() {
-		return Caract;
+		return caract;
 	}
 	public void setCaract(String caract) {
-		Caract = caract.toUpperCase();
+		this.caract = caract.toUpperCase();
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)

@@ -22,14 +22,12 @@ public class Medicamento implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -582669174967971464L;
-
-	public enum GrupoMedicamento {INHIBIDOR_DE_ALFA_GLUCOSIDASA, SULFONILUREA, BIGUANIDA, GLINIDA, MEGLITINIDA, TZD, INSULINA, GLP_1,IAPP, DPP_4, OTRO};
 	
 	private Long idMedicamento;
 	private String nombreGenerico;
 	private String nombreComercial;
 	private String presentacion;
-	private GrupoMedicamento grupoMedicamento;
+	private String grupoMedicamento;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,13 +61,11 @@ public class Medicamento implements Serializable{
 		this.presentacion = presentacion.toUpperCase();
 	}
 	@Column(name="Grupo_Medicamento",nullable = false)
-	@Enumerated(EnumType.STRING)
-	public GrupoMedicamento getGrupoMedicamento() {
+
+	public String getGrupoMedicamento() {
 		return grupoMedicamento;
 	}
-	public void setGrupoMedicamento(GrupoMedicamento grupoMedicamento) {
-		this.grupoMedicamento = grupoMedicamento;
+	public void setGrupoMedicamento(String grupoMedicamento) {
+		this.grupoMedicamento = grupoMedicamento.toUpperCase();
 	}
-	
-
 }

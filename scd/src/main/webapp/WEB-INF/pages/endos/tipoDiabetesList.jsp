@@ -36,13 +36,13 @@
 <body class="home">
 <div class="container-fluid">
 <div class="col-md-2">
-    <h3></h3>
+    <h3>Tipos de Diabetes</h3>
 </div>
 
 <div class="col-md-8">
     <div class="well">
-		<form:form commandName="tipoDiabetesList" method="post" action="tipoDiabetesList" enctype="multipart/form-data" id="mainSearchBox">
-			<appfuse:label key="tipoDiabetesList.nombreToSearch" styleClass="control-label" />
+		<form:form commandName="tipoDiabetes" method="post" action="tipoDiabetesList" enctype="multipart/form-data" id="mainSearchBox">
+			<appfuse:label key="medicamento.nombreToSearch" styleClass="control-label" />
 			<div class="form-group">
 				<div class="row">
 					<div class="col-sm-6 form-group">
@@ -53,25 +53,23 @@
 					<button id="button-id" type="submit" onclick="bCancel=false" class="btn btn-primary"><fmt:message key="button.search" /></button>
 					</span>
 					</div>
+                    <div id="actions" class="btn-group">
+                        <a class="btn btn-primary" href="<c:url value='/endos/tipoDiabetesForm'/>">
+                            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
+                        </a>
+                    </div>
 				</div>
-			</div>
-			<div id="actions" class="btn-group">
-				<a class="btn btn-primary" href="<c:url value='/endos/tipoDiabetesForm'/>">
-					<i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
-			    </a>
 			</div>
 
 			<display:table  name="tipoDiabetesList" cellspacing="0" cellpadding="0" requestURI=""
 						   defaultsort="1" id="tipoDiabetesList" pagesize="25"
 						   class="table table-condensed table-striped table-hover" export="false" style="width: 100%">
 				    <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
-					<display:caption><h3>Tipos de Diabetes</h3></display:caption>
-					<display:caption media="pdf">Tipos de Diabetes</display:caption>
-					<display:column property="tipoDiab" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreGenerico"/>
-					<display:column property="Caract" escapeXml="true" sortable="true" titleKey="user.adminMedicamento.nombreComercial">
+					<display:column property="tipoDiab" escapeXml="true" sortable="true" titleKey="user.adminType.nombre"/>
+					<display:column property="caract" escapeXml="true" sortable="true" titleKey="user.adminType.caract">
 					</display:column>
 
-					<display:column titleKey="activeEndos.acciones" sortable="true">
+					<display:column titleKey="activeEndos.acciones" sortable="false">
 								<a href="${pageContext.request.contextPath}/endos/tipoDiabetesForm?id=${tipoDiabetesList.id_tipo}">Editar</a>
 								<%-- <a href="${pageContext.request.contextPath}/adminMedicamento.jsp">Nuevo</a>
 								<a href="${pageContext.request.contextPath}/endos/adminMedicamento/${tipoDiabetesList.idMedicamento}.jsp">Editar</a>
