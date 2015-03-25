@@ -68,7 +68,7 @@
                     <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
                     <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
                     <th class="sortable sorted order1" align="center"><fmt:message key="activeEndos.acciones" /></th>
-                    <th class="sortable sorted order1" align="center"><fmt:message key="user.treatment.title" /></th>
+                    <th class="sortable sorted order1" style="text-align:center">Detalles</th>
                     <th class="sortable sorted order1" align="center">Especialistas</th>
                 </tr>
                 <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
@@ -87,8 +87,14 @@
                             </c:choose>
                         </td>
                         <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a></td>
-                        <td align="center"><a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Ver</a></td>
-                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.persona.dni}">Ver</a></td> <%-- Cambiar por la url que corresponda --%>
+                        <td align="center">
+                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Tratamientos</a>
+                            |
+                            <a href="${ctx}/endos/medicionesPaciente?idPaciente=${endo.id}">Mediciones</a>
+                            |
+                            <a href="${ctx}/endos/pesosPaciente?idPaciente=${endo.id}">Pesos</a>
+                        </td>
+                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.persona.dni}">Ver</a></td>
                     </tr>
                 </c:forEach>
             </table>
