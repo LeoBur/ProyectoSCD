@@ -41,7 +41,7 @@
     <script>
         $(document).ready(function() {
             $('#dni').autocomplete({
-                serviceUrl: 'http://localhost:8080/endos/especialista/getDNITags',
+                serviceUrl: '${ctx}/endos/especialista/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,
                 transformResult: function(response) {
@@ -54,7 +54,7 @@
             });
             $('#dni').blur(function(e) {
                 var search = $('input[name=dni]').val();
-                window.location.href = "http://localhost:8080/endos/newEspecialista?search=search&dni="+search;
+                window.location.href = "${ctx}/endos/newEspecialista?search=search&dni="+search;
             });
         });
     </script>
@@ -122,25 +122,27 @@
 		</div>
         
         <div class="form-group">
-	        <div>
-	        	<spring:bind path="especialistaForm.firstName">
-					<appfuse:label styleClass="control-label" key="user.firstName"/>
-					<input type="text" name="firstName" id="firstName" class="form-control"
-					placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
-					 tabindex="3">
-	        	</spring:bind>
-				<label for="firstName" generated="true" class="error"></label>
-				<form:errors path="firstName" cssClass="help-block"/>
-	        </div>
-	        <div>
-	        	<spring:bind path="especialistaForm.lastName">
-	            	<appfuse:label styleClass="control-label" key="user.lastName"/>
-	        		<input type="text" name="lastName" id="lastName" class="form-control"
-	           		placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
-	           	 	tabindex="4">
-	        	</spring:bind>
-				<label for="lastName" generated="true" class="error"></label>
-		   		<form:errors path="lastName" cssClass="help-block"/>
+            <div class="row">
+                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                    <spring:bind path="especialistaForm.firstName">
+                        <appfuse:label styleClass="control-label" key="user.firstName"/>
+                        <input type="text" name="firstName" id="firstName" class="form-control"
+                        placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
+                         tabindex="3">
+                    </spring:bind>
+                    <label for="firstName" generated="true" class="error"></label>
+                    <form:errors path="firstName" cssClass="help-block"/>
+                </div>
+                <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                    <spring:bind path="especialistaForm.lastName">
+                        <appfuse:label styleClass="control-label" key="user.lastName"/>
+                        <input type="text" name="lastName" id="lastName" class="form-control"
+                        placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
+                        tabindex="4">
+                    </spring:bind>
+                    <label for="lastName" generated="true" class="error"></label>
+                    <form:errors path="lastName" cssClass="help-block"/>
+                </div>
 		   	</div>
         </div>
         
@@ -216,7 +218,6 @@
 			</div>
 		</div>
 
-		<a><fmt:message key="user.address.address1" /></a>
 		<div class="row">
 			<div>
 				<spring:bind path="especialistaForm.provincia">
@@ -380,7 +381,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/newEspecialista";
+				window.location.href = "${ctx}/endos/newEspecialista";
 			});
 	</script>
 	<script type="text/javascript">
@@ -388,7 +389,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/endos/newEspecialista?search=search&dni="+dni;
+    				window.location.href = "${ctx}/endos/newEspecialista?search=search&dni="+dni;
     			});
     	</script>
 

@@ -28,7 +28,7 @@
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/newPaciente";
+	  	window.location.href = "${ctx}/endos/newPaciente";
 	  	};
 	</script>
 
@@ -49,7 +49,7 @@
     <script>
         $(document).ready(function() {
             $('#dni').autocomplete({
-                serviceUrl: 'http://localhost:8080/endos/getDNITags',
+                serviceUrl: '${ctx}/endos/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,
                 transformResult: function(response) {
@@ -62,7 +62,7 @@
             });
             $('#dni').blur(function(e) {
                 var search = $('input[name=dni]').val();
-                window.location.href = "http://localhost:8080/endos/newPaciente?search=search&dni="+search;
+                window.location.href = "${ctx}/endos/newPaciente?search=search&dni="+search;
             });
         });
     </script>
@@ -552,7 +552,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/pacienteList";
+				window.location.href = "${ctx}/endos/pacienteList";
 			});
 	</script>
 	</script>
@@ -561,7 +561,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/endos/newPaciente?search=search&dni="+dni;
+    				window.location.href = "${ctx}/endos/newPaciente?search=search&dni="+dni;
     			});
     	</script>
 

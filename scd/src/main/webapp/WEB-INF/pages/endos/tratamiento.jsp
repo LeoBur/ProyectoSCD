@@ -24,7 +24,7 @@
     <script type="text/javascript">
         function CancelFormButton(button) {
             onsubmit: false;
-        window.location.href = "http://localhost:8080/endos/tratamiento";
+        window.location.href = "${ctx}/endos/tratamiento";
         };
     </script>
 

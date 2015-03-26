@@ -42,8 +42,8 @@
 
     <script>
         $(document).ready(function() {
-            $('#dni').autocomplete({
-                serviceUrl: 'http://localhost:8080/admin/getDNITags',
+            $('#cualca').autocomplete({
+                serviceUrl: '${ctx}/admin/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,
                 transformResult: function(response) {
@@ -56,7 +56,7 @@
             });
             $('#dni').blur(function(e) {
                 var search = $('input[name=dni]').val();
-                window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+search;
+                window.location.href = "${ctx}/admin/newEndocrinologo?search=search&dni="+search;
             });
         });
     </script>
@@ -449,15 +449,15 @@
          			<div class="col-md-2 col-md-offset-2 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          				<appfuse:label styleClass="control-label" key="user.enabled" />
          				<c:choose>
-                                                    <c:when test="${endocrinologoForm.enabled == 'true'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                    <c:when test="${endocrinologoForm.enabled == 'false'}">
-                                                        <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
-                                                        value="${status.value}" tabindex="23"/>
-                                                    </c:when>
-                                                </c:choose>
+                            <c:when test="${endocrinologoForm.enabled == 'true'}">
+                                <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"  checked="true"
+                                value="${status.value}" tabindex="23"/>
+                            </c:when>
+                            <c:when test="${endocrinologoForm.enabled == 'false'}">
+                                <input type="checkbox" path="enabled" id="enabled" name="enabled" class="form-control" value="true"
+                                value="${status.value}" tabindex="23"/>
+                            </c:when>
+                        </c:choose>
 
          				<label for="enabled" generated="true" class="error"></label>
          				<form:errors path="enabled" cssClass="help-block" />
@@ -498,7 +498,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/admin/newEndocrinologo";
+				window.location.href = "${ctx}/admin/newEndocrinologo";
 			});
 	</script>
 	</script>
@@ -507,7 +507,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/admin/newEndocrinologo?search=search&dni="+dni;
+    				window.location.href = "${ctx}/admin/newEndocrinologo?search=search&dni="+dni;
     			});
     	</script>
 

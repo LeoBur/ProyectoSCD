@@ -11,7 +11,7 @@
 <script>
     $(document).ready(function() {
         $('#especialista-input-search').autocomplete({
-            serviceUrl: 'http://localhost:8080/endos/getTags',
+            serviceUrl: '${ctx}/endos/getTags',
             paramName: "tagName",
             delimiter: "," ,
             transformResult: function(response) {
@@ -25,7 +25,7 @@
 
         $('#button-id').click(function(e) {
            var search = $('input[name=especialista-input-search]').val();
-           window.location.href = "http://localhost:8080/endos/especialistaList?search=search&dni="+search;
+           window.location.href = "${ctx}/endos/especialistaList?search=search&dni="+search;
         });
     });
 </script>

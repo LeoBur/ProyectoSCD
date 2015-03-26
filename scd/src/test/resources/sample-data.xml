@@ -96,7 +96,7 @@
         <row>
             <value description="id">2</value>
             <value description="name">ROLE_USER</value>
-            <value description="description"><![CDATA[Usuario]]></value>
+            <value description="description"><![CDATA[Paciente]]></value>
         </row>
         <row>
             <value description="id">3</value>

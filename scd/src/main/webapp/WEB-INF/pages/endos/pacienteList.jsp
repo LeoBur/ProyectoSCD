@@ -12,7 +12,7 @@
 <script>
     $(document).ready(function() {
         $('#endo-input-search').autocomplete({
-            serviceUrl: 'http://localhost:8080/endos/pacienteList/getTags',
+            serviceUrl: '${ctx}/endos/pacienteList/getTags',
             paramName: "tagName",
             delimiter: "," ,
             transformResult: function(response) {
@@ -26,7 +26,7 @@
 
         $('#button-id').click(function(e) {
            var search = $('input[name=endo-input-search]').val();
-           window.location.href = "http://localhost:8080/endos/pacienteList?search=search&dni="+search;
+           window.location.href = "${ctx}/endos/pacienteList?search=search&dni="+search;
         });
     });
 </script>

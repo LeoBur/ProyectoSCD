@@ -133,10 +133,17 @@ public class AbmEndocrinologoController extends BaseFormController {
         }
 
         if (request.getParameter("delete") != null) {
-            Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
+            Endocrinologo endo;
+            try {
+                endo = endocrinologoManager.getEndocrinologoByPersona(persona);
+            } catch (EntityNotFoundException e) {
+                saveMessage(request, "No existe el endocrinologo");
+                return "redirect:newEndocrinologo";
+            }
             if (endo.getPacientes().isEmpty()){
                 endocrinologoManager.remove(endo);
                 persona.getRoles().remove(roleManager.getRole(Constants.ENDO_ROLE));
+                persona.setEnabled(false);
                 personaManager.savePersona(persona);
                 saveMessage(request, getText("admin.endocrinologist.deleted", locale));
             } else {

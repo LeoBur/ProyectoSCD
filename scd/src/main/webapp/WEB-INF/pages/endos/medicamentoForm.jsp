@@ -18,12 +18,12 @@
 	  <script type="text/javascript">
 	  	function CancelFormButton(button) {
 	  		onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/medicamentoList";
+	  	window.location.href = "${ctx}/endos/medicamentoList";
 	  	};
 	  	
 	  	/* $('button[name="cancel"]').click(function(e){
 			e.preventDefault();
-			console.log($.get('http://localhost:8080/endos/medicamentoList', function(data) { 
+			console.log($.get('${ctx}/endos/medicamentoList', function(data) {
 				console.log(data);	
 				//$()
 			}));
@@ -67,14 +67,6 @@
 
 <div class="col-md-2">
     <h2><fmt:message key="user.medicine.title"/></h2>
-    <c:choose>
-        <c:when test="${param.from == 'list'}">
-            <p><fmt:message key="user.medicine.title"/></p>
-        </c:when>
-        <c:otherwise>
-            <p><fmt:message key="userProfile.message.medicamento"/></p>
-        </c:otherwise>
-    </c:choose>
 </div>
 
 
@@ -121,18 +113,18 @@
         </div>
         <div>
         <appfuse:label styleClass="control-label" key="user.adminMedicamento.grupoMedicamento"/>
-        <form:input cssClass="form-control" path="grupoMedicamento" id="grupoMedicamentoBusqueda"/>
+        <form:input cssClass="form-control" path="grupoMedicamento" id="grupoMedicamentoBusqueda" tabindex="4"/>
 
 		<label for="grupoMedicamento" generated="true" class="error"></label>
         </div>
         <%-- <form:select path="variable a la que va enlazada" items="${iterar la lista }"/> <form:options/>  --%>
         <br>               
-        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="5">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
         </button>
 
         <c:if test="${not empty medicamento.idMedicamento}">
-          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="6">
               <i class="icon-trash"></i> <fmt:message key="button.delete"/>
           </button>
         </c:if>
@@ -140,7 +132,7 @@
 		<%-- <button type="submit" class="btn btn-warning " name="cancel" onclick="CancelFormButton(this);">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button> --%>
-         <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true">
+         <button type="submit" class="btn btn-warning " name="cancel" onclick="bCancel=true" tabindex="7">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button> 
     </form:form>
@@ -151,7 +143,7 @@
 		// This is here so we can exclude the selectAll call when roles is hidden
 		 $('button[name="cancel"]').click(function(e){
 			e.preventDefault();
-			window.location.href = "http://localhost:8080/endos/medicamentoList";
+			window.location.href = "${ctx}/endos/medicamentoList";
 			
 		}); 
 		

@@ -82,7 +82,7 @@
 		// This is here so we can exclude the selectAll call when roles is hidden
 		 $('button[name="cancel"]').click(function(e){
 			e.preventDefault();
-			window.location.href = "http://localhost:8080/endos/tipoDiabetesList";
+			window.location.href = "${ctx}/endos/tipoDiabetesList";
 
 		});
 

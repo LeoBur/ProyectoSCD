@@ -28,7 +28,7 @@
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
-	  	window.location.href = "http://localhost:8080/endos/endo";
+	  	window.location.href = "${ctx}/endos/endo";
 	  	};
 	</script>
 
@@ -351,7 +351,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/endos/adminEspecialista";
+				window.location.href = "${ctx}/endos/adminEspecialista";
 			});
 	</script>
 	<script type="text/javascript">
@@ -366,7 +366,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/endos/adminEspecialista?search=search&dni="+dni;
+    				window.location.href = "${ctx}/endos/adminEspecialista?search=search&dni="+dni;
     			});
     </script>
 

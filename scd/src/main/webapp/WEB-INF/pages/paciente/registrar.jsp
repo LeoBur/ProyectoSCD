@@ -259,7 +259,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/paciente/registrar";
+				window.location.href = "${ctx}/paciente/registrar";
 			});
 	</script>
 
@@ -268,7 +268,7 @@
     			  	e.preventDefault();
     				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
     				var dni = $('input[name=dni]').val();
-    				window.location.href = "http://localhost:8080/admin/newPaciente?search=search&dni="+dni;
+    				window.location.href = "${ctx}/admin/newPaciente?search=search&dni="+dni;
     			});
     	</script>
 </c:set>

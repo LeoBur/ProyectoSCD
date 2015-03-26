@@ -167,7 +167,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "http://localhost:8080/nutricionista/alimentoList";
+				window.location.href = "${ctx}/nutricionista/alimentoList";
 			});
 	</script>
 
