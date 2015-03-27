@@ -2,6 +2,7 @@ package com.bcpv.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -88,5 +89,19 @@ public class Especialista implements Serializable{
 
 	public void addPacienteEnTratamiento(PacienteEnTratamiento pacienteEnTratamiento){
 		this.pacientesEnTratamiento.add(pacienteEnTratamiento);
+	}
+
+	public void removePacienteEnTratamiento(Long idPacienteEnTratamiento){
+		PacienteEnTratamiento pacienteEnTratamiento = getPacienteEnTratamiento(idPacienteEnTratamiento);
+		this.pacientesEnTratamiento.remove(pacienteEnTratamiento);
+	}
+
+	private PacienteEnTratamiento getPacienteEnTratamiento (Long idPacienteEnTratamiento){
+		for(PacienteEnTratamiento pacienteEnTratamiento:this.getPacientes()){
+			if(pacienteEnTratamiento.getIdPacienteEnTratamiento().longValue() == idPacienteEnTratamiento.longValue()){
+				return pacienteEnTratamiento;
+			}
+		}
+		return null;
 	}
 }

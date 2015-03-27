@@ -343,7 +343,7 @@ public class AbmPacienteController extends BaseFormController {
         if (pacienteEnTratamiento.getEspecialista() == null){
             saveInfo(request, getText("user.endocrinologist.specialistsNotAssociated", locale));
         } else {
-            mv.addObject("especialistasListPaciente",pacienteEnTratamiento.getEspecialista());
+            mv.addObject("especialistaPaciente",pacienteEnTratamiento.getEspecialista());
         }
         mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
         mv.addObject("pacienteFullName",pacienteEnTratamiento.getPaciente().getPersona().getFullName());
@@ -379,16 +379,25 @@ public class AbmPacienteController extends BaseFormController {
         especialistaManager.saveEspecialista(especialista);
         pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
         saveInfo(request, getText("user.endocrinologist.specialistAssigned", locale));
-        mv.addObject("especialistasListPaciente", pacienteEnTratamiento.getEspecialista());
+        mv.addObject("especialistaPaciente", pacienteEnTratamiento.getEspecialista());
         mv.addObject("pacienteEnTratamiento",pacienteEnTratamiento);
         mv.addObject("idPacienteTratamiento", pacienteEnTratamiento.getIdPacienteEnTratamiento());
         return "redirect:pacienteList";
     }
 
-   /* @RequestMapping(value = "endos/desvincularEspecialista*", method = RequestMethod.POST)
-    public String desvincularEspecialista(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
-                                      HttpServletRequest request, HttpServletResponse response){
-
+    @RequestMapping(value = "endos/desvincularEspecialista*", method = {RequestMethod.GET, RequestMethod.POST})
+    public String desvincularEspecialista(@ModelAttribute("pacienteForm") PacienteEnTratamiento pacienteEnTratamiento, BindingResult errors,
+                                      HttpServletRequest request, HttpServletResponse response,
+                                      @RequestParam(required=false, value="idPacienteTratamiento") String idPacienteTratamiento,
+                                      @RequestParam(required=false, value="idEspecialista") String idEspecialista){
+        Locale locale = request.getLocale();
+        pacienteEnTratamiento = pacienteEnTratamientoManager.getPacienteEnTratamiento(new Long(idPacienteTratamiento));
+        Especialista especialista = especialistaManager.getEspecialista(new Long(idEspecialista));
+        pacienteEnTratamiento.setEspecialista(null);
+        especialista.removePacienteEnTratamiento(new Long(idPacienteTratamiento));
+        especialistaManager.saveEspecialista(especialista);
+        pacienteEnTratamientoManager.savePacienteEnTratamiento(pacienteEnTratamiento);
+        saveInfo(request, getText("user.endocrinologist.specialistRemoved", locale));
+        return "redirect:pacienteList";
     }
-*/
 }

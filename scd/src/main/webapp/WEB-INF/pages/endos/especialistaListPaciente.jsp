@@ -55,7 +55,7 @@
             </div>
 	    </div>
         <br></br>
-        <c:if test="${not empty especialistasListPaciente}">
+        <c:if test="${not empty especialistaPaciente}">
             <table class="table table-condensed table-striped table-hover">
                 <tr>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
@@ -63,22 +63,20 @@
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
                     <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.eliminar" /></th>
                 </tr>
-
                     <tr>
                         <td style="width: 30%">
-                            <c:out value="${especialistasListPaciente.persona.lastName}" />
+                            <c:out value="${especialistaPaciente.persona.lastName}" />
                         </td>
                         <td style="width: 30%">
-                            <c:out value="${especialistasListPaciente.persona.firstName}" />
+                            <c:out value="${especialistaPaciente.persona.firstName}" />
                         </td>
                         <td style="width: 30%">
-                            <c:out value="${especialistasListPaciente.tipo_esp}" />
+                            <c:out value="${especialistaPaciente.tipo_esp}" />
                         </td>
                         <td style="width: 30%">
-                            <a href="${ctx}/endos/newEspecialista?search=search&dni=${especialistasListPaciente.persona.dni}">Desvincular</a>
+                            <a href="${ctx}/endos/desvincularEspecialista?idPacienteTratamiento=${idPacienteTratamiento}&idEspecialista=${especialistaPaciente.id}">Desvincular</a>
                         </td>
                     </tr>
-
             </table>
         </c:if>
     </div>
