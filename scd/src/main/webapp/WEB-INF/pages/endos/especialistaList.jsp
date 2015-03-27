@@ -67,7 +67,7 @@
                         </th>
                         <th class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
                         <th class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
-                        <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
+                        <th class="sortable sorted order1" style="text-align:center"><fmt:message key="user.enabled" /></th>
                         <th class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
                     </tr>
                     <c:forEach var="especialista" items="${especialistaList}" varStatus="index" >
@@ -84,7 +84,7 @@
                                     <td>
                                         <c:out value="${especialista.tipo_esp}" />
                                     </td>
-                                    <td align="center">
+                                    <td style="text-align:center">
                                         <c:choose>
                                             <c:when test="${especialista.persona.enabled == 'true'}">
                                                 <input type="checkbox" checked="true" disabled="true"/>

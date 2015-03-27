@@ -110,8 +110,7 @@ public class AbmTratamientoController extends BaseFormController{
     public String onSubmit(@RequestParam MultiValueMap<String, String> params,
                            final HttpServletRequest request) {
         if (request.getParameter("cancel") != null) {
-            return "redirect:/endos/tratamientoList?search="+pacienteManager.loadPacienteByDNI(
-                    personaManager.getPersonaByDni(params.get("paciente.persona.dni").get(0))).getId();
+            return "redirect:/endos/tratamientoList?search="+params.get("paciente.persona.dni").get(0);
         }
 
         BindingResult errors = new BeanPropertyBindingResult(params, "params");

@@ -26,10 +26,10 @@
         <c:choose>
               <c:when test="${enabled=='true'}">
                 <display:table name="tratamientoList" id="parent" pagesize="12" defaultsort="1" defaultorder="descending"
-                    class="table table-condensed table-striped table-hover" export="false">
+                    class="table table-condensed table-striped table-hover" export="false" >
                   <display:caption><h3>${paciente}</h3></display:caption>
                   <display:caption media="pdf">${paciente}</display:caption>
-                  <display:column property="fechaTratamiento" title="Fecha del Tratamiento"/>
+                  <display:column property="fechaTratamiento" title="Fecha del Tratamiento" format="{0,date,dd-MM-yyyy}"/>
                   <display:column href="prescripciones.jsp" paramId="id" paramProperty="idTratamiento">
                     Ver Prescripcion
                   </display:column>
