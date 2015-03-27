@@ -340,11 +340,17 @@ public class EditProfileController extends BaseFormController{
 
     @RequestMapping(value = "nutricionista/editProfile*", method = RequestMethod.GET)
     public ModelAndView showForm(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
-                                 final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
+                                 final HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("nutricionista/editProfile");
         Locale locale = request.getLocale();
         List<Provincia> provincias = provinciaManager.getProvincias();
         List<Localidad> localidades = localidadManager.getLocalidades();
+        if (request.getRemoteUser() == null) {
+            saveInfo(request, getText("user.superUser.info.dni", locale));
+        } else {
+            buscar(mv, especialistaForm, request, provincias, localidades, locale);
+        }
+        /*
         if (null == search && request.getAttribute("especialistaForm") == null) {
             EspecialistaForm especialista = new EspecialistaForm();
             mv.addObject("especialistaForm", especialista);
@@ -352,25 +358,20 @@ public class EditProfileController extends BaseFormController{
             mv.addObject("localidadList", localidades);
         } else {
             buscar(mv, especialistaForm, request, provincias, localidades, locale);
-        }
+        } */
         return mv;
     }
 
     private void buscar(ModelAndView mv, EspecialistaForm especialistaForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
-        final String dni = especialistaForm.getDni();
         try {
-            if (StringUtils.isEmpty(dni)){
-                mv.addObject("provinciaList", provincias);
-                mv.addObject("localidadList", localidades);
-                throw new NullPointerException();
-            }
-
-            Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni());
             mv.addObject("provinciaList", provincias);
+            //mv.addObject("localidadList", localidades);
+
+            Persona persona = personaManager.getPersonaByUsername(request.getRemoteUser());
             if (persona.getId() != null) {
                 especialistaForm.setNuevaPersona(false);
                 especialistaForm.setId(persona.getId());
-                especialistaForm.setDni(dni);
+                especialistaForm.setDni(persona.getDni());
                 especialistaForm.setUsername(persona.getUsername());
                 especialistaForm.setFirstName(persona.getFirstName());
                 especialistaForm.setLastName(persona.getLastName());
@@ -381,10 +382,10 @@ public class EditProfileController extends BaseFormController{
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
 
-                Long matricula = getMatricula(persona);
+                Long matricula = getMatriculaEspecialista(persona);
                 if (matricula != null) {
                     especialistaForm.setIdEspecialista(getIdEspecialista(persona));
-                    especialistaForm.setMatricula(getMatriculaEspecialista(persona));
+                    especialistaForm.setMatricula(matricula);
                     especialistaForm.setEnabled(persona.isEnabled());
                     especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
                 } else {

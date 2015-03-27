@@ -431,7 +431,6 @@
 
 				<datalist id="tiposEsp">
             		  <option value="NUTRICIONISTA">
-            		  <option value="ENTRENADOR_PERSONAL">
 				</datalist>
 			</div>
 			<div>
