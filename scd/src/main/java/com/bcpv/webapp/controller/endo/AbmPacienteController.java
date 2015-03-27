@@ -218,15 +218,27 @@ public class AbmPacienteController extends BaseFormController {
         persona.setFch_nac(pacienteForm.getDia());
         persona.setDomicilio(createDomicilio(pacienteForm));
         Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser()));
-        TipoDiabetes tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
-        Paciente paciente;
+        TipoDiabetes tipoDiabetes = null;
+        try {
+            tipoDiabetes = tipoDiabetesManager.getTipoDiabetesByName(pacienteForm.getTipoDiabetes());
+        } catch (EntityNotFoundException e) {
+            isNew = false;
+        }
+        Boolean isPerson = false;
+        Paciente paciente = null;
         if (isNew) {
             paciente = new Paciente(tipoDiabetes, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
         } else {
-            paciente = pacienteManager.loadPacienteByDNI(persona);
-            paciente.setLimiteInf(pacienteForm.getLimiteInferior());
-            paciente.setLimiteSup(pacienteForm.getLimiteSuperior());
-            paciente.setTipo(tipoDiabetes);
+            try {
+                paciente = pacienteManager.loadPacienteByDNI(persona);
+                paciente.setLimiteInf(pacienteForm.getLimiteInferior());
+                paciente.setLimiteSup(pacienteForm.getLimiteSuperior());
+                paciente.setTipo(tipoDiabetes);
+            } catch (EntityNotFoundException e) {
+                isPerson = true;
+                saveInfo(request, "La persona se habilito, ingrese para asignarla como paciente");
+                log.debug("No existe paciente", e);
+            }
         }
 
         if (request.getParameter("delete") != null) {
@@ -245,8 +257,9 @@ public class AbmPacienteController extends BaseFormController {
         } else {
             try{
                 personaManager.savePersona(persona);
-                paciente = pacienteManager.savePaciente(paciente);
-
+                if (null != paciente) {
+                    paciente = pacienteManager.savePaciente(paciente);
+                }
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
             }
@@ -256,7 +269,7 @@ public class AbmPacienteController extends BaseFormController {
                 endo.addPacienteEnTratamiento(pacienteEnTratamiento);
                 endocrinologoManager.saveEndocrinologo(endo);
                 saveMessage(request, getText("user.endocrinologist.pacientSaved", locale));
-            } else {
+            } else if (!isPerson){
                 saveMessage(request, getText("user.endocrinologist.pacientUpdated", locale));
             }
         }

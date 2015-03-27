@@ -36,7 +36,7 @@
     <menu:displayMenu name="HomeNutriPacienteList"/>
     <menu:displayMenu name="HomeNutriCargarAlimento"/>
     <menu:displayMenu name="EditProfileNutri"/>
-        
+
     <%--<menu:displayMenu name="Endocrinologist"/>  --%>
     <%--<menu:displayMenu name="Especialist"/> --%>
     <%--<menu:displayMenu name="Treatment"/> --%>

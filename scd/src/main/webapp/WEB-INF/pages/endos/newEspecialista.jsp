@@ -40,7 +40,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#dni').autocomplete({
+            $('#cualca').autocomplete({
                 serviceUrl: '${ctx}/endos/especialista/getDNITags',
                 paramName: "tagName",
                 delimiter: "," ,
