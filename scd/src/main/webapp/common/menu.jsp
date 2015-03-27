@@ -25,8 +25,10 @@
     <menu:displayMenu name="HomeEndoLista"/>
     <menu:displayMenu name="Paciente"/>
     <menu:displayMenu name="Ajuste"/>
-    <menu:displayMenu name="EditProfile"/>
-    
+    <menu:displayMenu name="EditProfileEndo"/>
+    <menu:displayMenu name="EditProfilePaciente"/>
+    <menu:displayMenu name="EditProfileNutri"/>
+
     
     <menu:displayMenu name="PacienteMenu"/>
     <menu:displayMenu name="Consulta"/>

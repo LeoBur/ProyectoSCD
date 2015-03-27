@@ -16,27 +16,22 @@
         <!-- <Menu name="HomeEndo" title="home.endocrinologist" page="/endos/endo" roles="ROLE_ADMIN"/> A los 2 menus de abajo le cambie a ROLE_USER-->
         <!-- <Menu name="HomeEndo" title="home.AbmEndocrinologo" page="/admin/newEndocrinologo" roles="ROLE_ADMIN"/> -->
         <Menu name="HomeEndoLista" title="home.Endo.Lista" page="/admin/endocrinologoList" roles="ROLE_ADMIN"/>
-        <Menu name="Paciente" title="user.paciente" page="/endos/pacienteList" roles="ROLE_ENDO" description="Paciente Admin">
+        <Menu name="Paciente" title="user.paciente" page="/endos/pacienteList" roles="ROLE_ENDO" description="Paciente Admin"/>
         <!--  <Item name="editTreatment" title="user.treatment.editar" page="/admin/users"/> -->
 
-    </Menu>
         <Menu name="HomeNutriPacienteList" title="home.Nutri.Paciente.Lista" page="/nutricionista/pacienteList" roles="ROLE_NUTRI"/>
-        <Menu name="HomeNutriCargarAlimento" title="home.Nutri.ListaAlimentos" page="/nutricionista/alimentoList" roles="ROLE_NUTRI">
-
-        </Menu>
+        <Menu name="HomeNutriCargarAlimento" title="home.Nutri.ListaAlimentos" page="/nutricionista/alimentoList" roles="ROLE_NUTRI"/>
 
     <Menu name="Ajuste" title="user.admin.endocrinologist.title" page="/admin/users" roles="ROLE_ENDO" description="Ajustes del Sistema">
         <Item name="AdminEspecialist" title="user.specialist.admin" page="/endos/especialistaList"/>
         <Item name="AdminMedicine" title="user.medicamento.admin" page="/endos/medicamentoList"/>
         <Item name="AdminSymptom" title="user.symptom.admin" page="/endos/sintomaList"/>
         <Item name="AdminTypes" title="user.type.admin" page="/endos/tipoDiabetesList"/>
-        <Item name="AdminUnidad" title="user.unidad.admin" page="/endos/medGroupList"/> <!-- TERMINAR -->
     </Menu>
 
-    <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
-    <Menu name="EditProfile" title="user.editProfile" page="paciente/editProfile" roles="ROLE_USER"/>
-    <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_NUTRI"/>
-    <Menu name="EditProfile" title="user.editProfile" page="endos/editProfile" roles="ROLE_PTRAI"/>
+    <Menu name="EditProfileEndo" title="user.editProfile" page="endos/editProfile" roles="ROLE_ENDO"/>
+    <Menu name="EditProfilePaciente" title="user.editProfile" page="paciente/editProfile" roles="ROLE_USER"/>
+    <Menu name="EditProfileNutri" title="user.editProfile" page="nutricionista/editProfile" roles="ROLE_NUTRI"/>
 
     <Menu name="PacienteMenu" title="menu.registrar" description="Paciente Menu" roles="ROLE_USER" page="paciente/registrar"/>
 

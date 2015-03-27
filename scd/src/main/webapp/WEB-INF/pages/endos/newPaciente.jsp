@@ -35,7 +35,7 @@
 	<script type="text/javascript" charset="utf-8">
     $(function(){
       $("select#provincia").change(function(){
-        $.getJSON("/getLocalidades?provincia="+$(this).val(), function(j){
+        $.getJSON("${ctx}/getLocalidades?provincia="+$(this).val(), function(j){
           var options = '';
           for (var i = 0; i < j.length; i++) {
             options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
@@ -71,7 +71,7 @@
 <div class="container-fluid">
 <meta name="menu" content="UserMenu"/>
 
-<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<c:set var="delObject" scope="request">Paciente</c:set>
 <script type="text/javascript">var msgDelConfirm =
 		"<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
@@ -130,13 +130,6 @@
 				</div>			
 			
 			</div>
-
-			<c:choose>
-                <c:when test="${pacienteForm.enabled=='true'}">
-                </c:when>
-                <c:otherwise>
-                </c:otherwise>
-            </c:choose>
         
         <div class="form-group">
         <div class="row">
@@ -144,7 +137,7 @@
 	          <spring:bind path="pacienteForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	            <c:choose>
-                    <c:when test="${pacienteForm.enabled=='true'}">
+                    <c:when test="${pacienteForm.enableFields=='true'}">
                         <input type="text" name="firstName" id="firstName" class="form-control"
                            placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
                            tabindex="3">
@@ -163,7 +156,7 @@
 	          <spring:bind path="pacienteForm.lastName">
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	            <c:choose>
-                    <c:when test="${pacienteForm.enabled=='true'}">
+                    <c:when test="${pacienteForm.enableFields=='true'}">
                         <input type="text" name="lastName" id="lastName" class="form-control"
                             placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
                             tabindex="4">
@@ -198,7 +191,7 @@
 		   	  <form:errors path="dia" cssClass="help-block"/>
 
               <c:choose>
-                  <c:when test="${pacienteForm.enabled=='true'}">
+                  <c:when test="${pacienteForm.enableFields=='true'}">
                       <script type="text/javascript">
                         $(function () {
                           $('#datetimepicker1').datetimepicker({
@@ -223,7 +216,7 @@
 					  <span class="required">*</span>
 						<div class="form-control">
 						<c:choose>
-						    <c:when test="${pacienteForm.enabled=='true'}">
+						    <c:when test="${pacienteForm.enableFields=='true'}">
                                 <c:choose>
                                     <c:when test="${pacienteForm.sexo == null || pacienteForm.sexo == 'M'}">
                                         <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
@@ -261,7 +254,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
                 <c:choose>
-		  		    <c:when test="${pacienteForm.enabled=='true'}">
+		  		    <c:when test="${pacienteForm.enableFields=='true'}">
 		  		        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
 		  		            placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
 		  		    </c:when>
@@ -278,7 +271,7 @@
 			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<c:choose>
-		  		    <c:when test="${pacienteForm.enabled=='true'}">
+		  		    <c:when test="${pacienteForm.enableFields=='true'}">
 		  		        <input type="email" id="email" name="email" class="form-control"
 		  		            placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
 		  		    </c:when>
@@ -302,7 +295,7 @@
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
                           <c:choose>
-                            <c:when test="${pacienteForm.enabled=='true'}">
+                            <c:when test="${pacienteForm.enableFields=='true'}">
                                 <form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
                                     <form:options items="${provinciaList}"/>
                                 </form:select>
@@ -325,7 +318,7 @@
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
                                 <c:choose>
-                                    <c:when test="${pacienteForm.enabled=='true'}">
+                                    <c:when test="${pacienteForm.enableFields=='true'}">
                                         <form:select id="localidad" name="localidad" class="form-control"
                                                 path="localidad" tabindex="15" value="${status.value}">
                                             <form:options items="${localidadList}"/>
@@ -354,7 +347,7 @@
 						<span class="required">*</span>
 						<div cssClass="form-control">
                             <c:choose>
-                                <c:when test="${pacienteForm.enabled=='true'}">
+                                <c:when test="${pacienteForm.enableFields=='true'}">
                                     <input type="text" id="calle" name="calle" class="form-control"
                                 	    placeholder="<fmt:message key="user.address.address"/>" value="${status.value}" tabindex="16"/>
                                 </c:when>
@@ -377,7 +370,7 @@
 						<span class="required">*</span>
 						<div cssClass="form-control">
                             <c:choose>
-                                <c:when test="${pacienteForm.enabled=='true'}">
+                                <c:when test="${pacienteForm.enableFields=='true'}">
                                     <input id="numero" name="numero" class="form-control"
                                         placeholder="<fmt:message key="user.address.numero"/>" value="${status.value}" tabindex="17"/>
                                 </c:when>
@@ -401,7 +394,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
 						<c:choose>
-                            <c:when test="${pacienteForm.enabled=='true'}">
+                            <c:when test="${pacienteForm.enableFields=='true'}">
                             <input id="dpto" name="dpto" class="form-control"
                                 placeholder="<fmt:message key="user.address.dpto"/>" value="${status.value}" tabindex="18"/>
                             </c:when>
@@ -421,7 +414,7 @@
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
 							<c:choose>
-                                <c:when test="${pacienteForm.enabled=='true'}">
+                                <c:when test="${pacienteForm.enableFields=='true'}">
                                     <input id="piso" name="piso" class="form-control"
                                         placeholder="<fmt:message key="user.address.piso"/>" value="${status.value}" autocomplete="off" tabindex="19"/>
                                 </c:when>
@@ -443,7 +436,7 @@
 						<appfuse:label styleClass="control-label" key="user.paciente.limit.inferior" />
 						<div cssClass="form-control">
 						    <c:choose>
-                                <c:when test="${pacienteForm.enabled=='true'}">
+                                <c:when test="${pacienteForm.enableFields=='true'}">
                                     <input id="limiteInferior" name="limiteInferior" class="form-control"
                                         placeholder="<fmt:message key="user.paciente.limit.inferior"/>" value="${status.value}" tabindex="20"/>
                                 </c:when>
@@ -463,7 +456,7 @@
 						<appfuse:label styleClass="control-label" key="user.paciente.limit.superior" />
 						<div cssClass="form-control">
 						    <c:choose>
-                                <c:when test="${pacienteForm.enabled=='true'}">
+                                <c:when test="${pacienteForm.enableFields=='true'}">
                                     <input id="limiteSuperior" name="limiteSuperior" class="form-control"
                                         placeholder="<fmt:message key="user.paciente.limit.superior"/>" value="${status.value}" autocomplete="off" tabindex="21"/>
                                 </c:when>
@@ -486,7 +479,7 @@
                <appfuse:label styleClass="control-label" key="user.paciente.tipoDiabetes" />
                <div cssClass="form-control">
                    <c:choose>
-                       <c:when test="${pacienteForm.enabled=='true'}">
+                       <c:when test="${pacienteForm.enableFields=='true'}">
                            <form:select id="tipoDiabetes" name="tipoDiabetes" class="form-control" path="tipoDiabetes" value="${status.value}" tabindex="22">
                                 <form:options items="${tipoDiabetesList}"/>
                            </form:select>

@@ -193,7 +193,7 @@ public class AbmPacienteController extends BaseFormController {
             }
         }
 
-        boolean isNew = (pacienteManager.getPacienteByUsername(pacienteForm.getUsername()) == null);
+        boolean isNew = (null == pacienteManager.getPacienteByUsername(pacienteForm.getEmail()));
         log.debug("entering 'onSubmit' method...");
 
         String success = "redirect:pacienteList";
@@ -287,6 +287,7 @@ public class AbmPacienteController extends BaseFormController {
                 pacienteForm.setSexo(persona.getSexo());
                 pacienteForm.setDomicilio(persona.getDomicilio());
                 pacienteForm.setEnabled(persona.isEnabled());
+                pacienteForm.setEnableFields(persona.isEnabled());
                 if (b == false) {
                     paciente = pacienteManager.getPacienteByUsername(persona.getUsername());
                 }

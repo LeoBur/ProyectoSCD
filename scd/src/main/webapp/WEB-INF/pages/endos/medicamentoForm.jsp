@@ -33,7 +33,7 @@
 	  <script type="text/javascript">
       	$(document).ready(function() {
       		$('#grupoMedicamentoBusqueda').autocomplete({
-      			serviceUrl : '/getGrupos',
+      			serviceUrl : '${ctx}/getGrupos',
       			paramName : "tagName",
       			delimiter : ",",
       			transformResult : function(response) {
@@ -60,7 +60,7 @@
 <body>
 
 
-<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<c:set var="delObject" scope="request">Medicamento</c:set>
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>

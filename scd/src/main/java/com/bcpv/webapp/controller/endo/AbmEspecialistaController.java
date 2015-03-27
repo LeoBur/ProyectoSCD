@@ -69,12 +69,12 @@ public class AbmEspecialistaController extends BaseFormController {
                 especialistaForm.setDia(persona.getFch_nac());
                 especialistaForm.setSexo(persona.getSexo());
                 especialistaForm.setDomicilio(persona.getDomicilio());
-
+                especialistaForm.setEnabled(persona.isEnabled());
+                especialistaForm.setEnableFields(persona.isEnabled());
                 Long matricula = getMatricula(persona);
                 if (matricula != null) {
                     especialistaForm.setIdEspecialista(getIdEspecialista(persona));
                     especialistaForm.setMatricula(getMatricula(persona));
-                    especialistaForm.setEnabled(persona.isEnabled());
                     especialistaForm.setTipoEspecialista(getTipoEspecialista(persona));
                 } else {
                     saveInfo(request, getText("user.superUser.info.nuevoEsp", locale));

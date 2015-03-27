@@ -36,7 +36,7 @@
 	<script type="text/javascript" charset="utf-8">
     $(function(){
       $("select#provincia").change(function(){
-        $.getJSON("/getLocalidades?provincia="+$(this).val(), function(j){
+        $.getJSON("${ctx}/getLocalidades?provincia="+$(this).val(), function(j){
           var options = '';
           for (var i = 0; i < j.length; i++) {
             options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
@@ -56,13 +56,13 @@
 		"<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="col-sm-2">
+<div class="col-md-2">
     <h3>Administraci&oacuten</h2>
     <h3>de Usuarios</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
-<div class="col-sm-7">
+<div class="col-md-9">
 	<spring:bind path="pacienteForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
@@ -100,7 +100,7 @@
 					  <br>
 					  <br>
 					  <div>
-                        <a href="/updatePassword"><fmt:message key="user.changePassword"/></a>
+                        <a href="${ctx}/updatePassword"><fmt:message key="user.changePassword"/></a>
                       </div>
 					</div>
 				</div>

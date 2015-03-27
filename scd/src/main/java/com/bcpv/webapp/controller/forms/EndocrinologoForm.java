@@ -3,7 +3,7 @@ package com.bcpv.webapp.controller.forms;
 public class EndocrinologoForm extends PersonaForm {
 
     public EndocrinologoForm(){
-        enabled = true;
+        enableFields = true;
     }
 
 	private Long matricula;

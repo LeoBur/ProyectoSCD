@@ -9,7 +9,7 @@ import com.bcpv.model.Especialista.TipoEspecialista;
 public class EspecialistaForm extends EndocrinologoForm {
 
     public EspecialistaForm(){
-        enabled = true;
+        enableFields = true;
     }
 
     private TipoEspecialista tipoEspecialista;
