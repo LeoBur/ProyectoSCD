@@ -117,7 +117,24 @@ $(document).ready(function(){
 					maxlength:4
 				},
 				medicion:{
-				    required:true,
+				    digits:true
+				},
+				peso:{
+				    digits:true
+				},
+				cantidad1:{
+				    digits:true
+				},
+                cantidad2:{
+				    digits:true
+				},
+                cantidad3:{
+				    digits:true
+				},
+                cantidad4:{
+				    digits:true
+				},
+                cantidad5:{
 				    digits:true
 				},
 				provincia:{
