@@ -286,6 +286,7 @@ public class AbmEndocrinologoController extends BaseFormController {
                 endocrinologoForm.setSexo(persona.getSexo());
                 endocrinologoForm.setDomicilio(persona.getDomicilio());
                 endocrinologoForm.setEnabled(persona.isEnabled());
+                endocrinologoForm.setEnableFields(persona.isEnabled());
 
                 Long matricula = getMatricula(persona);
                 if (matricula != null) {

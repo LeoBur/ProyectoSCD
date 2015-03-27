@@ -25,7 +25,7 @@
 	          <display:caption media="pdf">Tratamiento ${paciente} ${fechaTratamiento}</display:caption>
     		  <display:column property="medicamento.nombreComercial" title="Nombre Comercial"/>
     		  <display:column property="medicamento.presentacion" title="Presentacion"/>
-    		  <display:column property="descripcion" title="Presentacion"/>
+    		  <display:column property="descripcion" title="Indicaciones"/>
               <display:setProperty name="export.pdf" value="true" />
               <display:setProperty name="export.excel" value="false" />
               <display:setProperty name="export.xml" value="false" />

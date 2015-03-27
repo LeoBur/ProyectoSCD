@@ -3,7 +3,7 @@ package com.bcpv.webapp.controller.forms;
 public class PacienteForm extends PersonaForm {
 
     public PacienteForm(){
-        enabled = true;
+        enableFields = true;
     }
 
     private int limiteInferior;

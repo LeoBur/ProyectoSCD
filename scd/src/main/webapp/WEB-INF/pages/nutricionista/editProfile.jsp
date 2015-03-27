@@ -28,7 +28,7 @@
 	<script type="text/javascript">
 		function CancelFormButton(button) {
 			onsubmit: false;
-	  	window.location.href = "${ctx}/endos/endo";
+	  	window.location.href = "${ctx}/nutricionista/editProfile";
 	  	};
 	</script>
 
@@ -58,7 +58,7 @@
 <!-- Ac� comienzan los formularios -->
 
 <div class="col-md-9">
-	<spring:bind path="endocrinologoForm.*">
+	<spring:bind path="especialistaForm.*">
   		<c:if test="${not empty status.errorMessages}">
       		<div class="alert alert-danger alert-dismissable">
           	<a href="#" data-dismiss="alert" class="close">&times;</a>
@@ -69,7 +69,7 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="endocrinologoForm" method="post" action="editProfile" id="formulario" autocomplete="off"
+	<form:form commandName="especialistaForm" method="post" action="editProfile" id="formulario" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
   		<spring:bind path="id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
@@ -82,7 +82,7 @@
 		  		<div class="row">
 					  <div>
 					  	<spring:bind path="dni">
-						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						  	<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
 					        	<input type="text" name="dni" id="dni" class="form-control"
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
@@ -91,7 +91,7 @@
 
 					  </div>
 
-					  <div class="col-sm-6 form-group">
+					  <div class="col-md-6 form-group">
 					  <br>
 					  <br>
 					  <div>
@@ -104,7 +104,7 @@
 
         <div class="form-group">
 	        <div>
-	          <spring:bind path="endocrinologoForm.firstName">
+	          <spring:bind path="especialistaForm.firstName">
 	            <appfuse:label styleClass="control-label" key="user.firstName"/>
 	        	<input type="text" name="firstName" id="firstName" class="form-control"
 	           	placeholder="<fmt:message key="user.firstName"/>" value="${status.value}" maxlength="50"
@@ -114,7 +114,7 @@
 	          <form:errors path="firstName" cssClass="help-block"/>
 	        </div>
 	        <div>
-	          <spring:bind path="endocrinologoForm.lastName">
+	          <spring:bind path="especialistaForm.lastName">
 	            <appfuse:label styleClass="control-label" key="user.lastName"/>
 	        	<input type="text" name="lastName" id="lastName" class="form-control"
 	           	placeholder="<fmt:message key="user.lastName"/>" value="${status.value}" maxlength="50"
@@ -126,8 +126,8 @@
         </div>
 
 		<div class="row">
-            <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-	          <spring:bind path="endocrinologoForm.dia">
+            <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+	          <spring:bind path="especialistaForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
 	        	<input type="text" name="dia" id="dia" class="form-control"
 	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
@@ -137,16 +137,16 @@
 		   	  <form:errors path="dia" cssClass="help-block"/>
 		   	</div>
 
-		    <spring:bind path="endocrinologoForm.sexo">
-				<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+		    <spring:bind path="especialistaForm.sexo">
+				<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					<appfuse:label styleClass="control-label" key="user.sexo" />
 						<div class="form-control">
                         <c:choose>
-                            <c:when test="${endocrinologoForm.sexo == null || endocrinologoForm.sexo == 'M'}">
+                            <c:when test="${especialistaForm.sexo == null || especialistaForm.sexo == 'M'}">
                                 <input type="radio" name="sexo" value="M" checked="checked" tabindex="8"/>Masculino  &nbsp; &nbsp; &nbsp;
                                 <input type="radio" name="sexo" value="F" tabindex="9"/>Femenino
                             </c:when>
-                            <c:when test="${endocrinologoForm.sexo != null && endocrinologoForm.sexo == 'F'}">
+                            <c:when test="${especialistaForm.sexo != null && especialistaForm.sexo == 'F'}">
                                 <input type="radio" name="sexo" value="M" tabindex="10"/>Masculino &nbsp; &nbsp; &nbsp;
                                 <input type="radio" name="sexo" value="F" checked="checked" tabindex="11"/>Femenino
                             </c:when>
@@ -160,8 +160,8 @@
 
 		<div class="row">
 		 <div>
-		  <spring:bind path="endocrinologoForm.phoneNumber">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+		  <spring:bind path="especialistaForm.phoneNumber">
+			<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 		  		<appfuse:label styleClass="control-label" key="user.phoneNumber" />
 		  		<input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
 		  		placeholder="<fmt:message key="user.phoneNumber"/>" value="${status.value}" tabindex="12"/>
@@ -169,8 +169,8 @@
 		  </spring:bind>
 		 </div>
 		 <div>
-		  <spring:bind path="endocrinologoForm.email">
-			<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+		  <spring:bind path="especialistaForm.email">
+			<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 				<appfuse:label styleClass="control-label" key="user.email" />
 				<input type="email" id="email" name="email" class="form-control"
 				placeholder="<fmt:message key="user.emailExample"/>" value="${status.value}" tabindex="13"/>
@@ -183,8 +183,8 @@
 		</div>
 				<div class="row">
 				  <div>
-					<spring:bind path="endocrinologoForm.provincia">
-						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<spring:bind path="especialistaForm.provincia">
+						<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						  <appfuse:label styleClass="control-label" key="user.address.province" />
 						  <div cssClass="form-control">
 							<form:select id="provincia" name="provincia" class="form-control" path="provincia" value="${status.value}" tabindex="14">
@@ -196,8 +196,8 @@
 					</spring:bind>
 				  </div>
 				  <div>
-					<spring:bind path="endocrinologoForm.localidad">
-						<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<spring:bind path="especialistaForm.localidad">
+						<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							<appfuse:label styleClass="control-label" key="user.address.localidad" />
 							<div cssClass="form-control">
 								<form:select id="localidad" name="localidad" class="form-control"
@@ -213,8 +213,8 @@
 
 			<div class="row">
 			  <div>
-				<spring:bind path="endocrinologoForm.calle">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+				<spring:bind path="especialistaForm.calle">
+					<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.address" />
 						<div cssClass="form-control">
 							<input type="text" id="calle" name="calle" class="form-control"
@@ -226,8 +226,8 @@
 				</spring:bind>
 			  </div>
 			  <div>
-				<spring:bind path="endocrinologoForm.numero">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+				<spring:bind path="especialistaForm.numero">
+					<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.numero" />
 						<div cssClass="form-control">
 							<input id="numero" name="numero" class="form-control"
@@ -242,8 +242,8 @@
 
 			<div class="row">
 			  <div>
-				<spring:bind path="endocrinologoForm.dpto">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+				<spring:bind path="especialistaForm.dpto">
+					<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.dpto" />
 						<div cssClass="form-control">
 							<input id="dpto" name="dpto" class="form-control"
@@ -254,8 +254,8 @@
 				</spring:bind>
 			 </div>
 			 <div>
-				<spring:bind path="endocrinologoForm.piso">
-					<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+				<spring:bind path="especialistaForm.piso">
+					<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						<appfuse:label styleClass="control-label" key="user.address.piso" />
 						<div cssClass="form-control">
 							<input id="piso" name="piso" class="form-control"
@@ -269,8 +269,8 @@
 
          <div class="row">
 		 <div>
-           <spring:bind path="endocrinologoForm.matricula">
-         	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+           <spring:bind path="especialistaForm.matricula">
+         	<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
          	  <appfuse:label styleClass="control-label" key="user.endocrinologist.registration" />
          	  <input type="text" id="matricula" name="matricula" class="form-control"
               value="${status.value}" tabindex="22"/>
@@ -320,5 +320,5 @@
 
 </c:set>
 
-<v:javascript formName="endocrinologoForm" staticJavascript="false" />
+<v:javascript formName="especialistaForm" staticJavascript="false" />
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>

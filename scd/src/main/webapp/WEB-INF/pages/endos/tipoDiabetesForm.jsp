@@ -21,7 +21,7 @@
 <body>
 
 
-<c:set var="delObject" scope="request"><fmt:message key="user.type.title"/></c:set>
+<c:set var="delObject" scope="request">Tipo de Diabetes</c:set>
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
@@ -50,10 +50,10 @@
             <appfuse:label styleClass="control-label" key="user.adminType.nombre"/>
             <c:choose>
                 <c:when test="${tipoDiabetes.id_tipo != 0}">
-                    <form:input cssClass="form-control" path="tipoDiab" id="tipoDiab" name="tipoDiab" readonly="true"/>
+                    <form:input cssClass="form-control" path="tipoDiab" id="tipoDiab" name="tipoDiab" readonly="true" tabindex="1"/>
                 </c:when>
                 <c:otherwise>
-                    <form:input cssClass="form-control" path="tipoDiab" id="tipoDiab" name="tipoDiab" />
+                    <form:input cssClass="form-control" path="tipoDiab" id="tipoDiab" name="tipoDiab" tabindex="1"/>
                 </c:otherwise>
             </c:choose>
             <label for="tipoDiab" generated="true" class="error"></label>
@@ -61,16 +61,22 @@
 
         <div class="form-group">
             <appfuse:label styleClass="control-label" key="user.adminType.caract"/>
-            <form:input cssClass="form-control" path="caract" id="caract" name="caract" />
+            <form:input cssClass="form-control" path="caract" id="caract" name="caract" tabindex="2"/>
             <label for="caract" generated="true" class="error"></label>
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="3">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.registrer"/>
             </button>
 
-            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
+            <c:if test="${tipoDiabetes.id_tipo != 0}">
+              <button type="submit" class="btn btn-danger" name="delete" tabindex="4" onclick="bCancel=true;return confirmMessage(msgDelConfirm)" tabindex="6">
+                  <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+              </button>
+            </c:if>
+
+            <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true" tabindex="5">
                 <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
             </button>
         </div>

@@ -177,6 +177,7 @@ public class AbmTratamientoController extends BaseFormController{
         Locale locale = request.getLocale();
         List<Medicamento> medicamentos = medicamentoManager.getMedicamentos();
         Tratamiento tratamiento = tratamientoManager.getTratamiento(new Long(search));
+        int total = tratamiento.getPrescripciones().size();
         List<Paciente> pacientes = pacienteManager.getPacientes();
         String options = "";
         for (Medicamento med : medicamentos) {
@@ -185,6 +186,7 @@ public class AbmTratamientoController extends BaseFormController{
         mv.addObject("medicamentoList", medicamentos);
         mv.addObject("tratamientoForm", tratamiento);
         mv.addObject("options", options);
+        mv.addObject("total", total);
         return mv;
     }
 

@@ -26,6 +26,7 @@ public class PersonaForm {
     String dpto;
     String piso;
     boolean enabled;
+    boolean enableFields;
     boolean nuevaPersona = true;
 
     public boolean isNuevaPersona() {
@@ -174,5 +175,13 @@ public class PersonaForm {
     }
     public void setSexo(com.bcpv.model.Persona.Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    public boolean isEnableFields() {
+        return enableFields;
+    }
+
+    public void setEnableFields(boolean enableFields) {
+        this.enableFields = enableFields;
     }
 }
