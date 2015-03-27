@@ -29,12 +29,12 @@
 </script>
 </head>
 
-<div class="col-sm-2">
+<div class="col-md-2">
     <h3>Especialistas de</h3>
     <h3>${pacienteFullName}</h3>
 </div>
 
-<div class="col-sm-7">
+<div class="col-md-9">
     <div class="well">
         <div>
             <div class="form-group">
@@ -47,10 +47,12 @@
 	                        <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
 	                    </span>
 	                </div>
-	                <div id="actions" class="btn-group">
-                        <a class="btn btn-primary" href="<c:url value='/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}'/>">
-                        <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-                    </div>
+	                <c:if test="${empty especialistaPaciente}">
+                        <div id="actions" class="btn-group">
+                            <a class="btn btn-primary" href="<c:url value='/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}'/>">
+                            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 	    </div>
