@@ -87,7 +87,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <version>1.0-beta-3</version>
@@ -112,7 +112,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <!-- Runs before integration tests and jetty:run-war -->
+                        &lt;!&ndash; Runs before integration tests and jetty:run-war &ndash;&gt;
                         <id>test</id>
                         <phase>test</phase>
                         <goals>
@@ -127,8 +127,8 @@
                         <version>${jdbc.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
+            </plugin>-->
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
                 <version>1.5</version>
@@ -144,10 +144,10 @@
                     <url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</url>
                     <username>root</username>
                     <password>root</password>
-                    <!-- You can comment out username/password configurations and have maven 
-                        to look them up in your settings.xml using ${settingsKey} -->
+                    &lt;!&ndash; You can comment out username/password configurations and have maven
+                        to look them up in your settings.xml using ${settingsKey} &ndash;&gt;
                     <settingsKey>sensibleKey</settingsKey>
-                    <!--all executions are ignored if -Dmaven.test.skip=true -->
+                    &lt;!&ndash;all executions are ignored if -Dmaven.test.skip=true &ndash;&gt;
                     <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
@@ -166,7 +166,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -1059,7 +1059,7 @@
 
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
-        <dbunit.operation.type>NONE</dbunit.operation.type>
+        <dbunit.operation.type>UPDATE</dbunit.operation.type>
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>

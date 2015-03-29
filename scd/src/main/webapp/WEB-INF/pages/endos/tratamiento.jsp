@@ -37,9 +37,9 @@
                         var addto = "#fields" + next;
                         var addRemove = "#fields" + (next);
                         next = next + 1;
-                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div></div>';
+                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row" style="margin-bottom:-20px"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div></div>';
                         var newInput = $(newIn);
-                        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fields'+ (next-1) +'">';
+                        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" style="margin-bottom:15px; margin-top: -15px">-</button></div><div id="fields'+ (next-1) +'">';
                         var removeButton = $(removeBtn);
                         $(addto).after(newInput);
                         $(addRemove).after(removeButton);
@@ -119,7 +119,7 @@
 
             <div id="fields1">
                         <div class="form-group">
-                                        <div class="row">
+                                        <div class="row" style="margin-bottom:-20px">
                                             <div>
                                                 <spring:bind path="prescripciones[0].medicamento.nombreComercial">
                                                   <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
             </div>
-            <button id="b1" class="btn add-more" type="button">+</button>
+            <button id="b1" class="btn add-more" type="button" style="margin-bottom:15px; margin-top: -15px">+</button>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
