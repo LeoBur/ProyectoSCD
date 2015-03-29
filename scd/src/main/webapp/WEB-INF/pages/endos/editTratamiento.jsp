@@ -37,7 +37,7 @@
                         var addto = "#fields" + next;
                         next = next + 1;
                         var addRemove = "#fields" + (next);
-                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fields'+ (next) +'"></div>';
+                        var newIn = '<div id="fields'+ next +'"><div class="form-group"><div class="row" style="margin-bottom:-20px"><div><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Medicamento</label><div cssclass="form-control"><select id="prescripciones[].medicamento.nombreComercial" name="prescripciones[].medicamento.nombreComercial" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div></div><div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="prescripciones[].descripcion" name="prescripciones[].descripcion" class="form-control"><label for="prescripciones[].descripcion" generated="true" class="error"></label></div></div></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-me" style="margin-top:-40px">-</button></div><div id="fields'+ (next) +'"></div>';
                         var newInput = $(newIn);
                         var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fields'+ (next) +'">';
                         var removeButton = $(removeBtn);
@@ -135,8 +135,8 @@
                         <c:set var="count" value="0" scope="page" />
                             <c:forEach items="${tratamientoForm.prescripciones}" varStatus="gridRow">
                                 <c:set var="count" value="${count + 1}" scope="page"/>
-                                <div id="fields${gridRow.index}">
-                                        <div class="row">
+                                <div id="fields${gridRow.index}" class="form-group" style="margin-bottom:0px">
+                                        <div class="row" style="margin-bottom:-20px">
                                             <div>
                                                 <spring:bind path="prescripciones[${gridRow.index}].medicamento.nombreComercial">
                                                   <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -171,12 +171,11 @@
                                             </div>
                                         </div>
                                         <c:if test="${gridRow.index > 0}">
-                                            <button id="remove${gridRow.index}" class="btn btn-danger remove-another" >-</button></div>
+                                            <button id="remove${gridRow.index}" class="btn btn-danger remove-another" style="margin-top:-40px">-</button>
                                         </c:if>
-                                    <div>
                                 </div>
                             </c:forEach>
-                            <button id="b1" class="btn add-more" type="button">+</button>
+                            <button id="b1" class="btn add-more" type="button" style="margin-bottom:15px">+</button>
                             <div class="form-group">
                             <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" tabindex="24">
                                 <i class="icon-ok icon-white"></i>
