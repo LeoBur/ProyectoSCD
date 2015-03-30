@@ -650,7 +650,8 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "${ctx}/admin/endocrinologoList";
+				var dato = $("#dni").val();
+				window.location.href = "${ctx}/nutricionista/dietaList?search="+dato;
 			});
 	</script>
 	</script>

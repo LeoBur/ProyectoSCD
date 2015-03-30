@@ -33,7 +33,7 @@
 
     <script type="text/javascript">
             $(document).ready(function(){
-                        var next = 1;
+                        var next = $("#totalLunes").val() - 1;
                         $(".add-more").click(function(e){
                             e.preventDefault();
                             var options = $("#options").val();
@@ -41,14 +41,13 @@
                             var addto = "#fieldsLunes" + next;
                             var addRemove = "#fieldsLunes" + (next);
                             next = next + 1;
-                            var newIn = '<div id="fieldsLunes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoLunes[]" name="nombreAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoLunes[]" name="momentoAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoLunes2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoLunes'+ next +'" name="cantidadAlimentoLunes'+ next +'" class="form-control"><label for="cantidadAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoLunes'+ next +'" name="observacionAlimentoLunes'+ next +'" class="form-control"><label for="observacionAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                            var newIn = '<div id="fieldsLunes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoLunes[]" name="nombreAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoLunes[]" name="momentoAlimentoLunes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoLunes2" generated="true" class="error"></label></div></div></div>   <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoLunes'+ next +'" name="cantidadAlimentoLunes'+ next +'" class="form-control"><label for="cantidadAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoLunes'+ next +'" name="observacionAlimentoLunes'+ next +'" class="form-control"><label for="observacionAlimentoLunes'+ next +'" generated="true" class="error"></label></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsLunes'+ (next) +'"></div>';
                             var newInput = $(newIn);
-                            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsLunes'+ (next-1) +'">';
+                            var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsLunes'+ (next) +'">';
                             var removeButton = $(removeBtn);
                             $(addto).after(newInput);
-                            $(addRemove).after(removeButton);
                             $("#fieldsLunes" + next).attr('data-source',$(addto).attr('data-source'));
-                            $("#count").val(next);
+                            $("#countLunes").val(next);
 
                                 $('.remove-me').click(function(e){
                                     e.preventDefault();
@@ -58,12 +57,19 @@
                                     $(fieldID).remove();
                                 });
                         });
+                        $('.remove-another').click(function(e){
+                            e.preventDefault();
+                            var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                            var fieldID = "#fieldsLunes" + fieldNum;
+                            $(this).remove();
+                            $(fieldID).remove();
+                        });
             });
     </script>
 
     <script type="text/javascript">
                 $(document).ready(function(){
-                            var next = 10;
+                            var next = $("#totalMartes").val() - 1;
                             $(".add-more2").click(function(e){
                                 e.preventDefault();
                                 var options = $("#options").val();
@@ -71,14 +77,14 @@
                                 var addto = "#fieldsMartes" + next;
                                 var addRemove = "#fieldsMartes" + (next);
                                 next = next + 1;
-                                var newIn = '<div id="fieldsMartes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMartes[]" name="nombreAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMartes[]" name="momentoAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMartes2" generated="true" class="error"></label></div></div></div>  <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMartes'+ next +'" name="cantidadAlimentoMartes'+ next +'" class="form-control"><label for="cantidadAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMartes'+ next +'" name="observacionAlimentoMartes'+ next +'" class="form-control"><label for="observacionAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div></div></div>';
+                                var newIn = '<div id="fieldsMartes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMartes[]" name="nombreAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMartes[]" name="momentoAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMartes2" generated="true" class="error"></label></div></div></div>  <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMartes'+ next +'" name="cantidadAlimentoMartes'+ next +'" class="form-control"><label for="cantidadAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMartes'+ next +'" name="observacionAlimentoMartes'+ next +'" class="form-control"><label for="observacionAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next) +'"></div>';
                                 var newInput = $(newIn);
-                                var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next-1) +'">';
+                                var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next) +'">';
                                 var removeButton = $(removeBtn);
                                 $(addto).after(newInput);
                                 $(addRemove).after(removeButton);
                                 $("#fieldsMartes" + next).attr('data-source',$(addto).attr('data-source'));
-                                $("#count").val(next);
+                                $("#countMartes").val(next);
 
                                     $('.remove-me').click(function(e){
                                         e.preventDefault();
@@ -88,12 +94,19 @@
                                         $(fieldID).remove();
                                     });
                             });
+                            $('.remove-another2').click(function(e){
+                                                        e.preventDefault();
+                                                        var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
+                                                        var fieldID = "#fieldsLunes" + fieldNum;
+                                                        $(this).remove();
+                                                        $(fieldID).remove();
+                            });
                 });
     </script>
 
     <script type="text/javascript">
                     $(document).ready(function(){
-                                var next = 20;
+                                var next = 24;
                                 $(".add-more3").click(function(e){
                                     e.preventDefault();
                                     var options = $("#options").val();
@@ -123,7 +136,7 @@
 
     <script type="text/javascript">
                     $(document).ready(function(){
-                                var next = 30;
+                                var next = 34;
                                 $(".add-more4").click(function(e){
                                     e.preventDefault();
                                     var options = $("#options").val();
@@ -153,7 +166,7 @@
 
     <script type="text/javascript">
                     $(document).ready(function(){
-                                var next = 40;
+                                var next = 44;
                                 $(".add-more5").click(function(e){
                                     e.preventDefault();
                                     var options = $("#options").val();
@@ -183,7 +196,7 @@
 
     <script type="text/javascript">
                 $(document).ready(function(){
-                            var next = 50;
+                            var next = 54;
                             $(".add-more6").click(function(e){
                                 e.preventDefault();
                                 var options = $("#options").val();
@@ -239,11 +252,23 @@
   		</c:if>
 	</spring:bind>
 
-	<form:form commandName="dietaRecomendadaForm" method="post" action="dieta" id="formulario" autocomplete="off" name="miFormulario"
+	<form:form commandName="dietaRecomendadaForm" method="post" action="editDieta" id="formulario" autocomplete="off" name="miFormulario"
            cssClass="well" onsubmit="return validateUser(this)">
 
+                <spring:bind path="idDieta">
+                    <input type="hidden" name="dni" id="dni" class="form-control" value="${status.value}"/>
+                </spring:bind>
 
+                <spring:bind path="Paciente.persona.dni">
+                     <input type="hidden" name="dato" id="dato" class="form-control" value="${status.value}"/>
+                </spring:bind>
 
+                <input type="hidden" name="totalLunes" id="totalLunes" value="${totalLunes}"/>
+                <input type="hidden" name="totalMartes" id="totalMartes" value="${totalMartes}"/>
+                <input type="hidden" name="totalMiercoles" id="totalMiercoles" value="${totalMiercoles}"/>
+                <input type="hidden" name="totalJueves" id="totalJueves" value="${totalJueves}"/>
+                <input type="hidden" name="totalViernes" id="totalViernes" value="${totalViernes}"/>
+                <input type="hidden" name="totalSabado" id="totalSabado" value="${totalSabado}"/>
 
                    <div class="form-group">
                        <div class="row">
@@ -252,7 +277,7 @@
                                <appfuse:label styleClass="control-label" key="paciente.fecha.desde"/>
                                <span class="required">*</span>
                                    <div class='input-group date' id='datetimepicker1'>
-                                       <input type="text" name="fechaAlta" id="fechaAlta" class="form-control" readonly="readonly"
+                                       <input type="text" name="fechaAlta" id="fechaAlta" class="form-control" readonly
                                        placeholder="<fmt:message key="user.paciente.fecha"/>" value="${status.value}" maxlength="50"
                                        tabindex="5" data-date-format="DD/MM/YYYY">
                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -287,89 +312,391 @@
             		    <li><a href="#tabs-6">Sabado</a></li>
             		</ul>
 
-        <c:forEach items="${lunes}" varStatus="gridRow">
 
-                                                       <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                                                                               <spring:bind path="lunes[${gridRow.index}].momentosDia[0].nombre">
-                                                                                   <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
-                                                                                   <form:select path="lunes[${gridRow.index}].momentosDia[0].nombre" cssClass="form-control">
-                                                                                       <form:option value="NONE" label="--- Seleccione ---"/>
-                                                                                       <form:options items="${momentoDias}"/>
-                                                                                   </form:select>
-                                                                               </spring:bind>
-                                                                               <label for="momentoLunes1" generated="true" class="error"></label>
-                                                                               <form:errors path="lunes[${gridRow.index}].momentosDia[0].nombre" cssClass="help-block"/>
-                                                                           </div>
-                                           		</c:forEach>
+                        <div id="tabs-1">
 
-        <%--
-        <c:forEach items="${dietaRecomendadaForm.diasDieta}" varStatus="gridRow">
-        <div id="tabs-1">
+                            <input type="hidden" name="options" id="options" value="${options}"/>
+                            <input type="hidden" name="optionsMomentos" id="optionsMomentos" value="${optionsMomentos}"/>
 
-            <input type="hidden" name="options" id="options" value="${options}"/>
-            <input type="hidden" name="optionsMomentos" id="optionsMomentos" value="${optionsMomentos}"/>
+                            <spring1:bind path="dietaRecomendadaForm.diaDietaLunes">
+                                <input type="hidden" name="diaDietaLunes" id="diaDietaLunes" class="form-control" value="LUNES"/>
+                            </spring1:bind>
 
+                            <c:set var="countLunes" value="0" scope="page" />
+                            <c:forEach items="${lunes}" var="ver" varStatus="gridRow">
+                            <c:set var="countLunes" value="${countLunes + 1}" scope="page"/>
+                            <div id="fieldsLunes${gridRow.index}">
+                                <div class="row">
+                                    <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoLunes${gridRow.index + 1}">
+                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                            <select name="nombreAlimentoLunes${gridRow.index + 1}" id="nombreAlimentoLunes${gridRow.index + 1}" size="1" class="form-control" value="${status.value}">
+                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                    <option
+                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </spring1:bind>
+                                    <label for="nombreAlimentoLunes${gridRow.index + 1}" generated="true" class="error"></label>
+                                    </div>
+                                    <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                        <spring1:bind path="dietaRecomendadaForm.momentoLunes${gridRow.index + 1}">
+                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                            <select name="momentoLunes${gridRow.index + 1}" id="momentoLunes${gridRow.index + 1}" size="1" class="form-control">
+                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                <c:forEach items="${momentoDias}" var="item" >
+                                                    <option
+                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </spring1:bind>
+                                        <label for="momentoLunes${gridRow.index + 1}" generated="true" class="error"></label>
+                                    </div>
+                                </div>
 
-            <c:set var="dia" value="${diasDieta}"/>
-
-             <c:out value="${diasDieta}"/>
-
-            <div id="fieldsLunes1">
-
-                <div class="row">
-                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                        <spring:bind path="dietaRecomendadaForm.diasDieta[${gridRow.index}].momentosDia[0].comidas[0].alimento.nombre">
-                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
-                            <form:select path="diasDieta[${gridRow.index}].momentosDia[0].comidas[0].alimento.nombre" cssClass="form-control">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${alimentoList}" itemValue="nombre" itemLabel="nombre"/>
-                            </form:select>
-                        </spring:bind>
-                        <label for="nombreAlimentoLunes1" generated="true" class="error"></label>
-                        <form:errors path="diasDieta[${gridRow.index}].momentosDia[0].comidas[0].alimento.nombre" cssClass="help-block"/>
-                    </div>
-                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                        <spring:bind path="dietaRecomendadaForm.diasDieta[${gridRow.index}].momentosDia[0].nombre">
-                            <appfuse:label styleClass="control-label" key="user.paciente.momentoDia"/>
-                            <form:select path="diasDieta[${gridRow.index}].momentosDia[0].nombre" cssClass="form-control">
-                                <form:option value="NONE" label="--- Seleccione ---"/>
-                                <form:options items="${momentoDias}"/>
-                            </form:select>
-                        </spring:bind>
-                        <label for="momentoLunes1" generated="true" class="error"></label>
-                        <form:errors path="diasDieta[${gridRow.index}].momentosDia[0].nombre" cssClass="help-block"/>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                            <spring:bind path="dietaRecomendadaForm.diasDieta[${gridRow.index}].momentosDia[0].comidas[0].cantidad">
-                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
-                                <input type="text" name="cantidadLunes1" id="cantidadLunes1" class="form-control"
-                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="${status.value}" maxlength="50"
-                                tabindex="4">
-                            </spring:bind>
-                            <label for="cantidadLunes1" generated="true" class="error"></label>
-                            <form:errors path="diasDieta[${gridRow.index}].momentosDia[0].comidas[0].cantidad" cssClass="help-block"/>
+                                <div class="row">
+                                        <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                            <spring1:bind path="dietaRecomendadaForm.cantidadLunes${gridRow.index + 1}">
+                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                <input type="text" name="cantidadLunes${gridRow.index + 1}" id="cantidadLunes${gridRow.index + 1}" class="form-control"
+                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                tabindex="4">
+                                            </spring1:bind>
+                                        <label for="nombreAlimentoLunes${gridRow.index + 1}" generated="true" class="error"></label>
+                                        </div>
+                                        <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                            <spring1:bind path="dietaRecomendadaForm.observacionesLunes${gridRow.index + 1}">
+                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                <input type="text" name="observacionesLunes${gridRow.index + 1}" id="observacionesLunes${gridRow.index + 1}" class="form-control"
+                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                            </spring1:bind>
+                                        <label for="observacionesLunes${gridRow.index + 1}" generated="true" class="error"></label>
+                                        </div>
+                                </div>
+                                <c:if test="${gridRow.index > 0}">
+                                    <button id="remove${gridRow.index}" class="btn btn-danger remove-another" style="margin-top:-40px">-</button>
+                                </c:if>
+                            </div>
+                            </c:forEach>
+                            <button id="b1" class="btn add-more" type="button">+</button>
                         </div>
-                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-                          <spring:bind path="dietaRecomendadaForm.diasDieta[${gridRow.index}].momentosDia[0].comidas[0].observaciones">
-                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
-                                <input type="text" name="observacionesLunes1" id="observacionesLunes1" class="form-control"
-                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="${status.value}" tabindex="12"/>
-                          </spring:bind>
-                    <label for="observacionesLunes1" generated="true" class="error"></label>
-                    <form:errors path="diasDieta[${gridRow.index}].momentosDia[0].comidas[0].observaciones" cssClass="help-block"/>
+
+                        <div id="tabs-2">
+                                <spring1:bind path="dietaRecomendadaForm.diaDietaMartes">
+                                    <input type="hidden" name="diaDietaMartes" id="diaDietaMartes" class="form-control" value="MARTES"/>
+                                </spring1:bind>
+
+                                <c:set var="countMartes" value="0" scope="page" />
+                                <c:forEach items="${martes}" var="ver" varStatus="gridRow">
+                                <c:set var="countMartes" value="${countMartes + 1}" scope="page"/>
+                                    <div id="fieldsMartes1">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoMartes${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="nombreAlimentoMartes${gridRow.index + 1}" id="nombreAlimentoMartes${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                    <label for="nombreAlimentoMartes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.momentoMartes${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="momentoMartes${gridRow.index + 1}" id="momentoMartes${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                                                <c:forEach items="${momentoDias}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                        <label for="momentoMartes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.cantidadMartes${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                                                <input type="text" name="cantidadMartes${gridRow.index + 1}" id="cantidadMartes${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                                                tabindex="4">
+                                                                            </spring1:bind>
+                                                                        <label for="nombreAlimentoMartes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.observacionesMartes${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                                                <input type="text" name="observacionesMartes${gridRow.index + 1}" id="observacionesMartes${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                                                            </spring1:bind>
+                                                                        <label for="observacionesMartes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                </div>
+                                              <c:if test="${gridRow.index > 0}">
+                                                <button id="remove${gridRow.index}" class="btn btn-danger remove-another2" style="margin-top:-40px">-</button>
+                                              </c:if>
+                                    </div>
+                                </c:forEach>
+                            <button id="b2" class="btn add-more2" type="button">+</button>
+                        </div>
+                    <div id="tabs-3">
+                                <spring1:bind path="dietaRecomendadaForm.diaDietaMiercoles">
+                                    <input type="hidden" name="diaDietaMiercoles" id="diaDietaMiercoles" class="form-control" value="MIERCOLES"/>
+                                </spring1:bind>
+
+                                <c:forEach items="${miercoles}" var="ver" varStatus="gridRow">
+                                    <div id="fieldsMiercoles24">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoMiercoles${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="nombreAlimentoMiercoles${gridRow.index + 1}" id="nombreAlimentoMiercoles${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                    <label for="nombreAlimentoMiercoles${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.momentoMiercoles${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="momentoMiercoles${gridRow.index + 1}" id="momentoMiercoles${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                                                <c:forEach items="${momentoDias}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                        <label for="momentoMiercoles${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.cantidadMiercoles${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                                                <input type="text" name="cantidadMiercoles${gridRow.index + 1}" id="cantidadMiercoles${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                                                tabindex="4">
+                                                                            </spring1:bind>
+                                                                        <label for="nombreAlimentoMiercoles${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.observacionesMiercoles${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                                                <input type="text" name="observacionesMiercoles${gridRow.index + 1}" id="observacionesMiercoles${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                                                            </spring1:bind>
+                                                                        <label for="observacionesMiercoles${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                </div>
+                                    </div>
+                                </c:forEach>
+                            <button id="b3" class="btn add-more3" type="button">+</button>
                     </div>
-                </div>
-            </div>
-            <button id="b1" class="btn add-more" type="button">+</button>
 
-        </div>
+                    <div id="tabs-4">
+                                <spring1:bind path="dietaRecomendadaForm.diaDietaMiercolesJueves">
+                                    <input type="hidden" name="diaDietaJueves" id="diaDietaJueves" class="form-control" value="JUEVES"/>
+                                </spring1:bind>
 
+                                <c:forEach items="${jueves}" var="ver" varStatus="gridRow">
+                                    <div id="fieldsJueves34">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoJueves${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="nombreAlimentoJueves${gridRow.index + 1}" id="nombreAlimentoJueves${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                    <label for="nombreAlimentoJueves${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.momentoJueves${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="momentoJueves${gridRow.index + 1}" id="momentoJueves${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                                                <c:forEach items="${momentoDias}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                        <label for="momentoJueves${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                </div>
 
-        </c:forEach> --%>
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.cantidadJueves${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                                                <input type="text" name="cantidadJueves${gridRow.index + 1}" id="cantidadJueves${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                                                tabindex="4">
+                                                                            </spring1:bind>
+                                                                        <label for="nombreAlimentoJueves${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.observacionesJueves${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                                                <input type="text" name="observacionesJueves${gridRow.index + 1}" id="observacionesJueves${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                                                            </spring1:bind>
+                                                                        <label for="observacionesJueves${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                </div>
+                                    </div>
+                                </c:forEach>
+                            <button id="b4" class="btn add-more4" type="button">+</button>
+                    </div>
+
+                    <div id="tabs-5">
+                                <spring1:bind path="dietaRecomendadaForm.diaDietaMiercolesViernes">
+                                    <input type="hidden" name="diaDietaViernes" id="diaDietaViernes" class="form-control" value="VIERNES"/>
+                                </spring1:bind>
+
+                                <c:forEach items="${viernes}" var="ver" varStatus="gridRow">
+                                    <div id="fieldsViernes44">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoViernes${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="nombreAlimentoViernes${gridRow.index + 1}" id="nombreAlimentoViernes${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                    <label for="nombreAlimentoViernes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.momentoViernes${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="momentoViernes${gridRow.index + 1}" id="momentoViernes${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                                                <c:forEach items="${momentoDias}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                        <label for="momentoViernes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.cantidadViernes${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                                                <input type="text" name="cantidadViernes${gridRow.index + 1}" id="cantidadViernes${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                                                tabindex="4">
+                                                                            </spring1:bind>
+                                                                        <label for="nombreAlimentoViernes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.observacionesViernes${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                                                <input type="text" name="observacionesViernes${gridRow.index + 1}" id="observacionesViernes${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                                                            </spring1:bind>
+                                                                        <label for="observacionesViernes${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                </div>
+                                    </div>
+                                </c:forEach>
+                            <button id="b5" class="btn add-more5" type="button">+</button>
+                    </div>
+
+                    <div id="tabs-6">
+                                <spring1:bind path="dietaRecomendadaForm.diaDietaMiercolesSabado">
+                                    <input type="hidden" name="diaDietaSabado" id="diaDietaSabado" class="form-control" value="SABADO"/>
+                                </spring1:bind>
+
+                                <c:forEach items="${sabado}" var="ver" varStatus="gridRow">
+                                    <div id="fieldsSabado54">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.nombreAlimentoSabado${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="nombreAlimentoSabado${gridRow.index + 1}" id="nombreAlimentoSabado${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.alimento}"/>"><c:out value="${ver.alimento}"/></option>
+                                                                                <c:forEach items="${alimentoTotal}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                    <label for="nombreAlimentoSabado${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                    <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                        <spring1:bind path="dietaRecomendadaForm.momentoSabado${gridRow.index + 1}">
+                                                                            <appfuse:label styleClass="control-label" key="user.nutritionist.nombreAlimento"/>
+                                                                            <select name="momentoSabado${gridRow.index + 1}" id="momentoSabado${gridRow.index + 1}" size="1" class="form-control">
+                                                                            <option value="<c:out value="${ver.momento}"/>"><c:out value="${ver.momento}"/></option>
+                                                                                <c:forEach items="${momentoDias}" var="item" >
+                                                                                    <option
+                                                                                    value="<c:out value="${item}"/>"><c:out value="${item}"/>
+                                                                                    </option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </spring1:bind>
+                                                                        <label for="momentoSabado${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.cantidadSabado${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.cantidadAlimento"/>
+                                                                                <input type="text" name="cantidadSabado${gridRow.index + 1}" id="cantidadSabado${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.cantidadAlimento"/>" value="<c:out value="${ver.cantidad}"/>" maxlength="50"
+                                                                                tabindex="4">
+                                                                            </spring1:bind>
+                                                                        <label for="nombreAlimentoSabado${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                        <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+                                                                            <spring1:bind path="dietaRecomendadaForm.observacionesSabado${gridRow.index + 1}">
+                                                                                <appfuse:label styleClass="control-label" key="user.nutritionist.observaciones" />
+                                                                                <input type="text" name="observacionesSabado${gridRow.index + 1}" id="observacionesSabado${gridRow.index + 1}" class="form-control"
+                                                                                placeholder="<fmt:message key="user.nutritionist.observaciones"/>" value="<c:out value="${ver.observacion}"/>" tabindex="12"/>
+                                                                            </spring1:bind>
+                                                                        <label for="observacionesSabado${gridRow.index + 1}" generated="true" class="error"></label>
+                                                                        </div>
+                                                                </div>
+                                    </div>
+                                </c:forEach>
+                            <button id="b6" class="btn add-more6" type="button">+</button>
+                    </div>
 
                 <%-- Fin del tabs6 --%>
         <%-- Fin del div tabs --%>
@@ -401,7 +728,8 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "${ctx}/admin/endocrinologoList";
+				var dato = $("#dato").val();
+				window.location.href = "${ctx}/nutricionista/dietaList?search="+dato;
 			});
 	</script>
 	</script>
