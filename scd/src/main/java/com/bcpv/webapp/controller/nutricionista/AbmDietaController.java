@@ -277,11 +277,11 @@ public class AbmDietaController extends BaseFormController{
         }
 
         int totalLunes = lunes.size();
-        int totalMartes = lunes.size();
-        int totalMiercoles = lunes.size();
-        int totalJueves = lunes.size();
-        int totalViernes = lunes.size();
-        int totalSabado = lunes.size();
+        int totalMartes = martes.size();
+        int totalMiercoles = miercoles.size();
+        int totalJueves = jueves.size();
+        int totalViernes = viernes.size();
+        int totalSabado = sabado.size();
 
         mv.addObject("dietaRecomendadaForm", dieta);
         mv.addObject("options", options);

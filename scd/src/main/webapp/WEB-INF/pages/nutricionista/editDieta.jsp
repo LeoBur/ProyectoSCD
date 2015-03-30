@@ -70,7 +70,7 @@
     <script type="text/javascript">
                 $(document).ready(function(){
                             var next = $("#totalMartes").val() - 1;
-                            $(".add-more2").click(function(e){
+                            $(".add-more").click(function(e){
                                 e.preventDefault();
                                 var options = $("#options").val();
                                 var optionsMomento = $("#optionsMomentos").val();
@@ -94,10 +94,10 @@
                                         $(fieldID).remove();
                                     });
                             });
-                            $('.remove-another2').click(function(e){
+                            $('.remove-another').click(function(e){
                                                         e.preventDefault();
                                                         var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
-                                                        var fieldID = "#fieldsLunes" + fieldNum;
+                                                        var fieldID = "#fieldsMartes" + fieldNum;
                                                         $(this).remove();
                                                         $(fieldID).remove();
                             });
@@ -392,7 +392,7 @@
                                 <c:set var="countMartes" value="0" scope="page" />
                                 <c:forEach items="${martes}" var="ver" varStatus="gridRow">
                                 <c:set var="countMartes" value="${countMartes + 1}" scope="page"/>
-                                    <div id="fieldsMartes1">
+                                    <div id="fieldsMartes${gridRow.index}">
                                                                 <div class="row">
                                                                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                                                         <spring1:bind path="dietaRecomendadaForm.nombreAlimentoMartes${gridRow.index + 1}">
@@ -444,11 +444,11 @@
                                                                         </div>
                                                                 </div>
                                               <c:if test="${gridRow.index > 0}">
-                                                <button id="remove${gridRow.index}" class="btn btn-danger remove-another2" style="margin-top:-40px">-</button>
+                                                <button id="remove${gridRow.index}" class="btn btn-danger remove-another" style="margin-top:-40px">-</button>
                                               </c:if>
                                     </div>
                                 </c:forEach>
-                            <button id="b2" class="btn add-more2" type="button">+</button>
+                            <button id="b2" class="btn add-more" type="button">+</button>
                         </div>
                     <div id="tabs-3">
                                 <spring1:bind path="dietaRecomendadaForm.diaDietaMiercoles">

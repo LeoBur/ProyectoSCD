@@ -96,7 +96,7 @@
                                         <a href="${ctx}/nutricionista/medicionesPaciente?idPaciente=${endo.id}">Ver</a>
                                     </td>
                                     <td>
-                                        <a href="${ctx}/nutricionista/dieta?username=${endo.persona.username}">Agregar dieta</a>
+                                        <a href="${ctx}/nutricionista/dietaList?search=${endo.persona.dni}">Ver Dietas</a>
                                     </td>
                                 </c:when>
                                 <c:otherwise>
