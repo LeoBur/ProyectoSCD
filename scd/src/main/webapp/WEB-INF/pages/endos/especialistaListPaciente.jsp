@@ -36,51 +36,35 @@
 
 <div class="col-md-9">
     <div class="well">
-        <div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 form-group">
-	                    <input type="text" id="especialista-input-search" name="especialista-input-search" class="form-control">
-                    </div>
-	                <div id="actions" class="btn-group">
-	                    <span>
-	                        <button id="button-id" type="button" class="btn btn-primary"><fmt:message key="button.search" /></button>
-	                    </span>
-	                </div>
-	                <c:if test="${empty especialistaPaciente}">
-                        <div id="actions" class="btn-group">
-                            <a class="btn btn-primary" href="<c:url value='/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}'/>">
-                            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-                        </div>
-                    </c:if>
-                </div>
-            </div>
-	    </div>
-        <br></br>
-        <c:if test="${not empty especialistaPaciente}">
-            <table class="table table-condensed table-striped table-hover">
-                <tr>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
-                    <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.eliminar" /></th>
-                </tr>
+        <c:choose>
+            <c:when test="${not empty especialistaPaciente}">
+                <table class="table table-condensed table-striped table-hover">
                     <tr>
-                        <td style="width: 30%">
-                            <c:out value="${especialistaPaciente.persona.lastName}" />
-                        </td>
-                        <td style="width: 30%">
-                            <c:out value="${especialistaPaciente.persona.firstName}" />
-                        </td>
-                        <td style="width: 30%">
-                            <c:out value="${especialistaPaciente.tipo_esp}" />
-                        </td>
-                        <td style="width: 30%">
-                            <a href="${ctx}/endos/desvincularEspecialista?idPacienteTratamiento=${idPacienteTratamiento}&idEspecialista=${especialistaPaciente.id}">Desvincular</a>
-                        </td>
+                        <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.lastName" /></th>
+                        <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.firstName" /></th>
+                        <th style="width: 30%" class="sortable sorted order1"><fmt:message key="user.tipo_esp" /></th>
+                        <th style="width: 30%" class="sortable sorted order1"><fmt:message key="activeEndos.eliminar" /></th>
                     </tr>
-            </table>
-        </c:if>
+                        <tr>
+                            <td style="width: 30%">
+                                <c:out value="${especialistaPaciente.persona.lastName}" />
+                            </td>
+                            <td style="width: 30%">
+                                <c:out value="${especialistaPaciente.persona.firstName}" />
+                            </td>
+                            <td style="width: 30%">
+                                <c:out value="${especialistaPaciente.tipo_esp}" />
+                            </td>
+                            <td style="width: 30%">
+                                <a href="${ctx}/endos/desvincularEspecialista?idPacienteTratamiento=${idPacienteTratamiento}&idEspecialista=${especialistaPaciente.id}">Desvincular</a>
+                            </td>
+                        </tr>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <c:redirect url="${ctx}/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}"/>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </body>

@@ -414,4 +414,36 @@ public class AbmPacienteController extends BaseFormController {
         saveInfo(request, getText("user.endocrinologist.specialistRemoved", locale));
         return "redirect:pacienteList";
     }
+
+    @RequestMapping(value = "endos/asignarEspecialista/getTags", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getEspecialistaTags(@RequestParam String tagName) {
+        int cont = 0;
+        List<Tag> data = new ArrayList<Tag>();
+        List<Tag> dataFilter = new ArrayList<Tag>();
+        List<Tag> result = new ArrayList<Tag>();
+
+        for (Especialista especialista : especialistaManager.getEspecialistas()) {
+            data.add(new Tag(cont++, especialista.getPersona().getLastName()));
+            dataFilter.add(new Tag(cont++, especialista.getPersona().getDni()));
+            //data.add(new Tag(cont++, endocrinologo.getPersona().getDni()));
+        }
+
+        HashSet set = new HashSet<Tag>();
+        for (Tag filter : data) {
+            if (set.add(filter.getTagName())) {
+                //set.add(filter.getTagName());
+                dataFilter.add(new Tag(cont++, filter.getTagName()));
+            }
+        }
+
+        // iterate a list and filter by tagName
+        for (Tag tag : dataFilter) {
+            if (tag.getTagName().toLowerCase()
+                    .startsWith(tagName.toLowerCase())) {
+                result.add(tag);
+            }
+        }
+        return result;
+    }
 }

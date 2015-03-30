@@ -26,7 +26,7 @@
 
         $('#button-id').click(function(e) {
            var search = $('input[name=endo-input-search]').val();
-           window.location.href = "${ctx}/endos/pacienteList?search=search&dni="+search;
+           window.location.href = "${ctx}/endos/asignarEspecialista?idPacienteTratamiento=${idPacienteTratamiento}";
         });
     });
 </script>
