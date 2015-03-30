@@ -69,24 +69,23 @@
 
     <script type="text/javascript">
                 $(document).ready(function(){
-                            var next = $("#totalMartes").val() - 1;
-                            $(".add-more").click(function(e){
+                            var next = 14;
+                            $(".add-moreMartes").click(function(e){
                                 e.preventDefault();
                                 var options = $("#options").val();
                                 var optionsMomento = $("#optionsMomentos").val();
                                 var addto = "#fieldsMartes" + next;
                                 var addRemove = "#fieldsMartes" + (next);
                                 next = next + 1;
-                                var newIn = '<div id="fieldsMartes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMartes[]" name="nombreAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMartes[]" name="momentoAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMartes2" generated="true" class="error"></label></div></div></div>  <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMartes'+ next +'" name="cantidadAlimentoMartes'+ next +'" class="form-control"><label for="cantidadAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMartes'+ next +'" name="observacionAlimentoMartes'+ next +'" class="form-control"><label for="observacionAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next) +'"></div>';
+                                var newIn = '<div id="fieldsMartes'+ next +'"><div class="row"><div class="col-sm-6 form-group"><label for="medicine.title" class="control-label">Nombre del alimento</label><div cssclass="form-control"><select id="nombreAlimentoMartes[]" name="nombreAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+options+'</select></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Momento Del D\u00EDa</label><span class="required">*</span><div cssclass="form-control"><select id="momentoAlimentoMartes[]" name="momentoAlimentoMartes[]" class="form-control"><option value="NONE" selected="selected">--- Seleccione ---</option>'+optionsMomento+'</select><label for="nombreAlimentoMartes2" generated="true" class="error"></label></div></div></div>  <div class="row"><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Cantidad del Alimento</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="cantidadAlimentoMartes'+ next +'" name="cantidadAlimentoMartes'+ next +'" class="form-control"><label for="cantidadAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div><div class="col-sm-6 form-group"><label for="observacion" class="control-label">Observaciones</label><span class="required">*</span><div cssclass="form-control"><input type="text" id="observacionAlimentoMartes'+ next +'" name="observacionAlimentoMartes'+ next +'" class="form-control"><label for="observacionAlimentoMartes'+ next +'" generated="true" class="error"></label></div></div></div><button id="remove' + (next) + '" class="btn btn-danger remove-meMartes" >-</button></div><div id="fieldsMartes'+ (next) +'"></div>';
                                 var newInput = $(newIn);
-                                var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-me" >-</button></div><div id="fieldsMartes'+ (next) +'">';
+                                var removeBtn = '<button id="remove' + (next) + '" class="btn btn-danger remove-meMartes" >-</button></div><div id="fieldsMartes'+ (next) +'">';
                                 var removeButton = $(removeBtn);
                                 $(addto).after(newInput);
-                                $(addRemove).after(removeButton);
                                 $("#fieldsMartes" + next).attr('data-source',$(addto).attr('data-source'));
                                 $("#countMartes").val(next);
 
-                                    $('.remove-me').click(function(e){
+                                    $('.remove-meMartes').click(function(e){
                                         e.preventDefault();
                                         var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
                                         var fieldID = "#fieldsMartes" + fieldNum;
@@ -94,7 +93,7 @@
                                         $(fieldID).remove();
                                     });
                             });
-                            $('.remove-another').click(function(e){
+                            $('.remove-anotherMartes').click(function(e){
                                                         e.preventDefault();
                                                         var fieldNum = this.id.substr(this.id.lastIndexOf("e")+1);
                                                         var fieldID = "#fieldsMartes" + fieldNum;
@@ -392,7 +391,7 @@
                                 <c:set var="countMartes" value="0" scope="page" />
                                 <c:forEach items="${martes}" var="ver" varStatus="gridRow">
                                 <c:set var="countMartes" value="${countMartes + 1}" scope="page"/>
-                                    <div id="fieldsMartes${gridRow.index}">
+                                    <div id="fieldsMartes14">
                                                                 <div class="row">
                                                                     <div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
                                                                         <spring1:bind path="dietaRecomendadaForm.nombreAlimentoMartes${gridRow.index + 1}">
@@ -444,11 +443,11 @@
                                                                         </div>
                                                                 </div>
                                               <c:if test="${gridRow.index > 0}">
-                                                <button id="remove${gridRow.index}" class="btn btn-danger remove-another" style="margin-top:-40px">-</button>
+                                                <button id="remove${gridRow.index}" class="btn btn-danger remove-anotherMartes" style="margin-top:-40px">-</button>
                                               </c:if>
                                     </div>
                                 </c:forEach>
-                            <button id="b2" class="btn add-more" type="button">+</button>
+                            <button id="b2" class="btn add-moreMartes" type="button">+</button>
                         </div>
                     <div id="tabs-3">
                                 <spring1:bind path="dietaRecomendadaForm.diaDietaMiercoles">

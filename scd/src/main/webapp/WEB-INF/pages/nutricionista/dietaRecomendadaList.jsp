@@ -42,7 +42,7 @@
                 <div class="row">
                   <div id="actions" class="btn-group">
                     <span>
-                      <a class="btn btn-primary" href="<c:url value='/endos/pacienteList'/>">
+                      <a class="btn btn-primary" href="<c:url value='/nutricionista/pacienteList'/>">
                       <i class="icon-plus icon-white"></i> <fmt:message key="button.back"/></a>
                     </span>
                   </div>

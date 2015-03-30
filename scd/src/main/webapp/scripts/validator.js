@@ -254,6 +254,54 @@ $(document).ready(function(){
                 observacionAlimentoLunes10:{
                 required:true
                 },
+                cantidadAlimentoMartes1:{
+                                required:true
+                                },
+                                observacionAlimentoMartes1:{
+                                required:true
+                                },
+                                cantidadAlimentoMartes2:{
+                                                required:true
+                                                },
+                                                observacionAlimentoMartes2:{
+                                                required:true
+                                                },
+                                                cantidadAlimentoMartes3:{
+                                                                required:true
+                                                                },
+                                                                observacionAlimentoMartes3:{
+                                                                required:true
+                                                                },
+                                                                cantidadAlimentoMartes4:{
+                                                                                required:true
+                                                                                },
+                                                                                observacionAlimentoMartes4:{
+                                                                                required:true
+                                                                                },
+                                                                                cantidadAlimentoMartes5:{
+                                                                                                required:true
+                                                                                                },
+                                                                                                observacionAlimentoMartes5:{
+                                                                                                required:true
+                                                                                                },
+                                                                                                cantidadAlimentoMartes6:{
+                                                                                                                required:true
+                                                                                                                },
+                                                                                                                observacionAlimentoMartes6:{
+                                                                                                                required:true
+                                                                                                                },
+                                                                                                                cantidadAlimentoMartes7:{
+                                                                                                                                required:true
+                                                                                                                                },
+                                                                                                                                observacionAlimentoMartes7:{
+                                                                                                                                required:true
+                                                                                                                                },
+                                                                                                                                cantidadAlimentoMartes8:{
+                                                                                                                                                required:true
+                                                                                                                                                },
+                                                                                                                                                observacionAlimentoMartes8:{
+                                                                                                                                                required:true
+                                                                                                                                                },
                 cantidadAlimentoMartes11:{
                 required:true
                 },
