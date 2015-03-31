@@ -17,9 +17,9 @@
             <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
             <display:caption><h3>Mediciones de ${namePaciente}</h3></display:caption>
             <display:caption media="pdf">Mediciones de ${namePaciente}</display:caption>
-            <display:column property="f_medicion" escapeXml="true" sortable="true" titleKey="active.fecha_Medicion"/>
-            <display:column property="valor" escapeXml="true" sortable="true" titleKey="active.valorMedicion"/>
-            <display:column property="unidad" escapeXml="true" sortable="true" titleKey="active.unidad"/>
+            <display:column property="f_medicion" escapeXml="true" sortable="false" titleKey="active.fecha_Medicion"/>
+            <display:column property="valor" escapeXml="true" sortable="false" titleKey="active.valorMedicion"/>
+            <display:column property="unidad" escapeXml="true" sortable="false" titleKey="active.unidad"/>
             <display:setProperty name="export.pdf" value="true" />
          </display:table>
     </div>

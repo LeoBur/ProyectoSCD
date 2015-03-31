@@ -450,7 +450,7 @@ public class EditProfileController extends BaseFormController{
             validator.validate(especialistaForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/newEspecialista";
+                return "/pacienteList";
             }
         }
 
@@ -467,7 +467,7 @@ public class EditProfileController extends BaseFormController{
 
         log.debug("entering 'onSubmit' method from AbmEspecialistaController...");
 
-        String success = "redirect:newEspecialista";
+        String success = "redirect:pacienteList";
         Locale locale = request.getLocale();
 
         Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni()); //recupera una persona o crea una nueva instancia
@@ -522,8 +522,8 @@ public class EditProfileController extends BaseFormController{
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
-                saveError(request,e.getMessage().toString());
-                return "redirect:newEspecialista";
+                saveMessage(request, "No se realizaron cambios en el perfil");
+                return "redirect:pacienteList";
             }
             if (isNew) {
                 saveMessage(request, getText("user.endocrinologist.specialistSaved", locale));

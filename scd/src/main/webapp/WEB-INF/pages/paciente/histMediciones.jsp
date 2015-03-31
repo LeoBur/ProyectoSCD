@@ -17,11 +17,11 @@
             <display:setProperty name="decorator.media.pdf" value="com.bcpv.webapp.displaytag.decorators.ItextTotalWrapper"/>
             <display:caption><h3>Mis mediciones</h3></display:caption>
             <display:caption media="pdf">Mis mediciones</display:caption>
-            <display:column property="f_medicion" escapeXml="true" sortable="true" titleKey="active.fecha_Medicion"
+            <display:column property="f_medicion" escapeXml="true" sortable="false" titleKey="active.fecha_Medicion"
                             style="width: 40%"/>
-            <display:column property="valor" escapeXml="true" sortable="true" titleKey="active.valorMedicion"
+            <display:column property="valor" escapeXml="true" sortable="false" titleKey="active.valorMedicion"
                             style="width: 40%"/>
-            <display:column property="unidad" escapeXml="true" sortable="true" titleKey="active.unidad"
+            <display:column property="unidad" escapeXml="true" sortable="false" titleKey="active.unidad"
                             style="width: 20%"/>
             <display:setProperty name="export.pdf" value="true" />
          </display:table>

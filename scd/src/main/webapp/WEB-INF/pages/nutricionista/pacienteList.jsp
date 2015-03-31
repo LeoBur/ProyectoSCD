@@ -64,7 +64,7 @@
                     <th class="sortable sorted order1" align="center"><fmt:message key="user.enabled" /></th>
                     <th align="center">Mediciones</th>
                     <th align="center">Pesos</th>
-                    <th class="sortable sorted order1"><fmt:message key="activeEndos.acciones" /></th>
+                    <th class="sortable sorted order1"><fmt:message key="user.diet.title" /></th>
                 </tr>
                 <c:forEach var="endo" items="${endocrinologoList}" varStatus="index" >
                         <tr>
@@ -96,7 +96,7 @@
                                         <a href="${ctx}/nutricionista/medicionesPaciente?idPaciente=${endo.id}">Ver</a>
                                     </td>
                                     <td>
-                                        <a href="${ctx}/nutricionista/dietaList?search=${endo.persona.dni}">Ver Dietas</a>
+                                        <a href="${ctx}/nutricionista/dietaList?search=${endo.persona.dni}">Ver</a>
                                     </td>
                                 </c:when>
                                 <c:otherwise>

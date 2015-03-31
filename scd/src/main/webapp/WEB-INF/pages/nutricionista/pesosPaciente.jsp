@@ -15,9 +15,9 @@
             class="table table-condensed table-striped table-hover" export="false">
             <display:caption><h3>Pesos de ${namePaciente}</h3></display:caption>
             <display:caption media="pdf">Mediciones de ${namePaciente}</display:caption>
-            <display:column property="fechaHora" escapeXml="true" sortable="true" titleKey="active.peso.fecha"
+            <display:column property="fechaHora" escapeXml="true" sortable="false" titleKey="active.peso.fecha"
                             style="width: 50%"/>
-            <display:column property="peso" escapeXml="true" sortable="true" titleKey="active.peso"
+            <display:column property="peso" escapeXml="true" sortable="false" titleKey="active.peso"
                             style="width: 50%"/>
             <display:setProperty name="export.pdf" value="true" />
             <display:setProperty name="export.excel" value="false" />

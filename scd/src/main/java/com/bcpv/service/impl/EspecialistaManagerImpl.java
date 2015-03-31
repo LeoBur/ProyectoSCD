@@ -67,7 +67,7 @@ public class EspecialistaManagerImpl extends GenericManagerImpl<Especialista, Lo
 		} catch (final Exception e){
 			e.printStackTrace();
 			log.warn(e.getMessage());
-			throw new EntityExistsException("La Especialista ya existe");
+			throw new EntityExistsException("El Especialista ya existe");
 		}
 	}
 

@@ -305,7 +305,7 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "${ctx}/endos/editProfile";
+				window.location.href = "${ctx}/nutricionista/pacienteList";
 			});
 	</script>
 	<script type="text/javascript">
