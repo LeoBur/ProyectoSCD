@@ -906,7 +906,7 @@ public class AbmDietaController extends BaseFormController{
                 }
             }
             for (int j = 2; j < 10; j++){
-                if (params.containsKey("observacionAlimentoLunes"+j)) {
+                if (params.containsKey("cantidadAlimentoLunes"+j)) {
                     cantidades.add(params.get("cantidadAlimentoLunes" + j).get(0));
                 }
             }
