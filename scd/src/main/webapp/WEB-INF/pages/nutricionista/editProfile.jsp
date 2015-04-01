@@ -85,6 +85,9 @@
         <spring:bind path="enabled">
         	<input type="hidden" name="enabled" id="enabled" class="form-control" value="${status.value}"/>
         </spring:bind>
+        <spring:bind path="tipoEspecialista">
+                	<input type="hidden" name="tipoEspecialista" id="tipoEspecialista" class="form-control" value="${status.value}"/>
+        </spring:bind>
 
 			<div class="form-group">
 		  		<div class="row">

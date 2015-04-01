@@ -247,9 +247,10 @@ public class EditProfileController extends BaseFormController{
                 personaManager.savePersona(persona);
                 endocrinologoManager.saveEndocrinologo(endocrinologo);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+
+            }
+            if (!isNew) {
+                saveMessage(request, getText("admin.endocrinologist.updated", locale));
             }
             if (isNew) {
                 saveMessage(request, getText("admin.endocrinologist.added", locale));
@@ -295,8 +296,6 @@ public class EditProfileController extends BaseFormController{
         persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(pacienteForm.getFirstName());
         persona.setLastName(pacienteForm.getLastName());
-        //persona.setPassword(pacienteForm.getDni());
-        //persona.setConfirmPassword(pacienteForm.getDni());
         persona.setEmail(pacienteForm.getEmail());
         persona.setPhoneNumber(pacienteForm.getPhoneNumber());
         persona.setSexo(pacienteForm.getSexo());
@@ -315,12 +314,13 @@ public class EditProfileController extends BaseFormController{
             try{
                 personaManager.savePersona(persona);
             } catch (EntityExistsException e) {
-                if (!isNew) {
-                    saveMessage(request, getText("admin.endocrinologist.updated", locale));
-                }
+
+            }
+            if (!isNew) {
+                saveMessage(request, getText("user.paciente.updated", locale));
             }
             if (isNew) {
-                saveMessage(request, getText("admin.endocrinologist.added", locale));
+                saveMessage(request, getText("admin.paciente.added", locale));
             }
         }
         return success;
