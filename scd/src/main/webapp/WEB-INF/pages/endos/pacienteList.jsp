@@ -73,28 +73,28 @@
                 </tr>
                 <c:forEach var="endo" items="${pacienteList}" varStatus="index" >
                     <tr>
-                        <td><c:out value="${endo.persona.dni}" /></td>
-                        <td><c:out value="${endo.persona.lastName}" /></td>
-                        <td><c:out value="${endo.persona.firstName}" /></td>
+                        <td><c:out value="${endo.paciente.persona.dni}" /></td>
+                        <td><c:out value="${endo.paciente.persona.lastName}" /></td>
+                        <td><c:out value="${endo.paciente.persona.firstName}" /></td>
                         <td align="center">
                             <c:choose>
-                                <c:when test="${endo.persona.enabled == 'true'}">
+                                <c:when test="${endo.paciente.persona.enabled == 'true'}">
                                     <input type="checkbox" checked="true" disabled="true"/>
                                 </c:when>
-                                <c:when test="${endo.persona.enabled == 'false'}">
+                                <c:when test="${endo.paciente.persona.enabled == 'false'}">
                                     <input type="checkbox" disabled="false"/>
                                 </c:when>
                             </c:choose>
                         </td>
-                        <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.persona.dni}">Editar</a></td>
+                        <td align="center"><a href="${ctx}/endos/newPaciente?search=search&dni=${endo.paciente.persona.dni}">Editar</a></td>
                         <td align="center">
-                            <a href="${ctx}/endos/tratamientoList?search=${endo.persona.dni}">Tratamientos</a>
+                            <a href="${ctx}/endos/tratamientoList?search=${endo.paciente.persona.dni}">Tratamientos</a>
                             |
-                            <a href="${ctx}/endos/medicionesPaciente?idPaciente=${endo.id}">Mediciones</a>
+                            <a href="${ctx}/endos/medicionesPaciente?idPaciente=${endo.paciente.id}">Mediciones</a>
                             |
-                            <a href="${ctx}/endos/pesosPaciente?idPaciente=${endo.id}">Pesos</a>
+                            <a href="${ctx}/endos/pesosPaciente?idPaciente=${endo.paciente.id}">Pesos</a>
                         </td>
-                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.persona.dni}">Ver</a></td>
+                        <td align="center"><a href="${ctx}/endos/especialistaListPaciente?search=${endo.paciente.persona.dni}">Ver</a></td>
                     </tr>
                 </c:forEach>
             </table>

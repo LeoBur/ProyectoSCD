@@ -900,12 +900,12 @@ public class AbmDietaController extends BaseFormController{
             List<String> cantidades = new ArrayList<>();
             //List<String> observaciones = params.get("observacionAlimentoLunes[]");
             List<String> observaciones = new ArrayList<>();
-            for (int j = 2; j < 10; j++){
+            for (int j = 1; j < 10; j++){
                 if (params.containsKey("observacionAlimentoLunes"+j)) {
                     observaciones.add(params.get("observacionAlimentoLunes" + j).get(0));
                 }
             }
-            for (int j = 2; j < 10; j++){
+            for (int j = 1; j < 10; j++){
                 if (params.containsKey("cantidadAlimentoLunes"+j)) {
                     cantidades.add(params.get("cantidadAlimentoLunes" + j).get(0));
                 }

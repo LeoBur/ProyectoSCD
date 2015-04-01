@@ -93,14 +93,14 @@ public class AbmPacienteController extends BaseFormController {
     public ModelAndView showPacientes(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
                                            final HttpServletRequest request, @RequestParam(required=false, value="search") String search) {
         ModelAndView mv = new ModelAndView("endos/pacienteList");
-        List<Paciente> pacientes = pacienteManager.getPacientes();
-        List<Paciente> pacientesFilter = new ArrayList<Paciente>();
+        List<PacienteEnTratamiento> pacientes = endocrinologoManager.getEndocrinologoByPersona(personaManager.getPersonaByUsername(request.getRemoteUser())).getPacientes();
+        List<PacienteEnTratamiento> pacientesFilter = new ArrayList<PacienteEnTratamiento>();
 
         if (search == null) {
             mv.addObject("pacienteList", pacientes);
         } else {
-            for (Paciente pacientefilter : pacientes) {
-                if (pacientefilter.getPersona().getDni().startsWith(pacienteForm.getDni()) || (pacientefilter.getPersona().getLastName().startsWith(pacienteForm.getDni().toUpperCase()))) {
+            for (PacienteEnTratamiento pacientefilter : pacientes) {
+                if (pacientefilter.getPaciente().getPersona().getDni().startsWith(pacienteForm.getDni()) || (pacientefilter.getPaciente().getPersona().getLastName().startsWith(pacienteForm.getDni().toUpperCase()))) {
                     pacientesFilter.add(pacientefilter);
                 }
             }
