@@ -176,12 +176,6 @@ public class EditProfileController extends BaseFormController{
         }
     }
 
-    /*private Date getFechaNac(PersonaForm endo) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate = endo.getDia() + "/" + endo.getMes() + "/" + endo.getAnio();
-        return formatter.parse(strDate);
-    }*/
-
     private Long getMatricula (Persona persona) {
         try {
             return endocrinologoManager.getEndocrinologoByPersona(persona).getMatricula();
@@ -204,11 +198,11 @@ public class EditProfileController extends BaseFormController{
     }
 
     @RequestMapping(value = "endos/editProfile*", method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
+    public String onSubmitEndo(@ModelAttribute("endocrinologoForm") EndocrinologoForm endocrinologoForm, BindingResult errors,
                            HttpServletRequest request)
             throws Exception {
         if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/home";
         }
 
         if (validator != null) { // validator is null during testing
@@ -220,18 +214,16 @@ public class EditProfileController extends BaseFormController{
         }
 
         boolean isNew = (endocrinologoForm.getId() == null);
-        log.debug("entering 'onSubmit' method...");
+        log.debug("entering 'onSubmitEndo' method from EditProfileController...");
 
         String success = "redirect:/home";
         Locale locale = request.getLocale();
 
-        Persona persona = personaManager.getPersonaByDni(endocrinologoForm.getDni());
+        Persona persona = personaManager.getPersonaByDni(request.getParameter("dniposta"));
 
-        persona.setDni(endocrinologoForm.getDni());
+        persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(endocrinologoForm.getDni());
-        persona.setConfirmPassword(endocrinologoForm.getDni());
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setSexo(endocrinologoForm.getSexo());
@@ -244,8 +236,6 @@ public class EditProfileController extends BaseFormController{
         persona.setDomicilio(createDomicilio(endocrinologoForm));
 
         Endocrinologo endocrinologo = new Endocrinologo(endocrinologoForm.getMatricula(), persona);
-
-        //saveMessage(request, getText("user.savedData", locale));
 
         if (request.getParameter("delete") != null) {
             Endocrinologo endo = endocrinologoManager.getEndocrinologoByPersona(persona);
@@ -279,11 +269,11 @@ public class EditProfileController extends BaseFormController{
     }
 
     @RequestMapping(value = "paciente/editProfile*", method = RequestMethod.POST)
-    public String submitPaciente(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
+    public String onSubmitPaciente(@ModelAttribute("pacienteForm") PacienteForm pacienteForm, BindingResult errors,
                            HttpServletRequest request)
             throws Exception {
         if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/home";
         }
 
         if (validator != null) { // validator is null during testing
@@ -295,18 +285,18 @@ public class EditProfileController extends BaseFormController{
         }
 
         boolean isNew = (pacienteForm.getId() == null);
-        log.debug("entering 'onSubmit' method...");
+        log.debug("entering 'onSubmitPaciente' method on EditProfileController...");
 
         String success = "redirect:/paciente/registrar";
         Locale locale = request.getLocale();
 
-        Persona persona = personaManager.getPersonaByDni(pacienteForm.getDni());
+        Persona persona = personaManager.getPersonaByDni(request.getParameter("dniposta"));
 
-        persona.setDni(pacienteForm.getDni());
+        persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(pacienteForm.getFirstName());
         persona.setLastName(pacienteForm.getLastName());
-        persona.setPassword(pacienteForm.getDni());
-        persona.setConfirmPassword(pacienteForm.getDni());
+        //persona.setPassword(pacienteForm.getDni());
+        //persona.setConfirmPassword(pacienteForm.getDni());
         persona.setEmail(pacienteForm.getEmail());
         persona.setPhoneNumber(pacienteForm.getPhoneNumber());
         persona.setSexo(pacienteForm.getSexo());
@@ -317,8 +307,6 @@ public class EditProfileController extends BaseFormController{
 
         persona.setFch_nac(pacienteForm.getDia());
         persona.setDomicilio(createDomicilio(pacienteForm));
-
-        //saveMessage(request, getText("user.savedData", locale));
 
         if (request.getParameter("delete") != null) {
             personaManager.savePersona(persona);
@@ -348,25 +336,14 @@ public class EditProfileController extends BaseFormController{
         if (request.getRemoteUser() == null) {
             saveInfo(request, getText("user.superUser.info.dni", locale));
         } else {
-            buscar(mv, especialistaForm, request, provincias, localidades, locale);
+            buscarEspecialista(mv, especialistaForm, request, provincias, localidades, locale);
         }
-        /*
-        if (null == search && request.getAttribute("especialistaForm") == null) {
-            EspecialistaForm especialista = new EspecialistaForm();
-            mv.addObject("especialistaForm", especialista);
-            mv.addObject("provinciaList", provincias);
-            mv.addObject("localidadList", localidades);
-        } else {
-            buscar(mv, especialistaForm, request, provincias, localidades, locale);
-        } */
         return mv;
     }
 
-    private void buscar(ModelAndView mv, EspecialistaForm especialistaForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
+    private void buscarEspecialista(ModelAndView mv, EspecialistaForm especialistaForm, HttpServletRequest request,List<Provincia> provincias, List<Localidad> localidades, Locale locale) {
         try {
             mv.addObject("provinciaList", provincias);
-            //mv.addObject("localidadList", localidades);
-
             Persona persona = personaManager.getPersonaByUsername(request.getRemoteUser());
             if (persona.getId() != null) {
                 especialistaForm.setNuevaPersona(false);
@@ -439,18 +416,18 @@ public class EditProfileController extends BaseFormController{
     }
 
     @RequestMapping(value = "nutricionista/editProfile*", method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
+    public String onSubmitEspe(@ModelAttribute("especialistaForm") EspecialistaForm especialistaForm, BindingResult errors,
                            HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         if (request.getParameter("cancel") != null) {
-            return getCancelView();
+            return "redirect:/home";
         }
 
         if (validator != null) { // validator is null during testing
             validator.validate(especialistaForm, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "/pacienteList";
+                return "/editProfile";
             }
         }
 
@@ -465,14 +442,14 @@ public class EditProfileController extends BaseFormController{
         }
 
 
-        log.debug("entering 'onSubmit' method from AbmEspecialistaController...");
+        log.debug("entering 'onSubmitEspe' method from EditProfileController...");
 
-        String success = "redirect:pacienteList";
+        String success = "redirect:/home";
         Locale locale = request.getLocale();
 
-        Persona persona = personaManager.getPersonaByDni(especialistaForm.getDni()); //recupera una persona o crea una nueva instancia
+        Persona persona = personaManager.getPersonaByDni(request.getParameter("dniposta")); //recupera una persona o crea una nueva instancia
 
-        persona.setDni(especialistaForm.getDni());
+        persona.setDni(request.getParameter("dniposta"));
         persona.setFirstName(especialistaForm.getFirstName());
         persona.setLastName(especialistaForm.getLastName());
         persona.setEmail(especialistaForm.getEmail());
@@ -522,7 +499,7 @@ public class EditProfileController extends BaseFormController{
                 especialistaManager.saveEspecialista(especialista);
             } catch (EntityExistsException e) {
                 log.warn(e.getMessage());
-                saveMessage(request, "No se realizaron cambios en el perfil");
+                saveMessage(request, "Se realizaron cambios en el perfil");
                 return "redirect:pacienteList";
             }
             if (isNew) {

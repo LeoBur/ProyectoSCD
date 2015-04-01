@@ -57,8 +57,7 @@
 </script>
 
 <div class="col-md-2">
-    <h3>Administraci&oacuten</h2>
-    <h3>de Usuarios</h2>
+    <h3>Editar Perfil</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
@@ -82,6 +81,12 @@
   		<spring:bind path="username">
   			<input type="hidden" id="username" class="form-control" value="${status.value}"/>
   		</spring:bind>
+  		<spring:bind path="dni">
+                	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
+                </spring:bind>
+                <spring:bind path="enabled">
+                	<input type="hidden" name="enabled" id="enabled" class="form-control" value="${status.value}"/>
+                </spring:bind>
 
 			<div class="form-group">
 		  		<div class="row">
@@ -89,7 +94,7 @@
 					  	<spring:bind path="dni">
 						  	<div class="col-sm-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	<input type="text" name="dni" id="dni" class="form-control" readonly="readonly"
+					        	<input type="text" name="dni" id="dni" class="form-control" readonly="readonly" disabled
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
 					    </spring:bind>
@@ -143,7 +148,7 @@
                   </span>
 	           	</div>
 	          </spring:bind>
-	          		<label for="dia" generated="true" class="error"></label>
+	          <label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
 		   	  <script type="text/javascript">
                 $(function () {
@@ -201,7 +206,6 @@
 		 </div>
 		</div>
 
-			<a><fmt:message key="user.address.address1" /></a>
 				<div class="row">
 				  <div>
 					<spring:bind path="pacienteForm.provincia">
@@ -355,19 +359,9 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "${ctx}/paciente/editProfile";
+				window.location.href = "${ctx}/home";
 			});
 	</script>
-	<script type="text/javascript">
-    		 $('button[name="search"]').click(function(e){
-    			  	e.preventDefault();
-    				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
-    				var dni = $('input[name=dni]').val();
-    				window.location.href = "${ctx}/paciente/editProfile?search=search&dni="+dni;
-    			});
-    	</script>
-
-
 </c:set>
 
 <v:javascript formName="pacienteForm" staticJavascript="false" />

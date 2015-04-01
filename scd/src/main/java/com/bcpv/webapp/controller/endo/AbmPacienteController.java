@@ -204,8 +204,6 @@ public class AbmPacienteController extends BaseFormController {
         persona.setDni(pacienteForm.getDni());
         persona.setFirstName(pacienteForm.getFirstName());
         persona.setLastName(pacienteForm.getLastName());
-        persona.setPassword(pacienteForm.getDni());
-        persona.setConfirmPassword(pacienteForm.getDni());
         persona.setEmail(pacienteForm.getEmail());
         persona.setPhoneNumber(pacienteForm.getPhoneNumber());
         persona.setSexo(pacienteForm.getSexo());
@@ -228,6 +226,8 @@ public class AbmPacienteController extends BaseFormController {
         Paciente paciente = null;
         if (isNew) {
             paciente = new Paciente(tipoDiabetes, pacienteForm.getLimiteInferior(), pacienteForm.getLimiteSuperior(), persona);
+            persona.setPassword(pacienteForm.getDni());
+            persona.setConfirmPassword(pacienteForm.getDni());
         } else {
             try {
                 paciente = pacienteManager.loadPacienteByDNI(persona);
