@@ -109,8 +109,6 @@ public class AbmEndocrinologoController extends BaseFormController {
         persona.setDni(endocrinologoForm.getDni());
         persona.setFirstName(endocrinologoForm.getFirstName());
         persona.setLastName(endocrinologoForm.getLastName());
-        persona.setPassword(endocrinologoForm.getDni());
-        persona.setConfirmPassword(endocrinologoForm.getDni());
         persona.setEmail(endocrinologoForm.getEmail());
         persona.setPhoneNumber(endocrinologoForm.getPhoneNumber());
         persona.setSexo(endocrinologoForm.getSexo());

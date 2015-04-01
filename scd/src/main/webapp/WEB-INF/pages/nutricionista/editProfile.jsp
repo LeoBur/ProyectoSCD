@@ -3,27 +3,26 @@
 <head>
 	<title><fmt:message key="userProfile.title"/></title>
     <meta name="menu" content="UserMenu"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
+        <link rel="stylesheet" type="text/css" media="screen" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="screen" href="content/pygments-manni.css">
 
-    <script src="jquery-1.4.2.min.js"></script>
-    <script src="jquery-ui-1.8.6.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <script src="jquery.ui.datepicker-es.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
-	<script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
-	<script src="/scripts/validator.js" type="text/javascript"></script>
-    <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" type="text/javascript"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_es.js" type="text/javascript"></script>
+        <script src="http://jquery.bassistance.de/validate/additional-methods.js" type="text/javascript"></script>
+        <script src="/scripts/validator.js" type="text/javascript"></script>
+        <script src="/scripts/jquery.autocomplete.min.js" type="text/javascript"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+        <script type="text/javascript" src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js"></script>
 
 	<script type="text/javascript">
 		function CancelFormButton(button) {
@@ -53,7 +52,7 @@
 </script>
 
 <div class="col-md-2">
-    <h3>Editar Datos</h2>
+    <h3>Editar Perfil</h2>
 </div>
 <!-- Ac� comienzan los formularios -->
 
@@ -71,12 +70,24 @@
 
 	<form:form commandName="especialistaForm" method="post" action="editProfile" id="formulario" autocomplete="off"
            cssClass="well" onsubmit="return validateUser(this)">
-  		<spring:bind path="id">
+  		<spring:bind path="especialistaForm.id">
   			<input type="hidden" name="id" id="id" class="form-control" value="${status.value}"/>
   		</spring:bind>
-  		<spring:bind path="username">
-  			<input type="hidden" id="username" class="form-control" value="${status.value}"/>
+  		<spring:bind path="especialistaForm.idEspecialista">
+        	<input type="hidden" id="idEspecialista" name="idEspecialista" class="form-control" value="${status.value}"/>
+        </spring:bind>
+  		<spring:bind path="especialistaForm.username">
+  			<input type="hidden" id="username" name="username" class="form-control" value="${status.value}"/>
   		</spring:bind>
+  		<spring:bind path="dni">
+        	<input type="hidden" name="dniposta" id="dniposta" class="form-control" value="${status.value}"/>
+        </spring:bind>
+        <spring:bind path="enabled">
+        	<input type="hidden" name="enabled" id="enabled" class="form-control" value="${status.value}"/>
+        </spring:bind>
+        <spring:bind path="tipoEspecialista">
+                	<input type="hidden" name="tipoEspecialista" id="tipoEspecialista" class="form-control" value="${status.value}"/>
+        </spring:bind>
 
 			<div class="form-group">
 		  		<div class="row">
@@ -84,7 +95,7 @@
 					  	<spring:bind path="dni">
 						  	<div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					        	<appfuse:label styleClass="control-label" key="user.dni"/>
-					        	<input type="text" name="dni" id="dni" class="form-control"
+					        	<input type="text" name="dni" id="dni" class="form-control" disabled
 					           	placeholder="<fmt:message key="user.dni"/>" value="${status.value}" autofocus="autofocus" tabindex="1">
 					        </div>
 					    </spring:bind>
@@ -129,12 +140,26 @@
             <div class="col-md-6 form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 	          <spring:bind path="especialistaForm.dia">
 	            <appfuse:label styleClass="control-label" key="user.fecha.nacimiento"/>
-	        	<input type="text" name="dia" id="dia" class="form-control"
-	           	placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
-	           	 tabindex="5">
+                	            <span class="required">*</span>
+                	            <div class='input-group date' id='datetimepicker1'>
+                	        	  <input type="text" name="dia" id="dia" class="form-control" readonly="readonly"
+                	           	    placeholder="<fmt:message key="user.fecha.nacimiento"/>" value="${status.value}" maxlength="50"
+                	           	    tabindex="5" data-date-format="DD/MM/YYYY">
+                	           	  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                	           	</div>
 	          </spring:bind>
 	          		<label for="dia" generated="true" class="error"></label>
 		   	  <form:errors path="dia" cssClass="help-block"/>
+		   	  <script type="text/javascript">
+                              $(function () {
+                                $('#datetimepicker1').datetimepicker({
+                                  language: 'pt-BR',
+                                  showToday: true,
+                                  pickTime: false
+                                });
+                              });
+                            </script>
 		   	</div>
 
 		    <spring:bind path="especialistaForm.sexo">
@@ -305,19 +330,9 @@
 	<script type="text/javascript">
 		 $('button[name="cancel"]').click(function(e){
 				e.preventDefault();
-				window.location.href = "${ctx}/nutricionista/pacienteList";
+				window.location.href = "${ctx}/home";
 			});
 	</script>
-	<script type="text/javascript">
-    		 $('button[name="search"]').click(function(e){
-    			  	e.preventDefault();
-    				//var dni = document.getElementById("dni").value; Con cualquiera de las 2 formas anda!!!
-    				var dni = $('input[name=dni]').val();
-    				window.location.href = "${ctx}/endos/editProfile?search=search&dni="+dni;
-    			});
-    	</script>
-
-
 </c:set>
 
 <v:javascript formName="especialistaForm" staticJavascript="false" />
